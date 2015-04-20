@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<userInput>
+    <panel id="panel.path">
+	<field type="title" id="panel.proxy.title" />
+	<field type="staticText" id="panel.proxy.explanation" />
+	<field type="space" />
+	<field type="divider" />
+	<field type="space" />
+
+	<field type="text" variable="agens-sql-data.path">
+	    <spec txt="install path:" id="input.path" size="25" />
+	</field>
+	<field type="space" />
+	<field type="divider" />
+	<field type="space" />
+
+	<field type="password" align="left" variable="postgres.password">
+	    <spec>	
+		<pwd txt="The Password:" size="25" set=""/>
+		<pwd txt="Retype Password:" size="25" set=""/>
+	    </spec>
+	    <validator class="com.izforge.izpack.util.PasswordEqualityValidator"
+		txt="Both passwords must match." id="lang pack key for the error text"/>
+	</field>
+    </panel>
+</userInput>

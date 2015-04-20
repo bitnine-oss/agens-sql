@@ -1,0 +1,5 @@
+slonik
+parser.c
+y.tab.h
+scan.c
+*.o

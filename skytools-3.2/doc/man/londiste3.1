@@ -1,0 +1,642 @@
+'\" t
+.\"     Title: londiste3
+.\"    Author: [FIXME: author] [see http://docbook.sf.net/el/author]
+.\" Generator: DocBook XSL Stylesheets v1.75.2 <http://docbook.sf.net/>
+.\"      Date: 04/01/2014
+.\"    Manual: \ \&
+.\"    Source: \ \&
+.\"  Language: English
+.\"
+.TH "LONDISTE3" "1" "04/01/2014" "\ \&" "\ \&"
+.\" -----------------------------------------------------------------
+.\" * Define some portability stuff
+.\" -----------------------------------------------------------------
+.\" ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.\" http://bugs.debian.org/507673
+.\" http://lists.gnu.org/archive/html/groff/2009-02/msg00013.html
+.\" ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.ie \n(.g .ds Aq \(aq
+.el       .ds Aq '
+.\" -----------------------------------------------------------------
+.\" * set default formatting
+.\" -----------------------------------------------------------------
+.\" disable hyphenation
+.nh
+.\" disable justification (adjust text to left margin only)
+.ad l
+.\" -----------------------------------------------------------------
+.\" * MAIN CONTENT STARTS HERE *
+.\" -----------------------------------------------------------------
+.SH "NAME"
+londiste3 \- tool for managing trigger\-based replication for PostgreSQL\&.
+.SH "SYNOPSIS"
+.sp
+.nf
+londiste3 <config\&.ini> command [subcommand] [options]
+.fi
+.SH "DESCRIPTION"
+.sp
+Londiste allows you to setup and administer the replication, and is run as a daemon to handle the replication itself\&. (Londiste is just a complex PgQ Consumer)\&.
+.sp
+See EXAMPLES below to start your first trigger\-based replication in a few steps\&.
+.sp
+The \fIcommand\fR is one of Node, Replication, Information or Internal commands listed below\&.
+.sp
+Londiste introduces the notion of \fItakeover\fR\&. It is the action when a local node takes over the work of another node\&. The other node can be a root node or a branch node and it can be dead or alive when the action is run\&.
+.sp
+Londiste also allows (among many other features): cascading replication, partial replication and custom handlers for replication\&.
+.SH "GENERAL OPTIONS"
+.PP
+\-V, \-\-version
+.RS 4
+Print version info and exit\&.
+.RE
+.PP
+\-h, \-\-help
+.RS 4
+Show this help message and exit\&.
+.RE
+.PP
+\-q, \-\-quiet
+.RS 4
+Log only errors and warnings\&.
+.RE
+.PP
+\-v, \-\-verbose
+.RS 4
+Log verbosely\&.
+.RE
+.PP
+\-d, \-\-daemon
+.RS 4
+Run in daemon mode (go background)\&.
+.RE
+.SH "SPECIFIC OPTIONS"
+.PP
+\-\-ini
+.RS 4
+Display sample ini file\&.
+.RE
+.PP
+\-\-set="\fIparam=val[,param=value]\fR"
+.RS 4
+Override config setting\&.
+.RE
+.SH "DAEMON OPTIONS"
+.PP
+\-r, \-\-reload
+.RS 4
+Reload config (send SIGHUP)\&.
+.RE
+.PP
+\-s, \-\-stop
+.RS 4
+Stop program safely (send SIGINT)\&.
+.RE
+.PP
+\-k, \-\-kill
+.RS 4
+Kill program immediately (send SIGTERM)\&.
+.RE
+.SH "REPLICATION EXTRA ARGUMENTS"
+.PP
+\-\-rewind
+.RS 4
+Change queue position according to destination\&.
+.RE
+.PP
+\-\-reset
+.RS 4
+Reset queue position on destination side\&.
+.RE
+.SH "NODE INITIALIZATION COMMANDS"
+.sp
+Initialization commands will set up "public connect string" for current node\&. It is a connect string that other nodes will use to connect to current node\&. The local Londiste itself uses \fIdb\fR option from config file to connect to local node, which can have different user rights than scripts coming over public connect string\&.
+.sp
+Connect strings can be set in either command line or config file\&. Command line overrides config\&. Setting them up in config might be more comfortable\&. See londiste3 \-\-ini for details\&.
+.SS "create\-root <node> [<public_connstr_for_node>]"
+.sp
+Initializes a Master node\&.
+.sp
+The <node> is the name of the node, it should be unique\&.
+.SS "create\-branch <node> [<public_connstr_for_node>] [\-\-provider=<connstr_to_provider>]"
+.sp
+Initializes a Slave node which can be used as a reference for other nodes\&.
+.sp
+The <node> is the name of the node, it should be unique\&. The <public_connstr_for_node> argument is the connection string to the database on the current node and <connstr_to_provider> is the connection string to the provider database (it can be a root node or a branch node)\&.
+.SS "create\-leaf <node> [<public_connstr_for_node>] [\-\-provider=<connstr_to_provider>]"
+.sp
+Initializes a slave node which can not be used as a reference for other nodes\&.
+.sp
+The <node> is the name of the node, it should be unique\&. The <public_connstr_for_node> argument is the connection string to the database on the current node and <connstr_to_provider> is the connection string to the provider database (it can be a root node or a branch node)\&.
+.PP
+\-\-merge=\fIqname\fR
+.RS 4
+combined queue name
+.RE
+.SH "NODE ADMINISTRATION COMMANDS"
+.SS "pause"
+.sp
+Pause the consumer: the replication of the events is stopped and can be resumed later\&.
+.SS "resume"
+.sp
+When the consumer has been paused, let it replay again\&.
+.SS "change\-provider <tonode>"
+.sp
+Make <tonode> become the new provider for the current node\&.
+.sp
+TODO: londiste\&.py need update (param change from \-\-provider)
+.SS "takeover <fromnode> [\-\-target=<tonode>] [\-\-all] [\-\-dead]"
+.sp
+This command allows to achieve failover and switchover for any of your providers (root or branch nodes)\&.
+.PP
+\-\-target=\fItonode\fR
+.RS 4
+Target node of the takeover\&.
+.RE
+.PP
+\-\-all
+.RS 4
+In addition to take over the work from the
+\fIfromnode\fR, make other nodes change their provider to the current node\&.
+.RE
+.PP
+\-\-dead
+.RS 4
+Don\(cqt wait to take the new role and flag the
+\fIfromnode\fR
+as dead\&.
+.RE
+.PP
+\-\-dead=\fIdeadnode\fR
+.RS 4
+Assume node is dead\&. TODO : why use this one ?
+.RE
+.PP
+\-\-dead\-root
+.RS 4
+Old node was root\&.
+.RE
+.PP
+\-\-dead\-branch
+.RS 4
+Old node was branch
+.RE
+.SS "resurrect"
+.sp
+In case root was down and taken over with \-\-dead\-root, this command fixes queue contents on that old root to match the rest of cascade\&. Events that did not propagate to rest of the cascade before failure (lost events) are dumped into file in JSON format and deleted from queue\&. Then the node is registered into cascade and it\(cqs worker will be paused\&.
+.sp
+It requires that there is another active root in cascade and there is consumer named NODENAME\&.gravestone registered on same node, it uses that to get position where rest of the cascade moved on\&.
+.sp
+It does not touch actual tables, which means there must be external mechanism to survive unsynced tables\&. Options:
+.sp
+.RS 4
+.ie n \{\
+\h'-04'\(bu\h'+03'\c
+.\}
+.el \{\
+.sp -1
+.IP \(bu 2.3
+.\}
+Ignore lost events\&. May need trigger/rule on tables to handle conflicts\&.
+.RE
+.sp
+.RS 4
+.ie n \{\
+\h'-04'\(bu\h'+03'\c
+.\}
+.el \{\
+.sp -1
+.IP \(bu 2.3
+.\}
+Replay the lost events on new root\&. May need trigger/rule on tables to handle conflicts\&.
+.RE
+.sp
+.RS 4
+.ie n \{\
+\h'-04'\(bu\h'+03'\c
+.\}
+.el \{\
+.sp -1
+.IP \(bu 2.3
+.\}
+Roll back table changes\&. May need old version of row stored in events\&. (Achieved with
+backup
+parameter to
+pgq\&.logutriga)
+.RE
+.SS "drop\-node <node>"
+.sp
+Remove the node from the Londiste replication\&.
+.sp
+Londiste triggers on the node are removed but Londiste or PgQ are not removed\&.
+.SS "tag\-dead <node>"
+.sp
+Tag the node as dead, the command can be run from any node in the replication\&.
+.SS "tag\-alive <node>"
+.sp
+Tag the node as alive, the command can be run from any node in the replication\&.
+.SH "INFORMATION COMMANDS"
+.SS "status"
+.sp
+Show status of the replication viewed by the current node\&.
+.sp
+The output is a tree of the members of the replication with their lags, last tick, status and the number of tables in state: ok/half/ignored (replicated, initial copy not finnished, table not replicated locally)\&.
+.SS "members"
+.sp
+Show members of the replication viewed by the current node\&.
+.sp
+Output the nodes name, status and node location (connection string to the node)\&.
+.SS "show\-consumers [\-\-node]"
+.sp
+TODO: command is not working
+.SH "REPLICATION DAEMON COMMAND"
+.SS "worker"
+.sp
+Replay events to subscriber: it is needed to make the replication active as it will start to replay the events\&.
+.SH "REPLICATION ADMINISTRATION COMMANDS"
+.SS "add\-table <table> [args]"
+.sp
+Add the table to the replication\&.
+.sp
+See ADD ARGUMENTS below for the list of possible arguments\&.
+.SS "remove\-table <table>"
+.sp
+Remove the table from the replication\&.
+.SS "add\-seq <seq> [args]"
+.sp
+Add the sequence to the replication\&.
+.sp
+See ADD ARGUMENTS below for the list of possible arguments\&.
+.SS "remove\-seq <seq>"
+.sp
+Remove the sequence from the replication\&.
+.SS "tables"
+.sp
+Show all tables on provider\&.
+.SS "seqs"
+.sp
+Show all sequences on provider\&.
+.SS "missing"
+.sp
+List tables subscriber has not yet attached to\&.
+.SS "resync <table>"
+.sp
+Do full copy of the table, again\&.
+.SH "ADD ARGUMENTS"
+.PP
+\-\-all
+.RS 4
+Include all possible tables\&.
+.RE
+.PP
+\-\-wait\-sync
+.RS 4
+Wait until newly added tables are synced fully\&.
+.RE
+.PP
+\-\-dest\-table=\fItable\fR
+.RS 4
+Redirect changes to different table\&.
+.RE
+.PP
+\-\-force
+.RS 4
+Ignore table differences\&.
+.RE
+.PP
+\-\-expect\-sync
+.RS 4
+No copy needed\&.
+.RE
+.PP
+\-\-skip\-truncate
+.RS 4
+Keep old data\&.
+.RE
+.PP
+\-\-create
+.RS 4
+Create table/sequence if not exist, with minimal schema\&.
+.RE
+.PP
+\-\-create\-full
+.RS 4
+Create table/sequence if not exist, with full schema\&.
+.RE
+.PP
+\-\-trigger\-flags=\fItrigger_flags\fR
+.RS 4
+Trigger creation flags, see below for details\&.
+.RE
+.PP
+\-\-trigger\-arg=\fItrigger_arg\fR
+.RS 4
+Custom trigger arg (can be specified multiply times)\&.
+.RE
+.PP
+\-\-no\-triggers
+.RS 4
+Dont put triggers on table (makes sense on leaf node)\&.
+.RE
+.PP
+\-\-handler=\fIhandler\fR
+.RS 4
+Custom handler for table\&.
+.RE
+.PP
+\-\-handler\-arg=\fIhandler_arg\fR
+.RS 4
+Argument to custom handler\&.
+.RE
+.PP
+\-\-copy\-node=\fINODE_NAME\fR
+.RS 4
+Do initial copy from that node instead from provider\&. Useful if provider does not contain table data locally or is simply under load\&.
+.RE
+.PP
+\-\-merge\-all
+.RS 4
+Merge tables from all source queues\&.
+.RE
+.PP
+\-\-no\-merge
+.RS 4
+Don\(cqt merge tables from source queues\&.
+.RE
+.PP
+\-\-max\-parallel\-copy=\fImax_parallel_copy\fR
+.RS 4
+Max number of parallel copy processes\&.
+.RE
+.PP
+\-\-skip\-non\-existing
+.RS 4
+Skip objects that do not exist\&.
+.RE
+.sp
+Trigger creation flags (default: AIUDL):
+.sp
+.RS 4
+.ie n \{\
+\h'-04'\(bu\h'+03'\c
+.\}
+.el \{\
+.sp -1
+.IP \(bu 2.3
+.\}
+I \- ON INSERT
+.RE
+.sp
+.RS 4
+.ie n \{\
+\h'-04'\(bu\h'+03'\c
+.\}
+.el \{\
+.sp -1
+.IP \(bu 2.3
+.\}
+U \- ON UPDATE
+.RE
+.sp
+.RS 4
+.ie n \{\
+\h'-04'\(bu\h'+03'\c
+.\}
+.el \{\
+.sp -1
+.IP \(bu 2.3
+.\}
+D \- ON DELETE
+.RE
+.sp
+.RS 4
+.ie n \{\
+\h'-04'\(bu\h'+03'\c
+.\}
+.el \{\
+.sp -1
+.IP \(bu 2.3
+.\}
+Q \- use pgq\&.sqltriga() as trigger function
+.RE
+.sp
+.RS 4
+.ie n \{\
+\h'-04'\(bu\h'+03'\c
+.\}
+.el \{\
+.sp -1
+.IP \(bu 2.3
+.\}
+L \- use pgq\&.logutriga() as trigger function
+.RE
+.sp
+.RS 4
+.ie n \{\
+\h'-04'\(bu\h'+03'\c
+.\}
+.el \{\
+.sp -1
+.IP \(bu 2.3
+.\}
+B \- BEFORE
+.RE
+.sp
+.RS 4
+.ie n \{\
+\h'-04'\(bu\h'+03'\c
+.\}
+.el \{\
+.sp -1
+.IP \(bu 2.3
+.\}
+A \- AFTER
+.RE
+.sp
+.RS 4
+.ie n \{\
+\h'-04'\(bu\h'+03'\c
+.\}
+.el \{\
+.sp -1
+.IP \(bu 2.3
+.\}
+S \- SKIP
+.RE
+.SH "REPLICATION EXTRA COMMANDS"
+.SS "check"
+.sp
+Compare table structure on both sides\&.
+.SS "fkeys"
+.sp
+Print out fkey drop/create commands\&.
+.SS "compare [<table>]"
+.sp
+Compare table contents on both sides\&.
+.PP
+\-\-count\-only
+.RS 4
+Just count rows, do not compare data\&.
+.RE
+.SS "repair [<table>] [\-\-force]"
+.sp
+Repair data on subscriber\&.
+.PP
+\-\-force
+.RS 4
+Ignore lag\&.
+.RE
+.SS "execute [filepath]"
+.sp
+Execute SQL files on each node of the cascaded queue\&. The SQL file is executed locally in single transaction and inserted into queue in same transaction\&. Thus guaranteeing that is will be replayed in subscriber databases at correct position\&.
+.sp
+The filename is stored in londiste\&.applied_execute table, and checked before execution\&. If same filename already exists, the SQL execution is skipped\&.
+.sp
+.it 1 an-trap
+.nr an-no-space-flag 1
+.nr an-break-flag 1
+.br
+.ps +1
+\fBSQL meta-data attributes\fR
+.RS 4
+.sp
+SQL file can contain attributes that limit where the SQL is executed:
+.sp
+.if n \{\
+.RS 4
+.\}
+.nf
+\-\-*\-\-
+\-\-*\-\- Local\-Table: mytable, othertable,
+\-\-*\-\-              thirdtable
+\-\-*\-\- Local\-Sequence: thisseq
+\-\-*\-\-
+.fi
+.if n \{\
+.RE
+.\}
+.sp
+The magic comments are searched only in file start, before any actual SQL statement is seen\&. Empty lines and lines with regular SQL comments are ignored\&.
+.sp
+Supported keys:
+.PP
+Local\-Table
+.RS 4
+Table must be added to local node with
+add\-table\&.
+.RE
+.PP
+Local\-Sequence
+.RS 4
+Sequence must be added to local node with
+add\-seq\&.
+.RE
+.PP
+Local\-Destination
+.RS 4
+Table must be added to local node and actual destination table must exists\&. This is for cases where table is added to some nodes with handler that does not need actual table to exist\&.
+.RE
+.PP
+Need\-Table
+.RS 4
+Physical table must exist in database\&. It does not matter if it is replicated or not\&.
+.RE
+.PP
+Need\-Sequence
+.RS 4
+Sequence must exist in database\&.
+.RE
+.PP
+Need\-Function
+.RS 4
+Database function must exists\&. The function name is in form
+function_name(nargs)\&. If the
+(nargs)
+portion is missed then nargs is taken as 0\&.
+.RE
+.PP
+Need\-View
+.RS 4
+A view must exist in database\&.
+.RE
+.PP
+Need\-Schema
+.RS 4
+Schema mist exist in database\&.
+.RE
+.sp
+Londiste supports table renaming, where table is attached to queue with one name but events are applied to local table with different name\&. To make this work with EXECUTE, the Local\-Toble and Local\-Destination support tag replacement, where queue\(cqs table name that is mentioned in attribute is replaced with actual table name in local database:
+.sp
+.if n \{\
+.RS 4
+.\}
+.nf
+\-\-*\-\- Local\-Table: mytable
+ALTER TABLE @mytable@ \&.\&.\&.;
+.fi
+.if n \{\
+.RE
+.\}
+.RE
+.SS "show\-handlers [\fIhandler\fR]"
+.sp
+Show info about all or a specific handler\&.
+.SS "wait\-sync"
+.sp
+Wait until all added tables are copied over\&.
+.SS "wait\-provider"
+.sp
+Wait until local node passes latest queue position on provider\&.
+.SS "wait\-root"
+.sp
+Wait until local node passes latest queue position on root\&.
+.SH "INTERNAL COMMAND"
+.SS "copy"
+.sp
+Copy table logic\&.
+.SH "EXIT STATUS"
+.PP
+0
+.RS 4
+Successful program execution\&.
+.RE
+.SH "ENVIRONMENT"
+.sp
+PostgreSQL environment variables can be used\&.
+.SH "EXAMPLES"
+.sp
+Londiste is provided with HowTos to help you make your fisrt steps:
+.sp
+.RS 4
+.ie n \{\
+\h'-04'\(bu\h'+03'\c
+.\}
+.el \{\
+.sp -1
+.IP \(bu 2.3
+.\}
+How to set up simple replication\&.
+.RE
+.sp
+.RS 4
+.ie n \{\
+\h'-04'\(bu\h'+03'\c
+.\}
+.el \{\
+.sp -1
+.IP \(bu 2.3
+.\}
+How to set up cascaded replication\&.
+.RE
+.sp
+.RS 4
+.ie n \{\
+\h'-04'\(bu\h'+03'\c
+.\}
+.el \{\
+.sp -1
+.IP \(bu 2.3
+.\}
+How to set up table partitioning (handlers)\&.
+.RE

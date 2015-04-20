@@ -1,0 +1,328 @@
+<!--  -->
+<sect1 id="watchdogs"><title>&slony1; Watchdog</title>
+
+<sect2><title> Watchdogs: Keeping Slons Running</title>
+
+<indexterm><primary>watchdogs to keep slon daemons running</primary></indexterm>
+
+<para>There are a couple of <quote>watchdog</quote> scripts available
+that monitor things, and restart the <application>slon</application>
+processes should they happen to die for some reason, such as a network
+<quote>glitch</quote> that causes loss of connectivity.</para>
+
+<para>You might want to run them...</para>
+
+<para> The <quote>best new way</quote> of managing <xref
+linkend="slon"> processes is via the combination of <xref
+linkend="mkslonconf">, which creates a configuration file for each
+node in a cluster, and <xref linkend="launchclusters">, which uses
+those configuration files.</para>
+
+<para> This approach is preferable to elder <quote>watchdog</quote>
+systems in that you can very precisely <quote>nail down,</quote> in
+each config file, the exact desired configuration for each node, and
+not need to be concerned with what options the watchdog script may or
+may not give you.  This is particularly important if you are using
+<link linkend="logshipping"> log shipping </link>, where forgetting
+the <command>-a</command> option could ruin your log shipped node, and
+thereby your whole day.</para>
+
+</sect2>
+</sect1>
+
+
+<sect1 id="teststate"><title>Testing &slony1; State </title>
+
+<sect2><title>test_slony_state</title>
+<indexterm><primary>testing cluster status</primary></indexterm>
+
+<para> In the <filename>tools</filename> directory, you will find
+&lteststate; scripts called <filename>test_slony_state.pl</filename>
+and <filename>test_slony_state-dbi.pl</filename>.  One uses the
+Perl/DBI interface; the other uses the Pg interface.
+</para>
+
+<para> Both do essentially the same thing, namely to connect to a
+&slony1; node (you can pick any one), and from that, determine all the
+nodes in the cluster.  They then run a series of queries (read only,
+so this should be quite safe to run) which examine various &slony1;
+tables, looking for a variety of sorts of conditions suggestive of
+problems, including:
+</para>
+
+<itemizedlist>
+<listitem><para> Bloating of tables like pg_listener, sl_log_1, sl_log_2, sl_seqlog </para></listitem>
+<listitem><para> Listen paths </para></listitem>
+<listitem><para> Analysis of Event propagation </para></listitem>
+<listitem><para> Analysis of Event confirmation propagation </para> 
+
+<para> If communications is a <emphasis>little</emphasis> broken,
+replication may happen, but confirmations may not get back, which
+prevents nodes from clearing out old events and old replication
+data. </para> </listitem>
+</itemizedlist>
+
+<para> Running this once an hour or once a day can help you detect
+symptoms of problems early, before they lead to performance
+degradation. </para>
+</sect2>
+
+<sect2><title>Replication Test Scripts </title>
+
+<indexterm><primary>test scripts</primary></indexterm>
+
+
+<para> In the directory <filename>tools</filename> may be found four
+scripts that may be used to do monitoring of &slony1; instances:
+
+<itemizedlist>
+
+<listitem><para> <command>test_slony_replication</command> is a
+Perl script to which you can pass connection information to get to a
+&slony1; node.  It then queries <xref linkend="table.sl-path"> and
+other information on that node in order to determine the shape of the
+requested replication set.</para>
+
+<para> It then injects some test queries to a test table called
+<envar>slony_test</envar> which is defined as follows, and which needs to be
+added to the set of tables being replicated:
+
+<programlisting>
+CREATE TABLE slony_test (
+    description text,
+    mod_date timestamp with time zone,
+    "_Slony-I_testcluster_rowID" bigint DEFAULT nextval('"_testcluster".sl_rowid_seq'::text) NOT NULL
+);
+</programlisting></para>
+
+<para> The last column in that table was defined by &slony1; as one
+lacking a primary key...</para>
+
+<para> This script generates a line of output for each &slony1; node
+that is active for the requested replication set in a file called
+<filename>cluster.fact.log</filename>.</para>
+
+<para> There is an additional <option>finalquery</option> option that allows
+you to pass in an application-specific SQL query that can determine
+something about the state of your application.</para></listitem>
+
+<listitem><para><command>log.pm</command> is a Perl module that manages logging
+for the Perl scripts.</para></listitem>
+
+<listitem><para><command>run_rep_tests.sh</command> is a <quote>wrapper</quote> script
+that runs <command>test_slony_replication</command>.</para>
+
+<para> If you have several &slony1; clusters, you might set up
+configuration in this file to connect to all those
+clusters.</para></listitem>
+
+<listitem><para><command>nagios_slony_test</command> is a script that
+was constructed to query the log files so that you might run the
+replication tests every so often (we run them every 6 minutes), and
+then a system monitoring tool such as <ulink
+url="http://www.nagios.org/"> <productname>Nagios</productname>
+</ulink> can be set up to use this script to query the state indicated
+in those logs.</para>
+
+<para> It seemed rather more efficient to have a
+<application>cron</application> job run the tests and have
+<productname>Nagios</productname> check the results rather than having
+<productname>Nagios</productname> run the tests directly.  The tests
+can exercise the whole &slony1; cluster at once rather than
+<productname>Nagios</productname> invoking updates over and over
+again.</para></listitem>
+
+</itemizedlist></para>
+</sect2>
+
+<sect2><title> Other Replication Tests </title>
+
+<indexterm><primary>testing replication</primary></indexterm>
+
+<para> The methodology of the previous section is designed with a view
+to minimizing the cost of submitting replication test queries; on a
+busy cluster, supporting hundreds of users, the cost associated with
+running a few queries is likely to be pretty irrelevant, and the setup
+cost to configure the tables and data injectors is pretty high.</para>
+
+<para> Three other methods for analyzing the state of replication have
+stood out:</para>
+
+<itemizedlist>
+
+<listitem><para> For an application-oriented test, it has been useful
+to set up a view on some frequently updated table that pulls
+application-specific information.  </para>
+
+<para> For instance, one might look either at some statistics about a
+most recently created application object, or an application
+transaction.  For instance:</para>
+
+<para> <command> create view replication_test as select now() -
+txn_time as age, object_name from transaction_table order by txn_time
+desc limit 1; </command> </para>
+
+<para> <command> create view replication_test as select now() -
+created_on as age, object_name from object_table order by id desc
+limit 1; </command> </para>
+
+<para> There is a downside: This approach requires that you have
+regular activity going through the system that will lead to there
+being new transactions on a regular basis.  If something breaks down
+with your application, you may start getting spurious warnings about
+replication being behind, despite the fact that replication is working
+fine.</para>
+
+</listitem>
+
+<listitem><para> The &slony1;-defined view, <envar>sl_status</envar>
+provides information as to how up to date different nodes are.  Its
+contents are only really interesting on origin nodes, as the events
+generated on other nodes are generally ignorable. </para>
+</listitem>
+
+<listitem><para> See also the <xref linkend="slonymrtg">
+discussion. </para></listitem>
+
+</itemizedlist>
+</sect2>
+</sect1>
+
+<sect1 id="logrotation">
+<title> Log Files</title>
+
+<indexterm><primary>log files</primary></indexterm>
+
+<para><xref linkend="slon"> daemons generate some more-or-less verbose
+log files, depending on what debugging level is turned on.  You might
+assortedly wish to:
+
+<itemizedlist>
+
+<listitem><para> Use a log rotator like
+<productname>Apache</productname>
+<application>rotatelogs</application> to have a sequence of log files
+so that no one of them gets too big;</para></listitem>
+
+<listitem><para> Purge out old log files,
+periodically.</para></listitem>
+
+</itemizedlist>
+</para>
+</sect1>
+
+
+<sect1 id="mkservice"><title>mkservice </title>
+<indexterm><primary>mkservice for BSD </primary></indexterm>
+
+<sect2><title>slon-mkservice.sh</title>
+
+<para> Create a slon service directory for use with svscan from
+daemontools.  This uses multilog in a pretty basic way, which seems to
+be standard for daemontools / multilog setups. If you want clever
+logging, see logrep below. Currently this script has very limited
+error handling capabilities.</para>
+
+<para> For non-interactive use, set the following environment
+variables.  <envar>BASEDIR</envar> <envar>SYSUSR</envar>
+<envar>PASSFILE</envar> <envar>DBUSER</envar> <envar>HOST</envar>
+<envar>PORT</envar> <envar>DATABASE</envar> <envar>CLUSTER</envar>
+<envar>SLON_BINARY</envar> If any of the above are not set, the script
+asks for configuration information interactively.</para>
+
+<itemizedlist>
+<listitem><para>
+<envar>BASEDIR</envar> where you want the service directory structure for the slon
+to be created. This should <emphasis>not</emphasis> be the <filename>/var/service</filename> directory.</para></listitem>
+<listitem><para>
+<envar>SYSUSR</envar> the unix user under which the slon (and multilog) process should run.</para></listitem>
+<listitem><para>
+<envar>PASSFILE</envar> location of the <filename>.pgpass</filename> file to be used. (default <filename>~sysusr/.pgpass</filename>)</para></listitem>
+<listitem><para>
+<envar>DBUSER</envar> the postgres user the slon should connect as (default slony)</para></listitem>
+<listitem><para>
+<envar>HOST</envar> what database server to connect to (default localhost)</para></listitem>
+<listitem><para>
+<envar>PORT</envar> what port to connect to (default 5432)</para></listitem>
+<listitem><para>
+<envar>DATABASE</envar> which database to connect to (default dbuser)</para></listitem>
+<listitem><para>
+<envar>CLUSTER</envar> the name of your Slony1 cluster? (default database)</para></listitem>
+<listitem><para>
+<envar>SLON_BINARY</envar> the full path name of the slon binary (default <command>which slon</command>)</para></listitem>
+</itemizedlist>
+</sect2>
+
+<sect2><title>logrep-mkservice.sh</title>
+
+<indexterm><primary>logrep - multilog filters</primary></indexterm>
+
+
+<para>This uses <command>tail -F</command> to pull data from log files allowing
+you to use multilog filters (by setting the CRITERIA) to create
+special purpose log files. The goal is to provide a way to monitor log
+files in near realtime for <quote>interesting</quote> data without either
+hacking up the initial log file or wasting CPU/IO by re-scanning the
+same log repeatedly.
+</para>
+
+<para>For non-interactive use, set the following environment
+variables.  <envar>BASEDIR</envar> <envar>SYSUSR</envar> <envar>SOURCE</envar>
+<envar>EXTENSION</envar> <envar>CRITERIA</envar> If any of the above are not set,
+the script asks for configuration information interactively.
+</para>
+
+<itemizedlist>
+<listitem><para>
+<envar>BASEDIR</envar> where you want the service directory structure for the logrep
+to be created. This should <emphasis>not</emphasis> be the <filename>/var/service</filename> directory.</para></listitem>
+<listitem><para><envar>SYSUSR</envar> unix user under which the service should run.</para></listitem>
+<listitem><para><envar>SOURCE</envar> name of the service with the log you want to follow.</para></listitem>
+<listitem><para><envar>EXTENSION</envar> a tag to differentiate this logrep from others using the same source.</para></listitem>
+<listitem><para><envar>CRITERIA</envar> the multilog filter you want to use.</para></listitem>
+</itemizedlist>
+
+<para> A trivial example of this would be to provide a log file of all slon
+ERROR messages which could be used to trigger a nagios alarm.
+<command>EXTENSION='ERRORS'</command>
+<command>CRITERIA="'-*' '+* * ERROR*'"</command>
+(Reset the monitor by rotating the log using <command>svc -a $svc_dir</command>)
+</para>
+
+<para> A more interesting application is a subscription progress log.
+<command>EXTENSION='COPY'</command>
+<command>CRITERIA="'-*' '+* * ERROR*' '+* * WARN*' '+* * CONFIG enableSubscription*' '+* * DEBUG2 remoteWorkerThread_* prepare to copy table*' '+* * DEBUG2 remoteWorkerThread_* all tables for set * found on subscriber*' '+* * DEBUG2 remoteWorkerThread_* copy*' '+* * DEBUG2 remoteWorkerThread_* Begin COPY of table*' '+* * DEBUG2 remoteWorkerThread_* * bytes copied for table*' '+* * DEBUG2 remoteWorkerThread_* * seconds to*' '+* * DEBUG2 remoteWorkerThread_* set last_value of sequence*' '+* * DEBUG2 remoteWorkerThread_* copy_set*'"</command>
+</para>
+
+<para>If you have a subscription log then it's easy to determine if a given
+slon is in the process of handling copies or other subscription activity.
+If the log isn't empty, and doesn't end with a 
+<command>"CONFIG enableSubscription: sub_set:1"</command>
+(or whatever set number you've subscribed) then the slon is currently in
+the middle of initial copies.</para>
+
+<para> If you happen to be monitoring the mtime of your primary slony logs to 
+determine if your slon has gone brain-dead, checking this is a good way
+to avoid mistakenly clobbering it in the middle of a subscribe. As a bonus,
+recall that since the the slons are running under svscan, you only need to
+kill it (via the svc interface) and let svscan start it up again laster.
+I've also found the COPY logs handy for following subscribe activity 
+interactively.</para>
+</sect2>
+
+</sect1>
+<!-- Keep this comment at the end of the file
+Local variables:
+mode:sgml
+sgml-omittag:nil
+sgml-shorttag:t
+sgml-minimize-attributes:nil
+sgml-always-quote-attributes:t
+sgml-indent-step:1
+sgml-indent-data:t
+sgml-parent-document:"slony.sgml"
+sgml-exposed-tags:nil
+sgml-local-catalogs:("/usr/lib/sgml/catalog")
+sgml-local-ecat-files:nil
+End:
+-->

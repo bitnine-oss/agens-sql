@@ -1,0 +1,127 @@
+2014-11-12 17:41:06: pid 21933: LOG:  Backend status file /home/yugo-n/work/git/pgpool2/src/test/regression/tests/055.backend_all_down/testdir/log/pgpool_status discarded
+2014-11-12 17:41:06: pid 21933: LOG:  Setting up socket for ::1:11002
+2014-11-12 17:41:06: pid 21933: LOG:  Setting up socket for 127.0.0.1:11002
+2014-11-12 17:41:06: pid 21933: LOG:  pgpool-II successfully started. version 3.4.0 (tataraboshi)
+2014-11-12 17:41:06: pid 21933: LOG:  find_primary_node: checking backend no 0
+	
+2014-11-12 17:41:06: pid 21933: LOG:  failed to connect to PostgreSQL server by unix domain socket
+2014-11-12 17:41:06: pid 21933: DETAIL:  connect to "/tmp/.s.PGSQL.11000" failed with error "No such file or directory"
+2014-11-12 17:41:06: pid 21933: ERROR:  failed to make persistent db connection
+2014-11-12 17:41:06: pid 21933: DETAIL:  connection to host:"/tmp:11000" failed
+2014-11-12 17:41:06: pid 21933: LOG:  find_primary_node: checking backend no 1
+	
+2014-11-12 17:41:06: pid 21933: LOG:  failed to connect to PostgreSQL server by unix domain socket
+2014-11-12 17:41:06: pid 21933: DETAIL:  connect to "/tmp/.s.PGSQL.11001" failed with error "No such file or directory"
+2014-11-12 17:41:06: pid 21933: ERROR:  failed to make persistent db connection
+2014-11-12 17:41:06: pid 21933: DETAIL:  connection to host:"/tmp:11001" failed
+2014-11-12 17:41:06: pid 21933: LOG:  failed to connect to PostgreSQL server by unix domain socket
+2014-11-12 17:41:06: pid 21933: DETAIL:  connect to "/tmp/.s.PGSQL.11000" failed with error "No such file or directory"
+2014-11-12 17:41:06: pid 21933: ERROR:  failed to make persistent db connection
+2014-11-12 17:41:06: pid 21933: DETAIL:  connection to host:"/tmp:11000" failed
+2014-11-12 17:41:06: pid 21969: ERROR:  failed to make persistent db connection
+2014-11-12 17:41:06: pid 21969: DETAIL:  connection to host:"/tmp:11000" failed
+2014-11-12 17:41:06: pid 21933: LOG:  failed to connect to PostgreSQL server by unix domain socket
+2014-11-12 17:41:06: pid 21933: DETAIL:  connect to "/tmp/.s.PGSQL.11000" failed with error "No such file or directory"
+2014-11-12 17:41:06: pid 21933: ERROR:  failed to make persistent db connection
+2014-11-12 17:41:06: pid 21933: DETAIL:  connection to host:"/tmp:11000" failed
+2014-11-12 17:41:06: pid 21969: LOG:  failed to connect to PostgreSQL server by unix domain socket
+2014-11-12 17:41:06: pid 21969: DETAIL:  connect to "/tmp/.s.PGSQL.11001" failed with error "No such file or directory"
+2014-11-12 17:41:06: pid 21933: LOG:  setting backend node 0 status to NODE DOWN
+2014-11-12 17:41:06: pid 21969: ERROR:  failed to make persistent db connection
+2014-11-12 17:41:06: pid 21969: DETAIL:  connection to host:"/tmp:11001" failed
+2014-11-12 17:41:06: pid 21933: LOG:  starting degeneration. shutdown host /tmp(11000)
+2014-11-12 17:41:06: pid 21933: LOG:  Restart all children
+2014-11-12 17:41:06: pid 21936: LOG:  child process received shutdown request signal 3
+2014-11-12 17:41:06: pid 21937: LOG:  child process received shutdown request signal 3
+2014-11-12 17:41:06: pid 21938: LOG:  child process received shutdown request signal 3
+2014-11-12 17:41:06: pid 21939: LOG:  child process received shutdown request signal 3
+2014-11-12 17:41:06: pid 21942: LOG:  child process received shutdown request signal 3
+2014-11-12 17:41:06: pid 21945: LOG:  child process received shutdown request signal 3
+2014-11-12 17:41:06: pid 21943: LOG:  child process received shutdown request signal 3
+2014-11-12 17:41:06: pid 21944: LOG:  child process received shutdown request signal 3
+2014-11-12 17:41:06: pid 21946: LOG:  child process received shutdown request signal 3
+2014-11-12 17:41:06: pid 21948: LOG:  child process received shutdown request signal 3
+2014-11-12 17:41:06: pid 21955: LOG:  child process received shutdown request signal 3
+2014-11-12 17:41:06: pid 21947: LOG:  child process received shutdown request signal 3
+2014-11-12 17:41:06: pid 21954: LOG:  child process received shutdown request signal 3
+2014-11-12 17:41:06: pid 21956: LOG:  child process received shutdown request signal 3
+2014-11-12 17:41:06: pid 21949: LOG:  child process received shutdown request signal 3
+2014-11-12 17:41:06: pid 21953: LOG:  child process received shutdown request signal 3
+2014-11-12 17:41:06: pid 21957: LOG:  child process received shutdown request signal 3
+2014-11-12 17:41:06: pid 21950: LOG:  child process received shutdown request signal 3
+2014-11-12 17:41:06: pid 21952: LOG:  child process received shutdown request signal 3
+2014-11-12 17:41:06: pid 21958: LOG:  child process received shutdown request signal 3
+2014-11-12 17:41:06: pid 21951: LOG:  child process received shutdown request signal 3
+2014-11-12 17:41:06: pid 21964: LOG:  child process received shutdown request signal 3
+2014-11-12 17:41:06: pid 21963: LOG:  child process received shutdown request signal 3
+2014-11-12 17:41:06: pid 21960: LOG:  child process received shutdown request signal 3
+2014-11-12 17:41:06: pid 21966: LOG:  child process received shutdown request signal 3
+2014-11-12 17:41:06: pid 21961: LOG:  child process received shutdown request signal 3
+2014-11-12 17:41:06: pid 21933: LOG:  execute command: /home/yugo-n/work/git/pgpool2/src/test/regression/tests/055.backend_all_down/testdir/etc/failover.sh 0 /tmp 11000 /home/yugo-n/work/git/pgpool2/src/test/regression/tests/055.backend_all_down/testdir/data0 1 0 /tmp 0 11001 /home/yugo-n/work/git/pgpool2/src/test/regression/tests/055.backend_all_down/testdir/data1
+2014-11-12 17:41:06: pid 21962: LOG:  child process received shutdown request signal 3
+2014-11-12 17:41:06: pid 21967: LOG:  child process received shutdown request signal 3
+pg_ctl: PID file "data1/postmaster.pid" does not exist
+Is server running?
+2014-11-12 17:41:06: pid 21933: LOG:  failover: no follow backends are degenerated
+2014-11-12 17:41:06: pid 21933: LOG:  failover: set new primary node: -1
+2014-11-12 17:41:06: pid 21933: LOG:  failover: set new master node: 1
+failover done. shutdown host /tmp(11000)2014-11-12 17:41:06: pid 21933: LOG:  failover done. shutdown host /tmp(11000)
+2014-11-12 17:41:07: pid 21968: LOG:  restart request received in pcp child process
+2014-11-12 17:41:07: pid 21933: LOG:  PCP child 21968 exits with status 256 in failover()
+2014-11-12 17:41:07: pid 21933: LOG:  fork a new PCP child pid 22007 in failover()
+2014-11-12 17:41:07: pid 21933: LOG:  failed to connect to PostgreSQL server by unix domain socket
+2014-11-12 17:41:07: pid 21933: DETAIL:  connect to "/tmp/.s.PGSQL.11001" failed with error "No such file or directory"
+2014-11-12 17:41:07: pid 21933: ERROR:  failed to make persistent db connection
+2014-11-12 17:41:07: pid 21933: DETAIL:  connection to host:"/tmp:11001" failed
+2014-11-12 17:41:07: pid 21933: LOG:  worker child 21969 exits with status 256
+2014-11-12 17:41:07: pid 21933: LOG:  fork a new worker child pid 22008
+2014-11-12 17:41:07: pid 21933: LOG:  failed to connect to PostgreSQL server by unix domain socket
+2014-11-12 17:41:07: pid 21933: DETAIL:  connect to "/tmp/.s.PGSQL.11001" failed with error "No such file or directory"
+2014-11-12 17:41:07: pid 21933: ERROR:  failed to make persistent db connection
+2014-11-12 17:41:07: pid 21933: DETAIL:  connection to host:"/tmp:11001" failed
+2014-11-12 17:41:07: pid 21933: LOG:  setting backend node 1 status to NODE DOWN
+2014-11-12 17:41:07: pid 21933: LOG:  starting degeneration. shutdown host /tmp(11001)
+2014-11-12 17:41:07: pid 21933: LOG:  failover: no valid backends node found
+2014-11-12 17:41:07: pid 21933: LOG:  Restart all children
+2014-11-12 17:41:07: pid 21933: LOG:  execute command: /home/yugo-n/work/git/pgpool2/src/test/regression/tests/055.backend_all_down/testdir/etc/failover.sh 1 /tmp 11001 /home/yugo-n/work/git/pgpool2/src/test/regression/tests/055.backend_all_down/testdir/data1 -1 1  1  
+2014-11-12 17:41:07: pid 21975: LOG:  child process received shutdown request signal 3
+2014-11-12 17:41:07: pid 21978: LOG:  child process received shutdown request signal 3
+2014-11-12 17:41:07: pid 21977: LOG:  child process received shutdown request signal 3
+2014-11-12 17:41:07: pid 21981: LOG:  child process received shutdown request signal 3
+2014-11-12 17:41:07: pid 21976: LOG:  child process received shutdown request signal 3
+2014-11-12 17:41:07: pid 21979: LOG:  child process received shutdown request signal 3
+2014-11-12 17:41:07: pid 21984: LOG:  child process received shutdown request signal 3
+2014-11-12 17:41:07: pid 21980: LOG:  child process received shutdown request signal 3
+2014-11-12 17:41:07: pid 21983: LOG:  child process received shutdown request signal 3
+2014-11-12 17:41:07: pid 21987: LOG:  child process received shutdown request signal 3
+2014-11-12 17:41:07: pid 21982: LOG:  child process received shutdown request signal 3
+2014-11-12 17:41:07: pid 21985: LOG:  child process received shutdown request signal 3
+2014-11-12 17:41:07: pid 21989: LOG:  child process received shutdown request signal 3
+2014-11-12 17:41:07: pid 21986: LOG:  child process received shutdown request signal 3
+2014-11-12 17:41:07: pid 21988: LOG:  child process received shutdown request signal 3
+2014-11-12 17:41:07: pid 21992: LOG:  child process received shutdown request signal 3
+2014-11-12 17:41:07: pid 21991: LOG:  child process received shutdown request signal 3
+2014-11-12 17:41:07: pid 21990: LOG:  child process received shutdown request signal 3
+2014-11-12 17:41:07: pid 21996: LOG:  child process received shutdown request signal 3
+2014-11-12 17:41:07: pid 21993: LOG:  child process received shutdown request signal 3
+2014-11-12 17:41:07: pid 21994: LOG:  child process received shutdown request signal 3
+2014-11-12 17:41:07: pid 21997: LOG:  child process received shutdown request signal 3
+2014-11-12 17:41:07: pid 21995: LOG:  child process received shutdown request signal 3
+2014-11-12 17:41:07: pid 21998: LOG:  child process received shutdown request signal 3
+2014-11-12 17:41:07: pid 22000: LOG:  child process received shutdown request signal 3
+2014-11-12 17:41:07: pid 21999: LOG:  child process received shutdown request signal 3
+2014-11-12 17:41:07: pid 22002: LOG:  child process received shutdown request signal 3
+2014-11-12 17:41:07: pid 22003: LOG:  child process received shutdown request signal 3
+2014-11-12 17:41:07: pid 22001: LOG:  child process received shutdown request signal 3
+2014-11-12 17:41:07: pid 22004: LOG:  child process received shutdown request signal 3
+2014-11-12 17:41:07: pid 22008: LOG:  failed to connect to PostgreSQL server by unix domain socket
+2014-11-12 17:41:07: pid 22008: DETAIL:  connect to "/tmp/.s.PGSQL.11001" failed with error "No such file or directory"
+2014-11-12 17:41:07: pid 22008: ERROR:  failed to make persistent db connection
+2014-11-12 17:41:07: pid 22008: DETAIL:  connection to host:"/tmp:11001" failed
+2014-11-12 17:41:07: pid 21933: LOG:  failover: set new primary node: -1
+2014-11-12 17:41:07: pid 22008: LOG:  worker process received restart request
+2014-11-12 17:41:08: pid 22007: LOG:  restart request received in pcp child process
+2014-11-12 17:41:08: pid 21933: LOG:  PCP child 22007 exits with status 256 in failover()
+2014-11-12 17:41:08: pid 21933: LOG:  fork a new PCP child pid 22045 in failover()
+2014-11-12 17:41:08: pid 21933: LOG:  worker child 22008 exits with status 256
+2014-11-12 17:41:08: pid 21933: LOG:  fork a new worker child pid 22046

@@ -1,0 +1,324 @@
+'\" t
+.\"     Title: scriptmgr
+.\"    Author: [FIXME: author] [see http://docbook.sf.net/el/author]
+.\" Generator: DocBook XSL Stylesheets v1.75.2 <http://docbook.sf.net/>
+.\"      Date: 04/01/2014
+.\"    Manual: \ \&
+.\"    Source: \ \&
+.\"  Language: English
+.\"
+.TH "SCRIPTMGR" "1" "04/01/2014" "\ \&" "\ \&"
+.\" -----------------------------------------------------------------
+.\" * Define some portability stuff
+.\" -----------------------------------------------------------------
+.\" ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.\" http://bugs.debian.org/507673
+.\" http://lists.gnu.org/archive/html/groff/2009-02/msg00013.html
+.\" ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.ie \n(.g .ds Aq \(aq
+.el       .ds Aq '
+.\" -----------------------------------------------------------------
+.\" * set default formatting
+.\" -----------------------------------------------------------------
+.\" disable hyphenation
+.nh
+.\" disable justification (adjust text to left margin only)
+.ad l
+.\" -----------------------------------------------------------------
+.\" * MAIN CONTENT STARTS HERE *
+.\" -----------------------------------------------------------------
+.SH "NAME"
+scriptmgr \- utility for controlling other skytools scripts\&.
+.SH "SYNOPSIS"
+.sp
+.nf
+scriptmgr\&.py [switches] config\&.ini <command> [\-a | \-t service | job_name\&.\&.\&.]
+.fi
+.SH "DESCRIPTION"
+.sp
+scriptmgr is used to manage several scripts together\&. It discovers potential jobs based on config file glob expression\&. From config file it gets both job_name and service type (that is the main section name, e\&.g\&. [cube_dispatcher])\&. For each service type there is subsection in the config how to handle it\&. Unknown services are ignored\&.
+.SH "COMMANDS"
+.SS "status"
+.sp
+.if n \{\
+.RS 4
+.\}
+.nf
+scriptmgr config\&.ini status
+.fi
+.if n \{\
+.RE
+.\}
+.sp
+Show status for all known jobs\&.
+.SS "start"
+.sp
+.if n \{\
+.RS 4
+.\}
+.nf
+scriptmgr config\&.ini start \-a
+scriptmgr config\&.ini start \-t service
+scriptmgr config\&.ini start job_name1 job_name2 \&.\&.\&.
+.fi
+.if n \{\
+.RE
+.\}
+.sp
+Launch script(s) that are not running\&.
+.SS "stop"
+.sp
+.if n \{\
+.RS 4
+.\}
+.nf
+scriptmgr config\&.ini stop \-a
+scriptmgr config\&.ini stop \-t service
+scriptmgr config\&.ini stop job_name1 job_name2 \&.\&.\&.
+.fi
+.if n \{\
+.RE
+.\}
+.sp
+Stop script(s) that are running\&.
+.SS "restart"
+.sp
+.if n \{\
+.RS 4
+.\}
+.nf
+scriptmgr config\&.ini restart \-a
+scriptmgr config\&.ini restart \-t service
+scriptmgr config\&.ini restart job_name1 job_name2 \&.\&.\&.
+.fi
+.if n \{\
+.RE
+.\}
+.sp
+Restart scripts\&.
+.SS "reload"
+.sp
+.if n \{\
+.RS 4
+.\}
+.nf
+scriptmgr config\&.ini reload \-a
+scriptmgr config\&.ini reload \-t service
+scriptmgr config\&.ini reload job_name1 job_name2 \&.\&.\&.
+.fi
+.if n \{\
+.RE
+.\}
+.sp
+Send SIGHUP to scripts that are running\&.
+.SH "CONFIG"
+.SS "Common configuration parameters"
+.PP
+job_name
+.RS 4
+Name for particulat job the script does\&. Script will log under this name to logdb/logserver\&. The name is also used as default for PgQ consumer name\&. It should be unique\&.
+.RE
+.PP
+pidfile
+.RS 4
+Location for pid file\&. If not given, script is disallowed to daemonize\&.
+.RE
+.PP
+logfile
+.RS 4
+Location for log file\&.
+.RE
+.PP
+loop_delay
+.RS 4
+If continuisly running process, how long to sleep after each work loop, in seconds\&. Default: 1\&.
+.RE
+.PP
+connection_lifetime
+.RS 4
+Close and reconnect older database connections\&.
+.RE
+.PP
+use_skylog
+.RS 4
+foo\&.
+.RE
+.SS "scriptmgr parameters"
+.PP
+config_list
+.RS 4
+List of glob patterns for finding config files\&. Example:
+.sp
+.if n \{\
+.RS 4
+.\}
+.nf
+config_list = ~/dbscripts/conf/*\&.ini, ~/random/conf/*\&.ini
+.fi
+.if n \{\
+.RE
+.\}
+.RE
+.SS "Service section parameters"
+.PP
+cwd
+.RS 4
+Working directory for script\&.
+.RE
+.PP
+args
+.RS 4
+Arguments to give to script, in addition to
+\-d\&.
+.RE
+.PP
+script
+.RS 4
+Path to script\&. Unless script is in PATH, full path should be given\&.
+.RE
+.PP
+disabled
+.RS 4
+If this service should be ignored\&.
+.RE
+.PP
+user
+.RS 4
+Launch service as different unix user\&. Scriptmgr uses
+sudo
+to switch users\&. So it either needs to be run as root, or sudo config must allow it to launch daemons\&.
+.RE
+.SS "Example config file"
+.sp
+.if n \{\
+.RS 4
+.\}
+.nf
+[scriptmgr]
+job_name        = scriptmgr_livesrv
+logfile         = ~/log/%(job_name)s\&.log
+pidfile         = ~/pid/%(job_name)s\&.pid
+.fi
+.if n \{\
+.RE
+.\}
+.sp
+.if n \{\
+.RS 4
+.\}
+.nf
+config_list     = ~/scripts/conf/*\&.ini
+.fi
+.if n \{\
+.RE
+.\}
+.sp
+.if n \{\
+.RS 4
+.\}
+.nf
+# defaults for all service sections
+[DEFAULT]
+cwd = ~/scripts
+.fi
+.if n \{\
+.RE
+.\}
+.sp
+.if n \{\
+.RS 4
+.\}
+.nf
+[table_dispatcher]
+script = table_dispatcher\&.py
+args = \-v
+.fi
+.if n \{\
+.RE
+.\}
+.sp
+.if n \{\
+.RS 4
+.\}
+.nf
+[cube_dispatcher]
+script = python2\&.4 cube_dispatcher\&.py
+disabled = 1
+.fi
+.if n \{\
+.RE
+.\}
+.sp
+.if n \{\
+.RS 4
+.\}
+.nf
+[pgqadm]
+script = ~/scripts/pgqadm\&.py
+args = ticker
+.fi
+.if n \{\
+.RE
+.\}
+.SH "COMMAND LINE SWITCHES"
+.sp
+Following switches are common to all skytools\&.DBScript\-based Python programs\&.
+.PP
+\-h, \-\-help
+.RS 4
+show help message and exit
+.RE
+.PP
+\-q, \-\-quiet
+.RS 4
+make program silent
+.RE
+.PP
+\-v, \-\-verbose
+.RS 4
+make program more verbose
+.RE
+.PP
+\-d, \-\-daemon
+.RS 4
+make program go background
+.RE
+.PP
+\-\-ini
+.RS 4
+show commented template config file\&.
+.RE
+.sp
+Following switches are used to control already running process\&. The pidfile is read from config then signal is sent to process id specified there\&.
+.PP
+\-r, \-\-reload
+.RS 4
+reload config (send SIGHUP)
+.RE
+.PP
+\-s, \-\-stop
+.RS 4
+stop program safely (send SIGINT)
+.RE
+.PP
+\-k, \-\-kill
+.RS 4
+kill program immidiately (send SIGTERM)
+.RE
+.sp
+Options specific to scriptmgr:
+.PP
+\-a, \-\-all
+.RS 4
+Operate on all non\-disabled scripts\&.
+.RE
+.PP
+\-t \fIservice\fR, \-\-type=\fIservice\fR
+.RS 4
+Operate on all non\-disabled scripts of this service type\&.
+.RE
+.PP
+\-w, \-\-wait
+.RS 4
+Wait for script(s) after signalling\&.
+.RE

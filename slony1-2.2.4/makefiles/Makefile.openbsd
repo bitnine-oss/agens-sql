@@ -1,0 +1,34 @@
+AROPT = cr
+
+ifdef ELF_SYSTEM
+export_dynamic = -Wl,-E
+rpath = -R$(pglibdir)
+shlib_symbolic = -Wl,-Bsymbolic
+endif
+
+DLSUFFIX = .so
+
+ifeq ($(findstring sparc,$(host_cpu)), sparc)
+CFLAGS_SL = -fPIC -DPIC
+else
+CFLAGS_SL = -fpic -DPIC
+endif
+
+%.so: $(SO_OBJS)
+ifdef ELF_SYSTEM
+	$(LD) -x -Bshareable -o $@ $<
+else
+	$(LD) $(LDREL) $(LDOUT) $<.obj -x $<
+	@echo building shared object $@
+	@rm -f $@.pic
+	@${AR} cq $@.pic `lorder $<.obj | tsort`
+	${RANLIB} $@.pic
+	@rm -f $@
+	$(LD) -x -Bshareable -Bforcearchive \
+	  -o $@ $@.pic
+endif
+
+%.o: %.c
+	$(CC) $(CFLAGS) $(CPPFLAGS) -c -o $@ $<
+
+sqlmansect = 7

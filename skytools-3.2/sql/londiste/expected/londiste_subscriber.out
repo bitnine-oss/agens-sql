@@ -1,0 +1,112 @@
+set client_min_messages = 'warning';
+\set VERBOSITY 'terse'
+--
+-- tables
+--
+create table slavedata (
+    id serial primary key,
+    data text
+);
+select current_database();
+ current_database 
+------------------
+ regression
+(1 row)
+
+select * from pgq_node.register_location('branch_set', 'snode', 'dbname=db', false);
+ ret_code |      ret_note       
+----------+---------------------
+      200 | Location registered
+(1 row)
+
+select * from pgq_node.register_location('branch_set', 'pnode', 'dbname=db2', false);
+ ret_code |      ret_note       
+----------+---------------------
+      200 | Location registered
+(1 row)
+
+select * from pgq_node.create_node('branch_set', 'branch', 'snode', 'londiste_branch', 'pnode', 100, null::text);
+ ret_code |                              ret_note                              
+----------+--------------------------------------------------------------------
+      200 | Node "snode" initialized for queue "branch_set" with type "branch"
+(1 row)
+
+select * from londiste.local_show_missing('branch_set');
+ obj_kind | obj_name 
+----------+----------
+(0 rows)
+
+select * from londiste.local_add_table('branch_set', 'public.slavedata');
+ ret_code |                    ret_note                    
+----------+------------------------------------------------
+      404 | Table not available on queue: public.slavedata
+(1 row)
+
+select * from londiste.global_add_table('branch_set', 'public.slavedata');
+ ret_code |           ret_note            
+----------+-------------------------------
+      200 | Table added: public.slavedata
+(1 row)
+
+select * from londiste.local_add_table('branch_set', 'public.slavedata');
+ ret_code |           ret_note            
+----------+-------------------------------
+      200 | Table added: public.slavedata
+(1 row)
+
+select * from londiste.global_add_table('branch_set', 'public.tmp');
+ ret_code |        ret_note         
+----------+-------------------------
+      200 | Table added: public.tmp
+(1 row)
+
+select * from londiste.get_table_list('branch_set');
+    table_name    | local | merge_state | custom_snapshot | table_attrs | dropped_ddl | copy_role | copy_pos | dest_table 
+------------------+-------+-------------+-----------------+-------------+-------------+-----------+----------+------------
+ public.slavedata | t     |             |                 |             |             |           |        0 | 
+ public.tmp       | f     |             |                 |             |             |           |        0 | 
+(2 rows)
+
+select * from londiste.local_set_table_state('branch_set', 'public.slavedata', null, 'in-copy');
+ ret_code |                   ret_note                    
+----------+-----------------------------------------------
+      200 | Table public.slavedata state set to 'in-copy'
+(1 row)
+
+select * from londiste.get_table_list('branch_set');
+    table_name    | local | merge_state | custom_snapshot | table_attrs | dropped_ddl | copy_role | copy_pos | dest_table 
+------------------+-------+-------------+-----------------+-------------+-------------+-----------+----------+------------
+ public.slavedata | t     | in-copy     |                 |             |             |           |        0 | 
+ public.tmp       | f     |             |                 |             |             |           |        0 | 
+(2 rows)
+
+select * from londiste.global_remove_table('branch_set', 'public.tmp');
+ ret_code |         ret_note          
+----------+---------------------------
+      200 | Table removed: public.tmp
+(1 row)
+
+select * from londiste.local_remove_table('branch_set', 'public.slavedata');
+ ret_code |            ret_note             
+----------+---------------------------------
+      200 | Table removed: public.slavedata
+(1 row)
+
+select * from londiste.local_remove_table('branch_set', 'public.slavedata');
+ ret_code |                    ret_note                    
+----------+------------------------------------------------
+      400 | Table not registered locally: public.slavedata
+(1 row)
+
+select * from londiste.get_table_list('branch_set');
+    table_name    | local | merge_state | custom_snapshot | table_attrs | dropped_ddl | copy_role | copy_pos | dest_table 
+------------------+-------+-------------+-----------------+-------------+-------------+-----------+----------+------------
+ public.slavedata | f     |             |                 |             |             |           |        0 | 
+(1 row)
+
+select * from londiste.local_show_missing('branch_set');
+ obj_kind |     obj_name     
+----------+------------------
+ r        | public.slavedata
+(1 row)
+

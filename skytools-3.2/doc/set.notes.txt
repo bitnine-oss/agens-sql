@@ -1,0 +1,138 @@
+
+= Technical notes about cascaded queuing =
+
+== Termins ==
+
+set::
+  Group of nodes that distribute a single queue.  In addition to
+  copying events around, they also keep same batch boundaries
+  and tick_ids.
+
+node::
+  A database that participates in cascaded copy of a queue.
+
+provider::
+  Node that provides queue data to another.
+
+subscriber::
+  Node that receives queue data from another.
+
+== Goals ==
+
+* Main goals:
+  - Nodes share same queue structure - in addition to events, also
+    batches and their tick_ids are same.  That means they can change
+    their provider to any other node in set.
+  - (Londiste) Queue-only nodes.  Cannot be initial providers to other nodes, because initial COPY cannot be done.
+
+* Extra goals:
+  - Combining data from partitioned plproxy db's.
+  - (Londiste) Data-only nodes, without queue - leafs.  Cannot be providers to other nodes.
+
+== Node types ==
+
+root::
+  Place where queue data is generated.
+
+branch::
+  * Carries full contents of the queue.
+  * (Londiste) May subscribe to all/some/none of the tables.
+  * (Londiste) Can be provider for initial copy only if subscribes to table
+
+leaf::
+  Data-only node.  Events are replayed, but no queue, thus cannot be provider to other nodes.
+  Nodes where sets from partitions are merged together are also tagged 'leaf', because
+  in per-partition set it cannot be provider to other nodes.
+
+merge-leaf::
+  [Does not exist as separate type, detected as 'leaf' that has 'combined_queue' set.]
+  Exists in per-partition set.
+  - Does not have it's own queue.
+  - (Londiste) Initial COPY is done with --skip-truncate,
+  - Event data is sent to combined queue.
+  - tick_id for each batch is sent to combined queue.
+
+  - Queue reader from partition to combined-failover must lag behind
+    combined queue coming from combined-root
+  
+combined-root::
+  [Does not exist as separate type, detected as 'root' that has 'leaf's with 'combined_queue' set.]
+  - Master for combined queue.  Received data from several per-partition queues.
+  - Also is merge-leaf in every per-partition queue.
+  - Queue is filled directly from partition queues.
+
+combined-failover::
+  [Does not exist as separate type, detected as 'branch' that has 'leaf's with 'combined_queue' set.]
+  - participates in combined-set, receives events.
+  - also is queue-only node in every part-set.
+  - but no processing is done, just tracking
+
+== Node behaviour ==
+
+ Consumer behaviour             | ROOT | BRANCH | LEAF | C-ROOT | C-BRANCH | M-LEAF => C-ROOT | M-LEAF => C-BRANCH
+ -------------------------------+------+--------+------+--------+----------+------------------+--------------------
+ read from queue                | n    | yes    | yes  | n      | yes      | yes              | yes
+ event copy to queue            | n    | yes    | n    | n      | yes      | yes, to c-set    | n
+ event processing               | n    | yes    | yes  | n      | yes      | n                | n
+ send tick_id to queue          | n    | n      | n    | n      | n        | yes              | n
+ send global_watermark to queue | yes  | n      | n    | yes    | n        | n                | n
+ send local watermark upwards   | n    | yes    | yes  | n      | yes      | yes              | yes
+ wait behind combined set       | n    | n      | n    | n      | n        | n                | yes
+
+== Design Notes ==
+
+* Any data duplication should be avoided.
+* Only duplicated table is for node_name -> node_connstr mappings.
+  For others there is always only one node responsible.
+* Subscriber gets its own provider url from database, so switching to
+  another provider does not need config changes.
+* Ticks+data can only be deleted if all nodes have already applied it.
+  - Special consumer registration on all queues - ".global_watermark".
+    This avoids PgQ from deleting old events.
+  - Nodes propagate upwards their lowest tick: local_watermark
+  - Root sends it's local watermark as "pgq.global-watermark" event to the queue.
+  - When branch/leaf gets new watermark event, it moves the ".global_watermark" registration.
+
+== Illustrations ==
+
+=== Simple case ===
+
+ +-------------+      +---------------+
+ | S1 - root   |----->| S2 - branch   |
+ +-------------+      +---------------|
+         |
+	 |
+	 V
+ +-------------+      +-------------+
+ | S3 - branch |----->| S4 - leaf   |
+ +-------------+      +-------------+
+
+(S1 - set 'S', node '1')
+
+On the loss of S1, it should be possible to direct S3 to receive data from S2.
+On the loss of S3, it should be possible to direct S4 to receive data from S1/S2.
+
+=== Complex case - combining partitions ===
+
+ +----+   +----+   +----+   +----+
+ | A1 |   | B1 |   | C1 |   | D1 |
+ +----+   +----+   +----+   +----+
+   |        |        |        |   
+   |        |        |        |   +-----------------------+
+   |        |        |        +-->| S1 - combined-root    |
+   |        |        +----------->|                       |    +--------------+
+   |        +-------------------->| A2/B2/C2/D2 -         |--->| S3 - branch  |
+   +----------------------------->|   merge-leaf          |    +--------------+
+   |        |        |        |   +-----------------------+
+   |        |        |        |              |
+   |        |        |        |              V
+   |        |        |        |   +------------------------+
+   |        |        |        +-->| S2 - combined-failover |
+   |        |        +----------->|                        |
+   |        +-------------------->| A3/B3/C3/D3 -          |
+   +----------------------------->|   merge-leaf           |
+				  +------------------------+
+
+On the loss of S1, it should be possible to redirect S3 to S2
+and ABCD -> S2 -> S3 must stay in sync.
+

@@ -1,0 +1,108 @@
+
+= Skytools FAQ =
+
+== Skytools ==
+
+=== What is Skytools? ===
+
+It is bunch of database management tools we use
+and various frameworks / modules they depend on.
+
+Main components are `pgq` SQL module which implements generic
+queue in database, Python module for writing consumers for it,
+Londiste replication on top of them and walmgr for setting up
+WAL-based standby servers.
+
+== PgQ - The generic queue ==
+
+=== Why do queue in database?  Transactional overhead? ===
+
+1. PgQ is quite likely the fastest ACID compliant queue,
+   thanks to Postgres being pretty fast despite the
+   "transactional overhead".  Why use anything less robust?
+
+2. We have lot of business logic in database.  Events created
+   by business transactions need to live or die with main transaction.
+
+3. Queue used for replication purposes needs to be transactional.
+
+I think the reason people act surprised when they hear about queue
+in database is not that they don't care about reliability
+of their event transport, but that the reliable data storage
+mechanism - SQL databases - did not have any way to write
+performant queue.  Now thanks to the txid/snapshot technique
+we have a way to write fast _and_ reliable queue,
+so why (care about anything less).
+
+=== Could you break dependancy on Python? ===
+
+There is no dependancy on Python.  The PgQ itself is written in C / plpgsql
+and it appears as bunch of SQL functions under `pgq` schema.
+Thus it can be used from any language that can execute SQL queries.
+
+There is Python helper framework that makes writing Python consumers easier.
+Such framework could be written for any language.
+
+=== Aren't the internals similar to Slony-I? ===
+
+Yes, PgQ was created by generalizing queueing parts from Slony-I.
+
+=== Dump-restore ===
+
+Database which contains `pgq` schema can be dumped and restored with
+`pg_dump`, but extra steps must be taken because PgQ tables
+contains transaction id-s and snapsnot which are extracted from
+Postgres code.  PgQ depends on transaction id values going always
+higher.  Thus restoring database in new Postgres clusten will break
+PgQ if that cluster has txids smaller than they were in old cluster.
+
+Postgres interally uses rolling 32-bit txids which on export are
+combined with 'txid epoch', which simply is count how many times
+the 32-bit txid has already cycled.  Thus the way to make sure
+new cluster has highed txids than old one is to set the epoch higher
+in new cluster than it was in old cluster.
+
+To see epoch in old cluster in running database:
+
+  SELECT (txid_current() >> 32) as epoch;
+  epoch
+  -----
+    1
+
+To see epoch on shut down database:
+
+  $ pg_resetxlog -n $DATADIR
+  ...
+  Latest checkpoint's NextXID:   0/3938   (epoch -> 0)
+  ...
+
+To set epoch in new cluster - it must be shut down first:
+
+  $ pg_resetxlog -e $NEWEPOCH $DATADIR
+
+== Londiste - The replication tool ==
+
+=== What type of replication it does? ===
+
+Londiste does trigger-based asynchronous single-master replication,
+same as Slony-I.
+
+In Skytools 3.x it will support merging partitions togethers,
+that could be called shared-nothing multimaster replication.
+
+=== What is the difference between Slony-I and Londiste? ===
+
+Nothing fundamental.  Both do asynchronous replication.
+
+Main difference is that Londiste consists of several
+relatively independent parts, unlike Slony-I where
+code is more tightly tied together.
+
+At the moment Londiste loses to Slony-I featurewise,
+but should be easier to use.  Hopefully we can keep
+the simple UI when we catch up in features.
+
+=== What are the limitations of Londiste ===
+
+It does not support '.' and ',' in table, schema and column names.
+

@@ -1,0 +1,91 @@
+
+= Skytools ToDo list =
+
+Gut feeling about priorities:
+
+High::
+  Needed soon.
+Medium::
+  Good if done, but can be postponed.
+Low::
+  Interesting idea, but OK if not done.
+
+== Medium Priority ==
+
+* tests: takeover testing
+  - wal behind
+  - wal ahead
+  - branch behind
+
+* londiste takeover: check if all tables exist and are in sync.
+  Inform user.  Should the takeover stop if problems?
+  How can such state be checked on-the-fly?
+  Perhaps `londiste missing` should show in-copy tables.
+
+* cascade takeover: wal failover queue sync.  WAL-failover can be
+  behind/ahead from regular replication with partial batch.  Need
+  to look up-batched events in wal-slave and full-batches on branches
+  and sync them together.  this should also make non-wal branch takeover
+  with branch thats behind the others work - it needs to catch up with
+  recent events.
+  . Load top-ticks from branches
+  . Load top-tick from new master, if ahead from branches all ok
+  . Load non-batched events from queue (ev_txid not in tick_snapshot)
+  . Load partial batch from branch
+  . Replay events that do not exists
+  . Replay rest of batches fully
+  . Promote to root
+
+* tests for things that have not their own regtests
+  or are not tested enough during other tests:
+  - pgq.RemoteConsumer
+  - pgq.CoopConsumer
+  - skytools.DBStruct
+  - londiste handlers
+
+* londiste add-table: automatic serial handling, --noserial switch?  Currently,
+  `--create-full` does not create sequence on target, even if source
+  table was created with `serial` column.  It does associate column
+  with sequence if that exists, but it requires that it was created
+  previously.
+
+* pgqd: rip out compat code for pre-pgq.maint_operations() schemas.
+  All the maintenance logic is in DB now.
+
+* qadmin: merge cascade commands (medium) - may need api redesign
+  to avoid duplicating pgq.cascade code?
+
+* londiste replay: when buffering queries, check their size.  Current
+  buffering is by count - flushed if 200 events have been collected.
+  That does not take account that some rows can be very large.
+  So separate counter for len(ev_data) needs to be added, that flushes
+  if buffer would go over some specified amount of memory.
+
+== Low Priority ==
+
+* dbscript: switch (-q) for silence for cron/init scripts.
+  Dunno if we can override loggers loaded from skylog.ini.
+  Simply redirecting fds 0,1,2 to /dev/null should be enough then.
+
+* londiste: support creating slave from master by pg_dump / PITR.
+  Take full dump from root or failover-branch and turn it into
+  another branch.
+  . Rename node
+  . Check for correct epoch, fix if possible (only for pg_dump)
+  . Sync batches (wal-failover should have it)
+
+* londiste copy: async conn-to-conn copy loop in Python/PythonC.
+  Currently we simply pipe one copy_to() to another copy_from()
+  in blocked manner with large buffer,
+  but that likely halves the potential throughput.
+
+* qadmin: multi-line commands.  The problem is whether we can
+  use python's readline in a psql-like way.
+
+* qadmin: recursive parser.  Current non-recursive parser
+  cannot express complex grammar (SQL).  If we want
+  SQL auto-completion, recursive grammar is needed.
+  This would also simplify current grammar.
+  1. On rule reference, push state to stack
+  2. On rule end, pop state from stack.  If empty then done.
+

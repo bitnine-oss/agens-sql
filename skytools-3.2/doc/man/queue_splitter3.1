@@ -1,0 +1,300 @@
+'\" t
+.\"     Title: queue_splitter3
+.\"    Author: [FIXME: author] [see http://docbook.sf.net/el/author]
+.\" Generator: DocBook XSL Stylesheets v1.75.2 <http://docbook.sf.net/>
+.\"      Date: 04/01/2014
+.\"    Manual: \ \&
+.\"    Source: \ \&
+.\"  Language: English
+.\"
+.TH "QUEUE_SPLITTER3" "1" "04/01/2014" "\ \&" "\ \&"
+.\" -----------------------------------------------------------------
+.\" * Define some portability stuff
+.\" -----------------------------------------------------------------
+.\" ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.\" http://bugs.debian.org/507673
+.\" http://lists.gnu.org/archive/html/groff/2009-02/msg00013.html
+.\" ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.ie \n(.g .ds Aq \(aq
+.el       .ds Aq '
+.\" -----------------------------------------------------------------
+.\" * set default formatting
+.\" -----------------------------------------------------------------
+.\" disable hyphenation
+.nh
+.\" disable justification (adjust text to left margin only)
+.ad l
+.\" -----------------------------------------------------------------
+.\" * MAIN CONTENT STARTS HERE *
+.\" -----------------------------------------------------------------
+.SH "NAME"
+queue_splitter3 \- PgQ consumer that transports events from one queue into several target queues
+.SH "SYNOPSIS"
+.sp
+.nf
+queue_splitter3 [switches] config\&.ini
+.fi
+.SH "DESCRIPTION"
+.sp
+queue_spliter is PgQ consumer that transports events from source queue into several target queues\&. ev_extra1 field in each event shows into which target queue it must go\&. (pgq\&.logutriga() puts there the table name\&.)
+.sp
+One use case is to move events from OLTP database to batch processing server\&. By using queue spliter it is possible to move all kinds of events for batch processing with one consumer thus keeping OLTP database less crowded\&.
+.SH "QUICK-START"
+.sp
+Basic queue_splitter setup and usage can be summarized by the following steps:
+.sp
+.RS 4
+.ie n \{\
+\h'-04' 1.\h'+01'\c
+.\}
+.el \{\
+.sp -1
+.IP "  1." 4.2
+.\}
+pgq must be installed both in source and target databases\&. See pgqadm man page for details\&. Target database must also have pgq_ext schema installed\&.
+.RE
+.sp
+.RS 4
+.ie n \{\
+\h'-04' 2.\h'+01'\c
+.\}
+.el \{\
+.sp -1
+.IP "  2." 4.2
+.\}
+edit a queue_splitter configuration file, say queue_splitter_sourcedb_sourceq_targetdb\&.ini
+.RE
+.sp
+.RS 4
+.ie n \{\
+\h'-04' 3.\h'+01'\c
+.\}
+.el \{\
+.sp -1
+.IP "  3." 4.2
+.\}
+create source and target queues
+.sp
+.if n \{\
+.RS 4
+.\}
+.nf
+$ pgqadm\&.py ticker\&.ini create <queue>
+.fi
+.if n \{\
+.RE
+.\}
+.RE
+.sp
+.RS 4
+.ie n \{\
+\h'-04' 4.\h'+01'\c
+.\}
+.el \{\
+.sp -1
+.IP "  4." 4.2
+.\}
+launch queue splitter in daemon mode
+.sp
+.if n \{\
+.RS 4
+.\}
+.nf
+$ queue_splitter3 queue_splitter_sourcedb_sourceq_targetdb\&.ini \-d
+.fi
+.if n \{\
+.RE
+.\}
+.RE
+.sp
+.RS 4
+.ie n \{\
+\h'-04' 5.\h'+01'\c
+.\}
+.el \{\
+.sp -1
+.IP "  5." 4.2
+.\}
+start producing and consuming events
+.RE
+.SH "CONFIG"
+.SS "Common configuration parameters"
+.PP
+job_name
+.RS 4
+Name for particulat job the script does\&. Script will log under this name to logdb/logserver\&. The name is also used as default for PgQ consumer name\&. It should be unique\&.
+.RE
+.PP
+pidfile
+.RS 4
+Location for pid file\&. If not given, script is disallowed to daemonize\&.
+.RE
+.PP
+logfile
+.RS 4
+Location for log file\&.
+.RE
+.PP
+loop_delay
+.RS 4
+If continuisly running process, how long to sleep after each work loop, in seconds\&. Default: 1\&.
+.RE
+.PP
+connection_lifetime
+.RS 4
+Close and reconnect older database connections\&.
+.RE
+.PP
+use_skylog
+.RS 4
+foo\&.
+.RE
+.SS "Common PgQ consumer parameters"
+.PP
+queue_name
+.RS 4
+Queue name to attach to\&. No default\&.
+.RE
+.PP
+consumer_name
+.RS 4
+Consumers ID to use when registering\&. Default: %(job_name)s
+.RE
+.SS "queue_splitter parameters"
+.PP
+src_db
+.RS 4
+Source database\&.
+.RE
+.PP
+dst_db
+.RS 4
+Target database\&.
+.RE
+.SS "Example config file"
+.sp
+.if n \{\
+.RS 4
+.\}
+.nf
+[queue_splitter3]
+job_name        = queue_spliter_sourcedb_sourceq_targetdb
+.fi
+.if n \{\
+.RE
+.\}
+.sp
+.if n \{\
+.RS 4
+.\}
+.nf
+src_db          = dbname=sourcedb
+dst_db          = dbname=targetdb
+.fi
+.if n \{\
+.RE
+.\}
+.sp
+.if n \{\
+.RS 4
+.\}
+.nf
+pgq_queue_name  = sourceq
+.fi
+.if n \{\
+.RE
+.\}
+.sp
+.if n \{\
+.RS 4
+.\}
+.nf
+logfile         = ~/log/%(job_name)s\&.log
+pidfile         = ~/pid/%(job_name)s\&.pid
+.fi
+.if n \{\
+.RE
+.\}
+.SH "COMMAND LINE SWITCHES"
+.sp
+Following switches are common to all skytools\&.DBScript\-based Python programs\&.
+.PP
+\-h, \-\-help
+.RS 4
+show help message and exit
+.RE
+.PP
+\-q, \-\-quiet
+.RS 4
+make program silent
+.RE
+.PP
+\-v, \-\-verbose
+.RS 4
+make program more verbose
+.RE
+.PP
+\-d, \-\-daemon
+.RS 4
+make program go background
+.RE
+.PP
+\-\-ini
+.RS 4
+show commented template config file\&.
+.RE
+.sp
+Following switches are used to control already running process\&. The pidfile is read from config then signal is sent to process id specified there\&.
+.PP
+\-r, \-\-reload
+.RS 4
+reload config (send SIGHUP)
+.RE
+.PP
+\-s, \-\-stop
+.RS 4
+stop program safely (send SIGINT)
+.RE
+.PP
+\-k, \-\-kill
+.RS 4
+kill program immidiately (send SIGTERM)
+.RE
+.SH "USECASE"
+.sp
+How to to process events created in secondary database with several queues but have only one queue in primary database\&. This also shows how to insert events into queues with regular SQL easily\&.
+.sp
+.if n \{\
+.RS 4
+.\}
+.nf
+CREATE SCHEMA queue;
+CREATE TABLE queue\&.event1 (
+     \-\- this should correspond to event internal structure
+     \-\- here you can put checks that correct data is put into queue
+     id int4,
+     name text,
+     \-\- not needed, but good to have:
+     primary key (id)
+);
+\-\- put data into queue in urlencoded format, skip actual insert
+CREATE TRIGGER redirect_queue1_trg BEFORE INSERT ON queue\&.event1
+FOR EACH ROW EXECUTE PROCEDURE pgq\&.logutriga(\*(Aqsinglequeue\*(Aq, \*(AqSKIP\*(Aq);
+\-\- repeat the above for event2
+.fi
+.if n \{\
+.RE
+.\}
+.sp
+.if n \{\
+.RS 4
+.\}
+.nf
+\-\- now the data can be inserted:
+INSERT INTO queue\&.event1 (id, name) VALUES (1, \*(Aquser\*(Aq);
+.fi
+.if n \{\
+.RE
+.\}
+.sp
+If the queue_splitter is put on "singlequeue", it spreads the event on target to queues named "queue\&.event1", "queue\&.event2", etc\&. This keeps PgQ load on primary database minimal both CPU\-wise and maintenance\-wise\&.

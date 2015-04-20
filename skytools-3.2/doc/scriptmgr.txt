@@ -1,0 +1,127 @@
+= scriptmgr(1) =
+
+== NAME ==
+
+scriptmgr - utility for controlling other skytools scripts.
+
+== SYNOPSIS ==
+
+  scriptmgr.py [switches] config.ini <command> [-a | -t service | job_name...]
+
+== DESCRIPTION ==
+
+scriptmgr is used to manage several scripts together.  It discovers
+potential jobs based on config file glob expression.  From config file
+it gets both job_name and service type (that is the main section name,
+e.g. [cube_dispatcher]).  For each service type there is subsection
+in the config how to handle it.  Unknown services are ignored.
+
+== COMMANDS ==
+
+=== status ===
+
+  scriptmgr config.ini status
+
+Show status for all known jobs.
+
+=== start ===
+
+  scriptmgr config.ini start -a
+  scriptmgr config.ini start -t service
+  scriptmgr config.ini start job_name1 job_name2 ...
+
+Launch script(s) that are not running.
+
+=== stop ===
+
+  scriptmgr config.ini stop -a
+  scriptmgr config.ini stop -t service
+  scriptmgr config.ini stop job_name1 job_name2 ...
+
+Stop script(s) that are running.
+
+=== restart ===
+
+  scriptmgr config.ini restart -a
+  scriptmgr config.ini restart -t service
+  scriptmgr config.ini restart job_name1 job_name2 ...
+
+Restart scripts.
+
+=== reload ===
+
+  scriptmgr config.ini reload -a
+  scriptmgr config.ini reload -t service
+  scriptmgr config.ini reload job_name1 job_name2 ...
+
+Send SIGHUP to scripts that are running.
+
+== CONFIG ==
+
+include::common.config.txt[]
+
+=== scriptmgr parameters ===
+
+config_list::
+  List of glob patterns for finding config files.  Example:
+
+    config_list = ~/dbscripts/conf/*.ini, ~/random/conf/*.ini
+
+=== Service section parameters ===
+
+cwd::
+  Working directory for script.
+
+args::
+  Arguments to give to script, in addition to `-d`.
+
+script::
+  Path to script.  Unless script is in PATH, full path should be given.
+
+disabled::
+  If this service should be ignored.
+
+user::
+  Launch service as different unix user.  Scriptmgr uses `sudo`
+  to switch users.  So it either needs to be run as root,
+  or sudo config must allow it to launch daemons.
+
+=== Example config file ===
+
+  [scriptmgr]
+  job_name        = scriptmgr_livesrv
+  logfile         = ~/log/%(job_name)s.log
+  pidfile         = ~/pid/%(job_name)s.pid
+
+  config_list     = ~/scripts/conf/*.ini
+
+  # defaults for all service sections
+  [DEFAULT]
+  cwd = ~/scripts
+
+  [table_dispatcher]
+  script = table_dispatcher.py
+  args = -v
+
+  [cube_dispatcher]
+  script = python2.4 cube_dispatcher.py
+  disabled = 1
+
+  [pgqadm]
+  script = ~/scripts/pgqadm.py
+  args = ticker
+
+== COMMAND LINE SWITCHES ==
+
+include::common.switches.txt[]
+
+Options specific to scriptmgr:
+
+-a, --all::
+  Operate on all non-disabled scripts.
+
+-t 'service', --type='service'::
+  Operate on all non-disabled scripts of this service type.
+
+-w, --wait::
+  Wait for script(s) after signalling.

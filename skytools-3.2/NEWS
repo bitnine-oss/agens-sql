@@ -1,0 +1,404 @@
+
+2014-03-31  -  SkyTools 3.2  -  "Hit any user to continue"
+
+  = Features =
+
+    * scripts/data_maintainer.py: can use csv file as source
+    * debian: support Postgres 9.3, 9.4
+
+  = Minor features =
+
+    * londiste: added ignore_truncate handler option
+    * londiste add-table: added lock_timeout option to avoid possible locking issues
+    * scripts/data_maintainer.py: added dynamic throttling support (via sql)
+    * skytools.scripting: added options to lower log level for exceptions
+    * skytools.scripting: simple retriable execute (for sql)
+
+  = Fixes =
+
+    * londiste.create_partition: fixed to avoid deadlocks from concurrent workers
+    * londiste.handlers.dispatch: fixed "ignore events aiming at obsolete partitions" bug
+    * pgq.cascade.admin: do not allow subscribing to itself (same node)
+    * pgq.consumer: fixed RetriableEvent and RetriableWalkerEvent
+    * skytools.dbstruct: quote sequence names
+    * skytools.set_tcp_keepalive: add compat with newer OSX, simplify, enable win32
+    * scripts/data_maintainer.py: fixed to survive null in stats column of sql_modify
+    * sql/londiste: fixed londiste.table_info trigger issue
+    * sql/pgq: fix retry-queue vs. newgrants
+    * sql/pgq: tag pgq.batch_id_seq as dumpable (extension)
+
+  = Cleanups =
+
+    * londiste.drop_obsolete_partitions: drop tables in alphabetical order (that is from the oldest)
+    * londiste.handlers: removed duplicate debug logging
+    * londiste: moved config processing from dispatch to base handler
+    * pgq.localconsumer: added file path check on config load
+    * scripts/data_maintainer.py: clean-up
+    * debian: include data_maintainer3 in package
+    * Get rid of dictfetch*() usage, it's obsolete.
+
+2013-07-31  -  SkyTools 3.1.5  -  "Caution, Blind Man Driving"
+
+  = Features =
+
+    * walmgr: new command createslave and new option --synch-standby
+    * londiste: Dispatch handler extended to support sharding
+    * skytools.skylog: added UdpTNetStringsHandler
+
+  = Minor features =
+
+    * londiste add: --skip-non-existing option
+    * londiste add-table: --skip-non-existing ignores tables not on provider
+    * londiste add-table: --find-copy-node working with --create now
+    * londiste resync: supports --find-copy-node and --copy-node options now
+    * londiste resync: now checks if table is available on provider
+    * londiste --wait-sync: show progress in absolute numbers
+    * londiste.handlers.dispatch: added switch to ignore events aiming at obsolete (dropped) partitions
+    * querybuilder: show list of missing arguments on KeyError
+    * scripts/simple_local_consumer.py: added consumer_filter option
+    * skytools.sockutil.set_tcp_keepalive: accept socket object directly
+
+  = Fixes =
+
+    * londiste copy: fix data filtering when parallel_copies > 1
+    * londiste.playback: support multiple -v options for workers
+    * londiste.repair: made less verbose
+    * pgq.Consumer: non-lazy loading should use RetriableEvent
+    * pgq.logutriga: do not quote '-'
+    * grantfu: 2-pass processing
+
+  = Cleanups =
+
+    * londiste: inform about no tables passed on cmd line (thus nothing to do)
+    * doc: mention config option in create-* commands
+    * parse_pgarray: allow None
+    * londiste status: make node name easier to select
+    * scripts/data_maintainer.py: added suffix "3" to service name
+    * skytools.timeutil: make tests more robust
+    * londiste: changed handler argument 'key' to 'hash_key'
+    * londiste: moved hash_key logic from dispatch to part handler
+    * londiste.handlers: renamed handler 'part' to 'shard'
+    * pgq: Consumer class also need _make_event, for _load_batch_events_old()
+    * pgq: move RetriableEvent to consumer.py
+
+2013-04-17  -  SkyTools 3.1.4  -  "Boldly Going Nowhere"
+
+  = Features =
+
+    * londiste create-node: Creation data from config.  The need to 2 connection
+      string in command line was major usability problem in create-* commands.
+      Now initial setup can be described in config.
+    * newgrants: Londiste can read from provider using non-privileged user.
+    * scripts/data_maintainer.py: Generic script for processing
+      large data sets in small batches.
+
+  = Minor features =
+
+    * londiste status: significant speed up of getting status on big cascades
+    * londiste: remote_extra_connstr config option that will be added
+      to remote node connect strings.  Needed when more than several cascaded
+      scripts are running, with different privileges in local and remote node.
+    * scriptmgr: User switching with sudo.  Script sections can
+      contain user= option that makes scriptmgr launch sudo to run script.
+    * londiste compare: Added --count-only switch
+    * BaseScript: skylog_locations config options
+    * skytools.Config: New default variables: config_dir, config_file.
+    * Parse & merge Postgres connect strings
+    * skytools_upgrade: add force option
+    * londiste: new drop_obsolete_partitions(2) function
+    * londiste: added dispatch handler arg retention_period
+
+  = Fixes =
+
+    * londiste: Sync SQL keywords with 9.3git.
+    * handers/dispatch.py: 'keep_latest' row_mode processes now deletes properly.
+    * configure.ac: Check for -lrt - needed when building against libevent.
+    * adminscripts: Make info commands not use pidfile.  Otherwise they will
+      not run if some writing admin command is running.
+    * Londiste compare: It's now compatible with 8.2.
+    * londiste.create_partition: Set owner to match parent table.
+    * londiste.create_trigger: Fixed skip-trigger check compatibility with postgres 9.x.
+    * londiste.create_trigger: Added check for after-trigger being overshadowed by skip-trigger.
+
+  = Cleanups =
+
+    * Refactor Consumer code.
+    * Remove: pgqadm and related code, its unmaintained
+    * Sweeping change to postpone log string formatting
+    * docs: copy-condition removed from londiste3 man page
+    * Various logging cleanups
+    * Londiste: fix trigger generation when extra params that are add-table specific are used (introduced in commit 364ade9)
+    * londiste: quote queue name in trigger args
+    * londiste: actually execute the ENABLE/DISABLE RULE query in londiste.create_partition
+    * londiste/handlers/dispatch: fixed issue with missing part_func description
+    * londiste.handler: disable shortcut for specifying handler args together with its name
+
+2012-12-21  -  SkyTools 3.1.3  -  "Chainsaw-wielding Toothfairy"
+
+  = Features =
+
+    * londiste resurrect: Sync queue contents on old dead root.
+    * londiste node-status: Show info about local node.
+    * londiste takeover --dead-root: search for node with latest batches.
+    * londiste compare/repair: work with tables not available on immediate provider
+    * londiste change-handler: change python handler and trigger on table
+
+  = Minor features and cleanups =
+
+    * Auto-upgrade Londiste 2 schema.
+    * debian: /etc/skytools.ini is preconfigured for pgqd and londiste3 scripts.
+    * Clean londiste/cascadeadmin --help text.
+    * syncer: Clean up error messages.
+    * syncer: Add missing throttling.
+    * londiste handlers parameter validation.
+    * Pure-Python fallback for hashtext module.
+
+  = Fixes =
+
+    * If pgq.unregister_consumer() is used on subconsumer, don't drop main consumer.
+    * londiste add-table throws error if table already exists but with different handler.
+    * syncer: throttle queries when waiting
+    * Fix exception_hook crash if curs.query is None
+    * Fix extension version mismatches which made them uninstallable.
+
+2012-11-02  -  SkyTools 3.1.2  -  "Tank in a Tarball"
+
+  = Features =
+
+    * --find-copy-node switch to 'add-table' that instructs 'copy'
+      to walk upwards until it finds node that has full table.
+      Parts of the patch were in earlier, but they did not work
+      on merge node properly.  Now the walk code was moved to copy,
+      instead being done during add-table to fix that.
+
+      Compare and repair does not support (yet) such walking.
+
+  = Minor Features =
+
+    * Allow overrided options with --set to show up in --ini output
+    * Londiste: try to show exact event info on failure.
+
+  = Fixes =
+
+    * walmgr: Move .walshipping.last update AFTER rsync.  Otherwise
+      rsync failure will not be noticed during "master sync".
+    * londiste execute: when ddl was already applied, connection was
+      left in wrong mode.  Fix.
+    * Fix compare expression - md5() was in wrong place.
+    * Fix Londiste compare and repair to accept copy-condition from handler (Asko Oja)
+    * londiste: don't filter EXECUTE or TRUNCATE events on merge node
+    * qadmin: make "install pgq" also install pgq_coop
+    * Fix 2.1 to 3.0 upgrade script, rename to pgq.upgrade_2.1_to_3.0.sql
+    * Reorg of Londiste tests (Asko Oja)
+    * Socket library autoconf (Tony Arkles)
+    * pgq: quote internal table names
+    * Bump pgq schema version to 3.1.2
+
+2012-10-09  -  SkyTools 3.1.1  -  "Service Oriented Diapers"
+
+  Queue_mover and queue_splitter now have service names ending with 3.
+  Config files need to change: [queue_mover3], [queue_splitter3].
+
+  = Minor Features =
+
+    * scriptmgr: option for specifying service type (-t / --type)
+    * scriptmgr: status command can optionally be more selective
+    * skytools_upgrade: "dry run" option (--not-really)
+    * pgq.Consumer: log idle time, keepalive_stats tper
+    * pgq.Consumer: keepalive_stats to force logging even when idle
+
+  = Cleanups =
+
+    * qadmin.py: "show version" command
+    * qadmin.py: unified results displaying
+    * skytools.scripting: added shutdown() to BaseScript
+    * skytools.scripting: log config reload, updated comment.
+    * skytools.__init__: added symbols for natsort module
+    * qadmin.py: updated script version, added pgq version, amended messages
+    * scripts: changed queue_mover and queue_splitter service_name to end with '3'
+
+  = Fixes =
+
+    * pgqd: make connections handling more robust
+    * londiste compare/repair: when provider is branch, stop it's worker to get sync
+    * walmgr: Don't complain if a nonexistent WAL file is encountered during cleanup.
+    * pgq_node.demote_root: decrease lock level
+    * londiste.local_remove_table: resture DDL if still attached to table
+    * pgq_coop.next_batch: check and create subconsumers after locking main consumer
+    * --sync-watermark: don't allow subtree wm get above upstream wm
+    * londiste compare: calculate common column names
+    * londiste compare: use md5() if comparing 8.3 with 8.4+
+    * Use python interpreter given by '--with-python=PYTHON' everywhere
+
+2012-07-19  -  SkyTools 3.1  -  "Carnival-on-a-Stick"
+
+  = Features =
+
+    * londiste: Wait commands
+      > londiste $ini add-table .. --wait-sync
+      > londiste $ini wait-sync
+        Wait until all tables are fully copied over.
+      > londiste $ini wait-root
+        Wait for next tick on root reaches local node.
+      > londiste $ini wait-provider
+        Wait for next tick on provider reaches local node.
+
+    * londiste execute: support meta attributes in sql
+      This allows execute ADD COLUMN from root, over whole
+      cascade  even when not all nodes contain the table.
+
+        --*-- Local-Table: mytable
+        ALTER TABLE mytable ADD COLUMN foo text;
+
+    * Convert DB modules to extensions (9.1+).  Now following modules
+      are available as extensions: pgq, pgq_node, pgq_coop, pgq_ext, londiste.
+      All the old files are kept in old locations to avoid any breakage.
+
+      Known problems in Postgres extensions infrastructure (as of 9.1.4):
+
+      - pg_dump crashes when extensions has sequence whose value needs to be dumped.
+        Thus pgq.batch_id_seq cannot be made dumpable, thus it's value
+        gets lost during dump+reload.
+
+      - CREATE EXTENSION pgq_coop FROM unpackaged; + DROP EXTENSION pgq_coop;
+        will not drop schema.  Plain CREATE+DROP works fine.
+
+  = Minor Features =
+
+    * londiste.applied_execute: drop queue_name from pkey
+    * pgq.LocalConsumer: consumer that tracks processed ticks in local file
+    * simple_local_consumer: LocalConsumer that runs query for each event.
+    * pgq.Consumer: 'table_filter' config param, filters on ev_extra1,
+      where PgQ triggers put source table name.
+    * londiste.periodic_maintenance: cleanup for applied_execute
+    * pgq.maint_operations: include londiste.periodic_maintenance
+    * skytools.exists_view(): new function
+    * skytools.fileutil: new module, contains write_atomic()
+    * londiste.handler: make encoding= param available to part & londiste handlers
+    * debian: build modules for all installed server-dev versions
+
+  = Fixes =
+
+    * CascadedConsumer: re-initialize provider connection when location changes
+    * pgq_node.drop_node: mention node name in info message
+    * drop-node: move find_root before local drop
+    * pgq.maint_rotate_tables: check txid sanity, fail if bad
+    * sql_tokenizer: allow idents starting with underscore
+    * BaseScript: write pidfile atomically to avoid corrupt pidfiles.
+    * londiste replay: skip provider checks if copy_node is used
+    * CascadedWorker: don't move watermark on source further than incoming batch.
+
+2012-05-30  -  SkyTools 3.0.3  -  "Biometric Authentication by Yodeling"
+
+  = Features =
+
+    * londiste copy: copy table from another node (add-table --copy-node=NODE)
+    * londiste remove-table: drop sequence too
+    * public.create_partition: move under londiste schema, it's now generic enough
+    * londiste.create_partitions: Support copying rules from master table
+    * handlers.dispatch: use londiste.create_partitions, use old func as fallback
+    * walmgr: add option for init-slave to add password from file to .pgpass
+    * walmgr: add command synch-standby
+
+  = Fixes =
+
+    * CascadedWorker: merge-leaf-to-branch needs to publish wm info
+    * pgq_node.create_node: create branch nodes with disable_insert set
+    * pgq.insert_event: ignore disable_insert if in 'replica' role
+    * create_partition: public grant needs special casing
+    * skytools.dbstruct: better rule name redirection
+    * debian: add build-deps, force debian/control rebuild
+    * pgq_node.unregister_location: do automatic unsubscribe
+    * pgq_node.drop_node: drop queue data even if node_info is empty
+    * londiste add-table: --expect-sync does not require table existance on provider
+
+  = Cleanups =
+
+    * skytools_upgrade: show old version before upgrade
+    * CascadeAdmin: add node name prefix messages from db
+    * handlers.dispatch: add comment about differences from part_func
+    * londiste.find_table_oid: drop old version - 9.1+ panics when argument name changes
+    * dbservice.get_record_list: do not use parse_pgarray on python lists
+
+  = Win32 =
+
+    * skytools.scripting: catch EINTR from sleep()
+    * signal_pidfile: support sig=0 on win32
+    * skytools.scripting: detect if signal name exists
+
+  = Schema version changes =
+
+    * pgq_node.version(): 3.0.0.18
+    * londiste.version(): 3.0.0.16
+
+2012-05-10  -  SkyTools 3.0.2  -  "Consumes 30% Less Brain Than Competing Products"
+
+  = Features =
+
+    * Draft implementation of fine-grained grants for SQL
+      functions.  See commit doc/sql-grants.txt for details.
+      New roles are created during upgrade, but new grants
+      need to be applied manually.
+
+    * pgq.create_queue: instead pre-determined grants,
+      copy grants for event tables from pgq.event_template.
+
+    * simple_consumer.py script, for simply event processing
+      by simply launching a SQL function for each event.
+
+    * londiste.handlers.part: make hash function configurable
+
+    * psycopgwrapper: allow name= argument to .cursor()
+
+  = Fixes =
+
+    * londiste: Always use TRUNCATE CASCADE
+
+    * pgq.cascade.CascadedWorker: publish_local_wm() is missing a commit
+
+    * walmgr: fix backup from slave (Sergey Burladyan)
+
+  = Cleanups =
+
+    * pgq.insert_event(): outer wrapper does not need to be secdef
+
+    * source.cfg: minor improvements
+
+    * sql/pgq: use terse verbosity in regtests
+
+2012-04-18  -  SkyTools 3.0.1  -  "All The Snow You Can Eat"
+
+  = Features =
+
+    * skytools.config: new .getbytes() method to support
+      human-readable sizes.
+
+  = Fixes =
+
+    * skytools.skylog: Wrap logger.handlers.SysLogHandler to work
+      around broken BOM addition when logging unicode() strings.
+
+    * skytools.skylog: Improve compatibility with direct
+      logger module usage.
+
+    * debian/skytools.ini: include in tgz
+
+    * pgqd(libusual): ignore EINTR on close()
+
+    * Better error message in londiste.handler.dispatch
+      when part_field is NULL.
+
+    * Bump internal version in pgq/pgq_coop/pgq_node schemas.
+      Seems I forgot to do it for 3.0, probably because
+      there were doc-only changes in SQL code.
+
+2012-03-17  -  SkyTools 3.0  -  "Business Advantage"
+
+  = Major New Features =
+
+    * Cascaded queues
+    * Londiste: Parallel copy
+    * Londiste: EXECUTE
+    * Londiste: handlers
+    * QAdmin
+    * pgqd

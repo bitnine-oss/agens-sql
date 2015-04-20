@@ -1,0 +1,107 @@
+
+Skytools 3 - cascaded replication
+=================================
+
+Keep old design from Skytools 2
+-------------------------------
+
+* Worker process connects to only 2 databases, there is no
+  everybody-to-everybody communication going on.
+* Worker process only pulls data from queue.
+  - No pushing with LISTEN/NOTIFY is used for data transport.
+  - Administrative work happens in separate process.
+  - Can go down anytime, without affecting anything else.
+* Relaxed attitude about tables.
+  - Tables can be added/removed at any time.
+  - Initial data sync happens table-by-table, no attempt is made to keep
+    consistent picture between tables during initial copy.
+
+New features in Skytools 3
+--------------------------
+
+* Cascading is implemented as generic layer on top of PgQ - *Cascaded PgQ*.
+  - Its goal is to keep identical copy of queue contents in several nodes.
+  - Not replication-specific - can be used for any queue.
+  - Advanced admin operations: takeover, change-provider, pause/resume.
+  - For terminology and technical details see here: set.notes.txt.
+
+* New Londiste features:
+  - Parallel copy - during initial sync several tables can be copied
+    at the same time.  In 2.x the copy already happened in separate process,
+    making it parallel was just a matter of tuning launching/syncing logic.
+
+  - EXECUTE command, to run random SQL script on all nodes.  The script is
+    executed in single TX on root, and inserted as an event into the queue
+    in the same TX.  The goal is to emulate DDL AFTER TRIGGER that way.
+    Londiste itself does no locking and no coordination between nodes.
+    The assumption is that the DDL commands themselves do enough locking.
+    If more locking is needed is can be added to script.
+
+  - Automatic table or sequence creation by importing the structure
+    from provider node.  Activated with --create switch for add-table, add-seq.
+    By default *everything* is copied, including Londiste own triggers.
+    The basic idea is that the triggers may be customized and that way
+    we avoid the need to keep track of trigger customizations.
+
+  - Ability to merge replication queues coming from partitioned database.
+    The possibility was always there but now PgQ keeps also track
+    of batch positions, allowing loss of the merge point.
+
+  - Londiste now uses the intelligent log-triggers by default.  The triggers
+    were introduced in 2.1.x, but were not on by default.  Now they are
+    used by default.
+
+  - Londiste processes events via 'handlers'.  Thus we can do table partitioning
+    in Londiste, instead of custom consumer, which means all Londiste features
+    are available in such situation - like proper initial COPY.
+    To see list of them: `londiste3 x.ini show-handlers`.
+
+  - Target table can use different name (--dest-table)
+
+* New interactive admin console - qadmin.  Because long command lines are
+  not very user-friendly, this is an experiment on interactive console with
+  heavy emphasis on tab-completion.
+
+* New multi-database ticker: `pgqd`.  It is possible to set up one process that
+  maintains all PgQ databases in one PostgreSQL instance.  It will
+  auto-detect both databases and whether they have PgQ installed.
+  This also makes core PgQ usable without need for Python.
+
+Minor improvements
+------------------
+
+* sql/pgq: ticks also store last sequence pos with them.  This allowed
+  also to move most of the ticker functionality into database.  Ticker
+  daemon now just needs to call SQL function periodically, it does not
+  need to keep track of seq positions.
+
+* sql/pgq: Ability to enforce max number of events that one TX can insert.
+  In addition to simply keeping queue healthy, it also gives a way to
+  survive bad UPDATE/DELETE statements with buggy or missing WHERE clause.
+
+* sql/pgq: If Postgres has autovacuum turned on, internal vacuuming for
+  fast-changing tables is disabled.
+
+* python/pgq: pgq.Consumer does not register consumer automatically,
+  cmdline switches --register / --unregister need to be used for that.
+
+* londiste: sequences are now pushed into queue, instead pulled
+  directly from database.  This reduces load on root
+  and also allows in-between nodes that do not have sequences.
+
+* psycopg1 is not supported anymore.
+
+* PgQ does not handle "failed events" anymore.
+
+* Skytools 3 modules are parallel installable with Skytools 2.
+  Solved via loader module (like http://faq.pygtk.org/index.py?req=all#2.4[pygtk]).
+
+    import pkgloader
+    pkgloader.require('skytools', '3.0')
+    import skytools
+
+
+Further reading
+---------------
+
+* http://skytools.projects.postgresql.org/skytools-3.0/[Documentation] for skytools3.

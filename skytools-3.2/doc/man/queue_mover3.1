@@ -1,0 +1,256 @@
+'\" t
+.\"     Title: queue_mover3
+.\"    Author: [FIXME: author] [see http://docbook.sf.net/el/author]
+.\" Generator: DocBook XSL Stylesheets v1.75.2 <http://docbook.sf.net/>
+.\"      Date: 04/01/2014
+.\"    Manual: \ \&
+.\"    Source: \ \&
+.\"  Language: English
+.\"
+.TH "QUEUE_MOVER3" "1" "04/01/2014" "\ \&" "\ \&"
+.\" -----------------------------------------------------------------
+.\" * Define some portability stuff
+.\" -----------------------------------------------------------------
+.\" ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.\" http://bugs.debian.org/507673
+.\" http://lists.gnu.org/archive/html/groff/2009-02/msg00013.html
+.\" ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.ie \n(.g .ds Aq \(aq
+.el       .ds Aq '
+.\" -----------------------------------------------------------------
+.\" * set default formatting
+.\" -----------------------------------------------------------------
+.\" disable hyphenation
+.nh
+.\" disable justification (adjust text to left margin only)
+.ad l
+.\" -----------------------------------------------------------------
+.\" * MAIN CONTENT STARTS HERE *
+.\" -----------------------------------------------------------------
+.SH "NAME"
+queue_mover3 \- PgQ consumer that copies data from one queue to another\&.
+.SH "SYNOPSIS"
+.sp
+.nf
+queue_mover3 [switches] config\&.ini
+.fi
+.SH "DESCRIPTION"
+.sp
+queue_mover is PgQ consumer that transports events from source queue into target queue\&. One use case is when events are produced in several databases then queue_mover is used to consolidate these events into single queue that can then be processed by consumers who need to handle theses events\&. For example in case of patitioned databases it\(cqs convenient to move events from each partition into one central queue database and then process them there\&. That way configuration and dependancies of partiton databases are simpler and more robust\&. Another use case is to move events from OLTP database to batch processing server\&.
+.sp
+Transactionality: events will be inserted as one transaction on target side\&. That means only batch_id needs to be tracked on target side\&.
+.SH "QUICK-START"
+.sp
+Basic PgQ setup and usage can be summarized by the following steps:
+.sp
+.RS 4
+.ie n \{\
+\h'-04' 1.\h'+01'\c
+.\}
+.el \{\
+.sp -1
+.IP "  1." 4.2
+.\}
+PgQ must be installed both in source and target databases\&. See pgqadm man page for details\&.
+.RE
+.sp
+.RS 4
+.ie n \{\
+\h'-04' 2.\h'+01'\c
+.\}
+.el \{\
+.sp -1
+.IP "  2." 4.2
+.\}
+Target database must also have pgq_ext schema installed\&. It is used to keep sync between two databases\&.
+.RE
+.sp
+.RS 4
+.ie n \{\
+\h'-04' 3.\h'+01'\c
+.\}
+.el \{\
+.sp -1
+.IP "  3." 4.2
+.\}
+Create a queue_mover configuration file, say qmover_sourceq_to_targetdb\&.ini
+.RE
+.sp
+.RS 4
+.ie n \{\
+\h'-04' 4.\h'+01'\c
+.\}
+.el \{\
+.sp -1
+.IP "  4." 4.2
+.\}
+create source and target queues
+.sp
+.if n \{\
+.RS 4
+.\}
+.nf
+$ pgqadm\&.py sourcedb_ticker\&.ini create <srcqueue>
+$ pgqadm\&.py targetdb_ticker\&.ini create <dstqueue>
+.fi
+.if n \{\
+.RE
+.\}
+.RE
+.sp
+.RS 4
+.ie n \{\
+\h'-04' 5.\h'+01'\c
+.\}
+.el \{\
+.sp -1
+.IP "  5." 4.2
+.\}
+launch queue mover in daemon mode
+.sp
+.if n \{\
+.RS 4
+.\}
+.nf
+$ queue_mover3 \-d qmover_sourceq_to_targetdb\&.ini
+.fi
+.if n \{\
+.RE
+.\}
+.RE
+.sp
+.RS 4
+.ie n \{\
+\h'-04' 6.\h'+01'\c
+.\}
+.el \{\
+.sp -1
+.IP "  6." 4.2
+.\}
+start producing and consuming events
+.RE
+.SH "CONFIG"
+.SS "Common configuration parameters"
+.PP
+job_name
+.RS 4
+Name for particulat job the script does\&. Script will log under this name to logdb/logserver\&. The name is also used as default for PgQ consumer name\&. It should be unique\&.
+.RE
+.PP
+pidfile
+.RS 4
+Location for pid file\&. If not given, script is disallowed to daemonize\&.
+.RE
+.PP
+logfile
+.RS 4
+Location for log file\&.
+.RE
+.PP
+loop_delay
+.RS 4
+If continuisly running process, how long to sleep after each work loop, in seconds\&. Default: 1\&.
+.RE
+.PP
+connection_lifetime
+.RS 4
+Close and reconnect older database connections\&.
+.RE
+.PP
+use_skylog
+.RS 4
+foo\&.
+.RE
+.SS "Common PgQ consumer parameters"
+.PP
+queue_name
+.RS 4
+Queue name to attach to\&. No default\&.
+.RE
+.PP
+consumer_name
+.RS 4
+Consumers ID to use when registering\&. Default: %(job_name)s
+.RE
+.SS "queue_mover parameters"
+.PP
+src_db
+.RS 4
+Source database\&.
+.RE
+.PP
+dst_db
+.RS 4
+Target database\&.
+.RE
+.PP
+dst_queue_name
+.RS 4
+Target queue name\&.
+.RE
+.SS "Example config file"
+.sp
+.if n \{\
+.RS 4
+.\}
+.nf
+[queue_mover3]
+job_name = eventlog_to_target_mover
+src_db = dbname=sourcedb
+dst_db = dbname=targetdb
+pgq_queue_name = eventlog
+dst_queue_name = copy_of_eventlog
+pidfile = log/%(job_name)s\&.pid
+logfile = pid/%(job_name)s\&.log
+.fi
+.if n \{\
+.RE
+.\}
+.SH "COMMAND LINE SWITCHES"
+.sp
+Following switches are common to all skytools\&.DBScript\-based Python programs\&.
+.PP
+\-h, \-\-help
+.RS 4
+show help message and exit
+.RE
+.PP
+\-q, \-\-quiet
+.RS 4
+make program silent
+.RE
+.PP
+\-v, \-\-verbose
+.RS 4
+make program more verbose
+.RE
+.PP
+\-d, \-\-daemon
+.RS 4
+make program go background
+.RE
+.PP
+\-\-ini
+.RS 4
+show commented template config file\&.
+.RE
+.sp
+Following switches are used to control already running process\&. The pidfile is read from config then signal is sent to process id specified there\&.
+.PP
+\-r, \-\-reload
+.RS 4
+reload config (send SIGHUP)
+.RE
+.PP
+\-s, \-\-stop
+.RS 4
+stop program safely (send SIGINT)
+.RE
+.PP
+\-k, \-\-kill
+.RS 4
+kill program immidiately (send SIGTERM)
+.RE
+.SH "BUGS"
+.sp
+Event ID is not kept on target side\&. If needed is can be kept, then event_id seq at target side need to be increased by hand to inform ticker about new events\&.

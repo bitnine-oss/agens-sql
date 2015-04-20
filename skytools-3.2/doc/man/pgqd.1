@@ -1,0 +1,230 @@
+'\" t
+.\"     Title: pgqq
+.\"    Author: [FIXME: author] [see http://docbook.sf.net/el/author]
+.\" Generator: DocBook XSL Stylesheets v1.75.2 <http://docbook.sf.net/>
+.\"      Date: 04/01/2014
+.\"    Manual: \ \&
+.\"    Source: \ \&
+.\"  Language: English
+.\"
+.TH "PGQQ" "1" "04/01/2014" "\ \&" "\ \&"
+.\" -----------------------------------------------------------------
+.\" * Define some portability stuff
+.\" -----------------------------------------------------------------
+.\" ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.\" http://bugs.debian.org/507673
+.\" http://lists.gnu.org/archive/html/groff/2009-02/msg00013.html
+.\" ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.ie \n(.g .ds Aq \(aq
+.el       .ds Aq '
+.\" -----------------------------------------------------------------
+.\" * set default formatting
+.\" -----------------------------------------------------------------
+.\" disable hyphenation
+.nh
+.\" disable justification (adjust text to left margin only)
+.ad l
+.\" -----------------------------------------------------------------
+.\" * MAIN CONTENT STARTS HERE *
+.\" -----------------------------------------------------------------
+.SH "NAME"
+pgqd \- PGQ ticker daemon
+.SH "SYNOPSIS"
+.sp
+.nf
+pgqd [ options \&.\&.\&. ] config\&.file
+.fi
+.SH "DESCRIPTION"
+.sp
+PgQ ticker and maintenance daemon\&. Works with several databases in parallel\&.
+.SH "GENERAL OPTIONS"
+.sp
+Switches:
+.PP
+\-v
+.RS 4
+Increase verbosity
+.RE
+.PP
+\-q
+.RS 4
+No output to console
+.RE
+.PP
+\-d
+.RS 4
+Daemonize
+.RE
+.PP
+\-h
+.RS 4
+Show help
+.RE
+.PP
+\-V
+.RS 4
+Show version
+.RE
+.PP
+\-\-ini
+.RS 4
+Show sample config file
+.RE
+.PP
+\-s
+.RS 4
+Stop \- send SIGINT to running process
+.RE
+.PP
+\-k
+.RS 4
+Kill \- send SIGTERM to running process
+.RE
+.PP
+\-r
+.RS 4
+Reload \- send SIGHUP to running process
+.RE
+.SH "CONFIG FILE"
+.SS "Sample configuration file"
+.sp
+.if n \{\
+.RS 4
+.\}
+.nf
+[pgqd]
+.fi
+.if n \{\
+.RE
+.\}
+.sp
+.if n \{\
+.RS 4
+.\}
+.nf
+# where to log
+logfile = ~/log/pgqd\&.log
+.fi
+.if n \{\
+.RE
+.\}
+.sp
+.if n \{\
+.RS 4
+.\}
+.nf
+# pidfile
+pidfile = ~/pid/pgqd\&.pid
+.fi
+.if n \{\
+.RE
+.\}
+.sp
+.if n \{\
+.RS 4
+.\}
+.nf
+## optional parameters ##
+.fi
+.if n \{\
+.RE
+.\}
+.sp
+.if n \{\
+.RS 4
+.\}
+.nf
+# libpq connect string without dbname=
+#base_connstr =
+.fi
+.if n \{\
+.RE
+.\}
+.sp
+.if n \{\
+.RS 4
+.\}
+.nf
+# startup db to query other databases
+#initial_database = template1
+.fi
+.if n \{\
+.RE
+.\}
+.sp
+.if n \{\
+.RS 4
+.\}
+.nf
+# limit ticker to specific databases
+#database_list =
+.fi
+.if n \{\
+.RE
+.\}
+.sp
+.if n \{\
+.RS 4
+.\}
+.nf
+# log into syslog
+#syslog = 1
+#syslog_ident = pgqd
+.fi
+.if n \{\
+.RE
+.\}
+.sp
+.if n \{\
+.RS 4
+.\}
+.nf
+## optional timeouts ##
+.fi
+.if n \{\
+.RE
+.\}
+.sp
+.if n \{\
+.RS 4
+.\}
+.nf
+# how often to check for new databases
+#check_period = 60
+.fi
+.if n \{\
+.RE
+.\}
+.sp
+.if n \{\
+.RS 4
+.\}
+.nf
+# how often to flush retry queue
+#retry_period = 30
+.fi
+.if n \{\
+.RE
+.\}
+.sp
+.if n \{\
+.RS 4
+.\}
+.nf
+# how often to do maintentance
+#maint_period = 120
+.fi
+.if n \{\
+.RE
+.\}
+.sp
+.if n \{\
+.RS 4
+.\}
+.nf
+# how often to run ticker
+#ticker_period = 1
+.fi
+.if n \{\
+.RE
+.\}

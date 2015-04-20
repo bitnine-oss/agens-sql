@@ -1,0 +1,323 @@
+set client_min_messages = 'warning';
+\set VERBOSITY 'terse'
+--
+-- tables
+--
+create table tblmerge (
+    id int4 primary key,
+    data text
+);
+select * from pgq_node.register_location('combined_set', 'croot', 'dbname=db', false);
+ ret_code |      ret_note       
+----------+---------------------
+      200 | Location registered
+(1 row)
+
+select * from pgq_node.create_node('combined_set', 'root', 'croot', 'londiste_croot', null, null, null);
+ ret_code |                              ret_note                              
+----------+--------------------------------------------------------------------
+      200 | Node "croot" initialized for queue "combined_set" with type "root"
+(1 row)
+
+select * from pgq_node.register_location('part1_set', 'p1root', 'dbname=db', false);
+ ret_code |      ret_note       
+----------+---------------------
+      200 | Location registered
+(1 row)
+
+select * from pgq_node.register_location('part1_set', 'p1merge', 'dbname=db2', false);
+ ret_code |      ret_note       
+----------+---------------------
+      200 | Location registered
+(1 row)
+
+select * from pgq_node.create_node('part1_set', 'leaf', 'p1merge', 'londiste_p1merge', 'p1root', 100, 'combined_set');
+ ret_code |                             ret_note                              
+----------+-------------------------------------------------------------------
+      200 | Node "p1merge" initialized for queue "part1_set" with type "leaf"
+(1 row)
+
+select * from pgq_node.register_location('part2_set', 'p2root', 'dbname=db', false);
+ ret_code |      ret_note       
+----------+---------------------
+      200 | Location registered
+(1 row)
+
+select * from pgq_node.register_location('part2_set', 'p2merge', 'dbname=db2', false);
+ ret_code |      ret_note       
+----------+---------------------
+      200 | Location registered
+(1 row)
+
+select * from pgq_node.create_node('part2_set', 'leaf', 'p2merge', 'londiste_p2merge', 'p2root', 100, 'combined_set');
+ ret_code |                             ret_note                              
+----------+-------------------------------------------------------------------
+      200 | Node "p2merge" initialized for queue "part2_set" with type "leaf"
+(1 row)
+
+select * from pgq_node.register_location('part3_set', 'p3root', 'dbname=db', false);
+ ret_code |      ret_note       
+----------+---------------------
+      200 | Location registered
+(1 row)
+
+select * from pgq_node.register_location('part3_set', 'p3merge', 'dbname=db3', false);
+ ret_code |      ret_note       
+----------+---------------------
+      200 | Location registered
+(1 row)
+
+select * from pgq_node.create_node('part3_set', 'leaf', 'p3merge', 'londiste_p3merge', 'p3root', 100, 'combined_set');
+ ret_code |                             ret_note                              
+----------+-------------------------------------------------------------------
+      200 | Node "p3merge" initialized for queue "part3_set" with type "leaf"
+(1 row)
+
+select * from londiste.local_add_table('combined_set', 'tblmerge');
+ ret_code |           ret_note           
+----------+------------------------------
+      200 | Table added: public.tblmerge
+(1 row)
+
+select * from londiste.global_add_table('part1_set', 'tblmerge');
+ ret_code |       ret_note        
+----------+-----------------------
+      200 | Table added: tblmerge
+(1 row)
+
+select * from londiste.global_add_table('part2_set', 'tblmerge');
+ ret_code |       ret_note        
+----------+-----------------------
+      200 | Table added: tblmerge
+(1 row)
+
+select * from londiste.local_add_table('part1_set', 'tblmerge', array['merge_all']);
+ ret_code |           ret_note           
+----------+------------------------------
+      200 | Table added: public.tblmerge
+(1 row)
+
+select * from londiste.get_table_list('part1_set');
+   table_name    | local | merge_state | custom_snapshot | table_attrs | dropped_ddl | copy_role | copy_pos | dest_table 
+-----------------+-------+-------------+-----------------+-------------+-------------+-----------+----------+------------
+ public.tblmerge | t     |             |                 |             |             |           |        0 | 
+(1 row)
+
+select * from londiste.get_table_list('part2_set');
+   table_name    | local | merge_state | custom_snapshot | table_attrs | dropped_ddl | copy_role | copy_pos | dest_table 
+-----------------+-------+-------------+-----------------+-------------+-------------+-----------+----------+------------
+ public.tblmerge | t     |             |                 |             |             |           |        0 | 
+(1 row)
+
+select * from londiste.get_table_list('combined_set');
+   table_name    | local | merge_state | custom_snapshot | table_attrs | dropped_ddl | copy_role | copy_pos | dest_table 
+-----------------+-------+-------------+-----------------+-------------+-------------+-----------+----------+------------
+ public.tblmerge | t     | ok          |                 |             |             |           |        0 | 
+(1 row)
+
+select * from londiste.local_set_table_state('part1_set', 'public.tblmerge', null, 'in-copy');
+ ret_code |                   ret_note                   
+----------+----------------------------------------------
+      200 | Table public.tblmerge state set to 'in-copy'
+(1 row)
+
+select * from londiste.local_set_table_state('part2_set', 'public.tblmerge', null, 'in-copy');
+ ret_code |                   ret_note                   
+----------+----------------------------------------------
+      200 | Table public.tblmerge state set to 'in-copy'
+(1 row)
+
+select * from londiste.get_table_list('part1_set');
+   table_name    | local | merge_state | custom_snapshot | table_attrs | dropped_ddl | copy_role | copy_pos | dest_table 
+-----------------+-------+-------------+-----------------+-------------+-------------+-----------+----------+------------
+ public.tblmerge | t     | in-copy     |                 |             |             | lead      |        0 | 
+(1 row)
+
+select * from londiste.get_table_list('part2_set');
+   table_name    | local | merge_state | custom_snapshot | table_attrs | dropped_ddl | copy_role | copy_pos | dest_table 
+-----------------+-------+-------------+-----------------+-------------+-------------+-----------+----------+------------
+ public.tblmerge | t     | in-copy     |                 |             |             | wait-copy |        1 | 
+(1 row)
+
+select * from londiste.local_set_table_struct('part1_set', 'public.tblmerge', 'create index;');
+ ret_code |      ret_note       
+----------+---------------------
+      200 | Table struct stored
+(1 row)
+
+select * from londiste.get_table_list('part1_set');
+   table_name    | local | merge_state | custom_snapshot | table_attrs |  dropped_ddl  | copy_role | copy_pos | dest_table 
+-----------------+-------+-------------+-----------------+-------------+---------------+-----------+----------+------------
+ public.tblmerge | t     | in-copy     |                 |             | create index; | lead      |        0 | 
+(1 row)
+
+select * from londiste.get_table_list('part2_set');
+   table_name    | local | merge_state | custom_snapshot | table_attrs | dropped_ddl |  copy_role  | copy_pos | dest_table 
+-----------------+-------+-------------+-----------------+-------------+-------------+-------------+----------+------------
+ public.tblmerge | t     | in-copy     |                 |             |             | wait-replay |        1 | 
+(1 row)
+
+select * from londiste.local_set_table_state('part2_set', 'public.tblmerge', null, 'catching-up');
+ ret_code |                     ret_note                     
+----------+--------------------------------------------------
+      200 | Table public.tblmerge state set to 'catching-up'
+(1 row)
+
+select * from londiste.get_table_list('part1_set');
+   table_name    | local | merge_state | custom_snapshot | table_attrs |  dropped_ddl  | copy_role | copy_pos | dest_table 
+-----------------+-------+-------------+-----------------+-------------+---------------+-----------+----------+------------
+ public.tblmerge | t     | in-copy     |                 |             | create index; | lead      |        0 | 
+(1 row)
+
+select * from londiste.get_table_list('part2_set');
+   table_name    | local | merge_state | custom_snapshot | table_attrs | dropped_ddl |  copy_role  | copy_pos | dest_table 
+-----------------+-------+-------------+-----------------+-------------+-------------+-------------+----------+------------
+ public.tblmerge | t     | catching-up |                 |             |             | wait-replay |        0 | 
+(1 row)
+
+select * from londiste.local_set_table_state('part1_set', 'public.tblmerge', null, 'catching-up');
+ ret_code |                     ret_note                     
+----------+--------------------------------------------------
+      200 | Table public.tblmerge state set to 'catching-up'
+(1 row)
+
+select * from londiste.get_table_list('part1_set');
+   table_name    | local | merge_state | custom_snapshot | table_attrs |  dropped_ddl  | copy_role | copy_pos | dest_table 
+-----------------+-------+-------------+-----------------+-------------+---------------+-----------+----------+------------
+ public.tblmerge | t     | catching-up |                 |             | create index; |           |        0 | 
+(1 row)
+
+select * from londiste.get_table_list('part2_set');
+   table_name    | local | merge_state | custom_snapshot | table_attrs | dropped_ddl |  copy_role  | copy_pos | dest_table 
+-----------------+-------+-------------+-----------------+-------------+-------------+-------------+----------+------------
+ public.tblmerge | t     | catching-up |                 |             |             | wait-replay |        0 | 
+(1 row)
+
+select * from londiste.local_set_table_struct('part1_set', 'public.tblmerge', null);
+ ret_code |      ret_note       
+----------+---------------------
+      200 | Table struct stored
+(1 row)
+
+select * from londiste.get_table_list('part1_set');
+   table_name    | local | merge_state | custom_snapshot | table_attrs | dropped_ddl | copy_role | copy_pos | dest_table 
+-----------------+-------+-------------+-----------------+-------------+-------------+-----------+----------+------------
+ public.tblmerge | t     | catching-up |                 |             |             |           |        0 | 
+(1 row)
+
+select * from londiste.get_table_list('part2_set');
+   table_name    | local | merge_state | custom_snapshot | table_attrs | dropped_ddl | copy_role | copy_pos | dest_table 
+-----------------+-------+-------------+-----------------+-------------+-------------+-----------+----------+------------
+ public.tblmerge | t     | catching-up |                 |             |             |           |        0 | 
+(1 row)
+
+-- test automatic registration on combined-root
+select * from londiste.global_add_table('part1_set', 'tblauto');
+ ret_code |       ret_note       
+----------+----------------------
+      200 | Table added: tblauto
+(1 row)
+
+select * from londiste.global_add_table('part2_set', 'tblauto');
+ ret_code |       ret_note       
+----------+----------------------
+      200 | Table added: tblauto
+(1 row)
+
+select * from londiste.local_add_table('part1_set', 'tblauto', array['merge_all', 'virtual_table'], 'handler=vtable');
+ ret_code |                   ret_note                   
+----------+----------------------------------------------
+      200 | Table added with no triggers: public.tblauto
+(1 row)
+
+select * from londiste.get_table_list('part2_set');
+   table_name    | local | merge_state | custom_snapshot |  table_attrs   | dropped_ddl | copy_role | copy_pos | dest_table 
+-----------------+-------+-------------+-----------------+----------------+-------------+-----------+----------+------------
+ public.tblmerge | t     | catching-up |                 |                |             |           |        0 | 
+ public.tblauto  | t     | ok          |                 | handler=vtable |             |           |        0 | 
+(2 rows)
+
+select * from londiste.get_table_list('combined_set');
+   table_name    | local | merge_state | custom_snapshot |  table_attrs   | dropped_ddl | copy_role | copy_pos | dest_table 
+-----------------+-------+-------------+-----------------+----------------+-------------+-----------+----------+------------
+ public.tblmerge | t     | ok          |                 |                |             |           |        0 | 
+ public.tblauto  | t     | ok          |                 | handler=vtable |             |           |        0 | 
+(2 rows)
+
+--
+-- Test all combinations on 3-node merge
+--
+select * from londiste.global_add_table('part3_set', 'tblmerge');
+ ret_code |       ret_note        
+----------+-----------------------
+      200 | Table added: tblmerge
+(1 row)
+
+\set ECHO off
+select * from testmatrix();
+     p1s      |     p2s      |     p3s      |     p1r     |     p2r     |     p3r     
+--------------+--------------+--------------+-------------+-------------+-------------
+ !catching-up | catching-up  | catching-up  | NULL        | wait-replay | wait-replay
+ !catching-up | catching-up  | in-copy      | wait-replay | wait-replay | wait-replay
+ !catching-up | in-copy      | catching-up  | wait-replay | wait-replay | wait-replay
+ !catching-up | in-copy      | in-copy      | wait-replay | wait-replay | wait-replay
+ !in-copy     | catching-up  | catching-up  | lead        | wait-replay | wait-replay
+ !in-copy     | catching-up  | in-copy      | lead        | wait-replay | wait-replay
+ !in-copy     | in-copy      | catching-up  | lead        | wait-replay | wait-replay
+ !in-copy     | in-copy      | in-copy      | lead        | wait-replay | wait-replay
+ catching-up  | !catching-up | catching-up  | wait-replay | NULL        | wait-replay
+ catching-up  | !catching-up | in-copy      | wait-replay | wait-replay | wait-replay
+ catching-up  | !in-copy     | catching-up  | wait-replay | lead        | wait-replay
+ catching-up  | !in-copy     | in-copy      | wait-replay | lead        | wait-replay
+ catching-up  | catching-up  | !catching-up | wait-replay | wait-replay | NULL
+ catching-up  | catching-up  | !in-copy     | wait-replay | wait-replay | lead
+ catching-up  | catching-up  | catching-up  | NULL        | NULL        | NULL
+ catching-up  | catching-up  | in-copy      | NULL        | NULL        | wait-replay
+ catching-up  | in-copy      | !catching-up | wait-replay | wait-replay | wait-replay
+ catching-up  | in-copy      | !in-copy     | wait-replay | wait-replay | lead
+ catching-up  | in-copy      | catching-up  | NULL        | wait-replay | NULL
+ catching-up  | in-copy      | in-copy      | NULL        | wait-replay | wait-replay
+ in-copy      | !catching-up | catching-up  | wait-replay | wait-replay | wait-replay
+ in-copy      | !catching-up | in-copy      | wait-replay | wait-replay | wait-replay
+ in-copy      | !in-copy     | catching-up  | wait-replay | lead        | wait-replay
+ in-copy      | !in-copy     | in-copy      | wait-replay | lead        | wait-replay
+ in-copy      | catching-up  | !catching-up | wait-replay | wait-replay | wait-replay
+ in-copy      | catching-up  | !in-copy     | wait-replay | wait-replay | lead
+ in-copy      | catching-up  | catching-up  | wait-replay | NULL        | NULL
+ in-copy      | catching-up  | in-copy      | wait-replay | NULL        | wait-replay
+ in-copy      | in-copy      | !catching-up | wait-replay | wait-replay | wait-replay
+ in-copy      | in-copy      | !in-copy     | wait-replay | wait-replay | lead
+ in-copy      | in-copy      | catching-up  | wait-replay | wait-replay | NULL
+ in-copy      | in-copy      | in-copy      | lead        | wait-copy   | wait-copy
+(32 rows)
+
+-- test dropped ddl restore
+create table ddlrestore (
+    id int4,
+    data1 text,
+    data2 text
+);
+select count(*) from pg_indexes where schemaname='public' and tablename='ddlrestore';
+ count 
+-------
+     0
+(1 row)
+
+insert into londiste.table_info (queue_name, table_name, local, merge_state, dropped_ddl)
+values ('part1_set', 'public.ddlrestore', true, 'in-copy', '
+ALTER TABLE ddlrestore ADD CONSTRAINT cli_pkey PRIMARY KEY (id);
+CREATE INDEX idx_data1 ON ddlrestore USING btree (data1);
+CREATE INDEX idx_data2 ON ddlrestore USING btree (data2);
+');
+select * from londiste.local_remove_table('part1_set', 'public.ddlrestore');
+ ret_code |             ret_note             
+----------+----------------------------------
+      200 | Table removed: public.ddlrestore
+(1 row)
+
+select count(*) from pg_indexes where schemaname='public' and tablename='ddlrestore';
+ count 
+-------
+     3
+(1 row)
+

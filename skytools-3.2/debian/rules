@@ -1,0 +1,49 @@
+#!/usr/bin/make -f
+# -*- makefile -*-
+
+# Uncomment this to turn on verbose mode.
+#export DH_VERBOSE=1
+
+SRCDIR      = $(CURDIR)
+PKGVERS     = $(shell dpkg-parsechangelog | awk -F '[:-]' '/^Version:/ { print substr($$2, 2) }')
+ORIG_EXCLUDE=--exclude-vcs --exclude=debian
+
+PG_BUILDEXT = pg_buildext
+
+include /usr/share/postgresql-common/pgxs_debian_control.mk
+
+config.mak:
+	#./autogen.sh
+	./configure --prefix=/usr --with-asciidoc --with-sk3-subdir
+
+override_dh_auto_configure: config.mak
+
+override_dh_auto_clean: config.mak
+	$(MAKE) -C doc realclean
+	dh_auto_clean -- distclean
+	for version in `cat $(CURDIR)/debian/pgversions`; do \
+		rm -rf "debian/postgresql-$${version}-pgq3"; \
+	done
+
+# build sql modules for several postgres versions
+override_dh_auto_install: config.mak
+	mkdir -p $(CURDIR)/debian/tmp
+	dh_auto_install
+	$(MAKE) -C doc htmlinstall DESTDIR=$(CURDIR)/debian/tmp
+	# now care about any previous supported versions
+	for version in $$($(PG_BUILDEXT) supported-versions $(CURDIR)); do \
+		echo "### Building for PostgreSQL $$version" && \
+		make -C sql clean install \
+			PG_CONFIG=/usr/lib/postgresql/$$version/bin/pg_config \
+			DESTDIR=$(CURDIR)/debian/tmp \
+		|| exit 1 ; \
+	done
+
+orig: config.mak
+	rm -rf dist
+	make tgz
+	mv dist/*.tar.gz ../skytools3_$(PKGVERS).orig.tar.gz
+
+%:
+	dh $@
+
