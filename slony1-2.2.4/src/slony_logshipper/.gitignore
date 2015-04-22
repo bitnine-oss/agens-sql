@@ -1,0 +1,5 @@
+slony_logshipper
+parser.c
+y.tab.h
+scan.c
+*.o

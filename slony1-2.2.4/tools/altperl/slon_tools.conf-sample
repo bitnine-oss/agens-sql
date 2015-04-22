@@ -1,0 +1,197 @@
+# 
+# Author: Christopher Browne
+# Copyright 2004-2009 Afilias Canada
+# Revised extensively by Steve Simms
+
+# Keeping the following three lines for backwards compatibility in
+# case this gets incorporated into a 1.0.6 release.
+#
+# TODO: The scripts should check for an environment variable
+# containing the location of a configuration file.  That would
+# simplify this configuration file and allow Slony-I tools to still work
+# in situations where it doesn't exist.
+#
+if ($ENV{"SLONYNODES"}) {
+    require $ENV{"SLONYNODES"};
+} else {
+
+    # The name of the replication cluster.  This will be used to
+    # create a schema named _$CLUSTER_NAME in the database which will
+    # contain Slony-related data.
+    $CLUSTER_NAME = 'replication';
+
+    # The directory where Slony store PID files.  This
+    # directory will need to be writable by the user that invokes
+    # Slony.
+    $PIDFILE_DIR = '/var/run/slony1';
+
+    # PID file prefix. Files will be generated as $PIDFILE_PREFIX_node#
+    # in PIDFILE_DIR
+    # If not defined, default to $CLUSTER_NAME
+    # $PIDFILE_PREFIX =
+
+    # The directory where Slony should record log messages.  This
+    # directory will need to be writable by the user that invokes
+    # Slony.
+    $LOGDIR = '/var/log/slony1';
+
+    # (Optional) If you would like to use Apache's rotatelogs tool to
+    # manage log output, uncomment the following line and ensure that
+    # it points to the executable.
+    #
+    # $APACHE_ROTATOR = '/usr/local/apache/bin/rotatelogs';
+
+    # Log line suffix for Slony-I log. For options, look at date(1) 
+    # man page.
+    #
+    # $LOG_NAME_SUFFIX = '%a';
+
+    # SYNC check interval (slon -s option)
+    # $SYNC_CHECK_INTERVAL = 1000;
+
+    # Which node is the default master for all sets?
+    $MASTERNODE = 1;
+
+    # Which debugging level to use?  [0-4]
+    $DEBUGLEVEL = 2;
+
+    # WATCHDOG configuration
+    # WatchDog inicialization (default 1 as in slon_start)
+    # $START_WATCHDOG = 1;
+
+    # Watchdog Sleep Time (default 30 as in slon_start)
+    $SLEEP_TIME = 60;
+
+    # Watchdog version to use 1 or 2 (default 1)
+    # $WATCHDOG_VERSION = 1;
+    # Be verbose (default 1)
+    $WATCHDOG_VERBOSE = 0;
+
+    # Include add_node lines for each node in the cluster.  Be sure to
+    # use host names that will resolve properly on all nodes
+    # (i.e. only use 'localhost' if all nodes are on the same host).
+    # Also, note that the user must be a superuser account.
+
+    add_node(node     => 1,
+	     host     => 'server1',
+	     dbname   => 'database',
+	     port     => 5432,
+	     user     => 'postgres',
+             password => '',
+             config   => '/path/to/node1_config_file.conf');
+
+    add_node(node     => 2,
+	     host     => 'server2',
+	     dbname   => 'database',
+	     port     => 5432,
+	     user     => 'postgres',
+             password => '',
+             config   => '/path/to/node2_config_file.conf');
+
+    add_node(node     => 3,
+	     host     => 'server3',
+	     dbname   => 'database',
+	     port     => 5432,
+	     user     => 'postgres',
+             password => '',
+             config   => '/path/to/node3_config_file.conf');
+
+    # If the node should only receive event notifications from a
+    # single node (e.g. if it can't access the other nodes), you can
+    # specify a single parent.  The downside to this approach is that
+    # if the parent goes down, your node becomes stranded.
+
+    add_node(node     => 4,
+	     parent   => 3,
+	     host     => 'server4',
+	     dbname   => 'database',
+	     port     => 5432,
+	     user     => 'postgres',
+             password => '',
+             config   => '/path/to/node4_config_file.conf');
+
+}
+
+# The $SLONY_SETS variable contains information about all of the sets
+# in your cluster.
+
+$SLONY_SETS = {
+
+    # A unique name for the set
+    "set1_name" => {
+
+	# The set_id, also unique
+	"set_id" => 1,
+
+	# Uncomment the following line to change the origin
+	# (a.k.a. master) for the set.  The default is $MASTERNODE.
+	#
+	# "origin" => 1,
+
+	# If this is set to 1, table and sequence names will be folded to lower-case
+	# to match the way that PostgreSQL handles unquoted names.
+	# For example, CREATE TABLE ACCOUNT(...) actually turns into CREATE TABLE account(...);
+	# unless you put quotes around the table name
+	# Slony always quotes object names, so you may get a mis-match between the table-name
+	# as PostgreSQL understands it, and as Slony represents it.
+	# default value is 0
+	#
+	# foldCase => 0,
+
+	# The first ID to use for tables and sequences that are added
+	# to the replication cluster.  This must be unique across the
+	# cluster.
+	# 
+	# TODO: This should be determined automatically, which can be
+	# done fairly easily in most cases using psql.  create_set
+	# should derive it, and give an option to override it with a
+	# specific value.
+	"table_id"    => 1,
+	"sequence_id" => 1,
+
+	# This array contains a list of tables that already have
+	# primary keys.
+        "pkeyedtables" => [
+			   'TABLE1',
+			   'table2',
+			   ],
+
+	# For tables that have unique not null keys, but no primary
+	# key, enter their names and indexes here.
+	"keyedtables" => {
+	    'table3' => 'index_on_table3',
+	    'table4' => 'index_on_table4',
+	},
+
+
+	# Sequences that need to be replicated should be entered here.
+	"sequences" => ['sequence1',
+			'sequence2',
+			],
+    },
+
+    "set2" => {
+	"set_id"       => 2,
+	"table_id"     => 6,
+	"sequence_id"  => 3,
+	"pkeyedtables" => ["table6"],
+	"keyedtables"  => {},
+	"sequences"    => [],
+    },
+
+};
+
+# Keeping the following three lines for backwards compatibility in
+# case this gets incorporated into a 1.0.6 release.
+#
+# TODO: The scripts should check for an environment variable
+# containing the location of a configuration file.  That would
+# simplify this configuration file and allow Slony tools to still work
+# in situations where it doesn't exist.
+#
+if ($ENV{"SLONYSET"}) {
+    require $ENV{"SLONYSET"};
+}
+
+# Please do not add or change anything below this point.
+1;

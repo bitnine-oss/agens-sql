@@ -1,0 +1,63 @@
+<!--  -->
+
+<!entity intro              SYSTEM "intro.sgml">
+<!entity prerequisites      SYSTEM "prerequisites.sgml">
+<!entity installation       SYSTEM "installation.sgml">
+<!entity slonik             SYSTEM "slonik.sgml">
+<!entity concepts           SYSTEM "concepts.sgml">
+<!entity cluster            SYSTEM "cluster.sgml">
+<!entity adminscripts       SYSTEM "adminscripts.sgml">
+<!entity startslons         SYSTEM "startslons.sgml">
+<!entity subscribenodes     SYSTEM "subscribenodes.sgml">
+<!entity monitoring         SYSTEM "monitoring.sgml">
+<!entity maintenance        SYSTEM "maintenance.sgml">
+<!entity reshape            SYSTEM "reshape.sgml">
+<!entity failover           SYSTEM "failover.sgml">
+<!entity listenpaths        SYSTEM "listenpaths.sgml">
+<!entity plainpaths         SYSTEM "plainpaths.sgml">
+<!entity addthings          SYSTEM "addthings.sgml">
+<!entity ddlchanges         SYSTEM "ddlchanges.sgml">
+<!entity firstdb            SYSTEM "firstdb.sgml">
+<!entity help               SYSTEM "help.sgml">
+<!entity faq                SYSTEM "faq.sgml">
+<!entity reference          SYSTEM "reference.sgml">
+<!entity usingslonik        SYSTEM "usingslonik.sgml">
+<!entity versionupgrade     SYSTEM "versionupgrade.sgml">
+<!entity slonikref          SYSTEM "slonik_ref.sgml">
+<!entity slon               SYSTEM "slon.sgml">
+<!entity slonconf	    SYSTEM "slonconf.sgml">
+
+<!entity schemadoc          SYSTEM "schemadoc.sgml">
+
+<!entity history            SYSTEM "history.sgml">
+<!entity legal              SYSTEM "legal.sgml">
+<!entity notation           SYSTEM "notation.sgml">
+<!entity problems           SYSTEM "problems.sgml">
+<!entity slonybook          SYSTEM "slony.sgml">
+<!entity logshipfile        SYSTEM "logshipping.sgml">
+<!entity logshippingref SYSTEM "logshipping_ref.sgml">
+<!entity locking            SYSTEM "locking.sgml">
+<!entity testbed            SYSTEM "testbed.sgml">
+<!entity loganalysis        SYSTEM "loganalysis.sgml">
+<!entity slonyupgrade       SYSTEM "slonyupgrade.sgml">
+<!entity releasechecklist   SYSTEM "releasechecklist.sgml">
+<!entity raceconditions     SYSTEM "raceconditions.sgml">
+<!entity partitioning       SYSTEM "partitioning.sgml">
+<!entity triggers           SYSTEM "triggers.sgml">
+<!entity startingstopping   SYSTEM "startingstopping.sgml">
+<!entity limitations        SYSTEM "limitations.sgml">
+<!entity events             SYSTEM "events.sgml" >
+<!entity performance        SYSTEM "performance.sgml">
+<!entity security           SYSTEM "security.sgml">
+<!-- back matter -->
+<!entity biblio     SYSTEM "biblio.sgml">
+<!entity bookindex  SYSTEM "bookindex.sgml">
+
+<!--
+ Some parts of the documentation are also source for some plain-text
+ files used during installation.  To selectively ignore or include
+ some parts (e.g., external xref's) when generating these files we use
+ these parameter entities.  See also standalone-install.sgml.
+ -->
+<!entity % standalone-ignore  "INCLUDE">
+<!entity % standalone-include "IGNORE">

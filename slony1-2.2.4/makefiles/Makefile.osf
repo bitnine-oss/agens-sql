@@ -1,0 +1,11 @@
+CFLAGS += -I/usr/include
+
+AROPT = crs
+DLSUFFIX = .so
+CFLAGS_SL =
+rpath = -rpath $(pglibdir)
+
+%.so: $(SO_OBJS)
+	$(LD) -shared -expect_unresolved '*' -o $@ $<
+
+sqlmansect = 5

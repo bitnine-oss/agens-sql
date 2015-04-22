@@ -1,0 +1,5 @@
+# Shell configuration for DISORDER tests
+
+# Where is the clustertest-framework?
+#   
+CLUSTERTESTJAR=/var/lib/postgresql/PostgreSQL/clustertest-framework/build/jar/clustertest-coordinator.jar
