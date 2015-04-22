@@ -25,7 +25,7 @@ cp $INSTALL_PATH/postgis/extensions/postgis_tiger_geocoder/sql/* $INSTALL_PATH/p
 /usr/bin/install -c -m 755 $INSTALL_PATH/postgis/postgis/libproj.so.9.0.0 '$INSTALL_PATH/pgsql/lib/libproj.so.9.0.0'
 /usr/bin/install -c -m 755 $INSTALL_PATH/postgis/postgis/libgdal.so.1.18.2 '$INSTALL_PATH/pgsql/lib/libgdal.so.1.18.2'
 /usr/bin/install -c -m 755 $INSTALL_PATH/postgis/postgis/libgeos-3.4.2.so '$INSTALL_PATH/pgsql/lib/libgeos-3.4.2.so'
-
+/usr/bin/install -c -m 755 $INSTALL_PATH/postgis/postgis/libjson-c.so.2.0.1 '$INSTALL_PATH/pgsql/lib/libjson-c.so.2.0.1'
 
 ln -s $INSTALL_PATH/pgsql/lib/libgdal.so.1.18.2 $INSTALL_PATH/pgsql/lib/libgdal.so
 ln -s $INSTALL_PATH/pgsql/lib/libgdal.so.1.18.2 $INSTALL_PATH/pgsql/lib/libgdal.so.1
@@ -34,4 +34,5 @@ ln -s $INSTALL_PATH/pgsql/lib/libgeos_c.so.1.8.2 $INSTALL_PATH/pgsql/lib/libgeos
 ln -s $INSTALL_PATH/pgsql/lib/libproj.so.9.0.0 $INSTALL_PATH/pgsql/lib/libproj.so
 ln -s $INSTALL_PATH/pgsql/lib/libproj.so.9.0.0 $INSTALL_PATH/pgsql/lib/libproj.so.9
 ln -s $INSTALL_PATH/pgsql/lib/libgeos-3.4.2.so $INSTALL_PATH/pgsql/lib/libgeos.so
-
+ln -s $INSTALL_PATH/pgsql/lib/libjson-c.so.2.0.1 $INSTALL_PATH/pgsql/lib/libjson-c.so
+ln -s $INSTALL_PATH/pgsql/lib/libjson-c.so.2.0.1 $INSTALL_PATH/pgsql/lib/libjson-c.so.2

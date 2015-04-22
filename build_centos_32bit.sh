@@ -54,6 +54,7 @@ cp /usr/local/lib/libgeos_c.so.1.8.2 ./postgis/
 cp /usr/local/lib/libproj.so.9.0.0 ./postgis/
 cp /usr/local/lib/libgdal.so.1.18.2 ./postgis/
 cp /usr/local/lib/libgeos-3.4.2.so ./postgis/
+cp /lib/libjson-c.so.2.0.1 ./postgis/
 cd ..
 
 
