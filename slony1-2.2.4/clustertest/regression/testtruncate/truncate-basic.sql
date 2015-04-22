@@ -1,1 +1,0 @@
-truncate line_items;

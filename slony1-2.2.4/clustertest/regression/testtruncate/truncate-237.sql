@@ -1,1 +1,0 @@
-truncate test_237;
