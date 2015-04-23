@@ -5,13 +5,19 @@ if [ $(id -u) != "0" ]; then
 fi
 
 # set env_path
-echo "export PATH=$PATH:$INSTALL_PATH/pgsql/bin" >> /etc/bash.bashrc
-echo "export LD_LIBRARY_PATH=$INSTALL_PATH/pgsql/lib:$LD_LIBRARY_PATH" >> /etc/bash.bashrc
-source /etc/bash.bashrc
-
-echo "export PATH=$PATH:$INSTALL_PATH/pgsql/bin" >> /etc/bashrc
-echo "export LD_LIBRARY_PATH=$INSTALL_PATH/pgsql/lib:$LD_LIBRARY_PATH" >> /etc/bashrc
-source /etc/bashrc
+if [ -f "/etc/bash.bashrc" ]; then # Ubuntu
+	echo "export PATH=$PATH:$INSTALL_PATH/pgsql/bin" >> /etc/bash.bashrc
+	echo "export LD_LIBRARY_PATH=$INSTALL_PATH/pgsql/lib:$LD_LIBRARY_PATH" >> /etc/bash.bashrc
+	source /etc/bash.bashrc
+elif [ -f "/etc/bashrc" ]; then # Centos
+	echo "export PATH=$PATH:$INSTALL_PATH/pgsql/bin" >> /etc/bashrc
+	echo "export LD_LIBRARY_PATH=$INSTALL_PATH/pgsql/lib:$LD_LIBRARY_PATH" >> /etc/bashrc
+	source /etc/bashrc
+else				# Solairs
+        echo "export PATH=$PATH:$INSTALL_PATH/pgsql/bin" >> /etc/profile
+        echo "export LD_LIBRARY_PATH=$INSTALL_PATH/pgsql/lib:$LD_LIBRARY_PATH" >> /etc/profile
+        source /etc/profile
+fi
 
 # adduser postgres
 username="postgres"
