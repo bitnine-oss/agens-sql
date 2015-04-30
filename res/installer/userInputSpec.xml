@@ -1,20 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <userInput>
     <panel id="panel.path">
-	<field type="title" id="panel.proxy.title" />
-	<field type="staticText" id="panel.proxy.explanation" />
+	<field type="title" id="panel.getinfo.title" />
+	<field type="staticText" id="panel.getinfo.explanation" />
 	<field type="space" />
 	<field type="divider" />
 	<field type="space" />
 
-	<field type="text" variable="agens-sql-data.path">
+	<field type="text" variable="agens-sql.superuser">
+	    <spec txt="Database SuperUser:" id="input.superuser" size="25" />
+	</field>
+	<field type="space" />
+	<field type="divider" />
+	<field type="space" />
+
+        <field type="text" variable="agens-sql.port">
+            <spec txt="Port Number:" id="input.port" size="4" />
+        </field>
+        <field type="space" />
+        <field type="divider" />
+        <field type="space" />
+
+
+	<field type="text" variable="agens-sql.login_db">
+	    <spec txt="Database name:" id="input.dbname" size="25" />
+	</field>
+	<field type="space" />
+	<field type="divider" />
+	<field type="space" />
+
+	<field type="text" variable="agens-sql.data_path">
 	    <spec txt="install path:" id="input.path" size="25" />
 	</field>
 	<field type="space" />
 	<field type="divider" />
 	<field type="space" />
 
-	<field type="password" align="left" variable="postgres.password">
+	<field type="password" align="left" variable="agens.password">
 	    <spec>	
 		<pwd txt="The Password:" size="25" set=""/>
 		<pwd txt="Retype Password:" size="25" set=""/>

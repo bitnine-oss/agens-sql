@@ -52,8 +52,11 @@
 
 
     <variables>
-	<variable name="agens-sql-data.path" value="$INSTALL_PATH/pgsql/data" />
-	<variable name="postgres.password" value="" />
+	<variable name="agens-sql.superuser" value="agens" />
+	<variable name="agens-sql.login_db" value="agens-sql" />
+	<variable name="agens-sql.data_path" value="$INSTALL_PATH/pgsql/data" />
+	<variable name="agens-sql.password" value="" />
+        <variable name="agens-sql.port" value="5456" />
     </variables>
 
 
@@ -87,13 +90,10 @@
             <file src="res/installer/install.xml" targetdir="$INSTALL_PATH/installer/res"/>
             <file src="res/installer/userInputSpec.xml" targetdir="$INSTALL_PATH/installer/res"/>
             <file src="res/installer/compile_pgsql.sh" targetdir="$INSTALL_PATH/installer/res"/>
-            <file src="res/installer/run_server.sh" targetdir="$INSTALL_PATH/installer/res"/>
 
 
             <executable targetfile="$INSTALL_PATH/installer/res/compile_pgsql.sh" stage="postinstall" keep="true"/>
-            <executable targetfile="$INSTALL_PATH/installer/res/run_server.sh"/>
             <parsable targetfile="$INSTALL_PATH/installer/res/compile_pgsql.sh"/>
-            <parsable targetfile="$INSTALL_PATH/installer/res/run_server.sh"/>
         </pack>
 
 <!-- pgpool -->

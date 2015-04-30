@@ -11,17 +11,30 @@ if [ $(id -u) != "0" ]; then
         exit 1
 fi
 
-rm -r /usr/local/pgsql
-rm -r /usr/local/pgpool
-
 # postgres 설치
 yum update -y && yum upgrade -y
 yum groupinstall -y "Development Tools"
 yum install -y gcc zlib-devel.* readline-devel.*
 yum install -y openjade.* docbook-style-dsssl.noarch
 
+# --with-perl
+yum install -y perl-YAML* perl-ExtUtils*
+# --with-gssapi
+yum install -y krb5-*
+# --with-openssl
+yum install -y openssl-devel.*
+# --with-libxslt
+yum install libxslt-devel.*
+# --with-ldap
+yum install openldap-devel.*
+# --with-tcl
+yum install tcl-devel.*
+
+
+
 cd postgresql-9.4.1/
-./configure; make world; make install-world;
+./configure --with-pgport=5456 --with-gssapi --with-ldap --with-tcl --with-openssl --enable-nls --enable-debug --enable-cassert --with-perl --with-python --with-libxml --with-libxslt;
+make world; make install-world;
 cd ..
 
 
