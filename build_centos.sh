@@ -124,26 +124,12 @@ cd ..
 
 # postgres 재설치(인스톨러에서 postgres와 postgis를 구분 짓기 위함)
 cd postgresql-9.4.1/
-make clean; make distclean;
+make uninstall; make clean; make distclean;
 rm -rf /usr/local/pgsql
-./configure; make world; make install-world;
+./configure --with-pgport=5456 --with-gssapi --with-ldap --with-tcl --with-openssl --enable-nls --enable-debug --enable-cassert --with-perl --with-python --with-libxml --with-libxslt;
+make world; make install-world;
 cd ..
 
-
-# initialize : useradd + mkdir + shown + initdb
-username="postgres"
-password=""
-egrep "^$username" /etc/passwd >/dev/null
-if [ $? -eq 0 ]; then
-        echo "$username exists!"
-else
-        pass=$(perl -e 'print crypt($ARGV[0], "password")' $password)
-        useradd -m -p $pass $username
-        [ $? -eq 0 ] && echo "User has been added to system!" || echo "Failed to add a user!"
-fi
-mkdir /usr/local/pgsql/data
-chown postgres /usr/local/pgsql/data
-su - postgres -c "/usr/local/pgsql/bin/initdb -D /usr/local/pgsql/data"
 
 
 # izpack을 구동하기 위해 필요한 java 설치
