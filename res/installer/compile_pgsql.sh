@@ -23,13 +23,6 @@ else
 	[ $? -eq 0 ] && echo "User has been added to system!" || echo "Failed to add a user!"
 fi
 
-
-
-# bin
-chmod -R a+x $AGENS_HOME/pgsql/bin
-rm $AGENS_HOME/pgsql/bin/postmaster
-ln -s postgres $AGENS_HOME/pgsql/bin/postmaster
-
 # create password file
 echo "$password" > $agens_passwd_file
 chown $USER:$USER $agens_passwd_file
