@@ -117,7 +117,7 @@ cd ..
 
 # slony
 cd slony1-2.2.4/
-./configure --prefix=/usr/local/slony --with-pgconfigdir=/usr/local/pgsql/bin
+./configure --with-pgconfigdir=/usr/local/pgsql/bin
 make; make install;
 cd ..
 

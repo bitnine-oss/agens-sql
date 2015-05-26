@@ -79,8 +79,9 @@
 
 
 
-<!-- pgsql -->
     <packs>
+
+	<!-- pgsql -->
         <pack name="pgsql" required="yes">
             <description>PostgreSQL</description>
             <fileset dir="/usr/local/pgsql" targetdir="$INSTALL_PATH/pgsql"/>
@@ -96,7 +97,8 @@
             <parsable targetfile="$INSTALL_PATH/installer/res/compile_pgsql.sh"/>
         </pack>
 
-<!-- pgpool -->
+
+	<!-- pgpool -->
 	<pack name="pgpool" required="no">
 	    <description>pgpool-II</description>
 	    <fileset dir="/usr/local/pgpool" targetdir="$INSTALL_PATH/pgpool"/>
@@ -105,8 +107,9 @@
 	    <executable targetfile="$INSTALL_PATH/installer/res/compile_pgpool.sh" stage="postinstall" keep="true" />
             <parsable targetfile="$INSTALL_PATH/installer/res/compile_pgpool.sh"/>
 	</pack>
+
     
-<!-- postgis -->
+	<!-- postgis -->
         <pack name="postgis" required="no">
             <description>postgis</description>
             <fileset dir="postgis-2.1.6" targetdir="$INSTALL_PATH/postgis"/>
@@ -117,7 +120,7 @@
         </pack>
 
 
-<!-- pgbouncer -->
+	<!-- pgbouncer -->
         <pack name="pgbouncer" required="no">
             <description>pgbouncer</description>
             <fileset dir="/usr/local/pgbouncer" targetdir="$INSTALL_PATH/pgbouncer"/>
@@ -128,8 +131,7 @@
         </pack>
 
 
-
-<!-- skytools -->
+	<!-- skytools -->
         <pack name="skytools" required="no">
             <description>skytools</description>
             <fileset dir="/usr/local/skytools" targetdir="$INSTALL_PATH/skytools"/>
@@ -140,10 +142,7 @@
         </pack>
 
 
-
-
-
-<!-- pg_hint_plan -->
+	<!-- pg_hint_plan -->
         <pack name="pg_hint_plan" required="no">
             <description>pg_hint_plan</description>
             <fileset dir="pg_hint_plan94-1.1.3" targetdir="$INSTALL_PATH/pg_hint_plan"/>
@@ -155,10 +154,7 @@
         </pack>
 
 
-
-
-
-<!-- plproxy -->
+	<!-- plproxy -->
         <pack name="plproxy" required="no">
             <description>plproxy</description>
             <fileset dir="plproxy" targetdir="$INSTALL_PATH/plproxy"/>
@@ -168,6 +164,16 @@
             <parsable targetfile="$INSTALL_PATH/installer/res/compile_plproxy.sh"/>
         </pack>
 
+
+	<!-- slony -->
+        <pack name="slony" required="no">
+            <description>slony</description>
+            <fileset dir="slony1-2.2.4" targetdir="$INSTALL_PATH/slony"/>
+
+            <file src="res/installer/compile_slony.sh" targetdir="$INSTALL_PATH/installer/res"/>
+            <executable targetfile="$INSTALL_PATH/installer/res/compile_slony.sh" stage="postinstall" keep="true" />
+            <parsable targetfile="$INSTALL_PATH/installer/res/compile_slony.sh"/>
+        </pack>
 
     </packs>
 
