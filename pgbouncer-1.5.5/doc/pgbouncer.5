@@ -1,0 +1,1076 @@
+'\" t
+.\"     Title: pgbouncer
+.\"    Author: [FIXME: author] [see http://docbook.sf.net/el/author]
+.\" Generator: DocBook XSL Stylesheets v1.76.1 <http://docbook.sf.net/>
+.\"      Date: 04/08/2015
+.\"    Manual: \ \&
+.\"    Source: \ \&
+.\"  Language: English
+.\"
+.TH "PGBOUNCER" "5" "04/08/2015" "\ \&" "\ \&"
+.\" -----------------------------------------------------------------
+.\" * Define some portability stuff
+.\" -----------------------------------------------------------------
+.\" ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.\" http://bugs.debian.org/507673
+.\" http://lists.gnu.org/archive/html/groff/2009-02/msg00013.html
+.\" ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.ie \n(.g .ds Aq \(aq
+.el       .ds Aq '
+.\" -----------------------------------------------------------------
+.\" * set default formatting
+.\" -----------------------------------------------------------------
+.\" disable hyphenation
+.nh
+.\" disable justification (adjust text to left margin only)
+.ad l
+.\" -----------------------------------------------------------------
+.\" * MAIN CONTENT STARTS HERE *
+.\" -----------------------------------------------------------------
+.SH "NAME"
+pgbouncer \- Lightweight connection pooler for PostgreSQL\&.
+.SH "SYNOPSIS"
+.sp
+.nf
+[databases]
+db = \&.\&.\&.
+.fi
+.sp
+.nf
+[pgbouncer]
+\&.\&.\&.
+.fi
+.SH "DESCRIPTION"
+.sp
+Config file is in "ini" format\&. Section names are between " and "\&. Lines starting with ";" or "" are taken as comments and ignored\&. The characters ";" and "" are not recognized when they appear later in the line\&.
+.SH "SECTION [PGBOUNCER]"
+.SS "Generic settings"
+.sp
+.it 1 an-trap
+.nr an-no-space-flag 1
+.nr an-break-flag 1
+.br
+.ps +1
+\fBlogfile\fR
+.RS 4
+.sp
+Specifies log file\&. Log file is kept open so after rotation kill \-HUP or on console RELOAD; should be done\&. Note: On Windows machines, the service must be stopped and started\&.
+.sp
+Default: not set\&.
+.RE
+.sp
+.it 1 an-trap
+.nr an-no-space-flag 1
+.nr an-break-flag 1
+.br
+.ps +1
+\fBpidfile\fR
+.RS 4
+.sp
+Specifies the pid file\&. Without a pidfile, daemonization is not allowed\&.
+.sp
+Default: not set\&.
+.RE
+.sp
+.it 1 an-trap
+.nr an-no-space-flag 1
+.nr an-break-flag 1
+.br
+.ps +1
+\fBlisten_addr\fR
+.RS 4
+.sp
+Specifies list of addresses, where to listen for TCP connections\&. You may also use * meaning "listen on all addresses"\&. When not set, only Unix socket connections are allowed\&.
+.sp
+Addresses can be specified numerically (IPv4/IPv6) or by name\&.
+.sp
+Default: not set
+.RE
+.sp
+.it 1 an-trap
+.nr an-no-space-flag 1
+.nr an-break-flag 1
+.br
+.ps +1
+\fBlisten_port\fR
+.RS 4
+.sp
+Which port to listen on\&. Applies to both TCP and Unix sockets\&.
+.sp
+Default: 6432
+.RE
+.sp
+.it 1 an-trap
+.nr an-no-space-flag 1
+.nr an-break-flag 1
+.br
+.ps +1
+\fBunix_socket_dir\fR
+.RS 4
+.sp
+Specifies location for Unix sockets\&. Applies to both listening socket and server connections\&. If set to an empty string, Unix sockets are disabled\&. Required for online reboot (\-R) to work\&. Note: Not supported on Windows machines\&.
+.sp
+Default: /tmp
+.RE
+.sp
+.it 1 an-trap
+.nr an-no-space-flag 1
+.nr an-break-flag 1
+.br
+.ps +1
+\fBunix_socket_mode\fR
+.RS 4
+.sp
+Filesystem mode for unix socket\&.
+.sp
+Default: 0777
+.RE
+.sp
+.it 1 an-trap
+.nr an-no-space-flag 1
+.nr an-break-flag 1
+.br
+.ps +1
+\fBunix_socket_group\fR
+.RS 4
+.sp
+Group name to use for unix socket\&.
+.sp
+Default: not set
+.RE
+.sp
+.it 1 an-trap
+.nr an-no-space-flag 1
+.nr an-break-flag 1
+.br
+.ps +1
+\fBuser\fR
+.RS 4
+.sp
+If set, specifies the Unix user to change to after startup\&. Works only if PgBouncer is started as root or if user is the same as the current user\&. Note: Not supported on Windows machines\&.
+.sp
+Default: not set
+.RE
+.sp
+.it 1 an-trap
+.nr an-no-space-flag 1
+.nr an-break-flag 1
+.br
+.ps +1
+\fBauth_file\fR
+.RS 4
+.sp
+The name of the file to load user names and passwords from\&. The file format is the same as the PostgreSQL pg_auth/pg_pwd file, so this setting can be pointed directly to one of those backend files\&.
+.sp
+Default: not set\&.
+.RE
+.sp
+.it 1 an-trap
+.nr an-no-space-flag 1
+.nr an-break-flag 1
+.br
+.ps +1
+\fBauth_type\fR
+.RS 4
+.sp
+How to authenticate users\&.
+.PP
+md5
+.RS 4
+Use MD5\-based password check\&.
+auth_file
+may contain both MD5\-encrypted or plain\-text passwords\&. This is the default authentication method\&.
+.RE
+.PP
+crypt
+.RS 4
+Use crypt(3) based password check\&.
+auth_file
+must contain plain\-text passwords\&.
+.RE
+.PP
+plain
+.RS 4
+Clear\-text password is sent over wire\&.
+.RE
+.PP
+trust
+.RS 4
+No authentication is done\&. Username must still exist in
+auth_file\&.
+.RE
+.PP
+any
+.RS 4
+Like the
+trust
+method, but the username given is ignored\&. Requires that all databases are configured to log in as specific user\&. Additionally, the console database allows any user to log in as admin\&.
+.RE
+.RE
+.sp
+.it 1 an-trap
+.nr an-no-space-flag 1
+.nr an-break-flag 1
+.br
+.ps +1
+\fBpool_mode\fR
+.RS 4
+.sp
+Specifies when a server connection can be reused by other clients\&.
+.PP
+session
+.RS 4
+Server is released back to pool after client disconnects\&. Default\&.
+.RE
+.PP
+transaction
+.RS 4
+Server is released back to pool after transaction finishes\&.
+.RE
+.PP
+statement
+.RS 4
+Server is released back to pool after query finishes\&. Long transactions spanning multiple statements are disallowed in this mode\&.
+.RE
+.RE
+.sp
+.it 1 an-trap
+.nr an-no-space-flag 1
+.nr an-break-flag 1
+.br
+.ps +1
+\fBmax_client_conn\fR
+.RS 4
+.sp
+Maximum number of client connections allowed\&. When increased then the file descriptor limits should also be increased\&. Note that actual number of file descriptors used is more than max_client_conn\&. Theoretical maximum used is:
+.sp
+.if n \{\
+.RS 4
+.\}
+.nf
+max_client_conn + (max_pool_size * total_databases * total_users)
+.fi
+.if n \{\
+.RE
+.\}
+.sp
+if each user connects under its own username to server\&. If a database user is specified in connect string (all users connect under same username), the theoretical maximum is:
+.sp
+.if n \{\
+.RS 4
+.\}
+.nf
+max_client_conn + (max_pool_size * total_databases)
+.fi
+.if n \{\
+.RE
+.\}
+.sp
+The theoretical maximum should be never reached, unless somebody deliberately crafts special load for it\&. Still, it means you should set the number of file descriptors to a safely high number\&.
+.sp
+Search for ulimit in your favourite shell man page\&. Note: ulimit does not apply in a Windows environment\&.
+.sp
+Default: 100
+.RE
+.sp
+.it 1 an-trap
+.nr an-no-space-flag 1
+.nr an-break-flag 1
+.br
+.ps +1
+\fBdefault_pool_size\fR
+.RS 4
+.sp
+How many server connections to allow per user/database pair\&. Can be overridden in the per\-database configuration\&.
+.sp
+Default: 20
+.RE
+.sp
+.it 1 an-trap
+.nr an-no-space-flag 1
+.nr an-break-flag 1
+.br
+.ps +1
+\fBmin_pool_size\fR
+.RS 4
+.sp
+Add more server connections to pool if below this number\&. Improves behaviour when usual load comes suddenly back after period of total inactivity\&.
+.sp
+Default: 0 (disabled)
+.RE
+.sp
+.it 1 an-trap
+.nr an-no-space-flag 1
+.nr an-break-flag 1
+.br
+.ps +1
+\fBreserve_pool_size\fR
+.RS 4
+.sp
+How many additional connections to allow to a pool\&. 0 disables\&.
+.sp
+Default: 0 (disabled)
+.RE
+.sp
+.it 1 an-trap
+.nr an-no-space-flag 1
+.nr an-break-flag 1
+.br
+.ps +1
+\fBreserve_pool_timeout\fR
+.RS 4
+.sp
+If a client has not been serviced in this many seconds, pgbouncer enables use of additional connections from reserve pool\&. 0 disables\&.
+.sp
+Default: 5\&.0
+.RE
+.sp
+.it 1 an-trap
+.nr an-no-space-flag 1
+.nr an-break-flag 1
+.br
+.ps +1
+\fBserver_round_robin\fR
+.RS 4
+.sp
+By default, pgbouncer reuses server connections in LIFO (last\-in, first\-out) manner, so that few connections get the most load\&. This gives best performance if you have a single server serving a database\&. But if there is TCP round\-robin behind a database IP, then it is better if pgbouncer also uses connections in that manner, thus achieving uniform load\&.
+.sp
+Default: 0
+.RE
+.sp
+.it 1 an-trap
+.nr an-no-space-flag 1
+.nr an-break-flag 1
+.br
+.ps +1
+\fBignore_startup_parameters\fR
+.RS 4
+.sp
+By default, PgBouncer allows only parameters it can keep track of in startup packets \- client_encoding, datestyle, timezone and standard_conforming_strings\&.
+.sp
+All others parameters will raise an error\&. To allow others parameters, they can be specified here, so that pgbouncer knows that they are handled by admin and it can ignore them\&.
+.sp
+Default: empty
+.RE
+.sp
+.it 1 an-trap
+.nr an-no-space-flag 1
+.nr an-break-flag 1
+.br
+.ps +1
+\fBdisable_pqexec\fR
+.RS 4
+.sp
+Disable Simple Query protocol (PQexec)\&. Unlike Extended Query protocol, Simple Query allows multiple queries in one packet, which allows some classes of SQL\-injection attacks\&. Disabling it can improve security\&. Obviously this means only clients that exclusively use Extended Query protocol will stay working\&.
+.sp
+Default: 0
+.RE
+.SS "Log settings"
+.sp
+.it 1 an-trap
+.nr an-no-space-flag 1
+.nr an-break-flag 1
+.br
+.ps +1
+\fBsyslog\fR
+.RS 4
+.sp
+Toggles syslog on/off As for windows environment, eventlog is used instead\&.
+.sp
+Default: 0
+.RE
+.sp
+.it 1 an-trap
+.nr an-no-space-flag 1
+.nr an-break-flag 1
+.br
+.ps +1
+\fBsyslog_ident\fR
+.RS 4
+.sp
+Under what name to send logs to syslog\&.
+.sp
+Default: pgbouncer (program name)
+.RE
+.sp
+.it 1 an-trap
+.nr an-no-space-flag 1
+.nr an-break-flag 1
+.br
+.ps +1
+\fBsyslog_facility\fR
+.RS 4
+.sp
+Under what facility to send logs to syslog\&. Possibilities: auth, authpriv, daemon, user, local0\-7
+.sp
+Default: daemon
+.RE
+.sp
+.it 1 an-trap
+.nr an-no-space-flag 1
+.nr an-break-flag 1
+.br
+.ps +1
+\fBlog_connections\fR
+.RS 4
+.sp
+Log successful logins\&.
+.sp
+Default: 1
+.RE
+.sp
+.it 1 an-trap
+.nr an-no-space-flag 1
+.nr an-break-flag 1
+.br
+.ps +1
+\fBlog_disconnections\fR
+.RS 4
+.sp
+Log disconnections with reasons\&.
+.sp
+Default: 1
+.RE
+.sp
+.it 1 an-trap
+.nr an-no-space-flag 1
+.nr an-break-flag 1
+.br
+.ps +1
+\fBlog_pooler_errors\fR
+.RS 4
+.sp
+Log error messages pooler sends to clients\&.
+.sp
+Default: 1
+.RE
+.sp
+.it 1 an-trap
+.nr an-no-space-flag 1
+.nr an-break-flag 1
+.br
+.ps +1
+\fBstats_period\fR
+.RS 4
+.sp
+Period for writing aggregated stats into log\&.
+.sp
+Default: 60
+.RE
+.SS "Console access control"
+.sp
+.it 1 an-trap
+.nr an-no-space-flag 1
+.nr an-break-flag 1
+.br
+.ps +1
+\fBadmin_users\fR
+.RS 4
+.sp
+Comma\-separated list of database users that are allowed to connect and run all commands on console\&. Ignored when auth_mode=any, in which case any username is allowed in as admin\&.
+.sp
+Default: empty
+.RE
+.sp
+.it 1 an-trap
+.nr an-no-space-flag 1
+.nr an-break-flag 1
+.br
+.ps +1
+\fBstats_users\fR
+.RS 4
+.sp
+Comma\-separated list of database users that are allowed to connect and run read\-only queries on console\&. Thats means all SHOW commands except SHOW FDS\&.
+.sp
+Default: empty\&.
+.RE
+.SS "Connection sanity checks, timeouts"
+.sp
+.it 1 an-trap
+.nr an-no-space-flag 1
+.nr an-break-flag 1
+.br
+.ps +1
+\fBserver_reset_query\fR
+.RS 4
+.sp
+Query sent to server on connection release, before making it available to other clients\&. At that moment no transaction is in progress so it should not include ABORT or ROLLBACK\&.
+.sp
+A good choice for Postgres 8\&.2 and below is:
+.sp
+.if n \{\
+.RS 4
+.\}
+.nf
+server_reset_query = RESET ALL; SET SESSION AUTHORIZATION DEFAULT;
+.fi
+.if n \{\
+.RE
+.\}
+.sp
+for 8\&.3 and above its enough to do:
+.sp
+.if n \{\
+.RS 4
+.\}
+.nf
+server_reset_query = DISCARD ALL;
+.fi
+.if n \{\
+.RE
+.\}
+.sp
+When transaction pooling is used, the server_reset_query should be empty, as clients should not use any session features\&.
+.sp
+Default: DISCARD ALL
+.RE
+.sp
+.it 1 an-trap
+.nr an-no-space-flag 1
+.nr an-break-flag 1
+.br
+.ps +1
+\fBserver_check_delay\fR
+.RS 4
+.sp
+How long to keep released connections available for immediate re\-use, without running sanity\-check queries on it\&. If 0 then the query is ran always\&.
+.sp
+Default: 30\&.0
+.RE
+.sp
+.it 1 an-trap
+.nr an-no-space-flag 1
+.nr an-break-flag 1
+.br
+.ps +1
+\fBserver_check_query\fR
+.RS 4
+.sp
+Simple do\-nothing query to check if the server connection is alive\&.
+.sp
+If an empty string, then sanity checking is disabled\&.
+.sp
+Default: SELECT 1;
+.RE
+.sp
+.it 1 an-trap
+.nr an-no-space-flag 1
+.nr an-break-flag 1
+.br
+.ps +1
+\fBserver_lifetime\fR
+.RS 4
+.sp
+The pooler will try to close server connections that have been connected longer than this\&. Setting it to 0 means the connection is to be used only once, then closed\&. [seconds]
+.sp
+Default: 3600\&.0
+.RE
+.sp
+.it 1 an-trap
+.nr an-no-space-flag 1
+.nr an-break-flag 1
+.br
+.ps +1
+\fBserver_idle_timeout\fR
+.RS 4
+.sp
+If a server connection has been idle more than this many seconds it will be dropped\&. If 0 then timeout is disabled\&. [seconds]
+.sp
+Default: 600\&.0
+.RE
+.sp
+.it 1 an-trap
+.nr an-no-space-flag 1
+.nr an-break-flag 1
+.br
+.ps +1
+\fBserver_connect_timeout\fR
+.RS 4
+.sp
+If connection and login won\(cqt finish in this amount of time, the connection will be closed\&. [seconds]
+.sp
+Default: 15\&.0
+.RE
+.sp
+.it 1 an-trap
+.nr an-no-space-flag 1
+.nr an-break-flag 1
+.br
+.ps +1
+\fBserver_login_retry\fR
+.RS 4
+.sp
+If login failed, because of failure from connect() or authentication that pooler waits this much before retrying to connect\&. [seconds]
+.sp
+Default: 15\&.0
+.RE
+.sp
+.it 1 an-trap
+.nr an-no-space-flag 1
+.nr an-break-flag 1
+.br
+.ps +1
+\fBclient_login_timeout\fR
+.RS 4
+.sp
+If a client connects but does not manage to login in this amount of time, it will be disconnected\&. Mainly needed to avoid dead connections stalling SUSPEND and thus online restart\&. [seconds]
+.sp
+Default: 60\&.0
+.RE
+.sp
+.it 1 an-trap
+.nr an-no-space-flag 1
+.nr an-break-flag 1
+.br
+.ps +1
+\fBautodb_idle_timeout\fR
+.RS 4
+.sp
+If the automatically created (via "*") database pools have been unused this many seconds, they are freed\&. The negative aspect of that is that their statistics are also forgotten\&. [seconds]
+.sp
+Default: 3600\&.0
+.RE
+.sp
+.it 1 an-trap
+.nr an-no-space-flag 1
+.nr an-break-flag 1
+.br
+.ps +1
+\fBdns_max_ttl\fR
+.RS 4
+.sp
+How long the DNS lookups can be cached\&. If a DNS lookup returns several answers, pgbouncer will robin\-between them in the meantime\&. Actual DNS TTL is ignored\&. [seconds]
+.sp
+Default: 15\&.0
+.RE
+.sp
+.it 1 an-trap
+.nr an-no-space-flag 1
+.nr an-break-flag 1
+.br
+.ps +1
+\fBdns_zone_check_period\fR
+.RS 4
+.sp
+Period to check if zone serial has changed\&.
+.sp
+PgBouncer can collect dns zones from hostnames (everything after first dot) and then periodically check if zone serial changes\&. If it notices changes, all hostnames under that zone are looked up again\&. If any host ip changes, it\(cqs connections are invalidated\&.
+.sp
+Works only with UDNS backend (\-\-with\-udns to configure)\&.
+.sp
+Default: 0\&.0 (disabled)
+.RE
+.SS "Dangerous timeouts"
+.sp
+Setting following timeouts cause unexpected errors\&.
+.sp
+.it 1 an-trap
+.nr an-no-space-flag 1
+.nr an-break-flag 1
+.br
+.ps +1
+\fBquery_timeout\fR
+.RS 4
+.sp
+Queries running longer than that are canceled\&. This should be used only with slightly smaller server\-side statement_timeout, to apply only for network problems\&. [seconds]
+.sp
+Default: 0\&.0 (disabled)
+.RE
+.sp
+.it 1 an-trap
+.nr an-no-space-flag 1
+.nr an-break-flag 1
+.br
+.ps +1
+\fBquery_wait_timeout\fR
+.RS 4
+.sp
+Maximum time queries are allowed to spend waiting for execution\&. If the query is not assigned to a server during that time, the client is disconnected\&. This is used to prevent unresponsive servers from grabbing up connections\&. [seconds]
+.sp
+Default: 0\&.0 (disabled)
+.RE
+.sp
+.it 1 an-trap
+.nr an-no-space-flag 1
+.nr an-break-flag 1
+.br
+.ps +1
+\fBclient_idle_timeout\fR
+.RS 4
+.sp
+Client connections idling longer than this many seconds are closed\&. This should be larger than the client\-side connection lifetime settings, and only used for network problems\&. [seconds]
+.sp
+Default: 0\&.0 (disabled)
+.RE
+.sp
+.it 1 an-trap
+.nr an-no-space-flag 1
+.nr an-break-flag 1
+.br
+.ps +1
+\fBidle_transaction_timeout\fR
+.RS 4
+.sp
+If client has been in "idle in transaction" state longer, it will be disconnected\&. [seconds]
+.sp
+Default: 0\&.0 (disabled)
+.RE
+.SS "Low\-level network settings"
+.sp
+.it 1 an-trap
+.nr an-no-space-flag 1
+.nr an-break-flag 1
+.br
+.ps +1
+\fBpkt_buf\fR
+.RS 4
+.sp
+Internal buffer size for packets\&. Affects size of TCP packets sent and general memory usage\&. Actual libpq packets can be larger than this so, no need to set it large\&.
+.sp
+Default: 2048
+.RE
+.sp
+.it 1 an-trap
+.nr an-no-space-flag 1
+.nr an-break-flag 1
+.br
+.ps +1
+\fBmax_packet_size\fR
+.RS 4
+.sp
+Maximum size for Postgres packets that PgBouncer allows through\&. One packet is either one query or one resultset row\&. Full resultset can be larger\&.
+.sp
+Default: 2147483647
+.RE
+.sp
+.it 1 an-trap
+.nr an-no-space-flag 1
+.nr an-break-flag 1
+.br
+.ps +1
+\fBlisten_backlog\fR
+.RS 4
+.sp
+Backlog argument for listen(2)\&. Determines how many new unanswered connection attempts are kept in queue\&. When queue is full, further new connections are dropped\&.
+.sp
+Default: 128
+.RE
+.sp
+.it 1 an-trap
+.nr an-no-space-flag 1
+.nr an-break-flag 1
+.br
+.ps +1
+\fBsbuf_loopcnt\fR
+.RS 4
+.sp
+How many times to process data on one connection, before proceeding\&. Without this limit, one connection with a big resultset can stall PgBouncer for a long time\&. One loop processes one pkt_buf amount of data\&. 0 means no limit\&.
+.sp
+Default: 5
+.RE
+.sp
+.it 1 an-trap
+.nr an-no-space-flag 1
+.nr an-break-flag 1
+.br
+.ps +1
+\fBtcp_defer_accept\fR
+.RS 4
+.sp
+For details on this and other tcp options, please see man 7 tcp\&.
+.sp
+Default: 45 on Linux, otherwise 0
+.RE
+.sp
+.it 1 an-trap
+.nr an-no-space-flag 1
+.nr an-break-flag 1
+.br
+.ps +1
+\fBtcp_socket_buffer\fR
+.RS 4
+.sp
+Default: not set
+.RE
+.sp
+.it 1 an-trap
+.nr an-no-space-flag 1
+.nr an-break-flag 1
+.br
+.ps +1
+\fBtcp_keepalive\fR
+.RS 4
+.sp
+Turns on basic keepalive with OS defaults\&.
+.sp
+On Linux, the system defaults are tcp_keepidle=7200, tcp_keepintvl=75, tcp_keepcnt=9\&. They are probably similar on other OS\-es\&.
+.sp
+Default: 1
+.RE
+.sp
+.it 1 an-trap
+.nr an-no-space-flag 1
+.nr an-break-flag 1
+.br
+.ps +1
+\fBtcp_keepcnt\fR
+.RS 4
+.sp
+Default: not set
+.RE
+.sp
+.it 1 an-trap
+.nr an-no-space-flag 1
+.nr an-break-flag 1
+.br
+.ps +1
+\fBtcp_keepidle\fR
+.RS 4
+.sp
+Default: not set
+.RE
+.sp
+.it 1 an-trap
+.nr an-no-space-flag 1
+.nr an-break-flag 1
+.br
+.ps +1
+\fBtcp_keepintvl\fR
+.RS 4
+.sp
+Default: not set
+.RE
+.SH "SECTION [DATABASES]"
+.sp
+This contains key=value pairs where key will be taken as a database name and value as a libpq connect\-string style list of key=value pairs\&. As actual libpq is not used, so not all features from libpq can be used (service=, \&.pgpass)\&.
+.sp
+Database name can contain characters [0\-9A\-Za\-z_\&.\-] without quoting\&. Names that contain other chars need to be quoted with standard SQL ident quoting: double quotes where "" is taken as single quote\&.
+.sp
+"*" acts as fallback database: if the exact name does not exist, its value is taken as connect string for requested database\&. Such automatically created database entries are cleaned up if they stay idle longer then the time specified in autodb_idle_timeout parameter\&.
+.SS "Location parameters"
+.sp
+.it 1 an-trap
+.nr an-no-space-flag 1
+.nr an-break-flag 1
+.br
+.ps +1
+\fBdbname\fR
+.RS 4
+.sp
+Destination database name\&.
+.sp
+Default: same as client\-side database name\&.
+.RE
+.sp
+.it 1 an-trap
+.nr an-no-space-flag 1
+.nr an-break-flag 1
+.br
+.ps +1
+\fBhost\fR
+.RS 4
+.sp
+Hostname or IP address to connect to\&. Hostnames are resolved on connect time, the result is cached per dns_max_ttl parameter\&. If DNS returns several results, they are used in round\-robin manner\&.
+.sp
+Default: not set, meaning to use a Unix socket\&.
+.RE
+.sp
+.it 1 an-trap
+.nr an-no-space-flag 1
+.nr an-break-flag 1
+.br
+.ps +1
+\fBport\fR
+.RS 4
+.sp
+Default: 5432
+.RE
+.sp
+.it 1 an-trap
+.nr an-no-space-flag 1
+.nr an-break-flag 1
+.br
+.ps +1
+\fBuser, password\fR
+.RS 4
+.sp
+If user= is set, all connections to the destination database will be done with the specified user, meaning that there will be only one pool for this database\&.
+.sp
+Otherwise PgBouncer tries to log into the destination database with client username, meaning that there will be one pool per user\&.
+.RE
+.SS "Pool configuration"
+.sp
+.it 1 an-trap
+.nr an-no-space-flag 1
+.nr an-break-flag 1
+.br
+.ps +1
+\fBpool_size\fR
+.RS 4
+.sp
+Set maximum size of pools for this database\&. If not set, the default_pool_size is used\&.
+.RE
+.sp
+.it 1 an-trap
+.nr an-no-space-flag 1
+.nr an-break-flag 1
+.br
+.ps +1
+\fBconnect_query\fR
+.RS 4
+.sp
+Query to be executed after a connection is established, but before allowing the connection to be used by any clients\&. If the query raises errors, they are logged but ignored otherwise\&.
+.RE
+.SS "Extra parameters"
+.sp
+They allow setting default parameters on server connection\&.
+.sp
+Note that since version 1\&.1 PgBouncer tracks client changes for their values, so their use in pgbouncer\&.ini is deprecated now\&.
+.sp
+.it 1 an-trap
+.nr an-no-space-flag 1
+.nr an-break-flag 1
+.br
+.ps +1
+\fBclient_encoding\fR
+.RS 4
+.sp
+Ask specific client_encoding from server\&.
+.RE
+.sp
+.it 1 an-trap
+.nr an-no-space-flag 1
+.nr an-break-flag 1
+.br
+.ps +1
+\fBdatestyle\fR
+.RS 4
+.sp
+Ask specific datestyle from server\&.
+.RE
+.sp
+.it 1 an-trap
+.nr an-no-space-flag 1
+.nr an-break-flag 1
+.br
+.ps +1
+\fBtimezone\fR
+.RS 4
+.sp
+Ask specific timezone from server\&.
+.RE
+.SH "AUTHENTICATION FILE FORMAT"
+.sp
+PgBouncer needs its own user database\&. The users are loaded from a text file in following format:
+.sp
+.if n \{\
+.RS 4
+.\}
+.nf
+"username1" "password" \&.\&.\&.
+"username2" "md5abcdef012342345" \&.\&.\&.
+.fi
+.if n \{\
+.RE
+.\}
+.sp
+There should be at least 2 fields, surrounded by double quotes\&. The first field is the username and the second is either a plain\-text or a MD5\-hidden password\&. PgBouncer ignores the rest of the line\&.
+.sp
+This file format is equivalent to text files used by PostgreSQL 8\&.x for authentication info, thus allowing PgBouncer to work directly on PostgreSQL authentication files in data directory\&.
+.sp
+Since PostgreSQL 9\&.0, the text files are not used anymore\&. Thus the auth file needs to be generated\&. See \&./etc/mkauth\&.py for sample script to generate auth file from pg_shadow table\&.
+.sp
+PostgreSQL MD5\-hidden password format:
+.sp
+.if n \{\
+.RS 4
+.\}
+.nf
+"md5" + md5(password + username)
+.fi
+.if n \{\
+.RE
+.\}
+.sp
+So user admin with password 1234 will have MD5\-hidden password md545f2603610af569b6155c45067268c6b\&.
+.SH "EXAMPLE"
+.SS "Minimal config"
+.sp
+.if n \{\
+.RS 4
+.\}
+.nf
+[databases]
+template1 = host=127\&.0\&.0\&.1 dbname=template1
+.fi
+.if n \{\
+.RE
+.\}
+.sp
+.if n \{\
+.RS 4
+.\}
+.nf
+[pgbouncer]
+pool_mode = session
+listen_port = 6543
+listen_addr = 127\&.0\&.0\&.1
+auth_type = md5
+auth_file = users\&.txt
+logfile = pgbouncer\&.log
+pidfile = pgbouncer\&.pid
+admin_users = someuser
+stats_users = stat_collector
+.fi
+.if n \{\
+.RE
+.\}
+.SS "Database defaults"
+.sp
+.if n \{\
+.RS 4
+.\}
+.nf
+[databases]
+.fi
+.if n \{\
+.RE
+.\}
+.sp
+.if n \{\
+.RS 4
+.\}
+.nf
+; foodb over unix socket
+foodb =
+.fi
+.if n \{\
+.RE
+.\}
+.sp
+.if n \{\
+.RS 4
+.\}
+.nf
+; redirect bardb to bazdb on localhost
+bardb = host=127\&.0\&.0\&.1 dbname=bazdb
+.fi
+.if n \{\
+.RE
+.\}
+.sp
+.if n \{\
+.RS 4
+.\}
+.nf
+; access to destination database will go with single user
+forcedb = host=127\&.0\&.0\&.1 port=300 user=baz password=foo client_encoding=UNICODE datestyle=ISO
+.fi
+.if n \{\
+.RE
+.\}
+.SH "SEE ALSO"
+.sp
+pgbouncer(1) \- manpage for general usage, console commands\&.
+.sp
+\m[blue]\fBhttp://wiki\&.postgresql\&.org/wiki/PgBouncer\fR\m[]

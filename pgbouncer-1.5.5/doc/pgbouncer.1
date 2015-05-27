@@ -1,0 +1,964 @@
+'\" t
+.\"     Title: pgbouncer
+.\"    Author: [FIXME: author] [see http://docbook.sf.net/el/author]
+.\" Generator: DocBook XSL Stylesheets v1.76.1 <http://docbook.sf.net/>
+.\"      Date: 04/08/2015
+.\"    Manual: \ \&
+.\"    Source: \ \&
+.\"  Language: English
+.\"
+.TH "PGBOUNCER" "1" "04/08/2015" "\ \&" "\ \&"
+.\" -----------------------------------------------------------------
+.\" * Define some portability stuff
+.\" -----------------------------------------------------------------
+.\" ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.\" http://bugs.debian.org/507673
+.\" http://lists.gnu.org/archive/html/groff/2009-02/msg00013.html
+.\" ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.ie \n(.g .ds Aq \(aq
+.el       .ds Aq '
+.\" -----------------------------------------------------------------
+.\" * set default formatting
+.\" -----------------------------------------------------------------
+.\" disable hyphenation
+.nh
+.\" disable justification (adjust text to left margin only)
+.ad l
+.\" -----------------------------------------------------------------
+.\" * MAIN CONTENT STARTS HERE *
+.\" -----------------------------------------------------------------
+.SH "NAME"
+pgbouncer \- Lightweight connection pooler for PostgreSQL\&.
+.SH "SYNOPSIS"
+.sp
+.nf
+pgbouncer [\-d][\-R][\-v][\-u user] <pgbouncer\&.ini>
+pgbouncer \-V|\-h
+.fi
+.sp
+On Windows computers, the options are:
+.sp
+.nf
+pgbouncer\&.exe [\-v][\-u user] <pgbouncer\&.ini>
+pgbouncer\&.exe \-V|\-h
+.fi
+.sp
+Additional options for setting up a Windows service:
+.sp
+.nf
+pgbouncer\&.exe \-regservice   <pgbouncer\&.ini>
+pgbouncer\&.exe \-unregservice <pgbouncer\&.ini>
+.fi
+.SH "DESCRIPTION"
+.sp
+pgbouncer is a PostgreSQL connection pooler\&. Any target application can be connected to pgbouncer as if it were a PostgreSQL server, and pgbouncer will create a connection to the actual server, or it will reuse one of its existing connections\&.
+.sp
+The aim of pgbouncer is to lower the performance impact of opening new connections to PostgreSQL\&.
+.sp
+In order not to compromise transaction semantics for connection pooling, pgbouncer supports several types of pooling when rotating connections:
+.PP
+Session pooling
+.RS 4
+Most polite method\&. When client connects, a server connection will be assigned to it for the whole duration the client stays connected\&. When the client disconnects, the server connection will be put back into the pool\&. This is the default method\&.
+.RE
+.PP
+Transaction pooling
+.RS 4
+A server connection is assigned to client only during a transaction\&. When PgBouncer notices that transaction is over, the server connection will be put back into the pool\&.
+.RE
+.PP
+Statement pooling
+.RS 4
+Most aggressive method\&. The server connection will be put back into pool immediately after a query completes\&. Multi\-statement transactions are disallowed in this mode as they would break\&.
+.RE
+.sp
+The administration interface of pgbouncer consists of some new SHOW commands available when connected to a special \fIvirtual\fR database pgbouncer\&.
+.SH "QUICK-START"
+.sp
+Basic setup and usage as following\&.
+.sp
+.RS 4
+.ie n \{\
+\h'-04' 1.\h'+01'\c
+.\}
+.el \{\
+.sp -1
+.IP "  1." 4.2
+.\}
+Create a pgbouncer\&.ini file\&. Details in
+pgbouncer(5)\&. Simple example:
+.sp
+.if n \{\
+.RS 4
+.\}
+.nf
+[databases]
+template1 = host=127\&.0\&.0\&.1 port=5432 dbname=template1
+.fi
+.if n \{\
+.RE
+.\}
+.sp
+.if n \{\
+.RS 4
+.\}
+.nf
+[pgbouncer]
+listen_port = 6543
+listen_addr = 127\&.0\&.0\&.1
+auth_type = md5
+auth_file = users\&.txt
+logfile = pgbouncer\&.log
+pidfile = pgbouncer\&.pid
+admin_users = someuser
+.fi
+.if n \{\
+.RE
+.\}
+.RE
+.sp
+.RS 4
+.ie n \{\
+\h'-04' 2.\h'+01'\c
+.\}
+.el \{\
+.sp -1
+.IP "  2." 4.2
+.\}
+Create a users\&.txt file:
+.sp
+.if n \{\
+.RS 4
+.\}
+.nf
+"someuser" "same_password_as_in_server"
+.fi
+.if n \{\
+.RE
+.\}
+.RE
+.sp
+.RS 4
+.ie n \{\
+\h'-04' 3.\h'+01'\c
+.\}
+.el \{\
+.sp -1
+.IP "  3." 4.2
+.\}
+Launch
+pgbouncer:
+.sp
+.if n \{\
+.RS 4
+.\}
+.nf
+$ pgbouncer \-d pgbouncer\&.ini
+.fi
+.if n \{\
+.RE
+.\}
+.RE
+.sp
+.RS 4
+.ie n \{\
+\h'-04' 4.\h'+01'\c
+.\}
+.el \{\
+.sp -1
+.IP "  4." 4.2
+.\}
+Have your application (or the
+psql
+client) connect to
+pgbouncer
+instead of directly to PostgreSQL server\&.
+.sp
+.if n \{\
+.RS 4
+.\}
+.nf
+$ psql \-p 6543 \-U someuser template1
+.fi
+.if n \{\
+.RE
+.\}
+.RE
+.sp
+.RS 4
+.ie n \{\
+\h'-04' 5.\h'+01'\c
+.\}
+.el \{\
+.sp -1
+.IP "  5." 4.2
+.\}
+Manage
+pgbouncer
+by connecting to the special administration database
+pgbouncer
+and issuing
+show help;
+to begin:
+.sp
+.if n \{\
+.RS 4
+.\}
+.nf
+$ psql \-p 6543 \-U someuser pgbouncer
+pgbouncer=# show help;
+NOTICE:  Console usage
+DETAIL:
+  SHOW [HELP|CONFIG|DATABASES|FDS|POOLS|CLIENTS|SERVERS|SOCKETS|LISTS|VERSION]
+  SET key = arg
+  RELOAD
+  PAUSE
+  SUSPEND
+  RESUME
+  SHUTDOWN
+.fi
+.if n \{\
+.RE
+.\}
+.RE
+.sp
+.RS 4
+.ie n \{\
+\h'-04' 6.\h'+01'\c
+.\}
+.el \{\
+.sp -1
+.IP "  6." 4.2
+.\}
+If you made changes to the pgbouncer\&.ini file, you can reload it with:
+.sp
+.if n \{\
+.RS 4
+.\}
+.nf
+pgbouncer=# RELOAD;
+.fi
+.if n \{\
+.RE
+.\}
+.RE
+.SH "COMMAND LINE SWITCHES"
+.PP
+\-d
+.RS 4
+Run in background\&. Without it the process will run in foreground\&. Note: Does not work on Windows,
+pgbouncer
+need to run as service there\&.
+.RE
+.PP
+\-R
+.RS 4
+Do an online restart\&. That means connecting to the running process, loading the open sockets from it, and then using them\&. If there is no active process, boot normally\&. Note: Works only if OS supports Unix sockets and the
+unix_socket_dir
+is not disabled in config\&. Does not work on Windows machines\&.
+.RE
+.PP
+\-u user
+.RS 4
+Switch to the given user on startup\&.
+.RE
+.PP
+\-v
+.RS 4
+Increase verbosity\&. Can be used multiple times\&.
+.RE
+.PP
+\-q
+.RS 4
+Be quiet \- do not log to stdout\&. Note this does not affect logging verbosity, only that stdout is not to be used\&. For use in init\&.d scripts\&.
+.RE
+.PP
+\-V
+.RS 4
+Show version\&.
+.RE
+.PP
+\-h
+.RS 4
+Show short help\&.
+.RE
+.PP
+\-regservice
+.RS 4
+Win32: Register pgbouncer to run as Windows service\&. The
+service_name
+config parameter value is used as name to register under\&.
+.RE
+.PP
+\-unregservice
+.RS 4
+Win32: Unregister Windows service\&.
+.RE
+.SH "ADMIN CONSOLE"
+.sp
+The console is available by connecting as normal to the database pgbouncer
+.sp
+.if n \{\
+.RS 4
+.\}
+.nf
+$ psql \-p 6543 pgbouncer
+.fi
+.if n \{\
+.RE
+.\}
+.sp
+Only users listed in configuration parameters admin_users or stats_users are allowed to login to the console\&. (Except when auth_mode=any, then any user is allowed in as an admin\&.)
+.sp
+Additionally, the username pgbouncer is allowed to log in without password, if the login comes via Unix socket and the client has same Unix user uid as the running process\&.
+.SS "SHOW COMMANDS"
+.sp
+The SHOW commands output information\&. Each command is described below\&.
+.sp
+.it 1 an-trap
+.nr an-no-space-flag 1
+.nr an-break-flag 1
+.br
+.ps +1
+\fBSHOW STATS;\fR
+.RS 4
+.sp
+Shows statistics\&.
+.PP
+database
+.RS 4
+Statistics are presented per database\&.
+.RE
+.PP
+total_requests
+.RS 4
+Total number of
+SQL
+requests pooled by
+pgbouncer\&.
+.RE
+.PP
+total_received
+.RS 4
+Total volume in bytes of network traffic received by
+pgbouncer\&.
+.RE
+.PP
+total_sent
+.RS 4
+Total volume in bytes of network traffic sent by
+pgbouncer\&.
+.RE
+.PP
+total_query_time
+.RS 4
+Total number of microseconds spent by
+pgbouncer
+when actively connected to PostgreSQL\&.
+.RE
+.PP
+avg_req
+.RS 4
+Average requests per second in last stat period\&.
+.RE
+.PP
+avg_recv
+.RS 4
+Average received (from clients) bytes per second\&.
+.RE
+.PP
+avg_sent
+.RS 4
+Average sent (to clients) bytes per second\&.
+.RE
+.PP
+avg_query
+.RS 4
+Average query duration in microseconds\&.
+.RE
+.RE
+.sp
+.it 1 an-trap
+.nr an-no-space-flag 1
+.nr an-break-flag 1
+.br
+.ps +1
+\fBSHOW SERVERS;\fR
+.RS 4
+.PP
+type
+.RS 4
+S, for server\&.
+.RE
+.PP
+user
+.RS 4
+Username
+pgbouncer
+uses to connect to server\&.
+.RE
+.PP
+database
+.RS 4
+Database name\&.
+.RE
+.PP
+state
+.RS 4
+State of the pgbouncer server connection, one of
+active,
+used
+or
+idle\&.
+.RE
+.PP
+addr
+.RS 4
+IP address of PostgreSQL server\&.
+.RE
+.PP
+port
+.RS 4
+Port of PostgreSQL server\&.
+.RE
+.PP
+local_addr
+.RS 4
+Connection start address on local machine\&.
+.RE
+.PP
+local_port
+.RS 4
+Connection start port on local machine\&.
+.RE
+.PP
+connect_time
+.RS 4
+When the connection was made\&.
+.RE
+.PP
+request_time
+.RS 4
+When last request was issued\&.
+.RE
+.PP
+ptr
+.RS 4
+Address of internal object for this connection\&. Used as unique ID\&.
+.RE
+.PP
+link
+.RS 4
+Address of client connection the server is paired with\&.
+.RE
+.RE
+.sp
+.it 1 an-trap
+.nr an-no-space-flag 1
+.nr an-break-flag 1
+.br
+.ps +1
+\fBSHOW CLIENTS;\fR
+.RS 4
+.PP
+type
+.RS 4
+C, for client\&.
+.RE
+.PP
+user
+.RS 4
+Client connected user\&.
+.RE
+.PP
+database
+.RS 4
+Database name\&.
+.RE
+.PP
+state
+.RS 4
+State of the client connection, one of
+active,
+used,
+waiting
+or
+idle\&.
+.RE
+.PP
+addr
+.RS 4
+IP address of client\&.
+.RE
+.PP
+port
+.RS 4
+Port client is connected to\&.
+.RE
+.PP
+local_addr
+.RS 4
+Connection end address on local machine\&.
+.RE
+.PP
+local_port
+.RS 4
+Connection end port on local machine\&.
+.RE
+.PP
+connect_time
+.RS 4
+Timestamp of connect time\&.
+.RE
+.PP
+request_time
+.RS 4
+Timestamp of latest client request\&.
+.RE
+.PP
+ptr
+.RS 4
+Address of internal object for this connection\&. Used as unique ID\&.
+.RE
+.PP
+link
+.RS 4
+Address of server connection the client is paired with\&.
+.RE
+.RE
+.sp
+.it 1 an-trap
+.nr an-no-space-flag 1
+.nr an-break-flag 1
+.br
+.ps +1
+\fBSHOW POOLS;\fR
+.RS 4
+.sp
+A new pool entry is made for each couple of (database, user)\&.
+.PP
+database
+.RS 4
+Database name\&.
+.RE
+.PP
+user
+.RS 4
+User name\&.
+.RE
+.PP
+cl_active
+.RS 4
+Client connections that are linked to server connection and can process queries\&.
+.RE
+.PP
+cl_waiting
+.RS 4
+Client connections have sent queries but have not yet got a server connection\&.
+.RE
+.PP
+sv_active
+.RS 4
+Server connections that linked to client\&.
+.RE
+.PP
+sv_idle
+.RS 4
+Server connections that unused and immediately usable for client queries\&.
+.RE
+.PP
+sv_used
+.RS 4
+Server connections that have been idle more than
+server_check_delay, so they needs
+server_check_query
+to run on it before it can be used\&.
+.RE
+.PP
+sv_tested
+.RS 4
+Server connections that are currently running either
+server_reset_query
+or
+server_check_query\&.
+.RE
+.PP
+sv_login
+.RS 4
+Server connections currently in logging in process\&.
+.RE
+.PP
+maxwait
+.RS 4
+How long the first (oldest) client in queue has waited, in seconds\&. If this starts increasing, then the current pool of servers does not handle requests quick enough\&. Reason may be either overloaded server or just too small of a
+pool_size
+setting\&.
+.RE
+.RE
+.sp
+.it 1 an-trap
+.nr an-no-space-flag 1
+.nr an-break-flag 1
+.br
+.ps +1
+\fBSHOW LISTS;\fR
+.RS 4
+.sp
+Show following internal information, in columns (not rows):
+.PP
+databases
+.RS 4
+Count of databases\&.
+.RE
+.PP
+users
+.RS 4
+Count of users\&.
+.RE
+.PP
+pools
+.RS 4
+Count of pools\&.
+.RE
+.PP
+free_clients
+.RS 4
+Count of free clients\&.
+.RE
+.PP
+used_clients
+.RS 4
+Count of used clients\&.
+.RE
+.PP
+login_clients
+.RS 4
+Count of clients in
+login
+state\&.
+.RE
+.PP
+free_servers
+.RS 4
+Count of free servers\&.
+.RE
+.PP
+used_servers
+.RS 4
+Count of used servers\&.
+.RE
+.RE
+.sp
+.it 1 an-trap
+.nr an-no-space-flag 1
+.nr an-break-flag 1
+.br
+.ps +1
+\fBSHOW USERS;\fR
+.RS 4
+.sp
+Shows one line per user, under the name column name\&.
+.RE
+.sp
+.it 1 an-trap
+.nr an-no-space-flag 1
+.nr an-break-flag 1
+.br
+.ps +1
+\fBSHOW DATABASES;\fR
+.RS 4
+.PP
+name
+.RS 4
+Name of configured database entry\&.
+.RE
+.PP
+host
+.RS 4
+Host pgbouncer connects to\&.
+.RE
+.PP
+port
+.RS 4
+Port pgbouncer connects to\&.
+.RE
+.PP
+database
+.RS 4
+Actual database name pgbouncer connects to\&.
+.RE
+.PP
+force_user
+.RS 4
+When user is part of the connection string, the connection between pgbouncer and PostgreSQL is forced to the given user, whatever the client user\&.
+.RE
+.PP
+pool_size
+.RS 4
+Maximum number of server connections\&.
+.RE
+.RE
+.sp
+.it 1 an-trap
+.nr an-no-space-flag 1
+.nr an-break-flag 1
+.br
+.ps +1
+\fBSHOW FDS;\fR
+.RS 4
+.sp
+Shows list of fds in use\&. When the connected user has username "pgbouncer", connects through Unix socket and has same UID as running process, the actual fds are passed over the connection\&. This mechanism is used to do an online restart\&. Note: This does not work on Windows machines\&.
+.PP
+fd
+.RS 4
+File descriptor numeric value\&.
+.RE
+.PP
+task
+.RS 4
+One of
+pooler,
+client
+or
+server\&.
+.RE
+.PP
+user
+.RS 4
+User of the connection using the FD\&.
+.RE
+.PP
+database
+.RS 4
+Database of the connection using the FD\&.
+.RE
+.PP
+addr
+.RS 4
+IP address of the connection using the FD,
+unix
+if a unix socket is used\&.
+.RE
+.PP
+port
+.RS 4
+Port used by the connection using the FD\&.
+.RE
+.PP
+cancel
+.RS 4
+Cancel key for this connection\&.
+.RE
+.PP
+link
+.RS 4
+fd for corresponding server/client\&. NULL if idle\&.
+.RE
+.RE
+.sp
+.it 1 an-trap
+.nr an-no-space-flag 1
+.nr an-break-flag 1
+.br
+.ps +1
+\fBSHOW CONFIG;\fR
+.RS 4
+.sp
+Show the current configuration settings, one per row, with following columns:
+.PP
+key
+.RS 4
+Configuration variable name
+.RE
+.PP
+value
+.RS 4
+Configuration value
+.RE
+.PP
+changeable
+.RS 4
+Either
+yes
+or
+no, shows if the variable can be changed while running\&. If
+no, the variable can be changed only boot\-time\&.
+.RE
+.RE
+.sp
+.it 1 an-trap
+.nr an-no-space-flag 1
+.nr an-break-flag 1
+.br
+.ps +1
+\fBSHOW DNS_HOSTS\fR
+.RS 4
+.sp
+Show hostnames in DNS cache\&.
+.PP
+hostname
+.RS 4
+Host name\&.
+.RE
+.PP
+ttl
+.RS 4
+How meny seconds until next lookup\&.
+.RE
+.PP
+addrs
+.RS 4
+Comma separated list of addresses\&.
+.RE
+.RE
+.sp
+.it 1 an-trap
+.nr an-no-space-flag 1
+.nr an-break-flag 1
+.br
+.ps +1
+\fBSHOW DNS_ZONES\fR
+.RS 4
+.sp
+Show DNS zones in cache\&.
+.PP
+zonename
+.RS 4
+Zone name\&.
+.RE
+.PP
+serial
+.RS 4
+Current serial\&.
+.RE
+.PP
+count
+.RS 4
+Hostnames belonging to this zone\&.
+.RE
+.RE
+.SS "PROCESS CONTROLLING COMMANDS"
+.sp
+.it 1 an-trap
+.nr an-no-space-flag 1
+.nr an-break-flag 1
+.br
+.ps +1
+\fBPAUSE [db];\fR
+.RS 4
+.sp
+PgBouncer tries to disconnect from all servers, first waiting for all queries to complete\&. The command will not return before all queries are finished\&. To be used at the time of database restart\&.
+.sp
+If database name is given, only that database will be paused\&.
+.RE
+.sp
+.it 1 an-trap
+.nr an-no-space-flag 1
+.nr an-break-flag 1
+.br
+.ps +1
+\fBKILL db;\fR
+.RS 4
+.sp
+Immediately drop all client and server connections on given database\&.
+.RE
+.sp
+.it 1 an-trap
+.nr an-no-space-flag 1
+.nr an-break-flag 1
+.br
+.ps +1
+\fBSUSPEND;\fR
+.RS 4
+.sp
+All socket buffers are flushed and PgBouncer stops listening for data on them\&. The command will not return before all buffers are empty\&. To be used at the time of PgBouncer online reboot\&.
+.RE
+.sp
+.it 1 an-trap
+.nr an-no-space-flag 1
+.nr an-break-flag 1
+.br
+.ps +1
+\fBRESUME [db];\fR
+.RS 4
+.sp
+Resume work from previous PAUSE or SUSPEND command\&.
+.RE
+.sp
+.it 1 an-trap
+.nr an-no-space-flag 1
+.nr an-break-flag 1
+.br
+.ps +1
+\fBSHUTDOWN;\fR
+.RS 4
+.sp
+The PgBouncer process will exit\&.
+.RE
+.sp
+.it 1 an-trap
+.nr an-no-space-flag 1
+.nr an-break-flag 1
+.br
+.ps +1
+\fBRELOAD;\fR
+.RS 4
+.sp
+The PgBouncer process will reload its configuration file and update changeable settings\&.
+.RE
+.SS "SIGNALS"
+.PP
+SIGHUP
+.RS 4
+Reload config\&. Same as issuing command
+RELOAD;
+on console\&.
+.RE
+.PP
+SIGINT
+.RS 4
+Safe shutdown\&. Same as issuing
+PAUSE;
+and
+SHUTDOWN;
+on console\&.
+.RE
+.PP
+SIGTERM
+.RS 4
+Immediate shutdown\&. Same as issuing
+SHUTDOWN;
+on console\&.
+.RE
+.SS "LIBEVENT SETTINGS"
+.sp
+From libevent docs:
+.sp
+.if n \{\
+.RS 4
+.\}
+.nf
+It is possible to disable support for epoll, kqueue, devpoll, poll
+or select by setting the environment variable EVENT_NOEPOLL,
+EVENT_NOKQUEUE, EVENT_NODEVPOLL, EVENT_NOPOLL or EVENT_NOSELECT,
+respectively\&.
+.fi
+.if n \{\
+.RE
+.\}
+.sp
+.if n \{\
+.RS 4
+.\}
+.nf
+By setting the environment variable EVENT_SHOW_METHOD, libevent
+displays the kernel notification method that it uses\&.
+.fi
+.if n \{\
+.RE
+.\}
+.SH "SEE ALSO"
+.sp
+pgbouncer(5) \- manpage of configuration settings descriptions\&.
+.sp
+\m[blue]\fBhttp://wiki\&.postgresql\&.org/wiki/PgBouncer\fR\m[]
