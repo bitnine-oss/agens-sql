@@ -239,12 +239,11 @@
     <!-- pg_hint_plan -->
         <pack name="pg_hint_plan" required="no">
             <description>pg_hint_plan</description>
-            <fileset dir="pg_hint_plan94-1.1.3" targetdir="$INSTALL_PATH/pg_hint_plan"/>
             <file src="pg_hint_plan94-1.1.3/pg_hint_plan.so" targetdir="$INSTALL_PATH/pgsql/lib" />
             <executable targetfile="$INSTALL_PATH/pgsql/lib/pg_hint_plan.so" keep="true" />
             <file src="pg_hint_plan94-1.1.3/pg_hint_plan.control" targetdir="$INSTALL_PATH/pgsql/share/extension/" />
-            <file src="pg_hint_plan94-1.1.3/sql/pg_hint_plan--1.1.3.sql" targetdir="$INSTALL_PATH/pgsql/share/extension/" />
-            <file src="pg_hint_plan94-1.1.3/sql/pg_hint_plan--1.1.2--1.1.3.sql" targetdir="$INSTALL_PATH/pgsql/share/extension/" />
+            <file src="pg_hint_plan94-1.1.3/pg_hint_plan--1.1.3.sql" targetdir="$INSTALL_PATH/pgsql/share/extension/" />
+            <file src="pg_hint_plan94-1.1.3/pg_hint_plan--1.1.2--1.1.3.sql" targetdir="$INSTALL_PATH/pgsql/share/extension/" />
         </pack>
 
 
@@ -267,12 +266,12 @@
         <pack name="slony" required="no">
             <description>slony</description>
 
-            <file src="slony1-2.2.4/slony1_funcs.2.2.4.so" targetdir="$INSTALL_PATH/pgsql/lib" />
+            <file src="slony1-2.2.4/src/backend/slony1_funcs.2.2.4.so" targetdir="$INSTALL_PATH/pgsql/lib" />
             <executable targetfile="$INSTALL_PATH/pgsql/lib/slony1_funcs.2.2.4.so" keep="true" />
 
-            <file src="slony1-2.2.4/slon" targetdir="$INSTALL_PATH/pgsql/bin/" />
-            <file src="slony1-2.2.4/slonik" targetdir="$INSTALL_PATH/pgsql/bin/" />
-            <file src="slony1-2.2.4/slony_logshipper" targetdir="$INSTALL_PATH/pgsql/bin/" />
+            <file src="slony1-2.2.4/src/slon/slon" targetdir="$INSTALL_PATH/pgsql/bin/" />
+            <file src="slony1-2.2.4/src/slonik/slonik" targetdir="$INSTALL_PATH/pgsql/bin/" />
+            <file src="slony1-2.2.4/src/slony_logshipper/slony_logshipper" targetdir="$INSTALL_PATH/pgsql/bin/" />
 
             <file src="slony1-2.2.4/src/backend/slony1_base.2.2.4.sql" targetdir="$INSTALL_PATH/pgsql/share" />
             <file src="slony1-2.2.4/src/backend/slony1_base.v83.2.2.4.sql" targetdir="$INSTALL_PATH/pgsql/share" />
