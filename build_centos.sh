@@ -2,139 +2,86 @@
 # This is a script file to build agens-sql project which has a installer.
 
 Agens_sql_version="Agens-SQL-1.0.0"
-begin=$(date +%s)
+AGENS_TEMP_DIR=`pwd`/agens_temp
 
-
-# check root privileges
-if [ $(id -u) != "0" ]; then
-        echo "This script requires root privileges."
-        exit 1
+if [ -d "$AGENS_TEMP_DIR" ]; then
+	echo "The temp directory already exists!"
+	exit 1;
 fi
 
-# postgres 설치
-yum update -y && yum upgrade -y
-yum groupinstall -y "Development Tools"
-yum install -y gcc zlib-devel.* readline-devel.*
-yum install -y openjade.* docbook-style-dsssl.noarch
-
-# --with-perl
-yum install -y perl-YAML* perl-ExtUtils*
-# --with-gssapi
-yum install -y krb5-*
-# --with-openssl
-yum install -y openssl-devel.*
-# --with-libxslt
-yum install libxslt-devel.*
-# --with-ldap
-yum install openldap-devel.*
-# --with-tcl
-yum install tcl-devel.*
-
-
-
-cd postgresql-9.4.1/
-./configure --with-pgport=5456 --with-gssapi --with-ldap --with-tcl --with-openssl --enable-nls --enable-debug --enable-cassert --with-perl --with-python --with-libxml --with-libxslt;
+cd postgresql-9.4.2/
+./configure --prefix=$AGENS_TEMP_DIR/pgsql --with-pgport=5456 --with-gssapi --with-ldap --with-tcl --with-openssl --enable-nls --enable-cassert --with-perl --with-python --with-libxml --with-libxslt;
 make world; make install-world;
 cd ..
 
-
-
 # pgpool 설치
 cd pgpool-II-3.4.1/
-./configure --prefix=/usr/local/pgpool --with-pgsql=/usr/local/pgsql/
+./configure --prefix=$AGENS_TEMP_DIR/pgpool --with-pgsql=$AGENS_TEMP_DIR/pgsql/
 make; make install;
 cd ..
 
-# postgis 설치
-yum install -y libtiff-devel.* json-c-devel.* libxml2-devel.* python-devel.*
-
 cd geos-3.4.2/
-./configure; make; make install;
+./configure --prefix=$AGENS_TEMP_DIR/geos; make; make install;
 cd ..
 
 cd proj-4.9.1/
-./configure; make; make install;
+./configure --prefix=$AGENS_TEMP_DIR/proj; make; make install;
 cd ..
 
 cd gdal-1.11.2/
-./configure; make; make install;
+./configure --prefix=$AGENS_TEMP_DIR/gdal; make; make install;
 cd ..
-
 
 cd postgis-2.1.6/
-./configure --with-pgconfig=/usr/local/pgsql/bin/pg_config --with-geosconfig=/usr/local/bin/geos-config --with-gdalconfig=/usr/local/bin/gdal-config && make && make install
-cp /usr/local/lib/libgeos_c.so.1.8.2 ./postgis/
-cp /usr/local/lib/libproj.so.9.0.0 ./postgis/
-cp /usr/local/lib/libgdal.so.1.18.2 ./postgis/
-cp /usr/local/lib/libgeos-3.4.2.so ./postgis/
+./configure --with-pgconfig=$AGENS_TEMP_DIR/pgsql/bin/pg_config --with-geosconfig=$AGENS_TEMP_DIR/geos/bin/geos-config --with-gdalconfig=$AGENS_TEMP_DIR/gdal/bin/gdal-config --with-projdir=$AGENS_TEMP_DIR/proj
+make
 cd ..
-
-
-
 
 # libevent(for pgbouncer)
 cd libevent-2.0.22-stable/
-./configure --prefix=/usr/local/libevent
-make
-make install
+./configure --prefix=$AGENS_TEMP_DIR/libevent; make; make install;
 cd ..
-
 
 # pgbouncer
-git clone git://git.postgresql.org/git/pgbouncer.git
-cd pgbouncer
-git submodule init
-git submodule update
-./autogen.sh
-LIBS=-lpthread ./configure --prefix=/usr/local/pgbouncer --with-libevent=/usr/local/libevent
-make
-make install
+cd pgbouncer-1.5.5
+./configure --prefix=$AGENS_TEMP_DIR/pgbouncer --with-libevent=$AGENS_TEMP_DIR/libevent
+make; make install;
 cd ..
 
-
 # skytools
-yum install -y python-devel.*
 cd skytools-3.2
-./configure --prefix=/usr/local/skytools --with-pgconfig=/usr/local/pgsql/bin/pg_config
-make
-make install
+./configure --prefix=$AGENS_TEMP_DIR/skytools --with-pgconfig=$AGENS_TEMP_DIR/pgsql/bin/pg_config
+make; make install;
 cd ..
 
 # pg_plan_hint
 cd pg_hint_plan94-1.1.3
-make PG_CONFIG=/usr/local/pgsql/bin/pg_config # pg_config의 경로를 정해준다.
-make install PG_CONFIG=/usr/local/pgsql/bin/pg_config
+make PG_CONFIG=$AGENS_TEMP_DIR/pgsql/bin/pg_config # pg_config의 경로를 정해준다.
+#make install PG_CONFIG=$AGENS_TEMP_DIR/pgsql/bin/pg_config
 cd ..
 
 
 # plproxy
-git clone git://git.postgresql.org/git/plproxy.git
-cd plproxy
-make PG_CONFIG=/usr/local/pgsql/bin/pg_config
-make install PG_CONFIG=/usr/local/pgsql/bin/pg_config
+cd plproxy-2.5/
+make PG_CONFIG=$AGENS_TEMP_DIR/pgsql/bin/pg_config
+#make install PG_CONFIG=$AGENS_TEMP_DIR/pgsql/bin/pg_config
 cd ..
 
 
 # slony
 cd slony1-2.2.4/
-./configure --with-pgconfigdir=/usr/local/pgsql/bin
-make; make install;
-cd ..
-
-
-# postgres 재설치(인스톨러에서 postgres와 postgis를 구분 짓기 위함)
-cd postgresql-9.4.1/
-make uninstall; make clean; make distclean;
-rm -rf /usr/local/pgsql
-./configure --with-pgport=5456 --with-gssapi --with-ldap --with-tcl --with-openssl --enable-nls --enable-debug --enable-cassert --with-perl --with-python --with-libxml --with-libxslt;
-make world; make install-world;
+./configure --with-pgconfigdir=$AGENS_TEMP_DIR/pgsql/bin
+make
+#make install
 cd ..
 
 
 
-# izpack을 구동하기 위해 필요한 java 설치
-yum install -y java-1.7.0-openjdk-devel.* 
 # izpack 실행
+if [ ! -d "./distributions" ]; then
+	mkdir distributions
+fi
+
 ./izpack/bin/compile res/installer/install.xml -b ./ -o distributions/"$Agens_sql_version".jar -k standard
 
 
