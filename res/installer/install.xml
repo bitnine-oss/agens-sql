@@ -199,10 +199,93 @@
             <file src="postgis-2.1.6/extensions/postgis_tiger_geocoder/postgis_tiger_geocoder.control" targetdir="$INSTALL_PATH/pgsql/share/extension" />
 
 
-	    <file src="res/installer/compile_postgis.sh" targetdir="$INSTALL_PATH/installer/res"/>
+            <file src="res/installer/compile_postgis.sh" targetdir="$INSTALL_PATH/installer/res"/>
             <executable targetfile="$INSTALL_PATH/installer/res/compile_postgis.sh" stage="postinstall" keep="true" />
             <parsable targetfile="$INSTALL_PATH/installer/res/compile_postgis.sh"/>
         </pack>
+
+        <!-- pgbouncer -->
+        <pack name="pgbouncer" required="no">
+            <description>pgbouncer</description>
+
+            <fileset dir="agens_temp/pgbouncer" targetdir="$INSTALL_PATH/pgbouncer"/>
+            <executable targetfile="$INSTALL_PATH/pgbouncer/bin/pgbouncer" keep="true" />
+        </pack>
+
+
+        <!-- skytools -->
+        <pack name="skytools" required="no">
+            <description>skytools</description>
+            <fileset dir="agens_temp/skytools" targetdir="$INSTALL_PATH/skytools"/>
+            <executable targetfile="$INSTALL_PATH/skytools/bin/data_maintainer3" keep="true" />
+            <executable targetfile="$INSTALL_PATH/skytools/bin/londiste3" keep="true" />
+            <executable targetfile="$INSTALL_PATH/skytools/bin/pgqd" keep="true" />
+            <executable targetfile="$INSTALL_PATH/skytools/bin/qadmin" keep="true" />
+            <executable targetfile="$INSTALL_PATH/skytools/bin/queue_mover3" keep="true" />
+            <executable targetfile="$INSTALL_PATH/skytools/bin/queue_splitter3" keep="true" />
+            <executable targetfile="$INSTALL_PATH/skytools/bin/scriptmgr3" keep="true" />
+            <executable targetfile="$INSTALL_PATH/skytools/bin/simple_consumer3" keep="true" />
+            <executable targetfile="$INSTALL_PATH/skytools/bin/simple_local_consumer3" keep="true" />
+            <executable targetfile="$INSTALL_PATH/skytools/bin/skytools_upgrade3" keep="true" />
+            <executable targetfile="$INSTALL_PATH/skytools/bin/walmgr3" keep="true" />
+            <!-- location of "_chashtext.so, _cquoting.so" on centos7_64bit -->
+            <executable targetfile="$INSTALL_PATH/skytools/lib64/python2.7/site-packages/skytools/_chashtext.so" keep="true" />
+            <executable targetfile="$INSTALL_PATH/skytools/lib64/python2.7/site-packages/skytools/_cquoting.so" keep="true" />
+        </pack>
+
+
+
+
+    <!-- pg_hint_plan -->
+        <pack name="pg_hint_plan" required="no">
+            <description>pg_hint_plan</description>
+            <fileset dir="pg_hint_plan94-1.1.3" targetdir="$INSTALL_PATH/pg_hint_plan"/>
+            <file src="pg_hint_plan94-1.1.3/pg_hint_plan.so" targetdir="$INSTALL_PATH/pgsql/lib" />
+            <executable targetfile="$INSTALL_PATH/pgsql/lib/pg_hint_plan.so" keep="true" />
+            <file src="pg_hint_plan94-1.1.3/pg_hint_plan.control" targetdir="$INSTALL_PATH/pgsql/share/extension/" />
+            <file src="pg_hint_plan94-1.1.3/sql/pg_hint_plan--1.1.3.sql" targetdir="$INSTALL_PATH/pgsql/share/extension/" />
+            <file src="pg_hint_plan94-1.1.3/sql/pg_hint_plan--1.1.2--1.1.3.sql" targetdir="$INSTALL_PATH/pgsql/share/extension/" />
+        </pack>
+
+
+        <!-- plproxy -->
+        <pack name="plproxy" required="no">
+            <description>plproxy</description>
+
+            <file src="plproxy-2.5/plproxy.so" targetdir="$INSTALL_PATH/pgsql/lib" />
+            <executable targetfile="$INSTALL_PATH/pgsql/lib/plproxy.so" keep="true" />
+            <file src="plproxy-2.5/plproxy.control" targetdir="$INSTALL_PATH/pgsql/share/extension/" />
+            <file src="plproxy-2.5/sql/plproxy--2.5.0.sql" targetdir="$INSTALL_PATH/pgsql/share/extension/" />
+            <file src="plproxy-2.5/sql/plproxy--2.3.0--2.5.0.sql" targetdir="$INSTALL_PATH/pgsql/share/extension/" />
+            <file src="plproxy-2.5/sql/plproxy--2.4.0--2.5.0.sql" targetdir="$INSTALL_PATH/pgsql/share/extension/" />
+            <file src="plproxy-2.5/sql/plproxy--unpackaged--2.5.0.sql" targetdir="$INSTALL_PATH/pgsql/share/extension/" />
+        </pack>
+
+
+
+        <!-- slony -->
+        <pack name="slony" required="no">
+            <description>slony</description>
+
+            <file src="slony1-2.2.4/slony1_funcs.2.2.4.so" targetdir="$INSTALL_PATH/pgsql/lib" />
+            <executable targetfile="$INSTALL_PATH/pgsql/lib/slony1_funcs.2.2.4.so" keep="true" />
+
+            <file src="slony1-2.2.4/slon" targetdir="$INSTALL_PATH/pgsql/bin/" />
+            <file src="slony1-2.2.4/slonik" targetdir="$INSTALL_PATH/pgsql/bin/" />
+            <file src="slony1-2.2.4/slony_logshipper" targetdir="$INSTALL_PATH/pgsql/bin/" />
+
+            <file src="slony1-2.2.4/src/backend/slony1_base.2.2.4.sql" targetdir="$INSTALL_PATH/pgsql/share" />
+            <file src="slony1-2.2.4/src/backend/slony1_base.v83.2.2.4.sql" targetdir="$INSTALL_PATH/pgsql/share" />
+            <file src="slony1-2.2.4/src/backend/slony1_base.v84.2.2.4.sql" targetdir="$INSTALL_PATH/pgsql/share" />
+            <file src="slony1-2.2.4/src/backend/slony1_funcs.2.2.4.sql" targetdir="$INSTALL_PATH/pgsql/share" />
+            <file src="slony1-2.2.4/src/backend/slony1_funcs.v83.2.2.4.sql" targetdir="$INSTALL_PATH/pgsql/share" />
+            <file src="slony1-2.2.4/src/backend/slony1_funcs.v84.2.2.4.sql" targetdir="$INSTALL_PATH/pgsql/share" />
+
+        </pack>
+
+
+
+
 
     </packs>
 

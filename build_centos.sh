@@ -72,8 +72,16 @@ cd ..
 cd slony1-2.2.4/
 ./configure --with-pgconfigdir=$AGENS_TEMP_DIR/pgsql/bin
 make
+cp ./src/backend/slony1_base.sql ./src/backend/slony1_base.2.2.4.sql
+cp ./src/backend/slony1_base.v83.sql ./src/backend/slony1_base.v83.2.2.4.sql
+cp ./src/backend/slony1_base.v84.sql ./src/backend/slony1_base.v84.2.2.4.sql
+cp ./src/backend/slony1_funcs.sql ./src/backend/slony1_funcs.2.2.4.sql
+cp ./src/backend/slony1_funcs.v83.sql ./src/backend/slony1_funcs.v83.2.2.4.sql
+cp ./src/backend/slony1_funcs.v84.sql ./src/backend/slony1_funcs.v84.2.2.4.sql
 #make install
 cd ..
+
+
 
 
 
@@ -85,9 +93,3 @@ fi
 ./izpack/bin/compile res/installer/install.xml -b ./ -o distributions/"$Agens_sql_version".jar -k standard
 
 
-
-
-termin=$(date +"%s")
-difftimelps=$(($termin-$begin))
-echo "Total time : $(($difftimelps / 60)) minute $(($difftimelps % 60)) seconds"
-echo "Finished at : "; date;
