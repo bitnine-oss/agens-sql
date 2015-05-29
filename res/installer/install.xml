@@ -84,7 +84,7 @@
 	<!-- pgsql -->
         <pack name="pgsql" required="yes">
             <description>PostgreSQL</description>
-	    <fileset dir="/home/mesh/agens_temp/pgsql" targetdir="$INSTALL_PATH/pgsql">
+	    <fileset dir="agens_temp/pgsql" targetdir="$INSTALL_PATH/pgsql">
 		<exclude name="bin/postmaster" />
 	    </fileset>
 		<executable targetfile="$INSTALL_PATH/pgsql/bin/clusterdb" keep="true" />
@@ -167,10 +167,10 @@
 
 	    <file src="postgis-2.1.6/postgis/postgis-2.1.so" targetdir="$INSTALL_PATH/pgsql/lib" />
 	    <file src="postgis-2.1.6/raster/rt_pg/rtpostgis-2.1.so" targetdir="$INSTALL_PATH/pgsql/lib" />
-	    <file src="/home/mesh/agens_temp/geos/lib/libgeos-3.4.2.so" targetdir="$INSTALL_PATH/pgsql/lib" />
-	    <file src="/home/mesh/agens_temp/geos/lib/libgeos_c.so.1.8.2" targetdir="$INSTALL_PATH/pgsql/lib" />
-	    <file src="/home/mesh/agens_temp/proj/lib/libproj.so.9.0.0" targetdir="$INSTALL_PATH/pgsql/lib" />
-	    <file src="/home/mesh/agens_temp/gdal/lib/libgdal.so.1.18.2" targetdir="$INSTALL_PATH/pgsql/lib" />
+	    <file src="agens_temp/geos/lib/libgeos-3.4.2.so" targetdir="$INSTALL_PATH/pgsql/lib" />
+	    <file src="agens_temp/geos/lib/libgeos_c.so.1.8.2" targetdir="$INSTALL_PATH/pgsql/lib" />
+	    <file src="agens_temp/proj/lib/libproj.so.9.0.0" targetdir="$INSTALL_PATH/pgsql/lib" />
+	    <file src="agens_temp/gdal/lib/libgdal.so.1.18.2" targetdir="$INSTALL_PATH/pgsql/lib" />
 
 	    <executable targetfile="$INSTALL_PATH/pgsql/lib/postgis-2.1.so" keep="true" />
 	    <executable targetfile="$INSTALL_PATH/pgsql/lib/rtpostgis-2.1.so" keep="true" />
