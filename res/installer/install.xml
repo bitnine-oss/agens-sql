@@ -1,128 +1,91 @@
 <?xml version="1.0" encoding="iso-8859-1" standalone="yes" ?>
-
-<!--
-    A sample installation file.
-    Use it as a base for your own installers :-)
-
-    To compile it :
-    - go in the bin directory where you installed IzPack
-    - call "compile ../sample/install.xml -b ../sample"
--->
-
 <installation version="1.0">
 
-    <!--
-        The info section.
-        The meaning of the tags should be natural ...
-    -->
     <info>
         <appname>Agens-SQL</appname>
         <appversion>1.0.0</appversion>
         <authors>
             <author name="Bitnine" email="ksjang@bitnine.co.kr"/>
         </authors>
-        <url>http://www.bitnine.co.kr</url>
+    <url>http://www.bitnine.co.kr</url>
     </info>
 
-    <!--
-        The gui preferences indication.
-        Sets the installer window to 640x480. It will not be able to change the size.
-    -->
     <guiprefs width="640" height="480" resizable="yes"/>
 
-    <!--
-        The locale section.
-        Asks here to include the English and French langpacks.
-    -->
     <locale>
-        <langpack iso3="eng"/>
         <langpack iso3="kor"/>
+        <langpack iso3="eng"/>
     </locale>
 
-    <!--
-        The resources section.
-        The ids must be these ones if you want to use the LicencePanel and/or the InfoPanel.
-    -->
     <resources>
         <res id="LicencePanel.licence" src="res/installer/Licence.txt"/>
         <res id="InfoPanel.info" src="res/installer/Readme.txt"/>
         <res id="userInputSpec.xml" src="res/installer/userInputSpec.xml" />
     </resources>
 
-
-
     <variables>
-	<variable name="agens-sql.superuser" value="agens" />
-	<variable name="agens-sql.login_db" value="agens-sql" />
-	<variable name="agens-sql.data_path" value="$INSTALL_PATH/pgsql/data" />
-	<variable name="agens-sql.password" value="" />
+        <variable name="agens-sql.superuser" value="agens" />
+        <variable name="agens-sql.login_db" value="agens-sql" />
+        <variable name="agens-sql.data_path" value="$INSTALL_PATH/pgsql/data" />
+        <variable name="agens-sql.password" value="" />
         <variable name="agens-sql.port" value="5456" />
     </variables>
 
-
-
-
-    <!--
-        The panels section.
-        We indicate here which panels we want to use. The order will be respected.
-    -->
     <panels>
         <panel classname="HelloPanel"/>
         <panel classname="InfoPanel"/>
         <panel classname="LicencePanel"/>
         <panel classname="TargetPanel"/>
         <panel classname="PacksPanel"/>
-	<panel classname="UserInputPanel" id="panel.path" />
+        <panel classname="UserInputPanel" id="panel.path" />
         <panel classname="InstallPanel"/>
         <panel classname="FinishPanel"/>
     </panels>
 
-
-
     <packs>
 
-	<!-- pgsql -->
+        <!-- pgsql -->
         <pack name="pgsql" required="yes">
             <description>PostgreSQL</description>
-	    <fileset dir="agens_temp/pgsql" targetdir="$INSTALL_PATH/pgsql">
-		<exclude name="bin/postmaster" />
-	    </fileset>
-		<executable targetfile="$INSTALL_PATH/pgsql/bin/clusterdb" keep="true" />
-		<executable targetfile="$INSTALL_PATH/pgsql/bin/createdb" keep="true" />
-		<executable targetfile="$INSTALL_PATH/pgsql/bin/createlang" keep="true" />
-		<executable targetfile="$INSTALL_PATH/pgsql/bin/createuser" keep="true" />
-		<executable targetfile="$INSTALL_PATH/pgsql/bin/dropdb" keep="true" />
-		<executable targetfile="$INSTALL_PATH/pgsql/bin/droplang" keep="true" />
-		<executable targetfile="$INSTALL_PATH/pgsql/bin/dropuser" keep="true" />
-		<executable targetfile="$INSTALL_PATH/pgsql/bin/ecpg" keep="true" />
-		<executable targetfile="$INSTALL_PATH/pgsql/bin/initdb" keep="true" />
-		<executable targetfile="$INSTALL_PATH/pgsql/bin/oid2name" keep="true" />
-		<executable targetfile="$INSTALL_PATH/pgsql/bin/pg_archivecleanup" keep="true" />
-		<executable targetfile="$INSTALL_PATH/pgsql/bin/pg_basebackup" keep="true" />
-		<executable targetfile="$INSTALL_PATH/pgsql/bin/pg_config" keep="true" />
-		<executable targetfile="$INSTALL_PATH/pgsql/bin/pg_controldata" keep="true" />
-		<executable targetfile="$INSTALL_PATH/pgsql/bin/pg_ctl" keep="true" />
-		<executable targetfile="$INSTALL_PATH/pgsql/bin/pg_dump" keep="true" />
-		<executable targetfile="$INSTALL_PATH/pgsql/bin/pg_dumpall" keep="true" />
-		<executable targetfile="$INSTALL_PATH/pgsql/bin/pg_isready" keep="true" />
-		<executable targetfile="$INSTALL_PATH/pgsql/bin/pg_receivexlog" keep="true" />
-		<executable targetfile="$INSTALL_PATH/pgsql/bin/pg_recvlogical" keep="true" />
-		<executable targetfile="$INSTALL_PATH/pgsql/bin/pg_resetxlog" keep="true" />
-		<executable targetfile="$INSTALL_PATH/pgsql/bin/pg_restore" keep="true" />
-		<executable targetfile="$INSTALL_PATH/pgsql/bin/pg_standby" keep="true" />
-		<executable targetfile="$INSTALL_PATH/pgsql/bin/pg_test_fsync" keep="true" />
-		<executable targetfile="$INSTALL_PATH/pgsql/bin/pg_test_timing" keep="true" />
-		<executable targetfile="$INSTALL_PATH/pgsql/bin/pg_upgrade" keep="true" />
-		<executable targetfile="$INSTALL_PATH/pgsql/bin/pg_xlogdump" keep="true" />
-		<executable targetfile="$INSTALL_PATH/pgsql/bin/pgbench" keep="true" />
-		<executable targetfile="$INSTALL_PATH/pgsql/bin/pltcl_delmod" keep="true" />
-		<executable targetfile="$INSTALL_PATH/pgsql/bin/pltcl_listmod" keep="true" />
-		<executable targetfile="$INSTALL_PATH/pgsql/bin/pltcl_loadmod" keep="true" />
-		<executable targetfile="$INSTALL_PATH/pgsql/bin/postgres" keep="true" />
-		<executable targetfile="$INSTALL_PATH/pgsql/bin/psql" keep="true" />
-		<executable targetfile="$INSTALL_PATH/pgsql/bin/reindexdb" keep="true" />
-		<executable targetfile="$INSTALL_PATH/pgsql/bin/vacuumdb" keep="true" />
-		<executable targetfile="$INSTALL_PATH/pgsql/bin/vacuumlo" keep="true" />
+            <fileset dir="agens_temp/pgsql" targetdir="$INSTALL_PATH/pgsql">
+                <exclude name="bin/postmaster" />
+            </fileset>
+            <executable targetfile="$INSTALL_PATH/pgsql/bin/clusterdb" keep="true" />
+            <executable targetfile="$INSTALL_PATH/pgsql/bin/createdb" keep="true" />
+            <executable targetfile="$INSTALL_PATH/pgsql/bin/createlang" keep="true" />
+            <executable targetfile="$INSTALL_PATH/pgsql/bin/createuser" keep="true" />
+            <executable targetfile="$INSTALL_PATH/pgsql/bin/dropdb" keep="true" />
+            <executable targetfile="$INSTALL_PATH/pgsql/bin/droplang" keep="true" />
+            <executable targetfile="$INSTALL_PATH/pgsql/bin/dropuser" keep="true" />
+            <executable targetfile="$INSTALL_PATH/pgsql/bin/ecpg" keep="true" />
+            <executable targetfile="$INSTALL_PATH/pgsql/bin/initdb" keep="true" />
+            <executable targetfile="$INSTALL_PATH/pgsql/bin/oid2name" keep="true" />
+            <executable targetfile="$INSTALL_PATH/pgsql/bin/pg_archivecleanup" keep="true" />
+            <executable targetfile="$INSTALL_PATH/pgsql/bin/pg_basebackup" keep="true" />
+            <executable targetfile="$INSTALL_PATH/pgsql/bin/pg_config" keep="true" />
+            <executable targetfile="$INSTALL_PATH/pgsql/bin/pg_controldata" keep="true" />
+            <executable targetfile="$INSTALL_PATH/pgsql/bin/pg_ctl" keep="true" />
+            <executable targetfile="$INSTALL_PATH/pgsql/bin/pg_dump" keep="true" />
+            <executable targetfile="$INSTALL_PATH/pgsql/bin/pg_dumpall" keep="true" />
+            <executable targetfile="$INSTALL_PATH/pgsql/bin/pg_isready" keep="true" />
+            <executable targetfile="$INSTALL_PATH/pgsql/bin/pg_receivexlog" keep="true" />
+            <executable targetfile="$INSTALL_PATH/pgsql/bin/pg_recvlogical" keep="true" />
+            <executable targetfile="$INSTALL_PATH/pgsql/bin/pg_resetxlog" keep="true" />
+            <executable targetfile="$INSTALL_PATH/pgsql/bin/pg_restore" keep="true" />
+            <executable targetfile="$INSTALL_PATH/pgsql/bin/pg_standby" keep="true" />
+            <executable targetfile="$INSTALL_PATH/pgsql/bin/pg_test_fsync" keep="true" />
+            <executable targetfile="$INSTALL_PATH/pgsql/bin/pg_test_timing" keep="true" />
+            <executable targetfile="$INSTALL_PATH/pgsql/bin/pg_upgrade" keep="true" />
+            <executable targetfile="$INSTALL_PATH/pgsql/bin/pg_xlogdump" keep="true" />
+            <executable targetfile="$INSTALL_PATH/pgsql/bin/pgbench" keep="true" />
+            <executable targetfile="$INSTALL_PATH/pgsql/bin/pltcl_delmod" keep="true" />
+            <executable targetfile="$INSTALL_PATH/pgsql/bin/pltcl_listmod" keep="true" />
+            <executable targetfile="$INSTALL_PATH/pgsql/bin/pltcl_loadmod" keep="true" />
+            <executable targetfile="$INSTALL_PATH/pgsql/bin/postgres" keep="true" />
+            <executable targetfile="$INSTALL_PATH/pgsql/bin/psql" keep="true" />
+            <executable targetfile="$INSTALL_PATH/pgsql/bin/reindexdb" keep="true" />
+            <executable targetfile="$INSTALL_PATH/pgsql/bin/vacuumdb" keep="true" />
+            <executable targetfile="$INSTALL_PATH/pgsql/bin/vacuumlo" keep="true" />
 
             <file src="res/installer/Licence.txt" targetdir="$INSTALL_PATH/installer/res"/>
             <file src="res/installer/Readme.txt" targetdir="$INSTALL_PATH/installer/res"/>
@@ -130,13 +93,43 @@
             <file src="res/installer/userInputSpec.xml" targetdir="$INSTALL_PATH/installer/res"/>
             <file src="res/installer/compile_pgsql.sh" targetdir="$INSTALL_PATH/installer/res"/>
 
-
             <executable targetfile="$INSTALL_PATH/installer/res/compile_pgsql.sh" stage="postinstall" keep="true"/>
             <parsable targetfile="$INSTALL_PATH/installer/res/compile_pgsql.sh"/>
         </pack>
 
 
-	<!-- postgis -->
+        <!-- pgpool -->
+        <pack name="pgpool" required="no">
+            <description>pgpool-II</description>
+            <fileset dir="agens_temp/pgpool" targetdir="$INSTALL_PATH/pgpool">
+                <exclude name="lib/libpcp.so" />
+                <exclude name="lib/libpcp.so.0" />
+            </fileset>
+            <executable targetfile="$INSTALL_PATH/pgpool/bin/pcp_attach_node" keep="true" />
+            <executable targetfile="$INSTALL_PATH/pgpool/bin/pcp_detach_node" keep="true" />
+            <executable targetfile="$INSTALL_PATH/pgpool/bin/pcp_node_count" keep="true" />
+            <executable targetfile="$INSTALL_PATH/pgpool/bin/pcp_node_info" keep="true" />
+            <executable targetfile="$INSTALL_PATH/pgpool/bin/pcp_pool_status" keep="true" />
+            <executable targetfile="$INSTALL_PATH/pgpool/bin/pcp_proc_count" keep="true" />
+            <executable targetfile="$INSTALL_PATH/pgpool/bin/pcp_proc_info" keep="true" />
+            <executable targetfile="$INSTALL_PATH/pgpool/bin/pcp_promote_node" keep="true" />
+            <executable targetfile="$INSTALL_PATH/pgpool/bin/pcp_recovery_node" keep="true" />
+            <executable targetfile="$INSTALL_PATH/pgpool/bin/pcp_stop_pgpool" keep="true" />
+            <executable targetfile="$INSTALL_PATH/pgpool/bin/pcp_systemdb_info" keep="true" />
+            <executable targetfile="$INSTALL_PATH/pgpool/bin/pcp_watchdog_info" keep="true" />
+            <executable targetfile="$INSTALL_PATH/pgpool/bin/pg_md5" keep="true" />
+            <executable targetfile="$INSTALL_PATH/pgpool/bin/pgpool" keep="true" />
+
+            <executable targetfile="$INSTALL_PATH/pgpool/lib/libpcp.la" keep="true" />
+            <executable targetfile="$INSTALL_PATH/pgpool/lib/libpcp.so.0.0.0" keep="true" />
+
+            <file src="res/installer/compile_pgpool.sh" targetdir="$INSTALL_PATH/installer/res"/>
+            <executable targetfile="$INSTALL_PATH/installer/res/compile_pgpool.sh" stage="postinstall" keep="true" />
+            <parsable targetfile="$INSTALL_PATH/installer/res/compile_pgpool.sh"/>
+        </pack>
+
+
+        <!-- postgis -->
         <pack name="postgis" required="no">
             <description>postgis</description>
 
@@ -162,47 +155,40 @@
             <file src="postgis-2.1.6/raster/rt_pg/uninstall_rtpostgis.sql" targetdir="$INSTALL_PATH/pgsql/share/contrib/postgis-2.1" />
             <file src="postgis-2.1.6/topology/uninstall_topology.sql" targetdir="$INSTALL_PATH/pgsql/share/contrib/postgis-2.1" />
 
-	    <file src="postgis-2.1.6/utils/postgis_restore.pl" targetdir="$INSTALL_PATH/pgsql/share/contrib/postgis-2.1" />
-	    <executable targetfile="$INSTALL_PATH/pgsql/share/contrib/postgis-2.1/postgis_restore.pl" keep="true" />
+            <file src="postgis-2.1.6/utils/postgis_restore.pl" targetdir="$INSTALL_PATH/pgsql/share/contrib/postgis-2.1" />
+            <executable targetfile="$INSTALL_PATH/pgsql/share/contrib/postgis-2.1/postgis_restore.pl" keep="true" />
 
-	    <file src="postgis-2.1.6/postgis/postgis-2.1.so" targetdir="$INSTALL_PATH/pgsql/lib" />
-	    <file src="postgis-2.1.6/raster/rt_pg/rtpostgis-2.1.so" targetdir="$INSTALL_PATH/pgsql/lib" />
-	    <file src="agens_temp/geos/lib/libgeos-3.4.2.so" targetdir="$INSTALL_PATH/pgsql/lib" />
-	    <file src="agens_temp/geos/lib/libgeos_c.so.1.8.2" targetdir="$INSTALL_PATH/pgsql/lib" />
-	    <file src="agens_temp/proj/lib/libproj.so.9.0.0" targetdir="$INSTALL_PATH/pgsql/lib" />
-	    <file src="agens_temp/gdal/lib/libgdal.so.1.18.2" targetdir="$INSTALL_PATH/pgsql/lib" />
+            <file src="postgis-2.1.6/postgis/postgis-2.1.so" targetdir="$INSTALL_PATH/pgsql/lib" />
+            <file src="postgis-2.1.6/raster/rt_pg/rtpostgis-2.1.so" targetdir="$INSTALL_PATH/pgsql/lib" />
+            <file src="agens_temp/geos/lib/libgeos-3.4.2.so" targetdir="$INSTALL_PATH/pgsql/lib" />
+            <file src="agens_temp/geos/lib/libgeos_c.so.1.8.2" targetdir="$INSTALL_PATH/pgsql/lib" />
+            <file src="agens_temp/proj/lib/libproj.so.9.0.0" targetdir="$INSTALL_PATH/pgsql/lib" />
+            <file src="agens_temp/gdal/lib/libgdal.so.1.18.2" targetdir="$INSTALL_PATH/pgsql/lib" />
 
-	    <executable targetfile="$INSTALL_PATH/pgsql/lib/postgis-2.1.so" keep="true" />
-	    <executable targetfile="$INSTALL_PATH/pgsql/lib/rtpostgis-2.1.so" keep="true" />
-	    <executable targetfile="$INSTALL_PATH/pgsql/lib/libgeos-3.4.2.so" keep="true" />
-	    <executable targetfile="$INSTALL_PATH/pgsql/lib/libgeos_c.so.1.8.2" keep="true" />
-	    <executable targetfile="$INSTALL_PATH/pgsql/lib/libproj.so.9.0.0" keep="true" />
-	    <executable targetfile="$INSTALL_PATH/pgsql/lib/libgdal.so.1.18.2" keep="true" />
-
-
+            <executable targetfile="$INSTALL_PATH/pgsql/lib/postgis-2.1.so" keep="true" />
+            <executable targetfile="$INSTALL_PATH/pgsql/lib/rtpostgis-2.1.so" keep="true" />
+            <executable targetfile="$INSTALL_PATH/pgsql/lib/libgeos-3.4.2.so" keep="true" />
+            <executable targetfile="$INSTALL_PATH/pgsql/lib/libgeos_c.so.1.8.2" keep="true" />
+            <executable targetfile="$INSTALL_PATH/pgsql/lib/libproj.so.9.0.0" keep="true" />
+            <executable targetfile="$INSTALL_PATH/pgsql/lib/libgdal.so.1.18.2" keep="true" />
 
             <fileset dir="postgis-2.1.6/extensions/postgis/sql" targetdir="$INSTALL_PATH/pgsql/share/extension">
-                <exclude name="postgis.sql" />
+            <exclude name="postgis.sql" />
             </fileset>
             <file src="postgis-2.1.6/extensions/postgis/postgis.control" targetdir="$INSTALL_PATH/pgsql/share/extension" />
-
-
             <fileset dir="postgis-2.1.6/extensions/postgis_topology/sql/" targetdir="$INSTALL_PATH/pgsql/share/extension">
-                <exclude name="postgis_topology.sql" />
+            <exclude name="postgis_topology.sql" />
             </fileset>
             <file src="postgis-2.1.6/extensions/postgis_topology/postgis_topology.control" targetdir="$INSTALL_PATH/pgsql/share/extension" />
-
-
             <fileset dir="postgis-2.1.6/extensions/postgis_tiger_geocoder/sql" targetdir="$INSTALL_PATH/pgsql/share/extension">
-                <exclude name="postgis_tiger_geocoder.sql" />
+            <exclude name="postgis_tiger_geocoder.sql" />
             </fileset>
             <file src="postgis-2.1.6/extensions/postgis_tiger_geocoder/postgis_tiger_geocoder.control" targetdir="$INSTALL_PATH/pgsql/share/extension" />
-
-
             <file src="res/installer/compile_postgis.sh" targetdir="$INSTALL_PATH/installer/res"/>
             <executable targetfile="$INSTALL_PATH/installer/res/compile_postgis.sh" stage="postinstall" keep="true" />
             <parsable targetfile="$INSTALL_PATH/installer/res/compile_postgis.sh"/>
         </pack>
+
 
         <!-- pgbouncer -->
         <pack name="pgbouncer" required="no">
@@ -234,9 +220,7 @@
         </pack>
 
 
-
-
-    <!-- pg_hint_plan -->
+        <!-- pg_hint_plan -->
         <pack name="pg_hint_plan" required="no">
             <description>pg_hint_plan</description>
             <file src="pg_hint_plan94-1.1.3/pg_hint_plan.so" targetdir="$INSTALL_PATH/pgsql/lib" />
@@ -249,7 +233,7 @@
 
         <!-- plproxy -->
         <pack name="plproxy" required="no">
-            <description>plproxy</description>
+        <description>plproxy</description>
 
             <file src="plproxy-2.5/plproxy.so" targetdir="$INSTALL_PATH/pgsql/lib" />
             <executable targetfile="$INSTALL_PATH/pgsql/lib/plproxy.so" keep="true" />
@@ -259,7 +243,6 @@
             <file src="plproxy-2.5/sql/plproxy--2.4.0--2.5.0.sql" targetdir="$INSTALL_PATH/pgsql/share/extension/" />
             <file src="plproxy-2.5/sql/plproxy--unpackaged--2.5.0.sql" targetdir="$INSTALL_PATH/pgsql/share/extension/" />
         </pack>
-
 
 
         <!-- slony -->
@@ -279,12 +262,7 @@
             <file src="slony1-2.2.4/src/backend/slony1_funcs.2.2.4.sql" targetdir="$INSTALL_PATH/pgsql/share" />
             <file src="slony1-2.2.4/src/backend/slony1_funcs.v83.2.2.4.sql" targetdir="$INSTALL_PATH/pgsql/share" />
             <file src="slony1-2.2.4/src/backend/slony1_funcs.v84.2.2.4.sql" targetdir="$INSTALL_PATH/pgsql/share" />
-
         </pack>
-
-
-
-
 
     </packs>
 
