@@ -24,10 +24,10 @@
     <str id="uninstaller.uninstall" txt="설치 제거"/>
 
     <!-- The strings for the 'official' IzPack plugins -->
-    <str id="HelloPanel.welcome1" txt="다음 제품을 설치합니다: "/>
-    <str id="HelloPanel.welcome2" txt="!"/>
-    <str id="HelloPanel.authors" txt="제품 개발자/팀: "/>
-    <str id="HelloPanel.url" txt="제품 홈페이지: "/>
+    <str id="HelloPanel.welcome1" txt=""/>
+    <str id="HelloPanel.welcome2" txt="을 설치합니다."/>
+    <str id="HelloPanel.authors" txt="고객지원팀: "/>
+    <str id="HelloPanel.url" txt="홈페이지: "/>
 
     <str id="CheckedHelloPanel.productAlreadyExist0" txt="이 제품이 이미 이 컴퓨터의 다음 경로에 설치되어 있습니다: "/>
     <str id="CheckedHelloPanel.productAlreadyExist1" txt=" . 따로 설치하시겠습니까?"/>
@@ -62,19 +62,19 @@
     <str id="JDKPathPanel.badVersion2" txt="를 찾았지만 "/>
     <str id="JDKPathPanel.badVersion3" txt="가 필요합니다) 그래도 이 JDK를 사용하시겠습니까?"/>
 
-    <str id="PacksPanel.info" txt="설치할 꾸러미를 선택하십시오:"/>
-    <str id="PacksPanel.tip" txt="주의: 회색으로 표시된 꾸러미는 필수입니다."/>
+    <str id="PacksPanel.info" txt="설치할 패키지를 선택하십시오:"/>
+    <str id="PacksPanel.tip" txt="주의: 회색으로 표시된 패키지는 필수입니다."/>
     <str id="PacksPanel.space" txt="필요한 총 공간: "/>
     <str id="PacksPanel.freespace" txt="가용한 공간: "/>
     <str id="PacksPanel.description" txt="설명"/>
-    <str id="PacksPanel.dependencyList" txt="선택한 꾸러미가 다음 꾸러미를 필요로 합니다"/>
+    <str id="PacksPanel.dependencyList" txt="선택한 패키지가 다음 패키지를 필요로 합니다"/>
     <str id="ImgPacksPanel.dependencyList" txt="의존성"/>
     <str id="PacksPanel.notEnoughSpace" txt="설치에 필요한 디스크 공간이 가용한 디스크 공간을 초과합니다."/>
     <str id="PacksPanel.notAscertainable" txt="확인 불가"/>
 
     <str id="InstallPanel.info" txt="설치 절차를 시작하시려면 '설치!'를 클릭하십시오."/>
     <str id="InstallPanel.install" txt="설치!"/>
-    <str id="InstallPanel.tip" txt="꾸러미 설치 진행 상황:"/>
+    <str id="InstallPanel.tip" txt="패키지 설치 진행 상황:"/>
     <str id="InstallPanel.begin" txt="[없음]"/>
     <str id="InstallPanel.finished" txt="[완료됨]"/>
     <str id="InstallPanel.progress" txt="전체 설치 진행 상황:"/>
@@ -89,9 +89,9 @@
     <str id="FinishPanel.auto.tip"
          txt="다른 컴퓨터에서 동일한 설치를 반복하기 위해 이 스크립트를 사용하십시오."/>
 
-    <str id="ImgPacksPanel.packs" txt="다음과 같은 꾸러미를 있습니다:"/>
-    <str id="ImgPacksPanel.snap" txt="꾸러미 스냅샷:"/>
-    <str id="ImgPacksPanel.checkbox" txt=" 이 꾸러미 설치"/>
+    <str id="ImgPacksPanel.packs" txt="다음과 같은 패키지가를 있습니다:"/>
+    <str id="ImgPacksPanel.snap" txt="패키지 스냅샷:"/>
+    <str id="ImgPacksPanel.checkbox" txt=" 이 패키지 설치"/>
 
     <str id="ShortcutPanel.headline" txt="단축아이콘 설정"/>
     <str id="ShortcutPanel.regular.list" txt="단축 아이콘을 만들 프로그램 그룹을 선택하십시오:"/>
@@ -167,9 +167,9 @@
     <str id="SummaryPanel.info" txt="설치 준비 완료. 중요한 데이터가 다음에 나와 있습니다. 설치를 시작하려면 &quot;다음&quot;을 누르십시오, "/>
     <str id="TargetPanel.summaryCaption" txt="설치 경로"/>
     <str id="JDKPathPanel.summaryCaption" txt="JDK 경로"/>
-    <str id="PacksPanel.summaryCaption" txt="선택한 설치 꾸러미"/>
-    <str id="ImgPacksPanel.summaryCaption" txt="선택한 설치 꾸러미"/>
-    <str id="TreePacksPanel.summaryCaption" txt="선택한 설치 꾸러미"/>
+    <str id="PacksPanel.summaryCaption" txt="선택한 패키지"/>
+    <str id="ImgPacksPanel.summaryCaption" txt="선택한 패키지"/>
+    <str id="TreePacksPanel.summaryCaption" txt="선택한 패키지"/>
     <!-- Strings for the summary of panels - END -->
 
     <!-- Strings for the Registry -->

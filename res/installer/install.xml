@@ -18,6 +18,7 @@
     </locale>
 
     <resources>
+        <res id="Installer.image" src="res/installer/image_infopanel.png"/>
         <res id="LicencePanel.licence" src="res/installer/Licence.txt"/>
         <res id="InfoPanel.info" src="res/installer/Readme.txt"/>
         <res id="userInputSpec.xml" src="res/installer/userInputSpec.xml" />
@@ -38,6 +39,7 @@
         <panel classname="TargetPanel"/>
         <panel classname="PacksPanel"/>
         <panel classname="UserInputPanel" id="panel.path" />
+        <panel classname="SummaryPanel" />
         <panel classname="InstallPanel"/>
         <panel classname="FinishPanel"/>
     </panels>

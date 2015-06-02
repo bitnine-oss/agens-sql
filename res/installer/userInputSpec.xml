@@ -17,7 +17,7 @@
 	<field type="space" />
 
 	<field type="password" align="left" variable="agens.password">
-	    <spec>	
+	    <spec>
 		<pwd txt="The Password:" size="25" set=""/>
 		<pwd txt="Retype Password:" size="25" set=""/>
 	    </spec>
