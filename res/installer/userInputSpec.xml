@@ -4,25 +4,30 @@
 
         <field type="text" variable="agens-sql.port">
             <spec txt="Port Number:" id="input.port" size="4" />
+            <validator class="com.izforge.izpack.util.PortValidator" txt="wrong port number"/>
         </field>
+
         <field type="space" />
         <field type="divider" />
         <field type="space" />
 
-	<field type="text" variable="agens-sql.data_path">
-	    <spec txt="install path:" id="input.path" size="25" />
-	</field>
-	<field type="space" />
-	<field type="divider" />
-	<field type="space" />
+        <field type="text" variable="agens-sql.data_path">
+            <spec txt="Location of data directory:" id="input.path" size="25" />
+            <validator class="com.izforge.izpack.util.RegularExpressionValidator" txt="enter /path/to/some/where">
+                <param name="pattern" value="\/.*(.*)" />
+            </validator>
+        </field>
 
-	<field type="password" align="left" variable="agens.password">
-	    <spec>
-		<pwd txt="The Password:" size="25" set=""/>
-		<pwd txt="Retype Password:" size="25" set=""/>
-	    </spec>
-	    <validator class="com.izforge.izpack.util.PasswordEqualityValidator"
-		txt="Both passwords must match." id="lang pack key for the error text"/>
-	</field>
+        <field type="space" />
+        <field type="divider" />
+        <field type="space" />
+
+        <field type="password" align="left" variable="agens.password">
+            <spec>
+                <pwd txt="The Password:" size="25" set=""/>
+                <pwd txt="Retype Password:" size="25" set=""/>
+            </spec>
+            <validator class="com.izforge.izpack.util.PasswordEqualityValidator" txt="Both passwords must match." id="lang pack key for the error text"/>
+        </field>
     </panel>
 </userInput>

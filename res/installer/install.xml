@@ -11,6 +11,8 @@
     </info>
 
     <guiprefs width="640" height="480" resizable="yes">
+        <modifier key="useHeadingPanel" value="yes"/>
+        <modifier key="headingImageOnLeft" value="no"/>
     </guiprefs>
 
     <locale>
@@ -18,7 +20,7 @@
     </locale>
 
     <resources>
-        <res id="Installer.image" src="res/installer/image_infopanel.png"/>
+        <res id="Heading.image" src="res/installer/image_infopanel.png"/>
         <res id="LicencePanel.licence" src="res/installer/Licence.txt"/>
         <res id="InfoPanel.info" src="res/installer/Readme.txt"/>
         <res id="userInputSpec.xml" src="res/installer/userInputSpec.xml" />
@@ -33,21 +35,21 @@
     </variables>
 
     <panels>
-        <panel classname="HelloPanel"/>
+        <panel classname="HelloPanel" />
         <panel classname="InfoPanel"/>
-        <panel classname="LicencePanel"/>
-        <panel classname="TargetPanel"/>
-        <panel classname="PacksPanel"/>
+        <panel classname="LicencePanel" />
+        <panel classname="TargetPanel" />
+        <panel classname="PacksPanel" />
         <panel classname="UserInputPanel" id="panel.path" />
-        <panel classname="SummaryPanel" />
-        <panel classname="InstallPanel"/>
-        <panel classname="FinishPanel"/>
+        <panel classname="SummaryPanel"/>
+        <panel classname="InstallPanel" />
+        <panel classname="FinishPanel" />
     </panels>
 
     <packs>
 
-        <!-- pgsql -->
-        <pack name="pgsql" id="pgsql" required="yes" >
+        <!-- PostgreSQL -->
+        <pack name="PostgreSQL" id="pgsql" required="yes" >
             <description>PostgreSQL</description>
             <fileset dir="agens_temp/pgsql" targetdir="$INSTALL_PATH/pgsql">
                 <exclude name="bin/postmaster" />
@@ -100,9 +102,9 @@
         </pack>
 
 
-        <!-- pgpool -->
-        <pack name="pgpool" id="pgpool" required="no">
-            <description>pgpool</description>
+        <!-- pgpool-II -->
+        <pack name="pgpool-II" id="pgpool" required="no">
+            <description>pgpool-II</description>
             <fileset dir="agens_temp/pgpool" targetdir="$INSTALL_PATH/pgpool">
                 <exclude name="lib/libpcp.so" />
                 <exclude name="lib/libpcp.so.0" />
@@ -131,9 +133,9 @@
         </pack>
 
 
-        <!-- postgis -->
-        <pack name="postgis" id="postgis" required="no">
-            <description>postgis</description>
+        <!-- PostGIS -->
+        <pack name="PostGIS" id="postgis" required="no">
+            <description>PostGIS</description>
 
             <file src="postgis-2.1.6/postgis/legacy.sql" targetdir="$INSTALL_PATH/pgsql/share/contrib/postgis-2.1" />
             <file src="postgis-2.1.6/postgis/legacy_gist.sql" targetdir="$INSTALL_PATH/pgsql/share/contrib/postgis-2.1" />
@@ -192,17 +194,17 @@
         </pack>
 
 
-        <!-- pgbouncer -->
-        <pack name="pgbouncer" id="pgbouncer" required="no">
-            <description>pgbouncer</description>
+        <!-- PgBouncer 1.5.5 -->
+        <pack name="PgBouncer 1.5.5" id="pgbouncer" required="no">
+            <description>PgBouncer 1.5.5</description>
 
             <fileset dir="agens_temp/pgbouncer" targetdir="$INSTALL_PATH/pgbouncer"/>
             <executable targetfile="$INSTALL_PATH/pgbouncer/bin/pgbouncer" keep="true" />
         </pack>
 
 
-        <!-- skytools -->
-        <pack name="skytools" id="skytools" required="no">
+        <!-- SkyTools -->
+        <pack name="SkyTools" id="skytools" required="no">
             <description></description>
             <fileset dir="agens_temp/skytools" targetdir="$INSTALL_PATH/skytools"/>
             <executable targetfile="$INSTALL_PATH/skytools/bin/data_maintainer3" keep="true" />
@@ -233,9 +235,9 @@
         </pack>
 
 
-        <!-- plproxy -->
-        <pack name="plproxy" id="plproxy" required="no">
-        <description>plproxy</description>
+        <!-- PL/Proxy -->
+        <pack name="PL/Proxy" id="plproxy" required="no">
+        <description>PL/Proxy</description>
 
             <file src="plproxy-2.5/plproxy.so" targetdir="$INSTALL_PATH/pgsql/lib" />
             <executable targetfile="$INSTALL_PATH/pgsql/lib/plproxy.so" keep="true" />
@@ -247,9 +249,9 @@
         </pack>
 
 
-        <!-- slony -->
-        <pack name="slony" id="slony" required="no">
-            <description>slony</description>
+        <!-- Slony-I -->
+        <pack name="Slony-I" id="slony" required="no">
+            <description>Slony-I</description>
 
             <file src="slony1-2.2.4/src/backend/slony1_funcs.2.2.4.so" targetdir="$INSTALL_PATH/pgsql/lib" />
             <executable targetfile="$INSTALL_PATH/pgsql/lib/slony1_funcs.2.2.4.so" keep="true" />

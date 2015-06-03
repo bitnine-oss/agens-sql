@@ -1,6 +1,6 @@
 #!/bin/bash
 
-ln -s $INSTALL_PATH/pgsql/bin/postgres $INSTALL_PATH/pgsql/bin/postmaster
+ln -s -f $INSTALL_PATH/pgsql/bin/postgres $INSTALL_PATH/pgsql/bin/postmaster
 
 AGENS_HOME="$INSTALL_PATH"
 agens_passwd_file.$$=$AGENS_HOME/pgsql/dbuser_passwd
