@@ -3,7 +3,7 @@
 
     <info>
         <appname>Agens-SQL</appname>
-        <appversion>1.0.0</appversion>
+        <appversion>V1.0.0</appversion>
         <authors>
             <author name="Bitnine" email="ksjang@bitnine.co.kr"/>
         </authors>
@@ -20,7 +20,7 @@
     </locale>
 
     <resources>
-        <res id="Heading.image" src="res/installer/image_infopanel.png"/>
+        <res id="Heading.image" src="res/installer/image_Heading.png"/>
         <res id="LicencePanel.licence" src="res/installer/Licence.txt"/>
         <res id="InfoPanel.info" src="res/installer/Readme.txt"/>
         <res id="userInputSpec.xml" src="res/installer/userInputSpec.xml" />
@@ -40,7 +40,7 @@
         <panel classname="LicencePanel" />
         <panel classname="TargetPanel" />
         <panel classname="PacksPanel" />
-        <panel classname="UserInputPanel" id="panel.path" />
+        <panel classname="UserInputPanel" id="UserInputPanel1" />
         <panel classname="SummaryPanel"/>
         <panel classname="InstallPanel" />
         <panel classname="FinishPanel" />
@@ -259,6 +259,10 @@
             <file src="slony1-2.2.4/src/slon/slon" targetdir="$INSTALL_PATH/pgsql/bin/" />
             <file src="slony1-2.2.4/src/slonik/slonik" targetdir="$INSTALL_PATH/pgsql/bin/" />
             <file src="slony1-2.2.4/src/slony_logshipper/slony_logshipper" targetdir="$INSTALL_PATH/pgsql/bin/" />
+
+            <executable targetfile="$INSTALL_PATH/pgsql/bin/slon" keep="true"  />
+            <executable targetfile="$INSTALL_PATH/pgsql/bin/slonik" keep="true"  />
+            <executable targetfile="$INSTALL_PATH/pgsql/bin/slony_logshipper" keep="true"  />
 
             <file src="slony1-2.2.4/src/backend/slony1_base.2.2.4.sql" targetdir="$INSTALL_PATH/pgsql/share" />
             <file src="slony1-2.2.4/src/backend/slony1_base.v83.2.2.4.sql" targetdir="$INSTALL_PATH/pgsql/share" />

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-ln -s -f $INSTALL_PATH/pgsql/bin/postgres $INSTALL_PATH/pgsql/bin/postmaster
+if [ ! -f $INSTALL_PATH/pgsql/bin/postmaster ]; then ln -s $INSTALL_PATH/pgsql/bin/postgres $INSTALL_PATH/pgsql/bin/postmaster; fi
 
 AGENS_HOME="$INSTALL_PATH"
 agens_passwd_file.$$=$AGENS_HOME/pgsql/dbuser_passwd
@@ -13,7 +13,6 @@ echo "$password" > $agens_passwd_file.$$
 chmod 600 $agens_passwd_file.$$
 
 # initialize agens database
-mkdir $DATA_DIR
 if [ -z $password ]; then
 	LD_LIBRARY_PATH=$AGENS_HOME/pgsql/lib $AGENS_HOME/pgsql/bin/initdb -U agens -D $DATA_DIR
 else

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <userInput>
-    <panel id="panel.path">
+    <panel id="UserInputPanel1">
 
         <field type="text" variable="agens-sql.port">
             <spec txt="Port Number:" id="input.port" size="4" />
