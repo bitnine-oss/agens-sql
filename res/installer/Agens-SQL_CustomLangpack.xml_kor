@@ -44,7 +44,7 @@
 
     <!-- Uninstaller specific strings -->
     <str id="uninstaller.warning" txt="설치된 어플리케이션이 제거됩니다!"/>
-    <str id="uninstaller.destroytarget" txt=" 다음 디렉토리 강제로 삭제: "/>
+    <str id="uninstaller.destroytarget" txt=" 다음 디렉터리 강제로 삭제: "/>
     <str id="uninstaller.uninstall" txt="설치 제거"/>
 
     <!-- The strings for the 'official' IzPack plugins -->
@@ -57,28 +57,28 @@
     <str id="CheckedHelloPanel.productAlreadyExist1" txt=" . 따로 설치하시겠습니까?"/>
     <str id="CheckedHelloPanel.infoOverUninstallKey" txt="설치 제거 키는 다음과 같습니다: "/>
 
-    <str id="LicencePanel.info" txt="다음 라이센스 정보를 주의깊게 확인하십시오:"/>
-    <str id="LicencePanel.agree" txt="이 라이센스 조항에 동의합니다."/>
-    <str id="LicencePanel.notagree" txt="이 라이센스 조항에 동의하지 않습니다."/>
+    <str id="LicencePanel.info" txt="다음 라이선스 정보를 주의깊게 확인하십시오:"/>
+    <str id="LicencePanel.agree" txt="이 라이선스 조항에 동의합니다."/>
+    <str id="LicencePanel.notagree" txt="이 라이선스 조항에 동의하지 않습니다."/>
     <str id="LicencePanel.yes" txt="예"/>
     <str id="LicencePanel.no" txt="아니오"/>
 
     <str id="InfoPanel.info" txt="다음 정보를 확인하십시오: "/>
 
-    <str id="PathInputPanel.required" txt="선택한 디렉토리가 존재해야 합니다."/>
-    <str id="PathInputPanel.notValid" txt="선택한 디렉토리에 필요한 제품이 없습니다."/>
+    <str id="PathInputPanel.required" txt="선택한 디렉터리가 존재해야 합니다."/>
+    <str id="PathInputPanel.notValid" txt="선택한 디렉터리에 필요한 제품이 없습니다."/>
 
     <str id="TargetPanel.info" txt="설치 경로를 선택하십시오: "/>
     <str id="TargetPanel.browse" txt="찾아보기..."/>
     <str id="TargetPanel.warn"
-         txt="디렉토리가 이미 존재합니다! 기존의 파일을 덮어쓸 수 있습니다. 여기에 설치하시겠습니까?"/>
+         txt="디렉터리가 이미 존재합니다! 기존의 파일을 덮어쓸 수 있습니다. 여기에 설치하시겠습니까?"/>
     <str id="TargetPanel.empty_target"
          txt="대상 위치를 지정하지 않았습니다. 확실합니까?"/>
-    <str id="TargetPanel.createdir" txt="대상 디렉토리가 만들어 집니다: "/>
+    <str id="TargetPanel.createdir" txt="대상 디렉터리가 만들어 집니다: "/>
     <str id="TargetPanel.nodir"
-         txt="이 파일은 디렉토리가 아닙니다! 디렉토리를 선택하십시오!"/>
+         txt="이 파일은 디렉터리가 아닙니다! 디렉터리를 선택하십시오!"/>
     <str id="TargetPanel.notwritable"
-         txt="이 디렉토리는 쓰기가 불가능합니다! 다른 디렉토리를 선택하십시오!"/>
+         txt="이 디렉터리는 쓰기가 불가능합니다! 다른 디렉터리를 선택하십시오!"/>
 
     <str id="JDKPathPanel.intro" txt="설치한 어플리케이션은 JDK가 필요합니다. 자바 실행 환경(JRE)는 충분하지 않습니다."/>
     <str id="JDKPathPanel.info" txt="JDK 경로를 선택하십시오:"/>
@@ -145,7 +145,7 @@
     <str id="ShortcutPanel.textFile.command" txt="명령행            : "/>
     <str id="ShortcutPanel.textFile.iconName" txt="아이콘 파일       : "/>
     <str id="ShortcutPanel.textFile.iconIndex" txt="아이콘 번호       : "/>
-    <str id="ShortcutPanel.textFile.work" txt="작업 디렉토리     : "/>
+    <str id="ShortcutPanel.textFile.work" txt="작업 디렉터리     : "/>
 
     <str id="ShortcutPanel.location.desktop" txt="바탕화면"/>
     <str id="ShortcutPanel.location.applications" txt="어플리케이션 메뉴"/>
@@ -158,7 +158,7 @@
     <!-- more descriptive error message would be cool, like specifying what file we looked for -->
     <str id="UserInputPanel.search.autodetect.failed.message" txt="자동으로 감지하지 못했습니다."/>
     <str id="UserInputPanel.search.autodetect.failed.caption" txt="자동 감지 실패."/>
-    <str id="UserInputPanel.search.autodetect.tooltip" txt="위의 경로에 있는 파일이나 디렉토리를 확인하십시오."/>
+    <str id="UserInputPanel.search.autodetect.tooltip" txt="위의 경로에 있는 파일이나 디렉터리를 확인하십시오."/>
     <str id="UserInputPanel.search.location" txt="{0}의 위치를 입력하십시오."/>
     <str id="UserInputPanel.search.location.checkedfile" txt="{0}이(가) 존재가 확인되었습니다."/>
     <str id="UserInputPanel.search.browse" txt="찾아보기..."/>
@@ -205,14 +205,14 @@
     <str id="data.validation.warning.title" txt="경고 " />
 
     <!-- UserPathPanel strings -->
-    <str id="UserPathPanel.required" txt="선택한 디렉토리가 존재해야 합니다."/>
+    <str id="UserPathPanel.required" txt="선택한 디렉터리가 존재해야 합니다."/>
     <str id="UserPathPanel.info" txt="설치 경로를 선택하십시오: "/>
     <str id="UserPathPanel.browse" txt="찾아보기..."/>
-    <str id="UserPathPanel.exists_warn" txt="디렉토리가 이미 존재합니다! 기존의 파일을 덮어쓸 수 있습니다. 여기에 설치하시겠습니까?"/>
+    <str id="UserPathPanel.exists_warn" txt="디렉터리가 이미 존재합니다! 기존의 파일을 덮어쓸 수 있습니다. 여기에 설치하시겠습니까?"/>
     <str id="UserPathPanel.empty_target" txt="대상 위치를 지정하지 않았습니다. 확실합니까?"/>
-    <str id="UserPathPanel.createdir" txt="대상 디렉토리가 만들어 집니다: "/>
-    <str id="UserPathPanel.nodir" txt="이 파일은 디렉토리가 아닙니다! 디렉토리를 선택하십시오!"/>
-    <str id="UserPathPanel.notwritable" txt="이 디렉토리는 쓰기가 불가능합니다! 다른 디렉토리를 선택하십시오!"/>
+    <str id="UserPathPanel.createdir" txt="대상 디렉터리가 만들어 집니다: "/>
+    <str id="UserPathPanel.nodir" txt="이 파일은 디렉터리가 아닙니다! 디렉터리를 선택하십시오!"/>
+    <str id="UserPathPanel.notwritable" txt="이 디렉터리는 쓰기가 불가능합니다! 다른 디렉터리를 선택하십시오!"/>
     <str id="UserPathPanel.summaryCaption" txt="설치 경로"/>
 
 </langpack>

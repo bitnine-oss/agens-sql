@@ -2,7 +2,7 @@
 <installation version="1.0">
 
     <info>
-        <appname>Agens-SQL</appname>
+        <appname>Agens_SQL</appname>
         <appversion>V1.0.0</appversion>
         <authors>
             <author name="Bitnine" email="ksjang@bitnine.co.kr"/>
@@ -29,9 +29,9 @@
     </resources>
 
     <variables>
-        <variable name="agens-sql.data_path" value="$INSTALL_PATH/pgsql/data" />
-        <variable name="agens-sql.password" value="" />
-        <variable name="agens-sql.port" value="5456" />
+        <variable name="agens_sql.data_path" value="$INSTALL_PATH/pgsql/data" />
+        <variable name="agens_sql.password" value="" />
+        <variable name="agens_sql.port" value="5456" />
     </variables>
 
     <panels>

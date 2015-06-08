@@ -2,7 +2,7 @@
 <userInput>
     <panel id="UserInputPanel1">
 
-        <field type="text" variable="agens-sql.port">
+        <field type="text" variable="agens_sql.port">
             <spec txt="Port Number:" id="input.port" size="4" />
             <validator class="com.izforge.izpack.util.PortValidator" txt="wrong port number"/>
         </field>
@@ -11,7 +11,7 @@
         <field type="divider" />
         <field type="space" />
 
-        <field type="text" variable="agens-sql.data_path">
+        <field type="text" variable="agens_sql.data_path">
             <spec txt="Location of data directory:" id="input.path" size="25" />
             <validator class="com.izforge.izpack.util.RegularExpressionValidator" txt="enter /path/to/some/where">
                 <param name="pattern" value="\/.*(.*)" />
