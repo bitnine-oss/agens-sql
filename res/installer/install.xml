@@ -106,22 +106,22 @@
  <executable targetfile="$INSTALL_PATH/pgsql/lib/chkpass.so" keep="true" />
  <executable targetfile="$INSTALL_PATH/pgsql/lib/citext.so" keep="true" />
  <executable targetfile="$INSTALL_PATH/pgsql/lib/cube.so" keep="true" />
- <executable targetfile="$INSTALL_PATH/pgsql/lib/cyrillic_and_mic." keep="true" />so
+ <executable targetfile="$INSTALL_PATH/pgsql/lib/cyrillic_and_mic.so" keep="true" />
  <executable targetfile="$INSTALL_PATH/pgsql/lib/dblink.so" keep="true" />
  <executable targetfile="$INSTALL_PATH/pgsql/lib/dict_int.so" keep="true" />
  <executable targetfile="$INSTALL_PATH/pgsql/lib/dict_snowball.so" keep="true" />
  <executable targetfile="$INSTALL_PATH/pgsql/lib/dict_xsyn.so" keep="true" />
- <executable targetfile="$INSTALL_PATH/pgsql/lib/dummy_seclabel." keep="true" />so
+ <executable targetfile="$INSTALL_PATH/pgsql/lib/dummy_seclabel.so" keep="true" />
  <executable targetfile="$INSTALL_PATH/pgsql/lib/earthdistance.so" keep="true" />
- <executable targetfile="$INSTALL_PATH/pgsql/lib/euc_cn_and_mic." keep="true" />so
+ <executable targetfile="$INSTALL_PATH/pgsql/lib/euc_cn_and_mic.so" keep="true" />
  <executable targetfile="$INSTALL_PATH/pgsql/lib/euc_jp_and_sjis.so" keep="true" />
- <executable targetfile="$INSTALL_PATH/pgsql/lib/euc_kr_and_mic." keep="true" />so
- <executable targetfile="$INSTALL_PATH/pgsql/lib/euc_tw_and_big5." keep="true" />so
- <executable targetfile="$INSTALL_PATH/pgsql/lib/euc2004_sjis2004." keep="true" />so
+ <executable targetfile="$INSTALL_PATH/pgsql/lib/euc_kr_and_mic.so" keep="true" />
+ <executable targetfile="$INSTALL_PATH/pgsql/lib/euc_tw_and_big5.so" keep="true" />
+ <executable targetfile="$INSTALL_PATH/pgsql/lib/euc2004_sjis2004.so" keep="true" />
  <executable targetfile="$INSTALL_PATH/pgsql/lib/file_fdw.so" keep="true" />
  <executable targetfile="$INSTALL_PATH/pgsql/lib/fuzzystrmatch.so" keep="true" />
  <executable targetfile="$INSTALL_PATH/pgsql/lib/hstore.so" keep="true" />
- <executable targetfile="$INSTALL_PATH/pgsql/lib/insert_username." keep="true" />so
+ <executable targetfile="$INSTALL_PATH/pgsql/lib/insert_username.so" keep="true" />
  <executable targetfile="$INSTALL_PATH/pgsql/lib/isn.so" keep="true" />
  <executable targetfile="$INSTALL_PATH/pgsql/lib/latin_and_mic.so" keep="true" />
  <executable targetfile="$INSTALL_PATH/pgsql/lib/latin2_and_win1250.so" keep="true" />
@@ -129,14 +129,14 @@
  <executable targetfile="$INSTALL_PATH/pgsql/lib/libecpg.so.6.6" keep="true" />
  <executable targetfile="$INSTALL_PATH/pgsql/lib/libpgtypes.so.3.5" keep="true" />
  <executable targetfile="$INSTALL_PATH/pgsql/lib/libpq.so.5.7" keep="true" />
- <executable targetfile="$INSTALL_PATH/pgsql/lib/libpqwalreceiver." keep="true" />so
+ <executable targetfile="$INSTALL_PATH/pgsql/lib/libpqwalreceiver.so" keep="true" />
  <executable targetfile="$INSTALL_PATH/pgsql/lib/lo.so" keep="true" />
  <executable targetfile="$INSTALL_PATH/pgsql/lib/ltree.so" keep="true" />
  <executable targetfile="$INSTALL_PATH/pgsql/lib/moddatetime.so" keep="true" />
  <executable targetfile="$INSTALL_PATH/pgsql/lib/pageinspect.so" keep="true" />
  <executable targetfile="$INSTALL_PATH/pgsql/lib/passwordcheck.so" keep="true" />
  <executable targetfile="$INSTALL_PATH/pgsql/lib/pg_buffercache.so" keep="true" />
- <executable targetfile="$INSTALL_PATH/pgsql/lib/pg_freespacemap." keep="true" />so
+ <executable targetfile="$INSTALL_PATH/pgsql/lib/pg_freespacemap.so" keep="true" />
  <executable targetfile="$INSTALL_PATH/pgsql/lib/pg_prewarm.so" keep="true" />
  <executable targetfile="$INSTALL_PATH/pgsql/lib/pg_stat_statements.so" keep="true" />
  <executable targetfile="$INSTALL_PATH/pgsql/lib/pg_trgm.so" keep="true" />
@@ -168,19 +168,19 @@
  <executable targetfile="$INSTALL_PATH/pgsql/lib/unaccent.so" keep="true" />
  <executable targetfile="$INSTALL_PATH/pgsql/lib/utf8_and_ascii.so" keep="true" />
  <executable targetfile="$INSTALL_PATH/pgsql/lib/utf8_and_big5.so" keep="true" />
- <executable targetfile="$INSTALL_PATH/pgsql/lib/utf8_and_cyrillic." keep="true" />so
- <executable targetfile="$INSTALL_PATH/pgsql/lib/utf8_and_euc_cn." keep="true" />so
- <executable targetfile="$INSTALL_PATH/pgsql/lib/utf8_and_euc_jp." keep="true" />so
- <executable targetfile="$INSTALL_PATH/pgsql/lib/utf8_and_euc_kr." keep="true" />so
- <executable targetfile="$INSTALL_PATH/pgsql/lib/utf8_and_euc_tw." keep="true" />so
- <executable targetfile="$INSTALL_PATH/pgsql/lib/utf8_and_euc2004" keep="true" />.so
- <executable targetfile="$INSTALL_PATH/pgsql/lib/utf8_and_gb18030" keep="true" />.so
+ <executable targetfile="$INSTALL_PATH/pgsql/lib/utf8_and_cyrillic.so" keep="true" />
+ <executable targetfile="$INSTALL_PATH/pgsql/lib/utf8_and_euc_cn.so" keep="true" />
+ <executable targetfile="$INSTALL_PATH/pgsql/lib/utf8_and_euc_jp.so" keep="true" />
+ <executable targetfile="$INSTALL_PATH/pgsql/lib/utf8_and_euc_kr.so" keep="true" />
+ <executable targetfile="$INSTALL_PATH/pgsql/lib/utf8_and_euc_tw.so" keep="true" />
+ <executable targetfile="$INSTALL_PATH/pgsql/lib/utf8_and_euc2004.so" keep="true" />
+ <executable targetfile="$INSTALL_PATH/pgsql/lib/utf8_and_gb18030.so" keep="true" />
  <executable targetfile="$INSTALL_PATH/pgsql/lib/utf8_and_gbk.so" keep="true" />
  <executable targetfile="$INSTALL_PATH/pgsql/lib/utf8_and_iso8859_1.so" keep="true" />
- <executable targetfile="$INSTALL_PATH/pgsql/lib/utf8_and_iso8859." keep="true" />so
+ <executable targetfile="$INSTALL_PATH/pgsql/lib/utf8_and_iso8859.so" keep="true" />
  <executable targetfile="$INSTALL_PATH/pgsql/lib/utf8_and_johab.so" keep="true" />
  <executable targetfile="$INSTALL_PATH/pgsql/lib/utf8_and_sjis.so" keep="true" />
- <executable targetfile="$INSTALL_PATH/pgsql/lib/utf8_and_sjis2004." keep="true" />so
+ <executable targetfile="$INSTALL_PATH/pgsql/lib/utf8_and_sjis2004.so" keep="true" />
  <executable targetfile="$INSTALL_PATH/pgsql/lib/utf8_and_uhc.so" keep="true" />
  <executable targetfile="$INSTALL_PATH/pgsql/lib/utf8_and_win.so" keep="true" />
  <executable targetfile="$INSTALL_PATH/pgsql/lib/worker_spi.so" keep="true" />
