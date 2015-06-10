@@ -147,8 +147,6 @@
  <executable targetfile="$INSTALL_PATH/pgsql/lib/pgrowlocks.so" keep="true" />
  <executable targetfile="$INSTALL_PATH/pgsql/lib/pgstattuple.so" keep="true" />
  <executable targetfile="$INSTALL_PATH/pgsql/lib/pgxml.so" keep="true" />
- <executable targetfile="$INSTALL_PATH/pgsql/lib/pgxs" keep="true" />
- <executable targetfile="$INSTALL_PATH/pgsql/lib/pkgconfig" keep="true" />
  <executable targetfile="$INSTALL_PATH/pgsql/lib/plperl.so" keep="true" />
  <executable targetfile="$INSTALL_PATH/pgsql/lib/plpgsql.so" keep="true" />
  <executable targetfile="$INSTALL_PATH/pgsql/lib/plpython2.so" keep="true" />
@@ -184,10 +182,8 @@
  <executable targetfile="$INSTALL_PATH/pgsql/lib/utf8_and_uhc.so" keep="true" />
  <executable targetfile="$INSTALL_PATH/pgsql/lib/utf8_and_win.so" keep="true" />
  <executable targetfile="$INSTALL_PATH/pgsql/lib/worker_spi.so" keep="true" />
- <executable targetfile="$INSTALL_PATH/pgsql/lib/" keep="true" />
- <executable targetfile="$INSTALL_PATH/pgsql/lib/" keep="true" />
  <executable targetfile="$INSTALL_PATH/pgsql/lib/pgxs/config/install-sh" keep="true" />
- <executable targetfile="$INSTALL_PATH/pgsql/lib/pgxs/src/test/regresspg_regress" keep="true" />
+ <executable targetfile="$INSTALL_PATH/pgsql/lib/pgxs/src/test/regress/pg_regress" keep="true" />
 
             <file src="res/installer/Licence.txt" targetdir="$INSTALL_PATH/installer/res"/>
             <file src="res/installer/Readme.txt" targetdir="$INSTALL_PATH/installer/res"/>
