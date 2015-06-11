@@ -95,101 +95,95 @@
             <executable targetfile="$INSTALL_PATH/pgsql/bin/vacuumlo" keep="true" />
 
             <!-- set executable pgsql/lib -->
-             <executable targetfile="$INSTALL_PATH/pgsql/lib/_int.so" keep="true" />
- <executable targetfile="$INSTALL_PATH/pgsql/lib/adminpack.so" keep="true" />
- <executable targetfile="$INSTALL_PATH/pgsql/lib/ascii_and_mic.so" keep="true" />
- <executable targetfile="$INSTALL_PATH/pgsql/lib/auth_delay.so" keep="true" />
- <executable targetfile="$INSTALL_PATH/pgsql/lib/auto_explain.so" keep="true" />
- <executable targetfile="$INSTALL_PATH/pgsql/lib/autoinc.so" keep="true" />
- <executable targetfile="$INSTALL_PATH/pgsql/lib/btree_gin.so" keep="true" />
- <executable targetfile="$INSTALL_PATH/pgsql/lib/btree_gist.so" keep="true" />
- <executable targetfile="$INSTALL_PATH/pgsql/lib/chkpass.so" keep="true" />
- <executable targetfile="$INSTALL_PATH/pgsql/lib/citext.so" keep="true" />
- <executable targetfile="$INSTALL_PATH/pgsql/lib/cube.so" keep="true" />
- <executable targetfile="$INSTALL_PATH/pgsql/lib/cyrillic_and_mic.so" keep="true" />
- <executable targetfile="$INSTALL_PATH/pgsql/lib/dblink.so" keep="true" />
- <executable targetfile="$INSTALL_PATH/pgsql/lib/dict_int.so" keep="true" />
- <executable targetfile="$INSTALL_PATH/pgsql/lib/dict_snowball.so" keep="true" />
- <executable targetfile="$INSTALL_PATH/pgsql/lib/dict_xsyn.so" keep="true" />
- <executable targetfile="$INSTALL_PATH/pgsql/lib/dummy_seclabel.so" keep="true" />
- <executable targetfile="$INSTALL_PATH/pgsql/lib/earthdistance.so" keep="true" />
- <executable targetfile="$INSTALL_PATH/pgsql/lib/euc_cn_and_mic.so" keep="true" />
- <executable targetfile="$INSTALL_PATH/pgsql/lib/euc_jp_and_sjis.so" keep="true" />
- <executable targetfile="$INSTALL_PATH/pgsql/lib/euc_kr_and_mic.so" keep="true" />
- <executable targetfile="$INSTALL_PATH/pgsql/lib/euc_tw_and_big5.so" keep="true" />
- <executable targetfile="$INSTALL_PATH/pgsql/lib/euc2004_sjis2004.so" keep="true" />
- <executable targetfile="$INSTALL_PATH/pgsql/lib/file_fdw.so" keep="true" />
- <executable targetfile="$INSTALL_PATH/pgsql/lib/fuzzystrmatch.so" keep="true" />
- <executable targetfile="$INSTALL_PATH/pgsql/lib/hstore.so" keep="true" />
- <executable targetfile="$INSTALL_PATH/pgsql/lib/insert_username.so" keep="true" />
- <executable targetfile="$INSTALL_PATH/pgsql/lib/isn.so" keep="true" />
- <executable targetfile="$INSTALL_PATH/pgsql/lib/latin_and_mic.so" keep="true" />
- <executable targetfile="$INSTALL_PATH/pgsql/lib/latin2_and_win1250.so" keep="true" />
- <executable targetfile="$INSTALL_PATH/pgsql/lib/libecpg_compat.so.3.6" keep="true" />
- <executable targetfile="$INSTALL_PATH/pgsql/lib/libecpg.so.6.6" keep="true" />
- <executable targetfile="$INSTALL_PATH/pgsql/lib/libpgtypes.so.3.5" keep="true" />
- <executable targetfile="$INSTALL_PATH/pgsql/lib/libpq.so.5.7" keep="true" />
- <executable targetfile="$INSTALL_PATH/pgsql/lib/libpqwalreceiver.so" keep="true" />
- <executable targetfile="$INSTALL_PATH/pgsql/lib/lo.so" keep="true" />
- <executable targetfile="$INSTALL_PATH/pgsql/lib/ltree.so" keep="true" />
- <executable targetfile="$INSTALL_PATH/pgsql/lib/moddatetime.so" keep="true" />
- <executable targetfile="$INSTALL_PATH/pgsql/lib/pageinspect.so" keep="true" />
- <executable targetfile="$INSTALL_PATH/pgsql/lib/passwordcheck.so" keep="true" />
- <executable targetfile="$INSTALL_PATH/pgsql/lib/pg_buffercache.so" keep="true" />
- <executable targetfile="$INSTALL_PATH/pgsql/lib/pg_freespacemap.so" keep="true" />
- <executable targetfile="$INSTALL_PATH/pgsql/lib/pg_prewarm.so" keep="true" />
- <executable targetfile="$INSTALL_PATH/pgsql/lib/pg_stat_statements.so" keep="true" />
- <executable targetfile="$INSTALL_PATH/pgsql/lib/pg_trgm.so" keep="true" />
- <executable targetfile="$INSTALL_PATH/pgsql/lib/pg_upgrade_support.so" keep="true" />
- <executable targetfile="$INSTALL_PATH/pgsql/lib/pgcrypto.so" keep="true" />
- <executable targetfile="$INSTALL_PATH/pgsql/lib/pgq_lowlevel.so" keep="true" />
- <executable targetfile="$INSTALL_PATH/pgsql/lib/pgq_triggers.so" keep="true" />
- <executable targetfile="$INSTALL_PATH/pgsql/lib/pgrowlocks.so" keep="true" />
- <executable targetfile="$INSTALL_PATH/pgsql/lib/pgstattuple.so" keep="true" />
- <executable targetfile="$INSTALL_PATH/pgsql/lib/pgxml.so" keep="true" />
- <executable targetfile="$INSTALL_PATH/pgsql/lib/plperl.so" keep="true" />
- <executable targetfile="$INSTALL_PATH/pgsql/lib/plpgsql.so" keep="true" />
- <executable targetfile="$INSTALL_PATH/pgsql/lib/plpython2.so" keep="true" />
- <executable targetfile="$INSTALL_PATH/pgsql/lib/pltcl.so" keep="true" />
- <executable targetfile="$INSTALL_PATH/pgsql/lib/postgis-2.1.so" keep="true" />
- <executable targetfile="$INSTALL_PATH/pgsql/lib/postgres_fdw.so" keep="true" />
- <executable targetfile="$INSTALL_PATH/pgsql/lib/refint.so" keep="true" />
- <executable targetfile="$INSTALL_PATH/pgsql/lib/seg.so" keep="true" />
- <executable targetfile="$INSTALL_PATH/pgsql/lib/sslinfo.so" keep="true" />
- <executable targetfile="$INSTALL_PATH/pgsql/lib/tablefunc.so" keep="true" />
- <executable targetfile="$INSTALL_PATH/pgsql/lib/tcn.so" keep="true" />
- <executable targetfile="$INSTALL_PATH/pgsql/lib/test_decoding.so" keep="true" />
- <executable targetfile="$INSTALL_PATH/pgsql/lib/test_parser.so" keep="true" />
- <executable targetfile="$INSTALL_PATH/pgsql/lib/test_shm_mq.so" keep="true" />
- <executable targetfile="$INSTALL_PATH/pgsql/lib/timetravel.so" keep="true" />
- <executable targetfile="$INSTALL_PATH/pgsql/lib/tsearch2.so" keep="true" />
- <executable targetfile="$INSTALL_PATH/pgsql/lib/unaccent.so" keep="true" />
- <executable targetfile="$INSTALL_PATH/pgsql/lib/utf8_and_ascii.so" keep="true" />
- <executable targetfile="$INSTALL_PATH/pgsql/lib/utf8_and_big5.so" keep="true" />
- <executable targetfile="$INSTALL_PATH/pgsql/lib/utf8_and_cyrillic.so" keep="true" />
- <executable targetfile="$INSTALL_PATH/pgsql/lib/utf8_and_euc_cn.so" keep="true" />
- <executable targetfile="$INSTALL_PATH/pgsql/lib/utf8_and_euc_jp.so" keep="true" />
- <executable targetfile="$INSTALL_PATH/pgsql/lib/utf8_and_euc_kr.so" keep="true" />
- <executable targetfile="$INSTALL_PATH/pgsql/lib/utf8_and_euc_tw.so" keep="true" />
- <executable targetfile="$INSTALL_PATH/pgsql/lib/utf8_and_euc2004.so" keep="true" />
- <executable targetfile="$INSTALL_PATH/pgsql/lib/utf8_and_gb18030.so" keep="true" />
- <executable targetfile="$INSTALL_PATH/pgsql/lib/utf8_and_gbk.so" keep="true" />
- <executable targetfile="$INSTALL_PATH/pgsql/lib/utf8_and_iso8859_1.so" keep="true" />
- <executable targetfile="$INSTALL_PATH/pgsql/lib/utf8_and_iso8859.so" keep="true" />
- <executable targetfile="$INSTALL_PATH/pgsql/lib/utf8_and_johab.so" keep="true" />
- <executable targetfile="$INSTALL_PATH/pgsql/lib/utf8_and_sjis.so" keep="true" />
- <executable targetfile="$INSTALL_PATH/pgsql/lib/utf8_and_sjis2004.so" keep="true" />
- <executable targetfile="$INSTALL_PATH/pgsql/lib/utf8_and_uhc.so" keep="true" />
- <executable targetfile="$INSTALL_PATH/pgsql/lib/utf8_and_win.so" keep="true" />
- <executable targetfile="$INSTALL_PATH/pgsql/lib/worker_spi.so" keep="true" />
- <executable targetfile="$INSTALL_PATH/pgsql/lib/pgxs/config/install-sh" keep="true" />
- <executable targetfile="$INSTALL_PATH/pgsql/lib/pgxs/src/test/regress/pg_regress" keep="true" />
-
-            <file src="res/installer/Licence.txt" targetdir="$INSTALL_PATH/installer/res"/>
-            <file src="res/installer/Readme.txt" targetdir="$INSTALL_PATH/installer/res"/>
-            <file src="res/installer/install.xml" targetdir="$INSTALL_PATH/installer/res"/>
-            <file src="res/installer/userInputSpec.xml" targetdir="$INSTALL_PATH/installer/res"/>
-            <file src="res/installer/compile_pgsql.sh" targetdir="$INSTALL_PATH/installer/res"/>
+            <executable targetfile="$INSTALL_PATH/pgsql/lib/_int.so" keep="true" />
+	    <executable targetfile="$INSTALL_PATH/pgsql/lib/adminpack.so" keep="true" />
+	    <executable targetfile="$INSTALL_PATH/pgsql/lib/ascii_and_mic.so" keep="true" />
+            <executable targetfile="$INSTALL_PATH/pgsql/lib/auth_delay.so" keep="true" />
+            <executable targetfile="$INSTALL_PATH/pgsql/lib/auto_explain.so" keep="true" />
+            <executable targetfile="$INSTALL_PATH/pgsql/lib/autoinc.so" keep="true" />
+            <executable targetfile="$INSTALL_PATH/pgsql/lib/btree_gin.so" keep="true" />
+            <executable targetfile="$INSTALL_PATH/pgsql/lib/btree_gist.so" keep="true" />
+            <executable targetfile="$INSTALL_PATH/pgsql/lib/chkpass.so" keep="true" />
+            <executable targetfile="$INSTALL_PATH/pgsql/lib/citext.so" keep="true" />
+            <executable targetfile="$INSTALL_PATH/pgsql/lib/cube.so" keep="true" />
+            <executable targetfile="$INSTALL_PATH/pgsql/lib/cyrillic_and_mic.so" keep="true" />
+            <executable targetfile="$INSTALL_PATH/pgsql/lib/dblink.so" keep="true" />
+            <executable targetfile="$INSTALL_PATH/pgsql/lib/dict_int.so" keep="true" />
+            <executable targetfile="$INSTALL_PATH/pgsql/lib/dict_snowball.so" keep="true" />
+            <executable targetfile="$INSTALL_PATH/pgsql/lib/dict_xsyn.so" keep="true" />
+            <executable targetfile="$INSTALL_PATH/pgsql/lib/dummy_seclabel.so" keep="true" />
+            <executable targetfile="$INSTALL_PATH/pgsql/lib/earthdistance.so" keep="true" />
+            <executable targetfile="$INSTALL_PATH/pgsql/lib/euc_cn_and_mic.so" keep="true" />
+            <executable targetfile="$INSTALL_PATH/pgsql/lib/euc_jp_and_sjis.so" keep="true" />
+            <executable targetfile="$INSTALL_PATH/pgsql/lib/euc_kr_and_mic.so" keep="true" />
+            <executable targetfile="$INSTALL_PATH/pgsql/lib/euc_tw_and_big5.so" keep="true" />
+            <executable targetfile="$INSTALL_PATH/pgsql/lib/euc2004_sjis2004.so" keep="true" />
+            <executable targetfile="$INSTALL_PATH/pgsql/lib/file_fdw.so" keep="true" />
+            <executable targetfile="$INSTALL_PATH/pgsql/lib/fuzzystrmatch.so" keep="true" />
+            <executable targetfile="$INSTALL_PATH/pgsql/lib/hstore.so" keep="true" />
+            <executable targetfile="$INSTALL_PATH/pgsql/lib/insert_username.so" keep="true" />
+            <executable targetfile="$INSTALL_PATH/pgsql/lib/isn.so" keep="true" />
+            <executable targetfile="$INSTALL_PATH/pgsql/lib/latin_and_mic.so" keep="true" />
+            <executable targetfile="$INSTALL_PATH/pgsql/lib/latin2_and_win1250.so" keep="true" />
+            <executable targetfile="$INSTALL_PATH/pgsql/lib/libecpg_compat.so.3.6" keep="true" />
+            <executable targetfile="$INSTALL_PATH/pgsql/lib/libecpg.so.6.6" keep="true" />
+            <executable targetfile="$INSTALL_PATH/pgsql/lib/libpgtypes.so.3.5" keep="true" />
+            <executable targetfile="$INSTALL_PATH/pgsql/lib/libpq.so.5.7" keep="true" />
+            <executable targetfile="$INSTALL_PATH/pgsql/lib/libpqwalreceiver.so" keep="true" />
+            <executable targetfile="$INSTALL_PATH/pgsql/lib/lo.so" keep="true" />
+            <executable targetfile="$INSTALL_PATH/pgsql/lib/ltree.so" keep="true" />
+            <executable targetfile="$INSTALL_PATH/pgsql/lib/moddatetime.so" keep="true" />
+            <executable targetfile="$INSTALL_PATH/pgsql/lib/pageinspect.so" keep="true" />
+            <executable targetfile="$INSTALL_PATH/pgsql/lib/passwordcheck.so" keep="true" />
+            <executable targetfile="$INSTALL_PATH/pgsql/lib/pg_buffercache.so" keep="true" />
+            <executable targetfile="$INSTALL_PATH/pgsql/lib/pg_freespacemap.so" keep="true" />
+            <executable targetfile="$INSTALL_PATH/pgsql/lib/pg_prewarm.so" keep="true" />
+            <executable targetfile="$INSTALL_PATH/pgsql/lib/pg_stat_statements.so" keep="true" />
+            <executable targetfile="$INSTALL_PATH/pgsql/lib/pg_trgm.so" keep="true" />
+            <executable targetfile="$INSTALL_PATH/pgsql/lib/pg_upgrade_support.so" keep="true" />
+            <executable targetfile="$INSTALL_PATH/pgsql/lib/pgcrypto.so" keep="true" />
+            <executable targetfile="$INSTALL_PATH/pgsql/lib/pgq_lowlevel.so" keep="true" />
+            <executable targetfile="$INSTALL_PATH/pgsql/lib/pgq_triggers.so" keep="true" />
+            <executable targetfile="$INSTALL_PATH/pgsql/lib/pgrowlocks.so" keep="true" />
+            <executable targetfile="$INSTALL_PATH/pgsql/lib/pgstattuple.so" keep="true" />
+            <executable targetfile="$INSTALL_PATH/pgsql/lib/pgxml.so" keep="true" />
+            <executable targetfile="$INSTALL_PATH/pgsql/lib/plperl.so" keep="true" />
+            <executable targetfile="$INSTALL_PATH/pgsql/lib/plpgsql.so" keep="true" />
+            <executable targetfile="$INSTALL_PATH/pgsql/lib/plpython2.so" keep="true" />
+            <executable targetfile="$INSTALL_PATH/pgsql/lib/pltcl.so" keep="true" />
+            <executable targetfile="$INSTALL_PATH/pgsql/lib/postgis-2.1.so" keep="true" />
+            <executable targetfile="$INSTALL_PATH/pgsql/lib/postgres_fdw.so" keep="true" />
+            <executable targetfile="$INSTALL_PATH/pgsql/lib/refint.so" keep="true" />
+            <executable targetfile="$INSTALL_PATH/pgsql/lib/seg.so" keep="true" />
+            <executable targetfile="$INSTALL_PATH/pgsql/lib/sslinfo.so" keep="true" />
+            <executable targetfile="$INSTALL_PATH/pgsql/lib/tablefunc.so" keep="true" />
+            <executable targetfile="$INSTALL_PATH/pgsql/lib/tcn.so" keep="true" />
+            <executable targetfile="$INSTALL_PATH/pgsql/lib/test_decoding.so" keep="true" />
+            <executable targetfile="$INSTALL_PATH/pgsql/lib/test_parser.so" keep="true" />
+            <executable targetfile="$INSTALL_PATH/pgsql/lib/test_shm_mq.so" keep="true" />
+            <executable targetfile="$INSTALL_PATH/pgsql/lib/timetravel.so" keep="true" />
+            <executable targetfile="$INSTALL_PATH/pgsql/lib/tsearch2.so" keep="true" />
+            <executable targetfile="$INSTALL_PATH/pgsql/lib/unaccent.so" keep="true" />
+            <executable targetfile="$INSTALL_PATH/pgsql/lib/utf8_and_ascii.so" keep="true" />
+            <executable targetfile="$INSTALL_PATH/pgsql/lib/utf8_and_big5.so" keep="true" />
+            <executable targetfile="$INSTALL_PATH/pgsql/lib/utf8_and_cyrillic.so" keep="true" />
+            <executable targetfile="$INSTALL_PATH/pgsql/lib/utf8_and_euc_cn.so" keep="true" />
+            <executable targetfile="$INSTALL_PATH/pgsql/lib/utf8_and_euc_jp.so" keep="true" />
+            <executable targetfile="$INSTALL_PATH/pgsql/lib/utf8_and_euc_kr.so" keep="true" />
+            <executable targetfile="$INSTALL_PATH/pgsql/lib/utf8_and_euc_tw.so" keep="true" />
+            <executable targetfile="$INSTALL_PATH/pgsql/lib/utf8_and_euc2004.so" keep="true" />
+            <executable targetfile="$INSTALL_PATH/pgsql/lib/utf8_and_gb18030.so" keep="true" />
+            <executable targetfile="$INSTALL_PATH/pgsql/lib/utf8_and_gbk.so" keep="true" />
+            <executable targetfile="$INSTALL_PATH/pgsql/lib/utf8_and_iso8859_1.so" keep="true" />
+            <executable targetfile="$INSTALL_PATH/pgsql/lib/utf8_and_iso8859.so" keep="true" />
+            <executable targetfile="$INSTALL_PATH/pgsql/lib/utf8_and_johab.so" keep="true" />
+            <executable targetfile="$INSTALL_PATH/pgsql/lib/utf8_and_sjis.so" keep="true" />
+            <executable targetfile="$INSTALL_PATH/pgsql/lib/utf8_and_sjis2004.so" keep="true" />
+            <executable targetfile="$INSTALL_PATH/pgsql/lib/utf8_and_uhc.so" keep="true" />
+            <executable targetfile="$INSTALL_PATH/pgsql/lib/utf8_and_win.so" keep="true" />
+            <executable targetfile="$INSTALL_PATH/pgsql/lib/worker_spi.so" keep="true" />
+            <executable targetfile="$INSTALL_PATH/pgsql/lib/pgxs/config/install-sh" keep="true" />
+            <executable targetfile="$INSTALL_PATH/pgsql/lib/pgxs/src/test/regress/pg_regress" keep="true" />
 
             <executable targetfile="$INSTALL_PATH/installer/res/compile_pgsql.sh" stage="postinstall" keep="true"/>
             <parsable targetfile="$INSTALL_PATH/installer/res/compile_pgsql.sh"/>
@@ -231,33 +225,33 @@
         <pack name="PostGIS" id="postgis" required="no">
             <description>PostGIS</description>
 
-            <file src="postgis-2.1.6/postgis/legacy.sql" targetdir="$INSTALL_PATH/pgsql/share/contrib/postgis-2.1" />
-            <file src="postgis-2.1.6/postgis/legacy_gist.sql" targetdir="$INSTALL_PATH/pgsql/share/contrib/postgis-2.1" />
-            <file src="postgis-2.1.6/postgis/legacy_minimal.sql" targetdir="$INSTALL_PATH/pgsql/share/contrib/postgis-2.1" />
-            <file src="postgis-2.1.6/postgis/postgis.sql" targetdir="$INSTALL_PATH/pgsql/share/contrib/postgis-2.1" />
-            <file src="postgis-2.1.6/doc/postgis_comments.sql" targetdir="$INSTALL_PATH/pgsql/share/contrib/postgis-2.1" />
-            <file src="postgis-2.1.6/postgis/postgis_upgrade_20_21.sql" targetdir="$INSTALL_PATH/pgsql/share/contrib/postgis-2.1" />
-            <file src="postgis-2.1.6/postgis/postgis_upgrade_21_minor.sql" targetdir="$INSTALL_PATH/pgsql/share/contrib/postgis-2.1" />
-            <file src="postgis-2.1.6/extensions/postgis/sql_bits/raster_comments.sql" targetdir="$INSTALL_PATH/pgsql/share/contrib/postgis-2.1" />
-            <file src="postgis-2.1.6/raster/rt_pg/rtpostgis.sql" targetdir="$INSTALL_PATH/pgsql/share/contrib/postgis-2.1" />
-            <file src="postgis-2.1.6/raster/rt_pg/rtpostgis_legacy.sql" targetdir="$INSTALL_PATH/pgsql/share/contrib/postgis-2.1" />
-            <file src="postgis-2.1.6/raster/rt_pg/rtpostgis_upgrade_20_21.sql" targetdir="$INSTALL_PATH/pgsql/share/contrib/postgis-2.1" />
-            <file src="postgis-2.1.6/raster/rt_pg/rtpostgis_upgrade_21_minor.sql" targetdir="$INSTALL_PATH/pgsql/share/contrib/postgis-2.1" />
-            <file src="postgis-2.1.6/spatial_ref_sys.sql" targetdir="$INSTALL_PATH/pgsql/share/contrib/postgis-2.1" />
-            <file src="postgis-2.1.6/topology/topology.sql" targetdir="$INSTALL_PATH/pgsql/share/contrib/postgis-2.1" />
-            <file src="postgis-2.1.6/extensions/postgis_topology/sql_bits/topology_comments.sql" targetdir="$INSTALL_PATH/pgsql/share/contrib/postgis-2.1" />
-            <file src="postgis-2.1.6/topology/topology_upgrade_21_minor.sql" targetdir="$INSTALL_PATH/pgsql/share/contrib/postgis-2.1" />
-            <file src="postgis-2.1.6/postgis/uninstall_postgis.sql" targetdir="$INSTALL_PATH/pgsql/share/contrib/postgis-2.1" />
-            <file src="postgis-2.1.6/postgis/uninstall_legacy.sql" targetdir="$INSTALL_PATH/pgsql/share/contrib/postgis-2.1" />
-            <file src="postgis-2.1.6/postgis/uninstall_sfcgal.sql" targetdir="$INSTALL_PATH/pgsql/share/contrib/postgis-2.1" />
-            <file src="postgis-2.1.6/raster/rt_pg/uninstall_rtpostgis.sql" targetdir="$INSTALL_PATH/pgsql/share/contrib/postgis-2.1" />
-            <file src="postgis-2.1.6/topology/uninstall_topology.sql" targetdir="$INSTALL_PATH/pgsql/share/contrib/postgis-2.1" />
+            <file src="postgis-2.1.7/postgis/legacy.sql" targetdir="$INSTALL_PATH/pgsql/share/contrib/postgis-2.1" />
+            <file src="postgis-2.1.7/postgis/legacy_gist.sql" targetdir="$INSTALL_PATH/pgsql/share/contrib/postgis-2.1" />
+            <file src="postgis-2.1.7/postgis/legacy_minimal.sql" targetdir="$INSTALL_PATH/pgsql/share/contrib/postgis-2.1" />
+            <file src="postgis-2.1.7/postgis/postgis.sql" targetdir="$INSTALL_PATH/pgsql/share/contrib/postgis-2.1" />
+            <file src="postgis-2.1.7/doc/postgis_comments.sql" targetdir="$INSTALL_PATH/pgsql/share/contrib/postgis-2.1" />
+            <file src="postgis-2.1.7/postgis/postgis_upgrade_20_21.sql" targetdir="$INSTALL_PATH/pgsql/share/contrib/postgis-2.1" />
+            <file src="postgis-2.1.7/postgis/postgis_upgrade_21_minor.sql" targetdir="$INSTALL_PATH/pgsql/share/contrib/postgis-2.1" />
+            <file src="postgis-2.1.7/extensions/postgis/sql_bits/raster_comments.sql" targetdir="$INSTALL_PATH/pgsql/share/contrib/postgis-2.1" />
+            <file src="postgis-2.1.7/raster/rt_pg/rtpostgis.sql" targetdir="$INSTALL_PATH/pgsql/share/contrib/postgis-2.1" />
+            <file src="postgis-2.1.7/raster/rt_pg/rtpostgis_legacy.sql" targetdir="$INSTALL_PATH/pgsql/share/contrib/postgis-2.1" />
+            <file src="postgis-2.1.7/raster/rt_pg/rtpostgis_upgrade_20_21.sql" targetdir="$INSTALL_PATH/pgsql/share/contrib/postgis-2.1" />
+            <file src="postgis-2.1.7/raster/rt_pg/rtpostgis_upgrade_21_minor.sql" targetdir="$INSTALL_PATH/pgsql/share/contrib/postgis-2.1" />
+            <file src="postgis-2.1.7/spatial_ref_sys.sql" targetdir="$INSTALL_PATH/pgsql/share/contrib/postgis-2.1" />
+            <file src="postgis-2.1.7/topology/topology.sql" targetdir="$INSTALL_PATH/pgsql/share/contrib/postgis-2.1" />
+            <file src="postgis-2.1.7/extensions/postgis_topology/sql_bits/topology_comments.sql" targetdir="$INSTALL_PATH/pgsql/share/contrib/postgis-2.1" />
+            <file src="postgis-2.1.7/topology/topology_upgrade_21_minor.sql" targetdir="$INSTALL_PATH/pgsql/share/contrib/postgis-2.1" />
+            <file src="postgis-2.1.7/postgis/uninstall_postgis.sql" targetdir="$INSTALL_PATH/pgsql/share/contrib/postgis-2.1" />
+            <file src="postgis-2.1.7/postgis/uninstall_legacy.sql" targetdir="$INSTALL_PATH/pgsql/share/contrib/postgis-2.1" />
+            <file src="postgis-2.1.7/postgis/uninstall_sfcgal.sql" targetdir="$INSTALL_PATH/pgsql/share/contrib/postgis-2.1" />
+            <file src="postgis-2.1.7/raster/rt_pg/uninstall_rtpostgis.sql" targetdir="$INSTALL_PATH/pgsql/share/contrib/postgis-2.1" />
+            <file src="postgis-2.1.7/topology/uninstall_topology.sql" targetdir="$INSTALL_PATH/pgsql/share/contrib/postgis-2.1" />
 
-            <file src="postgis-2.1.6/utils/postgis_restore.pl" targetdir="$INSTALL_PATH/pgsql/share/contrib/postgis-2.1" />
+            <file src="postgis-2.1.7/utils/postgis_restore.pl" targetdir="$INSTALL_PATH/pgsql/share/contrib/postgis-2.1" />
             <executable targetfile="$INSTALL_PATH/pgsql/share/contrib/postgis-2.1/postgis_restore.pl" keep="true" />
 
-            <file src="postgis-2.1.6/postgis/postgis-2.1.so" targetdir="$INSTALL_PATH/pgsql/lib" />
-            <file src="postgis-2.1.6/raster/rt_pg/rtpostgis-2.1.so" targetdir="$INSTALL_PATH/pgsql/lib" />
+            <file src="postgis-2.1.7/postgis/postgis-2.1.so" targetdir="$INSTALL_PATH/pgsql/lib" />
+            <file src="postgis-2.1.7/raster/rt_pg/rtpostgis-2.1.so" targetdir="$INSTALL_PATH/pgsql/lib" />
             <file src="agens_temp/geos/lib/libgeos-3.4.2.so" targetdir="$INSTALL_PATH/pgsql/lib" />
             <file src="agens_temp/geos/lib/libgeos_c.so.1.8.2" targetdir="$INSTALL_PATH/pgsql/lib" />
             <file src="agens_temp/proj/lib/libproj.so.9.0.0" targetdir="$INSTALL_PATH/pgsql/lib" />
@@ -270,18 +264,18 @@
             <executable targetfile="$INSTALL_PATH/pgsql/lib/libproj.so.9.0.0" keep="true" />
             <executable targetfile="$INSTALL_PATH/pgsql/lib/libgdal.so.1.18.2" keep="true" />
 
-            <fileset dir="postgis-2.1.6/extensions/postgis/sql" targetdir="$INSTALL_PATH/pgsql/share/extension">
+            <fileset dir="postgis-2.1.7/extensions/postgis/sql" targetdir="$INSTALL_PATH/pgsql/share/extension">
             <exclude name="postgis.sql" />
             </fileset>
-            <file src="postgis-2.1.6/extensions/postgis/postgis.control" targetdir="$INSTALL_PATH/pgsql/share/extension" />
-            <fileset dir="postgis-2.1.6/extensions/postgis_topology/sql/" targetdir="$INSTALL_PATH/pgsql/share/extension">
+            <file src="postgis-2.1.7/extensions/postgis/postgis.control" targetdir="$INSTALL_PATH/pgsql/share/extension" />
+            <fileset dir="postgis-2.1.7/extensions/postgis_topology/sql/" targetdir="$INSTALL_PATH/pgsql/share/extension">
             <exclude name="postgis_topology.sql" />
             </fileset>
-            <file src="postgis-2.1.6/extensions/postgis_topology/postgis_topology.control" targetdir="$INSTALL_PATH/pgsql/share/extension" />
-            <fileset dir="postgis-2.1.6/extensions/postgis_tiger_geocoder/sql" targetdir="$INSTALL_PATH/pgsql/share/extension">
+            <file src="postgis-2.1.7/extensions/postgis_topology/postgis_topology.control" targetdir="$INSTALL_PATH/pgsql/share/extension" />
+            <fileset dir="postgis-2.1.7/extensions/postgis_tiger_geocoder/sql" targetdir="$INSTALL_PATH/pgsql/share/extension">
             <exclude name="postgis_tiger_geocoder.sql" />
             </fileset>
-            <file src="postgis-2.1.6/extensions/postgis_tiger_geocoder/postgis_tiger_geocoder.control" targetdir="$INSTALL_PATH/pgsql/share/extension" />
+            <file src="postgis-2.1.7/extensions/postgis_tiger_geocoder/postgis_tiger_geocoder.control" targetdir="$INSTALL_PATH/pgsql/share/extension" />
             <file src="res/installer/compile_postgis.sh" targetdir="$INSTALL_PATH/installer/res"/>
             <executable targetfile="$INSTALL_PATH/installer/res/compile_postgis.sh" stage="postinstall" keep="true" />
             <parsable targetfile="$INSTALL_PATH/installer/res/compile_postgis.sh"/>
