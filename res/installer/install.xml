@@ -184,7 +184,7 @@
             <executable targetfile="$INSTALL_PATH/pgsql/lib/worker_spi.so" keep="true" />
             <executable targetfile="$INSTALL_PATH/pgsql/lib/pgxs/config/install-sh" keep="true" />
             <executable targetfile="$INSTALL_PATH/pgsql/lib/pgxs/src/test/regress/pg_regress" keep="true" />
-
+	    <file src="res/installer/compile_pgsql.sh" targetdir="$INSTALL_PATH/installer/res"/>
             <executable targetfile="$INSTALL_PATH/installer/res/compile_pgsql.sh" stage="postinstall" keep="true"/>
             <parsable targetfile="$INSTALL_PATH/installer/res/compile_pgsql.sh"/>
         </pack>
