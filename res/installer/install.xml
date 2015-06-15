@@ -360,6 +360,39 @@
             <file src="slony1-2.2.4/src/backend/slony1_funcs.v84.2.2.4.sql" targetdir="$INSTALL_PATH/pgsql/share" />
         </pack>
 
+        <!-- POWA -->
+        <pack name="POWA" id="powa" required="no">
+            <description>POWA</description>
+
+            <file src="powa-archivist-REL_2_0_0/powa.control" targetdir="$INSTALL_PATH/pgsql/share/extension" />
+            <file src="powa-archivist-REL_2_0_0/powa--2.0.sql" targetdir="$INSTALL_PATH/pgsql/share/extension" />
+            <file src="powa-archivist-REL_2_0_0/README.md" targetdir="$INSTALL_PATH/pgsql/share/doc" />
+            <file src="powa-archivist-REL_2_0_0/powa.so" targetdir="$INSTALL_PATH/pgsql/lib" />
+            <executable targetfile="$INSTALL_PATH/pgsql/lib/powa.so" keep="true"  />
+
+            <file src="powa-archivist-REL_2_0_0/pg_qualstats-master/pg_qualstats.control" targetdir="$INSTALL_PATH/pgsql/share/extension" />
+            <file src="powa-archivist-REL_2_0_0/pg_qualstats-master/pg_qualstats--0.0.1.sql" targetdir="$INSTALL_PATH/pgsql/share/extension"/>
+            <file src="powa-archivist-REL_2_0_0/pg_qualstats-master/pg_qualstats--0.0.2.sql" targetdir="$INSTALL_PATH/pgsql/share/extension"/>
+            <file src="powa-archivist-REL_2_0_0/pg_qualstats-master/pg_qualstats--0.0.3.sql" targetdir="$INSTALL_PATH/pgsql/share/extension"/>
+            <file src="powa-archivist-REL_2_0_0/pg_qualstats-master/pg_qualstats--0.0.4.sql" targetdir="$INSTALL_PATH/pgsql/share/extension"/>
+            <file src="powa-archivist-REL_2_0_0/pg_qualstats-master/pg_qualstats--0.0.5.sql" targetdir="$INSTALL_PATH/pgsql/share/extension"/>
+            <file src="powa-archivist-REL_2_0_0/pg_qualstats-master/pg_qualstats--0.0.6.sql" targetdir="$INSTALL_PATH/pgsql/share/extension"/>
+            <file src="powa-archivist-REL_2_0_0/pg_qualstats-master/doc/README.md" targetdir="$INSTALL_PATH/pgsql/share/doc" />
+            <file src="powa-archivist-REL_2_0_0/pg_qualstats-master/pg_qualstats.so" targetdir="$INSTALL_PATH/pgsql/lib" />
+            <executable targetfile="$INSTALL_PATH/pgsql/lib/pg_qualstats.so" keep="true"  />
+
+            <file src="powa-archivist-REL_2_0_0/pg_stat_kcache-master/pg_stat_kcache.so" targetdir="$INSTALL_PATH/pgsql/lib" />
+            <executable targetfile="$INSTALL_PATH/pgsql/lib/pg_stat_kcache.so" keep="true"  />
+            <file src="powa-archivist-REL_2_0_0/pg_stat_kcache-master/pg_stat_kcache.control" targetdir="$INSTALL_PATH/pgsql/share/extension" />
+            <file src="powa-archivist-REL_2_0_0/pg_stat_kcache-master/pg_stat_kcache--2.0.1--2.0.2.sql" targetdir="$INSTALL_PATH/pgsql/share/extension"/>
+            <file src="powa-archivist-REL_2_0_0/pg_stat_kcache-master/pg_stat_kcache--2.0.2.sql" targetdir="$INSTALL_PATH/pgsql/share/extension"/>
+            <file src="powa-archivist-REL_2_0_0/pg_stat_kcache-master/README.rst" targetdir="$INSTALL_PATH/pgsql/share/doc" />
+
+	    <file src="res/installer/compile_powa_archivist.sh" targetdir="$INSTALL_PATH/installer/res"/>
+	    <executable targetfile="$INSTALL_PATH/installer/res/compile_powa_archivist.sh" stage="postinstall" keep="true"/>
+            <parsable targetfile="$INSTALL_PATH/installer/res/compile_powa_archivist.sh"/>
+        </pack>
+
     </packs>
 
 </installation>

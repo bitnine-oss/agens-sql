@@ -81,7 +81,16 @@ cp ./src/backend/slony1_funcs.v84.sql ./src/backend/slony1_funcs.v84.2.2.4.sql
 #make install
 cd ..
 
-
+# powa
+cd powa-archivist-REL_2_0_0/
+make PG_CONFIG=$AGENS_TEMP_DIR/pgsql/bin/pg_config
+cd pg_qualstats-master/
+make PG_CONFIG=$AGENS_TEMP_DIR/pgsql/bin/pg_config
+cd ..
+cd pg_stat_kcache-master/
+make PG_CONFIG=$AGENS_TEMP_DIR/pgsql/bin/pg_config
+cd ..
+cd ..
 
 
 
