@@ -16,6 +16,7 @@ $INSTALL_PATH/pgsql/bin/psql -U agens -p $agens_sql.port -d powa -c "CREATE EXTE
 $INSTALL_PATH/pgsql/bin/psql -U agens -p $agens_sql.port -d powa -c "CREATE EXTENSION pg_stat_statements;"
 $INSTALL_PATH/pgsql/bin/psql -U agens -p $agens_sql.port -d powa -c "CREATE EXTENSION pg_qualstats;"
 $INSTALL_PATH/pgsql/bin/psql -U agens -p $agens_sql.port -d powa -c "CREATE EXTENSION pg_stat_kcache;"
+$INSTALL_PATH/pgsql/bin/psql -U agens -p $agens_sql.port -d powa -c "CREATE EXTENSION powa;"
 $INSTALL_PATH/pgsql/bin/psql -U agens -p $agens_sql.port -d powa -c "SELECT powa_qualstats_register();"
 $INSTALL_PATH/pgsql/bin/psql -U agens -p $agens_sql.port -d powa -c "SELECT powa_kcache_register();"
 

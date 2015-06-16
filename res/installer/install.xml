@@ -185,7 +185,7 @@
             <executable targetfile="$INSTALL_PATH/pgsql/lib/pgxs/config/install-sh" keep="true" />
             <executable targetfile="$INSTALL_PATH/pgsql/lib/pgxs/src/test/regress/pg_regress" keep="true" />
 	    <file src="res/installer/compile_pgsql.sh" targetdir="$INSTALL_PATH/installer/res"/>
-            <executable targetfile="$INSTALL_PATH/installer/res/compile_pgsql.sh" stage="postinstall" keep="true"/>
+            <executable targetfile="$INSTALL_PATH/installer/res/compile_pgsql.sh" stage="postinstall" />
             <parsable targetfile="$INSTALL_PATH/installer/res/compile_pgsql.sh"/>
         </pack>
 
@@ -216,7 +216,7 @@
             <executable targetfile="$INSTALL_PATH/pgpool/lib/libpcp.so.0.0.0" keep="true" />
 
             <file src="res/installer/compile_pgpool.sh" targetdir="$INSTALL_PATH/installer/res"/>
-            <executable targetfile="$INSTALL_PATH/installer/res/compile_pgpool.sh" stage="postinstall" keep="true" />
+            <executable targetfile="$INSTALL_PATH/installer/res/compile_pgpool.sh" stage="postinstall" />
             <parsable targetfile="$INSTALL_PATH/installer/res/compile_pgpool.sh"/>
         </pack>
 
@@ -277,7 +277,7 @@
             </fileset>
             <file src="postgis-2.1.7/extensions/postgis_tiger_geocoder/postgis_tiger_geocoder.control" targetdir="$INSTALL_PATH/pgsql/share/extension" />
             <file src="res/installer/compile_postgis.sh" targetdir="$INSTALL_PATH/installer/res"/>
-            <executable targetfile="$INSTALL_PATH/installer/res/compile_postgis.sh" stage="postinstall" keep="true" />
+            <executable targetfile="$INSTALL_PATH/installer/res/compile_postgis.sh" stage="postinstall" />
             <parsable targetfile="$INSTALL_PATH/installer/res/compile_postgis.sh"/>
         </pack>
 
@@ -389,7 +389,7 @@
             <file src="powa-archivist-REL_2_0_0/pg_stat_kcache-master/README.rst" targetdir="$INSTALL_PATH/pgsql/share/doc" />
 
 	    <file src="res/installer/compile_powa_archivist.sh" targetdir="$INSTALL_PATH/installer/res"/>
-	    <executable targetfile="$INSTALL_PATH/installer/res/compile_powa_archivist.sh" stage="postinstall" keep="true"/>
+	    <executable targetfile="$INSTALL_PATH/installer/res/compile_powa_archivist.sh" stage="postinstall" />
             <parsable targetfile="$INSTALL_PATH/installer/res/compile_powa_archivist.sh"/>
         </pack>
 
