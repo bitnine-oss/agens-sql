@@ -35,11 +35,11 @@ yum install -y krb5-*
 # --with-openssl을 위한 패키지
 yum install -y openssl-devel.*
 # --with-libxslt를 위한 패키지
-yum install libxslt-devel.*
+yum install -y libxslt-devel.*
 # --with-ldap을 위한 패키지
-yum install openldap-devel.*
+yum install -y openldap-devel.*
 # --with-tcl을 위한 패키지
-yum install tcl-devel.*
+yum install -y tcl-devel.*
 
 
 # postgis를 설치하기 위한 패키지

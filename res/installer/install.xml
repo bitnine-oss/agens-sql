@@ -307,8 +307,18 @@
             <executable targetfile="$INSTALL_PATH/skytools/bin/skytools_upgrade3" keep="true" />
             <executable targetfile="$INSTALL_PATH/skytools/bin/walmgr3" keep="true" />
             <!-- location of "_chashtext.so, _cquoting.so" on centos7_64bit -->
-            <executable targetfile="$INSTALL_PATH/skytools/lib64/python2.7/site-packages/skytools/_chashtext.so" keep="true" />
-            <executable targetfile="$INSTALL_PATH/skytools/lib64/python2.7/site-packages/skytools/_cquoting.so" keep="true" />
+            <executable targetfile="$INSTALL_PATH/skytools/lib64/python2.7/site-packages/skytools/_chashtext.so" keep="true" >
+		<os arch="x86_64" />
+	    </executable>
+            <executable targetfile="$INSTALL_PATH/skytools/lib/python2.6/site-packages/skytools/_chashtext.so" keep="true" >
+		<os arch="i386" />
+	    </executable>
+            <executable targetfile="$INSTALL_PATH/skytools/lib64/python2.7/site-packages/skytools/_cquoting.so" keep="true" >
+                <os arch="x86_64" />
+            </executable>
+	    <executable targetfile="$INSTALL_PATH/skytools/lib/python2.6/site-packages/skytools/_cquoting.so" keep="true" >
+                <os arch="i386" />
+            </executable>
         </pack>
 
 
