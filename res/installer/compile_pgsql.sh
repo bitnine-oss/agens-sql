@@ -15,7 +15,6 @@ agens_passwd_file=$AGENS_HOME/pgsql/dbuser_passwd
 password="$agens.password"
 port="$agens_sql.port"
 DATA_DIR="$agens_sql.data_path"
-LD_LIBRARY_PATH=$AGENS_HOME/pgsql/lib
 
 # create password file
 echo "$password" > $agens_passwd_file
@@ -37,7 +36,7 @@ fi
 
 
 # operate server
-$AGENS_HOME/pgsql/bin/pg_ctl -w -D $DATA_DIR -l $DATA_DIR/server_log.txt start
+LD_LIBRARY_PATH=$AGENS_HOME/pgsql/lib:$LD_LIBRARY_PATH $AGENS_HOME/pgsql/bin/pg_ctl -w -D $DATA_DIR -l $DATA_DIR/server_log.txt start
 
 # createdb
 if [ -z $password ]; then

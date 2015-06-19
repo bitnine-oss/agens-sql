@@ -7,12 +7,12 @@
 오픈소스 커뮤니티를 통해 지속적으로 추가 모듈들이 선별되고 개발되어 패키지에 포함되게 됩니다.
 
 현재 실행중인 Agens-SQL 인스톨러가 제공하는 패키지의 내용과 버젼은 다음과 같습니다.
- - postgresql-9.4.2
- - pgpool-II-3.4.1
+ - postgresql-9.4.4
+ - pgpool-II-3.4.2
  - skytools-3.2
  - pg_hint_plan94-1.1.3
  - plproxy-2.5
- - proj-4.9.1
  - slony1-2.2.4
  - pgbouncer-1.5.5
- - postgis-2.1.6
+ - postgis-2.1.7
+ - powa-archivist-REL_2_0_0
