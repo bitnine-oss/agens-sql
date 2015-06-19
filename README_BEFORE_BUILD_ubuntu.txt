@@ -25,7 +25,7 @@ apt-get install -y build-essential gcc libreadline-dev zlib1g-dev bison flex
 
 # "make world; make install-world" 명령어를 이용해 contrib을 build하기 위해서는 각각의 필요한 의존성 패키지가 설치되어 있어야 합니다.
 # postgres에서 docbook을 설치하기 위한 패키지
-apt-get install openjade docbook docbook-dsssl docbook-xsl openjade1.3 opensp xsltproc
+apt-get install -y openjade docbook docbook-dsssl docbook-xsl openjade1.3 opensp xsltproc
 
 # --with-perl을 위한 패키지
 apt-get install -y libperl-dev
