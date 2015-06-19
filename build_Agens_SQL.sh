@@ -9,7 +9,7 @@ if [ -d "$AGENS_TEMP_DIR" ]; then
 	exit 1;
 fi
 
-cd postgresql-9.4.3/
+cd postgresql-9.4.4/
 ./configure --prefix=$AGENS_TEMP_DIR/pgsql --with-pgport=5456 --with-gssapi --with-ldap --with-tcl --with-openssl --enable-nls --enable-cassert --with-perl --with-python --with-libxml --with-libxslt;
 make world; make install-world;
 cd ..
