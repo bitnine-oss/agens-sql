@@ -53,4 +53,4 @@ apt-get install -y automake git autoconf libtool autoconf-archive asciidoc xmlto
 apt-get install -y libpq-dev python python-dev autoconf asciidoc xmlto rsync
 
 # izpack을 구동하기 위해 필요한 java / 1.7 버젼을 권장합니다.
-apt-get install -y java-1.7.0-openjdk-devel.* 
+apt-get install -y openjdk-7-jdk
