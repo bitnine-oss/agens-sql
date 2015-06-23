@@ -39,6 +39,8 @@ apt-get install -y libxslt1-dev
 apt-get install -y libldap2-dev
 # --with-tcl을 위한 패키지
 apt-get install -y tcl-dev
+# --with-pam을 위한 패키지
+apt-get install -y libpam0g-dev
 
 # pgpool-II를 설치하기 위한 패키지
 apt-get install -y libpq-dev

@@ -40,7 +40,8 @@ yum install -y libxslt-devel.*
 yum install -y openldap-devel.*
 # --with-tcl을 위한 패키지
 yum install -y tcl-devel.*
-
+# --with-pam을 위한 패키지
+yum install -y pam-devel.*
 
 # postgis를 설치하기 위한 패키지
 yum install -y libtiff-devel.* json-c-devel.* libxml2-devel.* python-devel.*
