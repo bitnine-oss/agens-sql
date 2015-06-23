@@ -30,20 +30,4 @@
         </field>
     </panel>
 
-    <panel id="UserInputPanel3">
-        <createForPack name="PostgreSQL" />
-        <field type="staticText" txt="데이터베이스 SuperUser가 사용할 Password를 설정하세요."/>
-        <field type="staticText" txt="Password를 입력하지 않으면 Agens SQL의 SuperUser가 Password가 없는 상태로 생성됩니다."/>
-        <field type="staticText" txt="이 Password는 설치 후 변경이 가능합니다."/>
-        <field type="space" />
-        <field type="divider" />
-        <field type="space" />
-        <field type="password" align="left" variable="agens.password">
-            <spec>
-                <pwd txt="The Password:" size="25" set=""/>
-                <pwd txt="Retype Password:" size="25" set=""/>
-            </spec>
-            <validator class="com.izforge.izpack.util.PasswordEqualityValidator" txt="Both passwords must match." id="lang pack key for the error text"/>
-        </field>
-    </panel>
 </userInput>

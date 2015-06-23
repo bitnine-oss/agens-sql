@@ -30,7 +30,6 @@
 
     <variables>
         <variable name="agens_sql.data_path" value="$INSTALL_PATH/pgsql/data" />
-        <variable name="agens_sql.password" value="" />
         <variable name="agens_sql.port" value="5456" />
     </variables>
 
@@ -42,7 +41,6 @@
         <panel classname="PacksPanel" />
         <panel classname="UserInputPanel" id="UserInputPanel1" />
         <panel classname="UserInputPanel" id="UserInputPanel2" />
-        <panel classname="UserInputPanel" id="UserInputPanel3" />
         <panel classname="SummaryPanel"/>
         <panel classname="InstallPanel" />
         <panel classname="FinishPanel" />
