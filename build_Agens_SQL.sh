@@ -1,7 +1,7 @@
 #!/bin/bash
 # This is a script file to build agens-sql project which has a installer.
 
-Agens_sql_version="Agens_SQL_V1.0.0"
+Agens_sql_version="Agens_SQL_V1.0.0_Enterprise_Edition"
 AGENS_TEMP_DIR=`pwd`/agens_temp
 
 if [ -d "$AGENS_TEMP_DIR" ]; then
