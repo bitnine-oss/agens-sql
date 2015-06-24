@@ -31,6 +31,7 @@
     <variables>
         <variable name="agens_sql.data_path" value="$INSTALL_PATH/pgsql/data" />
         <variable name="agens_sql.port" value="5456" />
+	<variable name="TargetPanel.dir.unix" value="$USER_HOME/Agens_SQL" />
     </variables>
 
     <panels>
