@@ -365,8 +365,8 @@
         </pack>
 
         <!-- POWA -->
-        <pack name="POWA" id="powa" required="no">
-            <description>POWA</description>
+        <pack name="POWA-archivist" id="powa-archivist" required="no">
+            <description>POWA-archivist</description>
 
             <file src="powa-archivist-REL_2_0_0/powa.control" targetdir="$INSTALL_PATH/pgsql/share/extension" />
             <file src="powa-archivist-REL_2_0_0/powa--2.0.sql" targetdir="$INSTALL_PATH/pgsql/share/extension" />

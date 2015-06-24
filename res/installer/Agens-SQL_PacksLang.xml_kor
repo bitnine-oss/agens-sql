@@ -16,4 +16,6 @@
 
     <str id="slony.description" txt="Slony-I은 마스터 멀티 슬레이브 기반의 replication 툴입니다. 데이타베이스 전체가 아니라 테이블 기반으로 replication을 수행합니다."/>
 
+    <str id="powa-archivist.description" txt="POWA는 PostgreSQL 서버에 대한 성능통계를 수집 및 종합하여 실시간으로 차트와 그래프 형태로 제공합니다." />
+
 </langpack>
