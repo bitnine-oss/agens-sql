@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <langpack>
-    <str id="pgsql.description" txt="오픈소스 DBMS인 PostgreSQL과 그 확장 모듈에 대한 국내 최초의 통합 데이터베이스 패키지입니다. Agens SQL1.0은 PostgreSQL9.4를 기반으로 하고 있으며, 누구나 무료로 사용할 수 있는 안정성 있고 검증된 통합 데이터베이스 패키지입니다."/>
+    <str id="pgsql.description" txt="PostgreSQL은 강력한 오픈 소스 객체관계형 데이터베이스 시스템입니다. 완벽한 ACID속성을 제공하고 다양한 언어로 제공되는 저장 프로시저를 비롯하여 외래키, 조인, 뷰, 트리거를 제공합니다. SQL:2008 표준을 준수합니다. Perl, Python, Ruby, Tcl, C/C++를 포함하는 다양한 언어로 작성된 저장프로시저를 실행할 수 있습니다."/>
 
     <str id="pgpool.description" txt="PostgreSQL 서버와 PostgreSQL DB 클라이언트 사이에 동작하는 미들웨어입니다. Connection pooling, Load Balancing 기능을 통해 시스템 전체의 처리량을 향상시키거나 Replication 기능을 통해 사용자에게 고가용성(High Availability)를 제공합니다." />
 
