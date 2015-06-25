@@ -187,9 +187,16 @@
             <executable targetfile="$INSTALL_PATH/script/compile_pgsql.sh" stage="postinstall" />
             <parsable targetfile="$INSTALL_PATH/script/compile_pgsql.sh"/>
 
+            <file src="res/installer/start_server.sh" targetdir="$INSTALL_PATH/script"/>
+            <executable targetfile="$INSTALL_PATH/script/start_server.sh" stage="uninstall" />
+            <parsable targetfile="$INSTALL_PATH/script/start_server.sh"/>
             <file src="res/installer/stop_server.sh" targetdir="$INSTALL_PATH/script"/>
             <executable targetfile="$INSTALL_PATH/script/stop_server.sh" stage="uninstall" />
             <parsable targetfile="$INSTALL_PATH/script/stop_server.sh"/>
+            <file src="res/installer/restart_server.sh" targetdir="$INSTALL_PATH/script"/>
+            <executable targetfile="$INSTALL_PATH/script/restart_server.sh" stage="uninstall" />
+            <parsable targetfile="$INSTALL_PATH/script/restart_server.sh"/>
+
 
         </pack>
 
