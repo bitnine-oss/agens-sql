@@ -30,5 +30,5 @@ fi
 LD_LIBRARY_PATH=$AGENS_HOME/pgsql/lib:$LD_LIBRARY_PATH $AGENS_HOME/pgsql/bin/pg_ctl -w -D $DATA_DIR -l $DATA_DIR/server_log.txt start
 
 # createdb
-$AGENS_HOME/pgsql/bin/createdb -p $port -U agens agens
+LD_LIBRARY_PATH=$AGENS_HOME/pgsql/lib:$LD_LIBRARY_PATH $AGENS_HOME/pgsql/bin/createdb -p $port -U agens agens
 
