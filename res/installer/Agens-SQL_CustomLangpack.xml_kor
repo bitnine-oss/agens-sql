@@ -50,7 +50,7 @@
     <!-- The strings for the 'official' IzPack plugins -->
     <str id="HelloPanel.welcome1" txt=""/>
     <str id="HelloPanel.welcome2" txt="을 설치합니다."/>
-    <str id="HelloPanel.authors" txt="고객지원팀: "/>
+    <str id="HelloPanel.authors" txt="이메일: "/>
     <str id="HelloPanel.url" txt="홈페이지: "/>
 
     <str id="CheckedHelloPanel.productAlreadyExist0" txt="이 제품이 이미 이 컴퓨터의 다음 경로에 설치되어 있습니다: "/>

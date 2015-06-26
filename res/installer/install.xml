@@ -5,9 +5,9 @@
         <appname>Agens_SQL</appname>
         <appversion>V1.0.0_Enterprise_Edition</appversion>
         <authors>
-            <author name="Bitnine" email="ksjang@bitnine.co.kr"/>
+            <author name="" email="bitnine@agens.co.kr"/>
         </authors>
-    <url>http://www.bitnine.co.kr</url>
+    <url>http://www.agens.co.kr</url>
     </info>
 
     <guiprefs width="640" height="480" resizable="yes">
@@ -188,15 +188,17 @@
             <parsable targetfile="$INSTALL_PATH/script/compile_pgsql.sh"/>
 
             <file src="res/installer/start_server.sh" targetdir="$INSTALL_PATH/script"/>
-            <executable targetfile="$INSTALL_PATH/script/start_server.sh" stage="uninstall" />
+            <executable targetfile="$INSTALL_PATH/script/start_server.sh" />
             <parsable targetfile="$INSTALL_PATH/script/start_server.sh"/>
             <file src="res/installer/stop_server.sh" targetdir="$INSTALL_PATH/script"/>
             <executable targetfile="$INSTALL_PATH/script/stop_server.sh" stage="uninstall" />
             <parsable targetfile="$INSTALL_PATH/script/stop_server.sh"/>
             <file src="res/installer/restart_server.sh" targetdir="$INSTALL_PATH/script"/>
-            <executable targetfile="$INSTALL_PATH/script/restart_server.sh" stage="uninstall" />
+            <executable targetfile="$INSTALL_PATH/script/restart_server.sh" />
             <parsable targetfile="$INSTALL_PATH/script/restart_server.sh"/>
-
+            <file src="res/installer/connect_to_server.sh" targetdir="$INSTALL_PATH/script"/>
+            <executable targetfile="$INSTALL_PATH/script/connect_to_server.sh" />
+            <parsable targetfile="$INSTALL_PATH/script/connect_to_server.sh"/>
 
         </pack>
 
