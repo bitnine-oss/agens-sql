@@ -1,0 +1,694 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>개발자 옵션</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REV="MADE"
+HREF="mailto:pgsql-docs@postgresql.org"><LINK
+REL="HOME"
+TITLE="Agens SQL 1.0 문서"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="서버 환경 설정"
+HREF="runtime-config.html"><LINK
+REL="PREVIOUS"
+TITLE="커스텀 옵션"
+HREF="runtime-config-custom.html"><LINK
+REL="NEXT"
+TITLE="단축 옵션"
+HREF="runtime-config-short.html"><LINK
+REL="STYLESHEET"
+TYPE="text/css"
+HREF="stylesheet.css"><META
+HTTP-EQUIV="Content-Type"
+CONTENT="text/html; charset=UTF-8"><META
+name="viewport"
+content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width"><META
+NAME="creation"
+CONTENT="2015-06-26T04:43:18"></HEAD
+><BODY
+CLASS="SECT1"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="4"
+ALIGN="center"
+VALIGN="bottom"
+><A
+HREF="index.html"
+>Agens SQL 1.0 문서</A
+></TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="top"
+><A
+TITLE="커스텀 옵션"
+HREF="runtime-config-custom.html"
+ACCESSKEY="P"
+>이전</A
+></TD
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="runtime-config.html"
+ACCESSKEY="U"
+>위로</A
+></TD
+><TD
+WIDTH="60%"
+ALIGN="center"
+VALIGN="bottom"
+>장 2. 서버 환경 설정</TD
+><TD
+WIDTH="20%"
+ALIGN="right"
+VALIGN="top"
+><A
+TITLE="단축 옵션"
+HREF="runtime-config-short.html"
+ACCESSKEY="N"
+>다음</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="RUNTIME-CONFIG-DEVELOPER"
+>2.17. 개발자 옵션</A
+></H1
+><P
+> 다음 매개변수는 <SPAN
+CLASS="PRODUCTNAME"
+>Agens SQL</SPAN
+> 소스 코드에서 사용할 수 있으며 경우에 따라 심각한 데이터베이스 손상을 복구하는 데에도 도움이 된다. 
+ 실제 운영 중인 데이터베이스에서 이 매개변수를 사용할 이유는 없다. 
+ 따라서 <TT
+CLASS="FILENAME"
+>postgresql.conf</TT
+> 샘플 파일에서는 제외되었다. 
+ 이러한 매개변수 다수는 어쨌든 제대로 작동하려면 특수한 소스 컴파일 플래그가 필요하다.</P
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><DL
+><DT
+><A
+NAME="GUC-ALLOW-SYSTEM-TABLE-MODS"
+></A
+><TT
+CLASS="VARNAME"
+>allow_system_table_mods</TT
+> (<TT
+CLASS="TYPE"
+>boolean</TT
+>)&#13;</DT
+><DD
+><P
+>시스템 테이블의 구조 수정을 허용한다. 이것은 <TT
+CLASS="COMMAND"
+>initdb</TT
+>에서 사용된다. 이 매개변수는 서버 시작 시에만 설정 가능하다.
+ </P
+></DD
+><DT
+><A
+NAME="GUC-DEBUG-ASSERTIONS"
+></A
+><TT
+CLASS="VARNAME"
+>debug_assertions</TT
+> (<TT
+CLASS="TYPE"
+>boolean</TT
+>)&#13;</DT
+><DD
+><P
+>다양한 assertion 검사를 사용으로 설정한다. 이것은 디버깅 시 도움이 된다. 
+이상한 문제가 발생하거나 충돌이 있는 경우 프로그래밍 실수에 의한 것일 수 있으므로 사용자는 이것을 사용 설정하려고 할 수 있다. 
+이 매개변수를 사용하려면 <SPAN
+CLASS="PRODUCTNAME"
+>Agens SQL</SPAN
+>을 빌드할 때 매크로 <TT
+CLASS="SYMBOL"
+>USE_ASSERT_CHECKING</TT
+>을 정의해야 한다(<TT
+CLASS="COMMAND"
+>configure</TT
+> 옵션 <TT
+CLASS="OPTION"
+>--enable-cassert</TT
+>로 가능). 
+assertion이 활성화된 상태에서 <SPAN
+CLASS="PRODUCTNAME"
+>Agens SQL</SPAN
+>을 빌드하면 <TT
+CLASS="VARNAME"
+>debug_assertions</TT
+>의 기본값은 <TT
+CLASS="LITERAL"
+>on</TT
+>이 된다.
+ </P
+></DD
+><DT
+><A
+NAME="GUC-IGNORE-SYSTEM-INDEXES"
+></A
+><TT
+CLASS="VARNAME"
+>ignore_system_indexes</TT
+> (<TT
+CLASS="TYPE"
+>boolean</TT
+>)&#13;</DT
+><DD
+><P
+>시스템 테이블을 읽을 때 시스템 인덱스를 무시한다(그러나, 테이블을 수정하면 인덱스는 계속 수정된다). 
+이것은 손상된 시스템 인덱스를 복구할 때 유용하다. 이 매개변수는 세션 시작 후에는 변경할 수 없다.
+ </P
+></DD
+><DT
+><A
+NAME="GUC-POST-AUTH-DELAY"
+></A
+><TT
+CLASS="VARNAME"
+>post_auth_delay</TT
+> (<TT
+CLASS="TYPE"
+>integer</TT
+>)&#13;</DT
+><DD
+><P
+>0이 아닌 경우 인증 절차를 수행한 후 새 서버 프로세스가 시작되면 이 초 단위 수만큼의 지연이 발생한다. 
+이것은 개발자가 디버거를 사용하여 서버 프로세스에 접속할 수 있는 기회를 제공하기 위한 것이다. 
+이 매개변수는 세션 시작 후에는 변경할 수 없다.
+ </P
+></DD
+><DT
+><A
+NAME="GUC-PRE-AUTH-DELAY"
+></A
+><TT
+CLASS="VARNAME"
+>pre_auth_delay</TT
+> (<TT
+CLASS="TYPE"
+>integer</TT
+>)&#13;</DT
+><DD
+><P
+>0이 아닌 경우 인증 절차를 수행하기 전 새 서버 프로세스가 시작된 직후 이 초 단위 수만큼의 지연이 발생한다. 
+이것은 개발자가 디버거를 사용하여 인증 오류를 추적할 수 있도록 서버 프로세스에 접속할 수 있는 기회를 제공하기 위한 것이다. 
+이 매개변수는 <TT
+CLASS="FILENAME"
+>postgresql.conf</TT
+> 파일 또는 서버 커맨드 라인에서만 설정 가능하다.
+ </P
+></DD
+><DT
+><A
+NAME="GUC-TRACE-NOTIFY"
+></A
+><TT
+CLASS="VARNAME"
+>trace_notify</TT
+> (<TT
+CLASS="TYPE"
+>boolean</TT
+>)&#13;</DT
+><DD
+><P
+><TT
+CLASS="COMMAND"
+>LISTEN</TT
+> 및 <TT
+CLASS="COMMAND"
+>NOTIFY</TT
+> 명령에 대한 대량의 디버깅 출력을 생성한다. 
+이 출력을 클라이언트 또는 서버 로그에 각각 전송하려면 <A
+HREF="runtime-config-logging.html#GUC-CLIENT-MIN-MESSAGES"
+>client_min_messages</A
+> 또는 <A
+HREF="runtime-config-logging.html#GUC-LOG-MIN-MESSAGES"
+>log_min_messages</A
+>는 <TT
+CLASS="LITERAL"
+>DEBUG1</TT
+>이어야 한다.
+ </P
+></DD
+><DT
+><A
+NAME="GUC-TRACE-RECOVERY-MESSAGES"
+></A
+><TT
+CLASS="VARNAME"
+>trace_recovery_messages</TT
+> (<TT
+CLASS="TYPE"
+>enum</TT
+>)&#13;</DT
+><DD
+><P
+>복구 관련 디버깅 출력의 로깅을 활성화한다. 그 외에는 로깅되지 않는다. 
+이 매개변수는 사용자가 <A
+HREF="runtime-config-logging.html#GUC-LOG-MIN-MESSAGES"
+>log_min_messages</A
+>의 일반 설정을 오버라이드할 수 있지만, 특정 메시지에만 해당된다. 
+이것은 핫 스탠바이에서 사용된다. 유효 값은 <TT
+CLASS="LITERAL"
+>DEBUG5</TT
+> 및 <TT
+CLASS="LITERAL"
+>DEBUG4</TT
+>,
+<TT
+CLASS="LITERAL"
+>DEBUG3</TT
+>, <TT
+CLASS="LITERAL"
+>DEBUG2</TT
+>, <TT
+CLASS="LITERAL"
+>DEBUG1</TT
+>, <TT
+CLASS="LITERAL"
+>LOG</TT
+>이다.
+기본적으로, <TT
+CLASS="LITERAL"
+>LOG</TT
+>는 로깅 결정에 전혀 영향을 주지 않는다. 
+다른 값들은 <TT
+CLASS="LITERAL"
+>LOG</TT
+> 우선 순위가 있어도 해당 우선 순위보다 높은 복구 관련 디버그 메시지를 발생시킨다. 
+<TT
+CLASS="VARNAME"
+>log_min_messages</TT
+>의 공통 설정의 경우 이것은 서버 로그로 무조건 메시지를 전송한다. 
+이 매개변수는 <TT
+CLASS="FILENAME"
+>postgresql.conf</TT
+> 파일 또는 서버 커맨드 라인에서만 설정 가능하다.
+ </P
+></DD
+><DT
+><A
+NAME="GUC-TRACE-SORT"
+></A
+><TT
+CLASS="VARNAME"
+>trace_sort</TT
+> (<TT
+CLASS="TYPE"
+>boolean</TT
+>)&#13;</DT
+><DD
+><P
+>on으로 설정된 경우 정렬 명령 중에 리소스 사용량에 대한 정보를 출력한다. 
+이것은 <SPAN
+CLASS="PRODUCTNAME"
+>Agens SQL</SPAN
+>이 컴파일된 경우 <TT
+CLASS="SYMBOL"
+>TRACE_SORT</TT
+> 매크로가 정의된 경우에만 사용할 수 있다. 
+(단, <TT
+CLASS="SYMBOL"
+>TRACE_SORT</TT
+>는 현재 기본적으로 정의된다.)
+ </P
+></DD
+><DT
+><TT
+CLASS="VARNAME"
+>trace_locks</TT
+> (<TT
+CLASS="TYPE"
+>boolean</TT
+>)&#13;</DT
+><DD
+><P
+>on으로 설정된 경우 정렬 명령 중에 잠금 사용에 대한 정보를 출력한다. 덤프된 정보에는 잠금 명령, 
+잠금 유형, 잠금 또는 잠금 해제된 개체의 고유 식별자가 포함된다. 
+이 개체에 이미 부여된 잠금 유형 및 이 개체를 기다리는 잠금 유형에 대한 비트 마스크도 포함된다. 
+각 잠금 유형의 경우 부여된 잠금 및 대기 중인 잠금 수에 대한 카운트 및 총계도 덤프된다. 
+로그 파일 출력에 대한 예제는 다음과 같다.
+</P><PRE
+CLASS="SCREEN"
+>LOG:LockAcquire: new: lock(0xb7acd844) id(24688,24696,0,0,0,1)
+grantMask(0) req(0,0,0,0,0,0,0)=0 grant(0,0,0,0,0,0,0)=0
+wait(0) type(AccessShareLock)
+LOG:GrantLock: lock(0xb7acd844) id(24688,24696,0,0,0,1)
+grantMask(2) req(1,0,0,0,0,0,0)=1 grant(1,0,0,0,0,0,0)=1
+wait(0) type(AccessShareLock)
+LOG:UnGrantLock: updated: lock(0xb7acd844) id(24688,24696,0,0,0,1)
+grantMask(0) req(0,0,0,0,0,0,0)=0 grant(0,0,0,0,0,0,0)=0
+wait(0) type(AccessShareLock)
+LOG:CleanUpLock: deleting: lock(0xb7acd844) id(24688,24696,0,0,0,1)
+grantMask(0) req(0,0,0,0,0,0,0)=0 grant(0,0,0,0,0,0,0)=0
+wait(0) type(INVALID)</PRE
+><P>
+덤프되는 구조에 대한 자세한 내용은 <TT
+CLASS="FILENAME"
+>src/include/storage/lock.h</TT
+>에서 찾을 수 있다.
+ </P
+><P
+>이것은 <SPAN
+CLASS="PRODUCTNAME"
+>Agens SQL</SPAN
+>이 컴파일된 경우 <TT
+CLASS="SYMBOL"
+>LOCK_DEBUG</TT
+> 매크로가 정의된 경우에만 사용할 수 있다.
+ </P
+></DD
+><DT
+><TT
+CLASS="VARNAME"
+>trace_lwlocks</TT
+> (<TT
+CLASS="TYPE"
+>boolean</TT
+>)&#13;</DT
+><DD
+><P
+>on으로 설정된 경우 정렬 명령 중에 가벼운 잠금(lightweight lock) 사용에 대한 정보를 출력한다. 
+가벼운 잠금(lightweight lock)은 주로 공유 메모리 데이터 구조에 대한 상호 배제 액세스를 제공하기 위함이다.
+ </P
+><P
+>이것은 <SPAN
+CLASS="PRODUCTNAME"
+>Agens SQL</SPAN
+>이 컴파일된 경우 <TT
+CLASS="SYMBOL"
+>LOCK_DEBUG</TT
+> 매크로가 정의된 경우에만 사용할 수 있다.
+ </P
+></DD
+><DT
+><TT
+CLASS="VARNAME"
+>trace_userlocks</TT
+> (<TT
+CLASS="TYPE"
+>boolean</TT
+>)&#13;</DT
+><DD
+><P
+>on으로 설정된 경우 정렬 명령 중에 사용자 잠금(user lock) 사용에 대한 정보를 출력한다. 
+보조 잠금(advisory locks)인 경우에만 출력이 <TT
+CLASS="SYMBOL"
+>trace_locks</TT
+>와 동일하다.
+ </P
+><P
+>이것은 <SPAN
+CLASS="PRODUCTNAME"
+>Agens SQL</SPAN
+>이 컴파일된 경우 <TT
+CLASS="SYMBOL"
+>LOCK_DEBUG</TT
+> 매크로가 정의된 경우에만 사용할 수 있다.
+ </P
+></DD
+><DT
+><TT
+CLASS="VARNAME"
+>trace_lock_oidmin</TT
+> (<TT
+CLASS="TYPE"
+>integer</TT
+>)&#13;</DT
+><DD
+><P
+>설정된 경우 이 OID 아래 테이블에 대해 잠금을 추적하지 않는다. (시스템 테이블에 출력을 방지하려고 사용)
+ </P
+><P
+>이것은 <SPAN
+CLASS="PRODUCTNAME"
+>Agens SQL</SPAN
+>이 컴파일된 경우 <TT
+CLASS="SYMBOL"
+>LOCK_DEBUG</TT
+> 매크로가 정의된 경우에만 사용할 수 있다.
+ </P
+></DD
+><DT
+><TT
+CLASS="VARNAME"
+>trace_lock_table</TT
+> (<TT
+CLASS="TYPE"
+>integer</TT
+>)&#13;</DT
+><DD
+><P
+>이 테이블(OID)에 대한 잠금을 무조건 추적한다.
+ </P
+><P
+>이것은 <SPAN
+CLASS="PRODUCTNAME"
+>Agens SQL</SPAN
+>이 컴파일된 경우 <TT
+CLASS="SYMBOL"
+>LOCK_DEBUG</TT
+> 매크로가 정의된 경우에만 사용할 수 있다.
+ </P
+></DD
+><DT
+><TT
+CLASS="VARNAME"
+>debug_deadlocks</TT
+> (<TT
+CLASS="TYPE"
+>boolean</TT
+>)&#13;</DT
+><DD
+><P
+>설정된 경우 데드락 타임아웃 발생 시 현재 모든 잠금에 대한 정보를 덤프한다.
+ </P
+><P
+>이것은 <SPAN
+CLASS="PRODUCTNAME"
+>Agens SQL</SPAN
+>이 컴파일된 경우 <TT
+CLASS="SYMBOL"
+>LOCK_DEBUG</TT
+> 매크로가 정의된 경우에만 사용할 수 있다.
+ </P
+></DD
+><DT
+><TT
+CLASS="VARNAME"
+>log_btree_build_stats</TT
+> (<TT
+CLASS="TYPE"
+>boolean</TT
+>)&#13;</DT
+><DD
+><P
+>설정된 경우 다양한 B-트리 명령에서 시스템 리소스 사용량 통계(메모리 및 CPU)를 로깅한다.
+ </P
+><P
+>이것은 <SPAN
+CLASS="PRODUCTNAME"
+>Agens SQL</SPAN
+>이 컴파일된 경우 <TT
+CLASS="SYMBOL"
+>BTREE_BUILD_STATS</TT
+> 매크로가 정의된 경우에만 사용할 수 있다.
+ </P
+></DD
+><DT
+><A
+NAME="GUC-WAL-DEBUG"
+></A
+><TT
+CLASS="VARNAME"
+>wal_debug</TT
+> (<TT
+CLASS="TYPE"
+>boolean</TT
+>)&#13;</DT
+><DD
+><P
+>설정된 경우 WAL 관련 디버깅 출력을 내보낸다. 
+이것은 <SPAN
+CLASS="PRODUCTNAME"
+>Agens SQL</SPAN
+>이 컴파일된 경우 <TT
+CLASS="SYMBOL"
+>WAL_DEBUG</TT
+> 매크로가 정의된 경우에만 사용할 수 있다.
+ </P
+></DD
+><DT
+><A
+NAME="GUC-IGNORE-CHECKSUM-FAILURE"
+></A
+><TT
+CLASS="VARNAME"
+>ignore_checksum_failure</TT
+> (<TT
+CLASS="TYPE"
+>boolean</TT
+>)&#13;</DT
+><DD
+><P
+>data checksums가 활성화된 경우에만 효과가 있다.
+ </P
+><P
+>읽기 중 체크섬 실패를 감지하면 <SPAN
+CLASS="PRODUCTNAME"
+>Agens SQL</SPAN
+>이 에러를 보고하고, 현재 트랜잭션을 중단한다. 
+<TT
+CLASS="VARNAME"
+>ignore_checksum_failure</TT
+>를 on으로 설정하면 시스템이 실패(그래도 경고는 보고된다)를 무시하고 프로세싱을 계속한다. 
+이러한 동작은 <SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>충돌 또는 충돌 전파, 숨김, 기타 심각한 문제를 초래한다</I
+></SPAN
+>. 
+그러나, 블록 헤더가 온전한 경우에는 에러를 무시하고 테이블에 잔존해 있을 수 있는 미손상 튜플을 검색할 수 있다. 
+블록 헤더가 손상된 경우 이 옵션이 활성화돼도 에러가 보고된다. 기본값은 <TT
+CLASS="LITERAL"
+>off</TT
+>이고 수퍼유저에 의해서만 변경 가능하다.
+ </P
+></DD
+><DT
+><A
+NAME="GUC-ZERO-DAMAGED-PAGES"
+></A
+><TT
+CLASS="VARNAME"
+>zero_damaged_pages</TT
+> (<TT
+CLASS="TYPE"
+>boolean</TT
+>)&#13;</DT
+><DD
+><P
+>손상된 페이지 헤더가 감지되면 <SPAN
+CLASS="PRODUCTNAME"
+>Agens SQL</SPAN
+>이 에러를 보고하고 현재 트랜잭션을 중단한다. 
+<TT
+CLASS="VARNAME"
+>zero_damaged_pages</TT
+>를 on으로 설정하면 시스템이 대신 경고를 보고하고, 메모리에서 손상된 페이지를 0으로 처리하고, 프로세싱을 계속한다. 
+이러한 작업은 손상된 페이지의 모든 행, 즉 <SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>데이터를 소멸시킨다</I
+></SPAN
+>. 
+그러나 이것을 이용하면 사용자는 에러를 무시하고 테이블에 남아 있을 수 있는 미손상 페이지에서 행을 검색할 수 있다. 
+이것은 하드웨어 또는 소프트웨어 에러에 의한 손상이 발생된 경우 데이터를 복구할 때 유용하다. 
+테이블의 손상된 페이지에서 데이터를 복구하지 않기로 결정하기 전에는 이것을 on으로 설정하면 안 된다. 
+0으로 처리된 페이지는 디스크에 강제로 쓰여지지 않으므로 이 매개변수를 off로 다시 설정하기 전에 테이블 또는 인덱스를 재생하는 것이 좋다. 
+기본값은 <TT
+CLASS="LITERAL"
+>off</TT
+>이고 수퍼유저에 의해서만 변경 가능하다.
+ </P
+></DD
+></DL
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="runtime-config-custom.html"
+ACCESSKEY="P"
+>이전</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>처음으로</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="runtime-config-short.html"
+ACCESSKEY="N"
+>다음</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>커스텀 옵션</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="runtime-config.html"
+ACCESSKEY="U"
+>위로</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>단축 옵션</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

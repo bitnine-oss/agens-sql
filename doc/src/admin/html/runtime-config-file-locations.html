@@ -1,0 +1,367 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>파일 위치</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REV="MADE"
+HREF="mailto:pgsql-docs@postgresql.org"><LINK
+REL="HOME"
+TITLE="Agens SQL 1.0 문서"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="서버 환경 설정"
+HREF="runtime-config.html"><LINK
+REL="PREVIOUS"
+TITLE="매개변수 설정"
+HREF="config-setting.html"><LINK
+REL="NEXT"
+TITLE="연결 및 인증"
+HREF="runtime-config-connection.html"><LINK
+REL="STYLESHEET"
+TYPE="text/css"
+HREF="stylesheet.css"><META
+HTTP-EQUIV="Content-Type"
+CONTENT="text/html; charset=UTF-8"><META
+name="viewport"
+content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width"><META
+NAME="creation"
+CONTENT="2015-06-26T04:43:18"></HEAD
+><BODY
+CLASS="SECT1"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="4"
+ALIGN="center"
+VALIGN="bottom"
+><A
+HREF="index.html"
+>Agens SQL 1.0 문서</A
+></TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="top"
+><A
+TITLE="매개변수 설정"
+HREF="config-setting.html"
+ACCESSKEY="P"
+>이전</A
+></TD
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="runtime-config.html"
+ACCESSKEY="U"
+>위로</A
+></TD
+><TD
+WIDTH="60%"
+ALIGN="center"
+VALIGN="bottom"
+>장 2. 서버 환경 설정</TD
+><TD
+WIDTH="20%"
+ALIGN="right"
+VALIGN="top"
+><A
+TITLE="연결 및 인증"
+HREF="runtime-config-connection.html"
+ACCESSKEY="N"
+>다음</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="RUNTIME-CONFIG-FILE-LOCATIONS"
+>2.2. 파일 위치</A
+></H1
+><P
+>앞에서 언급한 <TT
+CLASS="FILENAME"
+>postgresql.conf</TT
+> 파일 외에도 <SPAN
+CLASS="PRODUCTNAME"
+>Agens SQL</SPAN
+>는 수동으로 편집되는 
+환경 설정 파일 2개를 사용하는데, 이 파일은 클라이언트 인증을 관리하는 파일이다(이 파일은 <A
+HREF="client-authentication.html"
+>3장</A
+>에서 다룬다). 기본적으로 3개의 환경 설정 파일 모두 데이터베이스 클러스터의 데이터 디렉토리에 저장된다. 
+이 절에서 설명하는 매개변수는 환경 설정 파일을 다른 곳에 배치할 수 있다(그렇게 하면 관리가 편하다. 
+특히, 환경 설정 파일이 별도로 관리되는 경우에는 환경 설정 파일을 백업하기가 훨씬 쉽다.).
+ </P
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><DL
+><DT
+><A
+NAME="GUC-DATA-DIRECTORY"
+></A
+><TT
+CLASS="VARNAME"
+>data_directory</TT
+> (<TT
+CLASS="TYPE"
+>string</TT
+>)&#13;</DT
+><DD
+><P
+> 데이터 저장소로 사용되는 디렉토리를 지정한다. 이 매개변수는 서버 시작 시에만 설정 가능하다.
+ </P
+></DD
+><DT
+><A
+NAME="GUC-CONFIG-FILE"
+></A
+><TT
+CLASS="VARNAME"
+>config_file</TT
+> (<TT
+CLASS="TYPE"
+>string</TT
+>)&#13;</DT
+><DD
+><P
+> 메인 서버 환경 설정 파일(통상적으로 <TT
+CLASS="FILENAME"
+>postgresql.conf</TT
+>라고 함)을 지정한다. 
+ 이 매개변수는 <TT
+CLASS="COMMAND"
+>postgres</TT
+> 커맨드 라인에서만 설정 가능하다.
+ </P
+></DD
+><DT
+><A
+NAME="GUC-HBA-FILE"
+></A
+><TT
+CLASS="VARNAME"
+>hba_file</TT
+> (<TT
+CLASS="TYPE"
+>string</TT
+>)&#13;</DT
+><DD
+><P
+> 호스트 기반 인증(통상적으로 <TT
+CLASS="FILENAME"
+>pg_hba.conf</TT
+>라고 함)용 환경 설정 파일을 지정한다. 
+ 이 매개변수는 서버 시작 시에만 설정 가능하다.
+ </P
+></DD
+><DT
+><A
+NAME="GUC-IDENT-FILE"
+></A
+><TT
+CLASS="VARNAME"
+>ident_file</TT
+> (<TT
+CLASS="TYPE"
+>string</TT
+>)&#13;</DT
+><DD
+><P
+> <A
+HREF="auth-username-maps.html"
+>3.2절</A
+> 사용자 이름 맵핑(통상적으로 <TT
+CLASS="FILENAME"
+>pg_ident.conf</TT
+>라고 함)용 환경 설정 파일을 지정한다. 
+ 이 매개변수는 서버 시작 시에만 설정 가능하다.
+ </P
+></DD
+><DT
+><A
+NAME="GUC-EXTERNAL-PID-FILE"
+></A
+><TT
+CLASS="VARNAME"
+>external_pid_file</TT
+> (<TT
+CLASS="TYPE"
+>string</TT
+>)&#13;</DT
+><DD
+><P
+>서버 관리 프로그램에서 사용하기 위해 서버가 생성해야 하는 추가적인 프로세스 ID(PID) 파일의 이름을 정한다. 
+이 매개변수는 서버 시작 시에만 설정 가능하다.
+ </P
+></DD
+></DL
+></DIV
+><P
+>기본적으로 위 매개변수들은 설정되어 있지 않다.
+데이터 디렉토리는 <TT
+CLASS="OPTION"
+>-D</TT
+> 커맨드 라인 옵션 또는 <TT
+CLASS="ENVAR"
+>PGDATA</TT
+> 환경 변수로 지정되고, 
+모든 환경 설정 파일은 데이터 디렉토리에 위치한다.
+ </P
+><P
+>데이터 디렉토리가 아닌 다른 곳에 환경 설정 파일을 저장하고 싶으면 
+<TT
+CLASS="COMMAND"
+>postgres</TT
+> <TT
+CLASS="OPTION"
+>-D</TT
+> 커맨드 라인 옵션 또는 
+<TT
+CLASS="ENVAR"
+>PGDATA</TT
+> 환경 변수가 환경 설정 파일이 있는 곳의 위치를 가리켜야 하고, 
+데이터 디렉토리가 실제로 어디에 있는지를 보여주는 <TT
+CLASS="VARNAME"
+>data_directory</TT
+> 매개변수는 
+<TT
+CLASS="FILENAME"
+>postgresql.conf</TT
+>(또는 커맨드 라인에서)에 설정되어야 한다. 
+<TT
+CLASS="VARNAME"
+>data_directory</TT
+>는 환경 설정 파일의 위치가 아니라 
+데이터 디렉토리의 위치에 대해 <TT
+CLASS="OPTION"
+>-D</TT
+> 및 <TT
+CLASS="ENVAR"
+>PGDATA</TT
+>를 오버라이드한다.
+ </P
+><P
+><TT
+CLASS="VARNAME"
+>config_file</TT
+>, 
+<TT
+CLASS="VARNAME"
+>hba_file</TT
+> 및/또는 <TT
+CLASS="VARNAME"
+>ident_file</TT
+> 매개변수를 사용하여 환경 설정 파일의 이름과 위치를 지정할 수 있다. 
+<TT
+CLASS="VARNAME"
+>config_file</TT
+>은 <TT
+CLASS="COMMAND"
+>postgres</TT
+> 커맨드 라인에서만 지정 가능하고, 
+기타 파일은 주 환경 설정 파일 내에서 설정할 수 있다. 
+이 3가지 매개변수와 <TT
+CLASS="VARNAME"
+>data_directory</TT
+>를 설정하면, <TT
+CLASS="OPTION"
+>-D</TT
+>와 <TT
+CLASS="ENVAR"
+>PGDATA</TT
+>를 지정할 필요 없다.
+ </P
+><P
+>이 3가지 매개변수는 설정 시 <TT
+CLASS="COMMAND"
+>postgres</TT
+>가 시작된 디렉토리의 상대 경로로 해석된다.
+ </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="config-setting.html"
+ACCESSKEY="P"
+>이전</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>처음으로</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="runtime-config-connection.html"
+ACCESSKEY="N"
+>다음</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>매개변수 설정</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="runtime-config.html"
+ACCESSKEY="U"
+>위로</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>연결 및 인증</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

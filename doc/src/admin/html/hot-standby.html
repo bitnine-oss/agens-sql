@@ -1,0 +1,1186 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>상시 대기</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REV="MADE"
+HREF="mailto:pgsql-docs@postgresql.org"><LINK
+REL="HOME"
+TITLE="Agens SQL 1.0 문서"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="고가용성, 부하 분산, 복제"
+HREF="high-availability.html"><LINK
+REL="PREVIOUS"
+TITLE="로그 전달 복제에 대한 다른 방법"
+HREF="log-shipping-alternative.html"><LINK
+REL="NEXT"
+TITLE="복구 환경설정"
+HREF="recovery-config.html"><LINK
+REL="STYLESHEET"
+TYPE="text/css"
+HREF="stylesheet.css"><META
+HTTP-EQUIV="Content-Type"
+CONTENT="text/html; charset=UTF-8"><META
+name="viewport"
+content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width"><META
+NAME="creation"
+CONTENT="2015-06-26T04:43:18"></HEAD
+><BODY
+CLASS="SECT1"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="4"
+ALIGN="center"
+VALIGN="bottom"
+><A
+HREF="index.html"
+>Agens SQL 1.0 문서</A
+></TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="top"
+><A
+TITLE="로그 전달 복제에 대한 다른 방법"
+HREF="log-shipping-alternative.html"
+ACCESSKEY="P"
+>이전</A
+></TD
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="high-availability.html"
+ACCESSKEY="U"
+>위로</A
+></TD
+><TD
+WIDTH="60%"
+ALIGN="center"
+VALIGN="bottom"
+>장 9. 고가용성, 부하 분산, 복제</TD
+><TD
+WIDTH="20%"
+ALIGN="right"
+VALIGN="top"
+><A
+TITLE="복구 환경설정"
+HREF="recovery-config.html"
+ACCESSKEY="N"
+>다음</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="HOT-STANDBY"
+>9.5. 상시 대기</A
+></H1
+><P
+>    여기서 말하는 상시 대기 Hot Standby란 그 서버가 아카이브 파일로 
+    복구 작업을 하고 있거나 대기 모드로 있을 때도 클라이언트가 
+    그 서버로 접속할 수 있으며, 읽기 전용 쿼리를 실행할 수 있는 것을
+    말한다.
+    이 기능은 복제 기능을 구현하는 방법으로,
+    가장 최근 상태로 백업을 하는 방법으로 유용하다.
+    또한 상시 대기라는 용어는 
+    그 대기 서버로 클라이언트들이 접속해 있는 상태에서 즉시 
+    운영 서버로 변경해서 운영 서버에서 사용하던 쿼리를 사용할 수 
+    있는 기능을 뜻한다.
+   </P
+><P
+>    상시 대기 모드에서 사용하는 쿼리도 크게 다르지는 않지만, 
+    아래와 같이 몇가지 제약 사항이 있으며, 관리적인 측면에서 
+    주의해야할 부분이 있다.
+   </P
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="HOT-STANDBY-USERS"
+>9.5.1. 사용자 측면 개요</A
+></H2
+><P
+>    대기 서버에서 hot standby 매개변수의 값이 true로 설정되면, 복구 작업으로 시스템이 일관성 있는 상태가 되었을 때 연결을 허용하게 된다. 모든 연결은 무조건 읽기 전용이다. 임시 테이블도 쓰기를 허용하지 않는다. 
+   </P
+><P
+>    운영 서버에 있는 데이터는 대기 서버로 올 때까지 시간이 걸리므로 운영서버와 대기 서버 간 지연이 생긴다. 따라서 운영 서버와 대기 서버에 거의 동시에 같은 쿼리를 수행하는 것은 다른 결과를 가져올 수 있다. 
+    대기 서버의 데이터가 운영 서버와 <I
+CLASS="FIRSTTERM"
+>결국 일치</I
+>할 것이라고 판단 된다.
+    트랜잭션에 커밋된 레코드가 대기 서버에서 리플레이되면, 트랜잭션 변경 사항이 스냅샷에 보인다. 스냅샷은 각 쿼리 혹은 트랜잭션이 시작될 때 찍히는데, 현재 트랜잭션의 고립 수준에 따라 다르다. 
+   </P
+><P
+>    hot standby에서 시작된 트랜잭션은 아래 명령어들을 수행할 수 있다.
+
+    <P
+></P
+></P><UL
+><LI
+><P
+>       쿼리 접근 - <TT
+CLASS="COMMAND"
+>SELECT</TT
+>, <TT
+CLASS="COMMAND"
+>COPY TO</TT
+>
+      </P
+></LI
+><LI
+><P
+>       커서 명령어 - <TT
+CLASS="COMMAND"
+>DECLARE</TT
+>, <TT
+CLASS="COMMAND"
+>FETCH</TT
+>, <TT
+CLASS="COMMAND"
+>CLOSE</TT
+>
+      </P
+></LI
+><LI
+><P
+>       매개변수 - <TT
+CLASS="COMMAND"
+>SHOW</TT
+>, <TT
+CLASS="COMMAND"
+>SET</TT
+>, <TT
+CLASS="COMMAND"
+>RESET</TT
+>
+      </P
+></LI
+><LI
+><P
+>       트랜잭션 관리 명령어
+        <P
+></P
+></P><UL
+><LI
+><P
+>           <TT
+CLASS="COMMAND"
+>BEGIN</TT
+>, <TT
+CLASS="COMMAND"
+>END</TT
+>, <TT
+CLASS="COMMAND"
+>ABORT</TT
+>, <TT
+CLASS="COMMAND"
+>START TRANSACTION</TT
+>
+          </P
+></LI
+><LI
+><P
+>           <TT
+CLASS="COMMAND"
+>SAVEPOINT</TT
+>, <TT
+CLASS="COMMAND"
+>RELEASE</TT
+>, <TT
+CLASS="COMMAND"
+>ROLLBACK TO SAVEPOINT</TT
+>
+          </P
+></LI
+><LI
+><P
+>           <TT
+CLASS="COMMAND"
+>EXCEPTION</TT
+> 블록과 그 외 내부적인 하위트랜잭션들
+          </P
+></LI
+></UL
+><P>
+      </P
+></LI
+><LI
+><P
+>       <TT
+CLASS="COMMAND"
+>LOCK TABLE</TT
+>(
+       <TT
+CLASS="LITERAL"
+>ACCESS SHARE</TT
+>, <TT
+CLASS="LITERAL"
+>ROW SHARE</TT
+>, <TT
+CLASS="LITERAL"
+>ROW EXCLUSIVE</TT
+> 중 한 모드에 있을 때)
+      </P
+></LI
+><LI
+><P
+>       계획과 리소스 - <TT
+CLASS="COMMAND"
+>PREPARE</TT
+>, <TT
+CLASS="COMMAND"
+>EXECUTE</TT
+>,
+       <TT
+CLASS="COMMAND"
+>DEALLOCATE</TT
+>, <TT
+CLASS="COMMAND"
+>DISCARD</TT
+>
+      </P
+></LI
+><LI
+><P
+>       플러그인과 확장 모듈 - <TT
+CLASS="COMMAND"
+>LOAD</TT
+>
+      </P
+></LI
+></UL
+><P>
+   </P
+><P
+>    hot standby에서 시작된 트랜잭션은 트랜잭션 ID를 할당 받지 못하고 시스템 WAL에 쓰기 작업을 할 수 없다. 아래를 수행하면 에러 메시지를 남길 것이다.
+
+    <P
+></P
+></P><UL
+><LI
+><P
+>       데이터 조작어 (DML) - <TT
+CLASS="COMMAND"
+>INSERT</TT
+>,
+       <TT
+CLASS="COMMAND"
+>UPDATE</TT
+>, <TT
+CLASS="COMMAND"
+>DELETE</TT
+>, <TT
+CLASS="COMMAND"
+>COPY FROM</TT
+>,
+       <TT
+CLASS="COMMAND"
+>TRUNCATE</TT
+>.
+       복구하는 동안 트리거를 실행할 수는 없다. 임시 테이블도 마찬가지인데, 테이블 로우는 트랜잭션 ID 없이 읽거나 쓸 수 없기 때문이다. 이 기능은 아직 Hot Standby 환경에 구현되지 않았다.
+      </P
+></LI
+><LI
+><P
+>       데이터 정의 언어 (DDL) - <TT
+CLASS="COMMAND"
+>CREATE</TT
+>,
+       <TT
+CLASS="COMMAND"
+>DROP</TT
+>, <TT
+CLASS="COMMAND"
+>ALTER</TT
+>, <TT
+CLASS="COMMAND"
+>COMMENT</TT
+>.
+       이 규칙은 임시 테이블에도 적용되는데, 이 작업들을 수행하려면 시스템 카탈로그 테이블도 수정해야 하기 때문이다.
+      </P
+></LI
+><LI
+><P
+>       <TT
+CLASS="COMMAND"
+>SELECT ... FOR SHARE | UPDATE</TT
+>, 로우 잠금을 하기 위해서 데이터 파일을 수정해야 할 때도 있기 때문이다.
+      </P
+></LI
+><LI
+><P
+>       DML 명령어를 생성하는 <TT
+CLASS="COMMAND"
+>SELECT</TT
+> 문에 대한 규칙
+      </P
+></LI
+><LI
+><P
+>        <TT
+CLASS="LITERAL"
+>ROW EXCLUSIVE MODE</TT
+>보다 높은 모드를 명시적으로 요청하는 <TT
+CLASS="COMMAND"
+>LOCK</TT
+>.
+      </P
+></LI
+><LI
+><P
+>       <TT
+CLASS="LITERAL"
+>ACCESS EXCLUSIVE MODE</TT
+>를 요청하는 축약된 디폴트 형태의 <TT
+CLASS="COMMAND"
+>LOCK</TT
+>.
+      </P
+></LI
+><LI
+><P
+>       읽기 전용이 아닌 상태를 명시적으로 설정한 트랜잭션 관리 명령어
+        <P
+></P
+></P><UL
+><LI
+><P
+>            <TT
+CLASS="COMMAND"
+>BEGIN READ WRITE</TT
+>,
+            <TT
+CLASS="COMMAND"
+>START TRANSACTION READ WRITE</TT
+>
+          </P
+></LI
+><LI
+><P
+>            <TT
+CLASS="COMMAND"
+>SET TRANSACTION READ WRITE</TT
+>,
+            <TT
+CLASS="COMMAND"
+>SET SESSION CHARACTERISTICS AS TRANSACTION READ WRITE</TT
+>
+          </P
+></LI
+><LI
+><P
+>           <TT
+CLASS="COMMAND"
+>SET transaction_read_only = off</TT
+>
+          </P
+></LI
+></UL
+><P>
+      </P
+></LI
+><LI
+><P
+>       두 단계의 커밋 명령어 - <TT
+CLASS="COMMAND"
+>PREPARE TRANSACTION</TT
+>,
+       <TT
+CLASS="COMMAND"
+>COMMIT PREPARED</TT
+>, <TT
+CLASS="COMMAND"
+>ROLLBACK PREPARED</TT
+>
+       읽기전용의 트랜잭션도 준비 단계에서 WAL에 쓰기 작업을 해야 하기 때문이다(두 단계중 첫 번째 커밋 단계).
+      </P
+></LI
+><LI
+><P
+>       시퀀스 업데이트 - <CODE
+CLASS="FUNCTION"
+>nextval()</CODE
+>, <CODE
+CLASS="FUNCTION"
+>setval()</CODE
+>
+      </P
+></LI
+><LI
+><P
+>       <TT
+CLASS="COMMAND"
+>LISTEN</TT
+>, <TT
+CLASS="COMMAND"
+>UNLISTEN</TT
+>, <TT
+CLASS="COMMAND"
+>NOTIFY</TT
+>
+      </P
+></LI
+></UL
+><P>
+   </P
+><P
+>    보통은 <SPAN
+CLASS="QUOTE"
+>"읽기 전용"</SPAN
+> 트랜잭션이 시퀀스를 수정하고 <TT
+CLASS="COMMAND"
+>LISTEN</TT
+>, <TT
+CLASS="COMMAND"
+>UNLISTEN</TT
+>, and
+    <TT
+CLASS="COMMAND"
+>NOTIFY</TT
+>를 사용하기 때문에 Hot Standby 세션들이 정상적인 읽기 전용 세션보다 조금 더 엄격하게 작업해야 한다. 추후 버전에선 이런 점이 완화될 수도 있다.
+   </P
+><P
+>    hot standby 시점에 <TT
+CLASS="VARNAME"
+>transaction_read_only</TT
+> 매개변수는 항상 true로 지속될 수 있다. 데이터베이스를 수정하려는 시도가 없는 한 hot standby 연결은 다른 데이터베이스 연결과 별반 다르지 않을 것이다. 
+    장애처리나 스위치오버가 발생하면 데이터베이스는 정상적인 프로세싱 모드로 전환된다. 세션은 서버 모드가 변경 돼도 연결된 상태를 유지한다. hot standby가 종료되면 읽기-쓰기 트랜잭션이 초기화될 수 있다(hot standby에서 시작된 세션조차도).
+   </P
+><P
+>    사용자는 <TT
+CLASS="COMMAND"
+>SHOW transaction_read_only</TT
+>를 실행해서 읽기 전용 여부를 판별할 수 있다. 사용자는 함수 집합을 통해 대기 서버 정보에 접근할 수 있다. 
+    함수들을 사용해서 현재 데이터베이스와 연결된 프로그램을 쓸 수 있다. 복구 절차를 모니터링하거나 데이터베이스를 특정 상태로 복원하는 복잡한 프로그램을 쓸 수 있다.
+   </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="HOT-STANDBY-CONFLICT"
+>9.5.2. 쿼리 충돌 처리하기</A
+></H2
+><P
+>    운영 서버와 대기 서버은 대부분 느슨한 연결 상태를 유지한다. 운영 서버에서 
+    발생하는 트랜잭션 커밋은 대기서버가 그 트랜잭션을 정상적으로 커밋 
+    했는지와 상관 없이 정상 처리된다.  이런 특성 때문에 이런 복제 기법에는
+    항상 예상치 않은 장애와 두 서버간 자료 충돌이 발생할 가능성을 내포하고
+    있다. 가장 대표적인 자료 충돌로는 성능 저하가 발생하는 것을 꼽을 수 있을
+    것이다:  예를 들어 운영 서버에서 많은 자료가 입력되고 있으면, 그로 인해
+    많은 트랜잭션 로그가 만들어 질 것이고, 이것을 대기 서버로 전달하기 위해
+    운영 서버는 단일 서버를 운영 할 때와 달리 부가적인 입출력 자원을 
+    사용할 것이다.  또한 대기 서버에서도 실행 되고 있던 쿼리들이 이 입력 처리 
+    때문에 발생하는 비용 때문에 영향을 받을 것이다.
+   </P
+><P
+>    다음은 대기 서버에서 발생할 수 있는 자료 충돌 종류들이다.
+    이런 충돌을 해결 하기 위해서는 어떤 경우는 실행 되고 있는 쿼리를 
+    중지 하는 경우도 있고, 또는 세션을 중지해야 하는 경우도 발생할 것이다. 
+    이런 의미에서 이런 충돌은 <SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>강한 충돌</I
+></SPAN
+>이라고 한다.
+    사용자는 이런 충돌을 잘 이해해서 각 상황에 맞는 조치를 취해야 한다:
+
+      <P
+></P
+></P><UL
+><LI
+><P
+>         운영 서버에서 <TT
+CLASS="COMMAND"
+>LOCK</TT
+> 명령을 사용했거나, 
+         다양한 <ACRONYM
+CLASS="ACRONYM"
+>DDL</ACRONYM
+> 구문에 의해서 발생하는 
+         배타적 접근 잠금에 대해서, 
+         대기 서버는 그것에 대한 정확한 상태를 유지하지 못한다. 즉, 
+         운영 서버에서 해당 객체가 잠겨도 대기 서버에서는 접근이 가능하다.
+         (이렇게 되면, 대기 서버에서 읽어서 운영 서버로 반영하는 자료들이
+         그 정합성을 잃을 수 있다.)
+        </P
+></LI
+><LI
+><P
+>         운영 서버에서 테이블 스페이스가 삭제 되고 있는 중에도 대기 서버는
+         그 테이블 스페이스에 속한 객체들을 접근할 수 있다.
+        </P
+></LI
+><LI
+><P
+>         대기 서버에 해당 데이터베이스를 사용하는 세션이 있음에도 불구하고, 
+         운영 서버에서 해당 데이터베이스를 삭제 할 수 있다.
+        </P
+></LI
+><LI
+><P
+>         대기 서버에서 발생한 트랜잭션을 위해 보관 되어야 할 
+         옛 버전 자료들이 운영 서버의 vacuum 작업으로 삭제 되어 버리는 
+         일이 생길 수 있다.
+        </P
+></LI
+><LI
+><P
+>         위 경우와 반대로 보이지 말아야 할 옛 버전 자료들이 
+         보여지는 경우도 발생할 수 있다.
+        </P
+></LI
+></UL
+><P>
+   </P
+><P
+>    단독으로 운영 되는 서버라면, 이런 쿼리 충돌이 일어나지 않는다. 왜냐하면, 
+    한 작업이 마무리 되기 전까지 그 작업과 관련된 다른 세션들의 작업들은 
+    대기 상태가 되기 때문이다. 하지만 복제 환경에서 대기 서버는 이런 
+    대기를 제어 할 수 없다: 운영 서버에서 발생한 트랜잭션 로그를 
+    대기 서버가 반영 하도록 전해 받았다면, 그저 그 작업을 진행할 뿐이기 
+    때문이다. 이 작업을 진행 할 때, 운영 서버의 다른 세션 상태를 고려할 수 
+    없기 때문이다. 물론 가장 완벽한 방법은 대기 서버까지도 모두 해당 트랜잭션 작업이 끝날 때까지 모든 세션(운영 서버의 세션과 대기 서버의 세션 모두)의 대기 상태를 유지 하는 것이지만, 
+    현실적으로 대기 서버와 운영 서버간의 연결을 완벽하게 보장한다는 것은 거의 불가능하기 때문에, 이런 방식은 오히려 운영 서버의 안정성을 더 떨어뜨린다. 
+    그래서, 이런 충돌이 발생했을 때 대기 서버는 충돌을 해결 하기 위한 별도의 처리 방식을 제공하고 있어야 하며, 이에 따라 몇가지 충돌 자동 해결 기능을 제공하고 있다.
+   </P
+><P
+>    그 한 예로 운영 서버에서 <TT
+CLASS="COMMAND"
+>DROP TABLE</TT
+> 명령으로 한 테이블을
+    삭제 하면, 대기 서버에서 아직 삭제 되지 않은 그 테이블을 조회하는 쿼리는
+    운영 서버에서 전달 받은 이 트랜잭션이 감지 됐을 때 자동으로 취소 된다.
+    일반적으로 단독 서버 환경일 때, 조회 작업이 먼저 진행 중이고, 
+    삭제 작업이 발생 하면, 조회 작업이 끝날 동안 삭제 작업은 기다린다.
+    하지만 대기 서버가 있는 상황에서는 운영 서버가 대기 서버에서 해당 
+    테이블을 조회하는 작업이 있는지 알 수 없으므로 일단 삭제하고, 
+    그 로그를 대기 서버로 보낸다. 이때 대기 서버의 가장 바람직한 선택은
+    대기 서버에서 조회 하고 있던 쿼리를 자동으로 취소하고, 최대한 빨리
+    운영 서버에서 실행 했던 삭제 작업을 대기 서버에도 반영 하는 것이다.
+    이렇게 처리하지 않고 운영 서버처럼 조회 작업이 끝날 때까지 기다렸다가 
+    삭제 작업을 진행한다면, 오히려 자료 동기화 (복제 작업) 의 근본 목적을
+    달성하는데 방해가 될 것이다.
+   </P
+><P
+>    달리 생각하면, 해당 충돌이 순식간에 끝나는 경우라면, 충돌을 피하기 위해
+    그냥 대기 서버도 운영 서버 방식을 취하는 것이 바람직할 것이다.  하지만, 
+    대기 서버의 조회 작업이 오래 지속된다면, 트랜잭션 로그 동기화는 그만큼 
+    지연 될 것이고, 이에 따른 다른 객체들까지 영향을 받을 것이다. 
+    그래서, max-standby-archive-delay, max-standby-streaming-delay 환경 설정 매개변수로
+    이런 최대 지연 시간을 지정해서 이 지연 시간을 넘기면 대기 서버의 작업을 
+    중지 하도록 설정 한다.  이렇게 함으로써 최대한 대기 서버의 상태를 
+    운영 서버와 같도록 한다. 이 두 환경 설정 매개변수는 아카이브 로그 파일 
+    반영시 스트리밍 트랜잭션 로그 전달에서 최대 지연 시간을 지정하는 것이다.
+    (이 설정값들의 초기값은 30초다.  이 값의 최적값을 찾는 것은 데이터베이스
+    관리자의 몫인 것 같다. )
+   </P
+><P
+>    고가용성이 주 목적인 대기 서버는 쿼리 지연으로 인해 운영 서버에 뒤쳐지지 않도록 지연 매개변수를 비교적 짧게 정하는 것이 가장 좋다. 
+    그러나 대기 서버가 장시간 쿼리를 수행하게 된다면 지연 값을 크게 혹은 무한으로 설정하는 것이 좋다. 
+    장시간 수행 쿼리가 WAL 레코드 적용을 지연시키면 다른 세션들이 운영 서버의 최근 변경 사항을 보지 못할 수도 있다. 
+   </P
+><P
+>    <TT
+CLASS="VARNAME"
+>max_standby_archive_delay</TT
+> 혹은
+    <TT
+CLASS="VARNAME"
+>max_standby_streaming_delay</TT
+> 로 지정된 시간을 초과하면 충돌 쿼리는 취소된다. 
+    그러면 취소 에러만 발생하는데, <TT
+CLASS="COMMAND"
+>DROP DATABASE</TT
+>를 실행할 경우 전체 충돌 세션이 종료된다. 
+    휴지 상태인 트랜잭션의 잠금이 충돌 원인일 때 충돌 세션은 종료된다(이 방법은 향후 바뀔 수 있음).
+   </P
+><P
+>    취소된 쿼리는 바로 재시도한다(새 트랜잭션을 시작한 이후에만). 취소된 쿼리는 리플레이된 WAL 레코드에 의존하므로, 취소된 쿼리가 다시 실행되면 성공할 확률이 높다.
+   </P
+><P
+>    지연 매개변수는 WAL 데이터를 대기 서버가 수신한 이후 경과 시간을 뜻한다는 것을 기억해 두자. 대기 서버에 있는 쿼리에 대한 유예 기간은 지연 매개변수를 초과할 수 없다. 
+    이전 쿼리들이 완료되기를 기다리다가 혹은 업데이트 양이 너무 많아서 이미 뒤쳐진 상태이면 지연 매개변수보다 훨씬 작을 수도 있다. 
+   </P
+><P
+>    대기 서버 쿼리와 WAL 리플레이 충돌의 원인으로 가장 잘 알려진 것은 <SPAN
+CLASS="QUOTE"
+>"조기 청소early cleanup"</SPAN
+>이다.  
+    보통 <SPAN
+CLASS="PRODUCTNAME"
+>Agens SQL</SPAN
+>에서는 MVCC 규칙에 따라 데이터의 가시성을 정하기 위해, 트랜잭션이 보지 않는 이전 로우 버전들을 청소할 수 있다. 
+    하지만 이 규칙은 마스터에서 수행하는 트랜잭션에만 해당된다. 
+    그러므로 마스터에서 청소하면 대기서버의 트랜잭션이 보고 있는 로우 버전들이 삭제될 수도 있다.
+   </P
+><P
+>    숙련된 사용자는 로우 버전 청소와 로우 버전 동결(freezing)이 대기 서버 쿼리들과 충돌할 수 있다는 것을 안다.
+    <TT
+CLASS="COMMAND"
+>VACUUM FREEZE</TT
+>를 수동적으로 실행하면 로우가 업데이트되거나 삭제되지 않은 테이블에도 충돌을 일으킬 수 있다.
+   </P
+><P
+>    운영 서버에서 정기적으로 대량 업데이트 된 테이블은 대기 서버에서 장시간 수행되는 쿼리를 급하게 취소할 수 있다. 이런 경우에 <TT
+CLASS="VARNAME"
+>max_standby_archive_delay</TT
+>나
+    <TT
+CLASS="VARNAME"
+>max_standby_streaming_delay</TT
+>에 한정적인 값을 설정하면 <TT
+CLASS="VARNAME"
+>statement_timeout</TT
+>을 설정하는 것과 비슷한 역할을 한다.
+   </P
+><P
+>    대기 서버 쿼리를 취소하는 횟수가 많아질 때를 대비하는 방법도 있다. 첫 번째 방법은 
+    <TT
+CLASS="VARNAME"
+>hot_standby_feedback</TT
+>매개변수를 설정하는 것인데, 최근 삭제된 로우들에 <TT
+CLASS="COMMAND"
+>VACUUM</TT
+>을 수행하는 것을 막아서 청소 충돌을 방지하는 것이다. 
+    운영 서버에서 삭제된 로우들에 대한 청소를 지연하여 테이블이 원치 않게 커질 수가 있다. 
+    하지만 운영 서버에서 직접 대기 서버 쿼리를 실행하고 있을 때 대기 서버에서도 수행되는 경우보다는 나을 수도 있다. 
+    이 경우, 지연된 WAL 파일에 대기 서버 쿼리와 충돌할 엔트리가 포함됐을 수 있으므로, 
+    <TT
+CLASS="VARNAME"
+>max_standby_archive_delay</TT
+>가 항상 큰 값으로 유지되어야 한다.
+   </P
+><P
+>    또 다른 방법은 운영 서버에서 vacuum-defer-cleanup-age
+    를 증가시켜서 삭제된 로우가 평소보다 빨리 청소되는 것을 막는 것이다. <TT
+CLASS="VARNAME"
+>max_standby_streaming_delay</TT
+>를 높게 설정하지 않아도 대기 서버에서 쿼리들이 취소되기 전에 수행될 시간을 더 준다. 
+    하지만 특정 수행 시간을 보장할 수는 없는데, 운영 서버에서 실행된 트랜잭션에 <TT
+CLASS="VARNAME"
+>vacuum_defer_cleanup_age</TT
+>가 반영되기 때문이다. 
+   </P
+><P
+>    쿼리 취소 횟수와 취소 원인은 대기 서버의 <TT
+CLASS="STRUCTNAME"
+>pg_stat_database_conflicts</TT
+> 시스템 뷰로 확인할 수 있다. <TT
+CLASS="STRUCTNAME"
+>pg_stat_database</TT
+> 시스템 뷰에는 요약 정보도 포함돼 있다.
+   </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="HOT-STANDBY-ADMIN"
+>9.5.3. 관리자 측면 개요</A
+></H2
+><P
+>    <TT
+CLASS="FILENAME"
+>agens_sql.conf</TT
+>에서 <TT
+CLASS="VARNAME"
+>hot_standby</TT
+> 상태가 <TT
+CLASS="LITERAL"
+>on</TT
+>이고,
+    <TT
+CLASS="FILENAME"
+>recovery.conf</TT
+> 파일이 존재하면, 서버는 Hot Standby 모드로 실행될 것이다. 그러나 Hot Standby 접속이 허용되려면 시간이 꽤 걸릴 수도 있다. 
+    서버가 일관적으로 어떤 쿼리를 실행하기 위해 복구를 끝낼 때까지 연결을 수락하지 않기 때문이다. 이 시간 동안에 연결을 시도하는 클라이언트는 에러 메시지가 뜨면서 거부될 것이다. 
+    서버가 연결할 준비가 되었는지 확인하기 위해서는 애플리케이션 접속을 시도하는 루프를 돌거나 서버 로그에서 아래 메시지들을 찾아 볼 수 있다.
+
+</P><PRE
+CLASS="PROGRAMLISTING"
+>LOG:  entering standby mode
+
+... then some time later ...
+
+LOG:  consistent recovery state reached
+LOG:  database system is ready to accept read only connections</PRE
+><P>
+
+    일관성에 대한 정보는 운영 서버에 체크 포인트당 한번 기록된다. <TT
+CLASS="VARNAME"
+>wal_level</TT
+>이 운영 서버의 
+    <TT
+CLASS="LITERAL"
+>hot_standby</TT
+>로 설정돼 있지 않을 때 쓰여진 WAL을 읽으면 hot standby를 켤 수 없다. 일관적인 상태는 아래 두 조건이 충족되면 지연될 수 있다.
+
+      <P
+></P
+></P><UL
+><LI
+><P
+>         64개 이상의 부트랜잭션을 갖는 쓰기 트랜잭션이 있을 때
+        </P
+></LI
+><LI
+><P
+>         매우 수명이 긴 트랜잭션이 있을 때
+        </P
+></LI
+></UL
+><P>
+    파일 기반의 로그 전달(“warm standby”)을 수행할 때 그 다음 WAL 파일이 도착할 때까지 기다려야 할 수도 있는데, 운영 서버에서 <TT
+CLASS="VARNAME"
+>archive_timeout</TT
+>에 설정해 놓은 만큼 기다릴 수 있다. 
+   </P
+><P
+>    대기 서버에서 설정한 일부 매개 변수들은 운영 서버에서 변경 되면 재설정되어야 한다. 이 매개변수들에 대한 대기 서버의 값은 운영 서버에서의 값보다 크거나 같다. 
+    이 매개변수들이 높게 설정돼 있지 않으면 대기 서버에서 실행할 수 없다. 높게 설정되면 서버가 복구하기 위해 재시작한다. 매개변수들은 다음과 같다.
+
+      <P
+></P
+></P><UL
+><LI
+><P
+>         <TT
+CLASS="VARNAME"
+>max_connections</TT
+>
+        </P
+></LI
+><LI
+><P
+>         <TT
+CLASS="VARNAME"
+>max_prepared_transactions</TT
+>
+        </P
+></LI
+><LI
+><P
+>         <TT
+CLASS="VARNAME"
+>max_locks_per_transaction</TT
+>
+        </P
+></LI
+></UL
+><P>
+   </P
+><P
+>    관리자가 max-standby-archive-delay와 max-standby-streaming-delay에 적절한 설정을 해주는 것이 중요하다. 최적의 설정 방법은 비즈니스 우선순위에 따라 다르다. 
+    예를 들어, 서버가 주로 고 가용성 서버로서의 임무를 맡으면 지연 값을 낮추는 것이 좋다. 극단적으로 0도 가능하다. 
+    대기 서버가 decision support 쿼리를 위한 추가적인 서버일 경우, 최대 지연 값을 장시간 혹은 쿼리가 끝날 때까지를 의미하는 -1로 설정할 수 있다.
+   </P
+><P
+>    운영 서버에 쓰인 “hint bits” 트랜잭션 상태는 WAL로그에 기록되지 않으므로 대기 서버의 데이터가 힌트를 재사용할 수도 있다. 그러므로 대기 서버는 모든 사용자가 읽기 권한만 있어도 디스크 쓰기를 수행할 것이다. 데이터 값 자체에는 어떤 변화도 생기지 않는다. 
+    사용자는 대용량의 정렬 임시 파일을 만들 수 있고, relcache 정보 파일을 재생성해서 hot standby mode일 때 데이터베이스의 어떤 부분도 읽기 전용이 아닌 상태로 만들 수 있다. 
+    <SPAN
+CLASS="APPLICATION"
+>dblink</SPAN
+> 모듈을 사용해서 원격 데이터 베이스에 쓰기작업을 하고 PL함수를 사용해서 데이터베이스 외부에서 다른 작업을 하는 것은 트랜잭션이 지역적으로 읽기 전용이라 하더라도 가능하다. 
+   </P
+><P
+>    아래 관리 명령어 타입들은 복구 모드일 때는 허용되지 않는다.
+
+      <P
+></P
+></P><UL
+><LI
+><P
+>         Data Definition Language (DDL) - e.g. <TT
+CLASS="COMMAND"
+>CREATE INDEX</TT
+>
+        </P
+></LI
+><LI
+><P
+>         Privilege and Ownership - <TT
+CLASS="COMMAND"
+>GRANT</TT
+>, <TT
+CLASS="COMMAND"
+>REVOKE</TT
+>,
+         <TT
+CLASS="COMMAND"
+>REASSIGN</TT
+>
+        </P
+></LI
+><LI
+><P
+>         Maintenance commands - <TT
+CLASS="COMMAND"
+>ANALYZE</TT
+>, <TT
+CLASS="COMMAND"
+>VACUUM</TT
+>,
+         <TT
+CLASS="COMMAND"
+>CLUSTER</TT
+>, <TT
+CLASS="COMMAND"
+>REINDEX</TT
+>
+        </P
+></LI
+></UL
+><P>
+   </P
+><P
+>    몇 개의 명령어들은 운영 서버의 읽기 전용인 트랜잭션에만 해당된다는 것을 알아 두자.
+   </P
+><P
+>    결론적으로 대기서버에 단독으로 존재하는 추가 인덱스들 혹은 통계치를 생성할 수는 없다. 위의 관리 명령어들이 필요할 때는 운영 서버에서 실행해야 하고, 변경 사항이 생기면 대기 서버에 전달 된다. 
+   </P
+><P
+>    <CODE
+CLASS="FUNCTION"
+>pg_cancel_backend()</CODE
+>와 <CODE
+CLASS="FUNCTION"
+>pg_terminate_backend()</CODE
+>는 사용자 백엔드에서 작동하지만, 복구 작업을 하는 스타트업Startup 프로세스에서는 작동하지 않는다. 
+    <TT
+CLASS="STRUCTNAME"
+>pg_stat_activity</TT
+> 는 스타트업 프로세스에 대한 엔트리를 보여주지 않고 활성화된 복구 트랜잭션은 보여주지 않는다. 결론적으로, <TT
+CLASS="STRUCTNAME"
+>pg_prepared_xacts</TT
+>
+        는 복구 중에 항상 비어 있다. prepared transaction을 분석하고 싶으면, 운영 서버에 있는 <TT
+CLASS="LITERAL"
+>pg_prepared_xacts</TT
+>을 보고 명령어를 실행해서 트랜잭션을 분석하자.
+   </P
+><P
+>    <TT
+CLASS="STRUCTNAME"
+>pg_locks</TT
+>는 백엔드가 사용하는 잠금을 보여준다. <TT
+CLASS="STRUCTNAME"
+>pg_locks</TT
+> also shows
+    a virtual transaction managed by the Startup process that owns all
+    <TT
+CLASS="LITERAL"
+>AccessExclusiveLocks</TT
+> held by transactions being replayed by recovery.
+    스타트업 프로세스는 데이터베이스를 변경할 때 잠금을 사용하지 않으므로 <TT
+CLASS="LITERAL"
+>AccessExclusiveLocks</TT
+>
+    외의 잠금은 <TT
+CLASS="STRUCTNAME"
+>pg_locks</TT
+>에 표시되지 않는다. 잠금이 존재한다고 추정될 뿐이다.
+   </P
+><P
+>    <SPAN
+CLASS="PRODUCTNAME"
+>Nagios</SPAN
+> 플러그인 <SPAN
+CLASS="PRODUCTNAME"
+>check_pgsql</SPAN
+> 은 간단한 정보를 확인하기 때문에 작동한다. 
+    <SPAN
+CLASS="PRODUCTNAME"
+>check_postgres</SPAN
+> 모니터링 스크립트는 일부 수치가 예상과 다르거나 혼동되기도 하지만 작동은 한다. 
+    예를 들어 vacuum은 대기 서버에서 작동하지 않으므로, 최근 vacuum 시간은 보존되지 않는다. 운영 서버에서 실행되는 vacuum은 대기 서버에 변경 사항을 전송한다.
+   </P
+><P
+>    WAL 파일을 조절하는 명령어는 복구 중에 작동하지 않는데, 예를 들면 <CODE
+CLASS="FUNCTION"
+>pg_start_backup</CODE
+>, <CODE
+CLASS="FUNCTION"
+>pg_switch_xlog</CODE
+> 등이 있다.
+   </P
+><P
+>    동적으로 적재 가능한 모듈은 <TT
+CLASS="STRUCTNAME"
+>pg_stat_statements</TT
+>를 포함해서 작동한다..
+   </P
+><P
+>    교착상태 감지와 같은 보조 잠금advisory lock은 복구 중에 정상적으로 작동한다. 보조 잠금은 WAL에 기록되지 않으므로, 운영 서버나 대기 서버에 있는 보조 잠금이 WAL 리플레이와 충돌할 수는 없다. 
+    운영 서버에서 보조 잠금을 획득하고 대기 서버에서 비슷한 보조 잠금을 만드는 것도 불가능하다. 보조 잠금이 획득된 서버에서만 보조 잠금을 쓸 수 있다.
+   </P
+><P
+>    <SPAN
+CLASS="PRODUCTNAME"
+>Slony</SPAN
+>나
+    <SPAN
+CLASS="PRODUCTNAME"
+>Londiste</SPAN
+>, <SPAN
+CLASS="PRODUCTNAME"
+>Bucardo</SPAN
+>같은 트리거 기반의 리플리케이션 시스템은 대기 서버에서 절대 실행될 수 없다. 대기 서버에 변경 사항이 전달되지 않는 한 운영 서버에서 잘 실행될 것이다. 
+    WAL 리플레이는 트리거 기반이 아니므로, 대기 서버에서 추가적인 데이터베이스 쓰기 작업을 요구하거나 트리거 쓰임에 의존하는 시스템에는 전달할 수 없다. 
+   </P
+><P
+>    새로운 OID들은 할당되지 않으나, <ACRONYM
+CLASS="ACRONYM"
+>UUID</ACRONYM
+> 생성자generator는 데이터베이스에 새로운 상태를 쓰지 않는 한 작동한다.
+   </P
+><P
+>    현재 임시 테이블은 읽기 전용 트랜잭션 수행 중에 생성될 수 없으므로, 기존 스크립트들이 제대로 작동하지 않을 수도 있다. 이 제약은 향후 출시 버전에서 개선될 수 있다. 현재는 SQL 표준 준수와 기술적인 문제가 결합되어 있다. 
+   </P
+><P
+>    <TT
+CLASS="COMMAND"
+>DROP TABLESPACE</TT
+>는 테이블스페이스가 비어있을 때만 가능하다. 일부 대기 서버 사용자들은 
+    <TT
+CLASS="VARNAME"
+>temp_tablespaces</TT
+>로 테이블스페이스를 자주 사용할 수도 있다. 
+    테이블스페이스에 임시 파일이 있으면, 임시 파일을 제거하기 위해 실행 중인 쿼리들이 모두 취소된다. 그러면 테이블스페이스가 제거되어 WAL 리플레이가 계속 진행될 수 있다.
+   </P
+><P
+>    운영 서버에서 <TT
+CLASS="COMMAND"
+>DROP DATABASE</TT
+> 혹은 <TT
+CLASS="COMMAND"
+>ALTER DATABASE ... SET
+    TABLESPACE</TT
+>를 실행하면 대기 서버에서 이 데이터베이스에 연결된 모든 사용자들의 연결을 강제로 끊는 WAL 엔트리가 생성된다. 
+    이는 <TT
+CLASS="VARNAME"
+>max_standby_streaming_delay</TT
+>와 상관 없이 바로 발생한다. <TT
+CLASS="COMMAND"
+>ALTER DATABASE ... RENAME</TT
+>은 사용자와의 연결을 끊지 않는다. 
+    데이터베이스명에 의존하는 프로그램의 경우에는 혼동이 생길 수 있다.
+   </P
+><P
+>    정상(미복원) 모드에서 사용자가 연결된 상태에서, 그 사용자에게 로그인 기능이 있는 role에 대해 <TT
+CLASS="COMMAND"
+>DROP USER</TT
+>나 <TT
+CLASS="COMMAND"
+>DROP ROLE</TT
+>을 실행하면 그 사용자에게는 아무 일도 일어나지 않는다. 
+    사용자의 연결 상태는 유지된다. 그러나 재연결은 불가능하다. 복구 시에도 마찬가지로, 운영 서버에서 
+    <TT
+CLASS="COMMAND"
+>DROP USER</TT
+>를 실행해도 대기 서버 사용자의 연결을 끊어지지 않는다. 
+   </P
+><P
+>    statistics collector은 복구 중에 활성화 된다. 모든 스캔, 읽기, 블록, 인덱스 사용 등은 대기 서버에 정상적으로 기록된다. 
+    리플레이 과정은 운영 서버에서 반복되지 않으므로 insert를 리플레이 해도 pg_stat_user_tables의 Inserts 컬럼을 증가시키지 않는다. stats 파일은 복구 초기에 삭제되므로 운영 서버와 대기 서버의 stats은 다르다. 이것은 기능일 뿐 버그가 아니다.
+   </P
+><P
+>    Autovacuum은 복구 중에 비활성화 된다. 복구가 끝나면 정상적으로 작동한다.
+   </P
+><P
+>    background writer는 복구 중에 활성화 되고, restartpoint를 수행 하고(운영 서버의 체크포인트와 비슷함), 정상적인 블록 청소 활동을 시작한다. 
+    또 대기 서버에 저장된 hint bit 정보에 대한 업데이트도 한다.
+    <TT
+CLASS="COMMAND"
+>CHECKPOINT</TT
+> 명령어는 복구 중에 수행되는데, 새로운 체크포인트가 아닌 restartpoint를 수행한다.
+   </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="HOT-STANDBY-PARAMETERS"
+>9.5.4. 상시 대기 관련 환경 설정 매개변수 설명</A
+></H2
+><P
+>    <A
+HREF="hot-standby.html#HOT-STANDBY-CONFLICT"
+>9.5.2절</A
+>과 <A
+HREF="hot-standby.html#HOT-STANDBY-ADMIN"
+>9.5.3절</A
+>에서 다양한 매개변수가 언급되었다.
+   </P
+><P
+>    운영 서버에서 wal-level과
+    vacuum-defer-cleanup-age를 사용할 수 있다. 
+    max-standby-archive-delay와
+    max-standby-streaming-delay는 운영 서버에서 설정돼도 아무 영향이 없다. 
+   </P
+><P
+>    대기 서버에서 hot-standby와
+    max-standby-archive-delay,
+    max-standby-streaming-delay를 사용할 수 있다. 
+    vacuum-defer-cleanup-age는 대기 서버 모드가 아닌 이상 아무 영향이 없고, 대기 서버가 운영 서버가 되면 영향을 미칠 수 있다.
+   </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="HOT-STANDBY-CAVEATS"
+>9.5.5. 주의사항</A
+></H2
+><P
+>    Hot Standby에는 몇 가지 제약 사항이 있다. 이는 향후 출시 버전에서 개선될 수 있을 것이다.
+
+  <P
+></P
+></P><UL
+><LI
+><P
+>    해쉬 인덱스에 대한 작업은 WAL에 기록되지 않으므로 재실행하면 이 인덱스들은 업데이트되지 않는다.
+    </P
+></LI
+><LI
+><P
+>     트랜잭션을 실행하는 것에 대한 모든 정보는 스냅샷을 찍기 전에 필요하다. 부트랜잭션들을 많이 사용하는(현재는 64보다 많이 사용하는 경우를 가리킴) 트랜잭션은 가장 오래 걸리는 쓰기 트랜잭션이 끝날 때까지 읽기 전용 연결 시작을 늦출 것이다. 
+     이런 상황이 발생할 때는 서버 로그에 메시지가 전달된다.
+    </P
+></LI
+><LI
+><P
+>    대기 서버 쿼리에서 유효한 starting point는 마스터 서버의 각 체크포인트에서 생성된다. 마스터 서버가 셧다운shutdown 상태일 때 대기 서버가 셧다운 되면, 운영 서버가 WAL의 starting point를 만들어야 하므로 Hot Standby에 재진입하는 것이 불가능 할 수도 있다. 
+    이런 상황은 별로 문제 되지 않는다. 운영 서버가 셧다운되어 사용 불가능한 경우는 보통 대기 서버가 새로운 운영 서버로 바뀌는 데 실패했기 때문이다. 운영 서버를 의도적으로 끈 경우, 대기 서버를 자연스럽게 새로운 운영 서버로 만드는 것도 표준 절차이다.
+    </P
+></LI
+><LI
+><P
+>     복구 마지막 단계에서 prepared transaction이 사용한 <TT
+CLASS="LITERAL"
+>AccessExclusiveLocks</TT
+>은 평소 잠금 테이블 엔트리 수의 두 배가 필요하다. <TT
+CLASS="LITERAL"
+>AccessExclusiveLocks</TT
+>이 필요한 동시적 prepared transaction을 여러 개 수행하거나 여러 <TT
+CLASS="LITERAL"
+>AccessExclusiveLocks</TT
+>이 필요한 transaction을 수행하면 <TT
+CLASS="VARNAME"
+>max_locks_per_transaction</TT
+>를 크게 설정하는 것이 좋다. 
+     운영 서버의 <TT
+CLASS="VARNAME"
+>max_locks_per_transaction</TT
+>의 두 배도 좋다. <TT
+CLASS="VARNAME"
+>max_prepared_transactions</TT
+>의 값이 0이면 이를 전혀 고려하지 않아도 된다. 
+    </P
+></LI
+><LI
+><P
+>     직렬형의 트랜잭션 고립 수준(Serializable transaction isolation level)은 hot standby에서 아직 사용할 수 없다.
+    트랜잭션을 hot standby 모드에서 serializable isolation level로 설정하면 에러가 발생한다. 
+    </P
+></LI
+></UL
+><P>
+
+   </P
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="log-shipping-alternative.html"
+ACCESSKEY="P"
+>이전</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>처음으로</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="recovery-config.html"
+ACCESSKEY="N"
+>다음</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>로그 전달 복제에 대한 다른 방법</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="high-availability.html"
+ACCESSKEY="U"
+>위로</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>복구 환경설정</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

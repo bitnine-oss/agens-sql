@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename resource &apos;docbook/backup.sgml&apos; to &apos;postgres_backup.sgml&apos;" description="Rename resource &apos;backup.sgml&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="backup.sgml" name="postgres_backup.sgml" stamp="1433827498858" updateReferences="true"/>
+</session>

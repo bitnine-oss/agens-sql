@@ -1,0 +1,25 @@
+INDEXTERM history.html
+INDEXPOINT history.html#AEN65
+TITLE PostgreSQL 간추린 역사
+significance NORMAL
+ZONE history.html
+TITLE PostgreSQL 간추린 역사
+PRIMARY history
+SECONDARY of PostgreSQL
+/INDEXTERM
+INDEXTERM history.html#HISTORY-BERKELEY
+INDEXPOINT history.html#AEN75
+TITLE 버클리 POSTGRES 프로젝트
+significance NORMAL
+ZONE history.html#HISTORY-BERKELEY
+TITLE 버클리 POSTGRES 프로젝트
+PRIMARY POSTGRES
+/INDEXTERM
+INDEXTERM history.html#HISTORY-POSTGRES95
+INDEXPOINT history.html#AEN100
+TITLE Postgres95
+significance NORMAL
+ZONE history.html#HISTORY-POSTGRES95
+TITLE Postgres95
+PRIMARY Postgres95
+/INDEXTERM

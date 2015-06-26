@@ -1,0 +1,476 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>데이터베이스 클러스터 생성</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REV="MADE"
+HREF="mailto:pgsql-docs@postgresql.org"><LINK
+REL="HOME"
+TITLE="Agens SQL 1.0 문서"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="서버 설정 및 운용"
+HREF="runtime.html"><LINK
+REL="PREVIOUS"
+TITLE="Agens SQL 사용자 계정"
+HREF="agens-user.html"><LINK
+REL="NEXT"
+TITLE="데이터베이스 서버 시작"
+HREF="server-start.html"><LINK
+REL="STYLESHEET"
+TYPE="text/css"
+HREF="stylesheet.css"><META
+HTTP-EQUIV="Content-Type"
+CONTENT="text/html; charset=UTF-8"><META
+name="viewport"
+content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width"><META
+NAME="creation"
+CONTENT="2015-06-26T04:43:18"></HEAD
+><BODY
+CLASS="SECT1"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="4"
+ALIGN="center"
+VALIGN="bottom"
+><A
+HREF="index.html"
+>Agens SQL 1.0 문서</A
+></TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="top"
+><A
+TITLE="Agens SQL 사용자 계정"
+HREF="agens-user.html"
+ACCESSKEY="P"
+>이전</A
+></TD
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="runtime.html"
+ACCESSKEY="U"
+>위로</A
+></TD
+><TD
+WIDTH="60%"
+ALIGN="center"
+VALIGN="bottom"
+>장 1. 서버 설정 및 운용</TD
+><TD
+WIDTH="20%"
+ALIGN="right"
+VALIGN="top"
+><A
+TITLE="데이터베이스 서버 시작"
+HREF="server-start.html"
+ACCESSKEY="N"
+>다음</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="CREATING-CLUSTER"
+>1.2. 데이터베이스 클러스터 생성</A
+></H1
+><P
+>   작업을 하기 전에 디스크의 데이터베이스 저장소 영역을 초기화해야 한다. 이를 <I
+CLASS="FIRSTTERM"
+>데이터베이스 클러스터</I
+>라고 한다.
+   (<ACRONYM
+CLASS="ACRONYM"
+>SQL</ACRONYM
+>에서는 카탈로그 클러스터라고 함.) 
+   데이터베이스 클러스터는 실행 중인 데이터베이스 서버의 단일 인스턴스가 관리하는 데이터베이스 컬렉션이다. 
+   초기화 후 데이터베이스 클러스터에는 일명 <TT
+CLASS="LITERAL"
+>agens</TT
+>라는 데이터베이스가 포함되는데, 
+   이것은 유틸리티 및 사용자, 타사 애플리케이션이 사용하는 기본 데이터베이스이다. 
+   데이터베이스 서버 자체는 <TT
+CLASS="LITERAL"
+>agens</TT
+> 데이터베이스가 불필요하지만, 다수의 외부 유틸리티 프로그램은 이 데이터베이스가 존재한다는 것을 전제로 한다. 
+   초기화 중에 각 클러스터 내에 생성되는 또 다른 데이터베이스는 <TT
+CLASS="LITERAL"
+>template1</TT
+>이라고 한다. 
+   이름에서 알 수 있듯이, 이것은 이후에 생성된 데이터베이스의 템플릿으로 사용되며 실제 작업에 사용해서는 안 된다. 
+   (클러스터 내에서 데이터베이스로 생성하는 방법은 <A
+HREF="managing-databases.html"
+>5장</A
+> 참조.)</P
+><P
+>   파일 시스템의 관점에서, 데이터베이스 클러스터는 모든 데이터가 저장되는 단일 디렉토리이다. 
+이것을 <I
+CLASS="FIRSTTERM"
+>데이터 디렉토리</I
+> 또는 <I
+CLASS="FIRSTTERM"
+>데이터 영역</I
+>이라고 한다. 
+데이터를 어디에 저장할 것인지는 전적으로 사용자의 선택에 달려 있다. 
+<TT
+CLASS="FILENAME"
+>/usr/local/pgsql/data</TT
+> 또는 <TT
+CLASS="FILENAME"
+>/var/lib/pgsql/data</TT
+>가 일반적이지만, 필수는 아니다. 
+데이터베이스 클러스터를 초기화하려면 <SPAN
+CLASS="PRODUCTNAME"
+>Agens SQL</SPAN
+>과 함께 설치된  명령을 사용한다.
+   데이터베이스 클러스터의 원하는 파일 시스템 위치는 <TT
+CLASS="OPTION"
+>-D</TT
+> 옵션으로 나타낼 수 있다. 예를 들면,
+</P><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="PROMPT"
+>$</SAMP
+> <KBD
+CLASS="USERINPUT"
+>initdb -D /usr/local/pgsql/data</KBD
+></PRE
+><P>
+   앞에서 설명한 대로 <SPAN
+CLASS="PRODUCTNAME"
+>Agens SQL</SPAN
+> 사용자 계정으로 로그인한 상태에서 이 명령을 실행해야 한다.</P
+><DIV
+CLASS="TIP"
+><BLOCKQUOTE
+CLASS="TIP"
+><P
+><B
+>작은 정보: </B
+>    <TT
+CLASS="OPTION"
+>-D</TT
+> 옵션 대신 환경 변수 <TT
+CLASS="ENVAR"
+>PGDATA</TT
+>를 설정할 수 있다.
+    </P
+></BLOCKQUOTE
+></DIV
+><P
+>   또는 다음과 같이  프로그램으로 <TT
+CLASS="COMMAND"
+>initdb</TT
+>를 실행할 수 있다.
+</P><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="PROMPT"
+>$</SAMP
+> <KBD
+CLASS="USERINPUT"
+>pg_ctl -D /usr/local/pgsql/data initdb</KBD
+></PRE
+><P>
+   서버를 시작하고 중지할 때 좀 더 직관적인 방법으로써 <TT
+CLASS="COMMAND"
+>pg_ctl</TT
+>을 사용하면(<A
+HREF="server-start.html"
+>1.3절</A
+>참조), 
+   <TT
+CLASS="COMMAND"
+>pg_ctl</TT
+> 하나로 데이터베이스 서버 인스턴스를 관리할 수 있게 된다.</P
+><P
+><TT
+CLASS="COMMAND"
+>initdb</TT
+>는 지정한 디렉토리가 존재하지 않는 경우에 디렉토리를 생성한다. 
+디렉토리를 생성하는 권한은 없을 가능성이 높다(당사 조언을 따랐고 권한이 없는 계정을 만든 경우). 
+그런 경우 root 권한으로 디렉토리를 직접 생성하고 소유자를 <SPAN
+CLASS="PRODUCTNAME"
+>Agens SQL</SPAN
+> 사용자로 변경해야 한다. 
+다음과 같이 하면 된다.
+</P><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="PROMPT"
+>root#</SAMP
+> <KBD
+CLASS="USERINPUT"
+>mkdir /usr/local/pgsql/data</KBD
+>
+<SAMP
+CLASS="PROMPT"
+>root#</SAMP
+> <KBD
+CLASS="USERINPUT"
+>chown agens /usr/local/pgsql/data</KBD
+>
+<SAMP
+CLASS="PROMPT"
+>root#</SAMP
+> <KBD
+CLASS="USERINPUT"
+>su agens</KBD
+>
+<SAMP
+CLASS="PROMPT"
+>agens$</SAMP
+> <KBD
+CLASS="USERINPUT"
+>initdb -D /usr/local/pgsql/data</KBD
+></PRE
+><P></P
+><P
+><TT
+CLASS="COMMAND"
+>initdb</TT
+>는 데이터 디렉토리가 초기화돼 있으면 실행을 거부한다.</P
+><P
+>   데이터 디렉토리에는 데이터베이스의 모든 데이터가 저장되어 있으므로, 무단 접근으로부터 데이터 디렉토리를 보호하는 것이 중요하기 때문에 
+   <TT
+CLASS="COMMAND"
+>initdb</TT
+>는 <SPAN
+CLASS="PRODUCTNAME"
+>Agens SQL</SPAN
+> 사용자를 제외한 모든 사용자로부터 접근 권한을 해지한다.</P
+><P
+>   단, 디렉토리 내용이 보호 중인 경우 기본 클라이언트 인증 설정은 로컬 사용자의 데이터베이스 연결을 허용하고 로컬 사용자가 데이터베이스 수퍼유저가 되는 것을 허용하기도 한다.
+   다른 로컬 사용자를 신뢰하지 않을 경우에는 <TT
+CLASS="COMMAND"
+>initdb</TT
+>의 <TT
+CLASS="OPTION"
+>-W</TT
+> 또는 <TT
+CLASS="OPTION"
+>--pwprompt</TT
+>, <TT
+CLASS="OPTION"
+>--pwfile</TT
+> 옵션 중 하나를 사용하여 
+   데이터베이스 수퍼유저에게 패스워드를 할당하는 것이 좋다.
+
+   또한 <TT
+CLASS="OPTION"
+>-A md5</TT
+> 또는 <TT
+CLASS="OPTION"
+>-A password</TT
+>를 지정하여 기본 <TT
+CLASS="LITERAL"
+>trust</TT
+> 인증 모드를 사용하지 않거나, 
+   서버를 처음으로 시작하기 <SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>전에</I
+></SPAN
+> <TT
+CLASS="COMMAND"
+>initdb</TT
+>를 실행한 후 생성된 <TT
+CLASS="FILENAME"
+>pg_hba.conf</TT
+> 파일을 수정해야 한다. 
+   (기타 합리적 접근법에는 <TT
+CLASS="LITERAL"
+>peer</TT
+> 인증 또는 파일 시스템 권한을 사용하여 연결을 제한하는 방법이 있다. 
+   자세한 내용은 <A
+HREF="client-authentication.html"
+>3장</A
+> 참조.)
+  </P
+><P
+>   <TT
+CLASS="COMMAND"
+>initdb</TT
+>에서 데이터베이스 클러스터의 기본 로케일(locale)을 초기화할 수도 있다. 
+   일반적으로는 환경 로케일(locale) 설정을 가져와서, 이를 초기화된 데이터베이스에 적용한다. 
+   데이터베이스에 서로 다른 로케일(locale)을 지정할 수 있다. 자세한 내용은 <A
+HREF="locale.html"
+>6.1절</A
+>에 나와 있다. 
+   특정 데이터베이스 클러스터 내에서 사용되는 기본 정렬 순서는 <TT
+CLASS="COMMAND"
+>initdb</TT
+>로 설정되며, 
+   서로 다른 정렬 순서로 새로운 데이터베이스를 생성하는 경우 initdb로 생성된 템플릿 데이터베이스에 사용되는 정렬 순서는 삭제 및 재생성하지 않고는 변경할 수 없다.  
+   <TT
+CLASS="LITERAL"
+>C</TT
+> 또는 <TT
+CLASS="LITERAL"
+>POSIX</TT
+> 이외의 로케일(locale)을 사용하는 경우 성능에도 영향을 미칠 수 있다. 따라서 처음부터 잘 선택 하는 것이 중요하다.</P
+><P
+>   <TT
+CLASS="COMMAND"
+>initdb</TT
+>로 데이터베이스 클러스터용 기본 문자 집합 인코딩도 설정한다. 일반적으로, 이것은 로케일(locale) 설정과 동일하게 선택해야 한다. 
+   자세한 내용은 <A
+HREF="multibyte.html"
+>6.3절</A
+> 참조.</P
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="CREATING-CLUSTER-NFS"
+>1.2.1. 네트워크 파일 시스템</A
+></H2
+><P
+>    네트워크 파일 시스템에 데이터베이스 클러스터가 만들 때 여러 가지 설치가 필요한데, <ACRONYM
+CLASS="ACRONYM"
+>NFS</ACRONYM
+>를 통해 직접 생성되거나 
+    내부적으로 <ACRONYM
+CLASS="ACRONYM"
+>NFS</ACRONYM
+>를 사용하는 <ACRONYM
+CLASS="ACRONYM"
+>NAS</ACRONYM
+>(Network Attached Storage) 장치로 생성되기도 한다. 
+    <SPAN
+CLASS="PRODUCTNAME"
+>Agens SQL</SPAN
+>이 <ACRONYM
+CLASS="ACRONYM"
+>NFS</ACRONYM
+>파일 시스템에 특별한 무언가를 하는 것은 아니며, 
+    <ACRONYM
+CLASS="ACRONYM"
+>NFS</ACRONYM
+>가 로컬로 연결된 드라이브 (<ACRONYM
+CLASS="ACRONYM"
+>DAS</ACRONYM
+>, Direct Attached Storage)처럼 동작한다. 
+    클라이언트 및 서버 <ACRONYM
+CLASS="ACRONYM"
+>NFS</ACRONYM
+>가 비표준 의미 체계로 구현될 경우 안정성에 문제가 된다.
+    (<A
+HREF="http://www.time-travellers.org/shane/papers/NFS_considered_harmful.html"
+TARGET="_top"
+>http://www.time-travellers.org/shane/papers/NFS_considered_harmful.html</A
+> 참조)
+    특히, <ACRONYM
+CLASS="ACRONYM"
+>NFS</ACRONYM
+>서버에 대한 쓰기 지연(비동기)은 안정성 문제의 원인이 되므로 이러한 문제를 피하려면 
+    가능한 <ACRONYM
+CLASS="ACRONYM"
+>NFS</ACRONYM
+> 파일 시스템을 캐시 없이 동기적으로 마운트해야 한다. 
+    또한 <ACRONYM
+CLASS="ACRONYM"
+>NFS</ACRONYM
+>의 소프트 마운트는 권장하지 않는다.(<ACRONYM
+CLASS="ACRONYM"
+>SAN</ACRONYM
+>(Storage Area Networks)은 <ACRONYM
+CLASS="ACRONYM"
+>NFS</ACRONYM
+>가 아닌 저수준 통신 프로토콜을 사용한다.)</P
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="agens-user.html"
+ACCESSKEY="P"
+>이전</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>처음으로</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="server-start.html"
+ACCESSKEY="N"
+>다음</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><SPAN
+CLASS="PRODUCTNAME"
+>Agens SQL</SPAN
+> 사용자 계정</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="runtime.html"
+ACCESSKEY="U"
+>위로</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>데이터베이스 서버 시작</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

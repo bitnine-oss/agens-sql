@@ -1,0 +1,418 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>설정</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REV="MADE"
+HREF="mailto:pgsql-docs@postgresql.org"><LINK
+REL="HOME"
+TITLE="Agens SQL 1.0 문서"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="PgBouncer"
+HREF="pgbouncer.html"><LINK
+REL="PREVIOUS"
+TITLE="PgBouncer"
+HREF="pgbouncer.html"><LINK
+REL="NEXT"
+TITLE="Quick Start"
+HREF="pgbouncer-quickstart.html"><LINK
+REL="STYLESHEET"
+TYPE="text/css"
+HREF="stylesheet.css"><META
+HTTP-EQUIV="Content-Type"
+CONTENT="text/html; charset=UTF-8"><META
+name="viewport"
+content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width"><META
+NAME="creation"
+CONTENT="2015-06-26T06:33:42"></HEAD
+><BODY
+CLASS="SECT1"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="4"
+ALIGN="center"
+VALIGN="bottom"
+><A
+HREF="index.html"
+>Agens SQL 1.0 문서</A
+></TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="top"
+><A
+TITLE="PgBouncer"
+HREF="pgbouncer.html"
+ACCESSKEY="P"
+>이전</A
+></TD
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="pgbouncer.html"
+ACCESSKEY="U"
+>위로</A
+></TD
+><TD
+WIDTH="60%"
+ALIGN="center"
+VALIGN="bottom"
+>장 2. <SPAN
+CLASS="PRODUCTNAME"
+>PgBouncer</SPAN
+></TD
+><TD
+WIDTH="20%"
+ALIGN="right"
+VALIGN="top"
+><A
+TITLE="Quick Start"
+HREF="pgbouncer-quickstart.html"
+ACCESSKEY="N"
+>다음</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="PGBOUNCER-CONFIGURATION"
+>2.1. 설정</A
+></H1
+><P
+>         <SPAN
+CLASS="PRODUCTNAME"
+>Agens SQL</SPAN
+>을 통해 <SPAN
+CLASS="PRODUCTNAME"
+>PgBouncer</SPAN
+>를 설치한 후, 실제 사용을 하기 위해서는 <TT
+CLASS="FILENAME"
+>.ini</TT
+>환경파일의 설정이 필요하다. 본 장에서는 개괄적인 <TT
+CLASS="FILENAME"
+>.ini</TT
+>환경파일 설정에 대하여 알아보도록 한다. 편의상 <TT
+CLASS="FILENAME"
+>pgbouncer.ini</TT
+>라는 이름으로 환경파일을 설정하겠다. 파일명은 확장자가 <TT
+CLASS="FILENAME"
+>.ini</TT
+>라는 것을 전제하에 얼마든지 변경가능하다.
+     </P
+><P
+></P
+><UL
+><LI
+><P
+><TT
+CLASS="FILENAME"
+>pgbouncer.ini</TT
+>파일은 [databases] 설정과 [pgbouncer] 설정, 이렇게 두 가지 파트로 이루어진다.
+             </P
+><P
+>                     <TT
+CLASS="COMMAND"
+>$ vi pgbouncer.ini</TT
+>
+                     </P><PRE
+CLASS="PROGRAMLISTING"
+>[databases]
+db = ...
+[pgbouncer]
+...
+                     </PRE
+><P>
+                 </P
+><P
+>[databases] 파트의 db는 DB 연결명이다. <SPAN
+CLASS="PRODUCTNAME"
+>psql</SPAN
+>과 같은 클라이언트 유틸리티를 통해 연결 대상 DB 명을 지정한 값과 대응된다. 해당 값은 경우에 따라 실제 존재하는 DB 명일수도, 단순한 alias 이름일 수도 있다.</P
+><P
+></P
+><UL
+><LI
+><P
+>[databases] 파트</P
+><P
+>[databases] 파트는 클라이언트가 접속할 DB의 Connection Pooling 관련 속성을 담는다. 클라이언트는 최초 DB 연결시 본 파트의 속성에 따라 연결을 성립시키게 된다. 다음은 해당 속성의 대표적인 예와 그에 대한 설명이다.
+                     </P
+><P
+></P
+><UL
+><LI
+><P
+>dbname</P
+><P
+>dbname은 <SPAN
+CLASS="PRODUCTNAME"
+>PgBouncer</SPAN
+>를 통해 연결되는 DB의 이름이다.
+                             </P
+><P
+></P
+><OL
+TYPE="a"
+><LI
+><P
+>                                         dbname을 명시하지 않을 경우
+                                     </P
+><P
+>                                         DB 연결명과 동일한 DB로 연결이 된다. 만약 DB 연결명에 명시된 것과 동일한 DB가 존재하지 않는다면 <SPAN
+CLASS="PRODUCTNAME"
+>PgBouncer</SPAN
+>는 연결을 거부한다.
+                                     </P
+></LI
+><LI
+><P
+>                                         dbname을 명시할 경우
+                                     </P
+><P
+>                                         해당 연결은 DB 연결명이 어떠한 이름이든 간에(실제 DB명이거나 연결에 대한 alias명이거나) dbname에 명시된 DB로 연결이 된다. 이러한 점은 fallback DB를 이용하는 환경에서 역시 유용하게 쓰일 수 있다.
+                                     </P
+></LI
+></OL
+></LI
+><LI
+><P
+>host</P
+><P
+>host에는 접속하려는 DB가 있는 곳의 ip 주소가 들어가게 된다.</P
+></LI
+><LI
+><P
+>port</P
+><P
+>port는 <SPAN
+CLASS="PRODUCTNAME"
+>PgBouncer</SPAN
+>가 <SPAN
+CLASS="PRODUCTNAME"
+>Agens SQL</SPAN
+>에 연결할 때에 사용될 port 번호이다. <SPAN
+CLASS="PRODUCTNAME"
+>Agens SQL</SPAN
+>이 허용하고 있는 port번호를 명시하면 된다.</P
+></LI
+><LI
+><P
+>user</P
+><P
+>user는 <SPAN
+CLASS="PRODUCTNAME"
+>PgBouncer</SPAN
+>를 통해 DB에 연결시 사용될 유저의 이름을 명시한다. 해당 값이 명시될 경우 클라이언트 측에서 어떠한 DB유저명으로 접속을 하려 하든 user에 명시된 유저로 접속하게 된다.</P
+></LI
+></UL
+></LI
+><LI
+><P
+>[pgbouncer] 파트</P
+><P
+>[pgbouncer] 파트는 클라이언트가 <SPAN
+CLASS="PRODUCTNAME"
+>PgBouncer</SPAN
+>에 연결할 시에 적용받게 되는 속성들을 명시한다. 다음은 해당 속성의 대표적인 예와 그에 대한 설명이다.</P
+><P
+></P
+><UL
+><LI
+><P
+>logfile, pidfile</P
+><P
+></P
+><UL
+><LI
+><P
+>logfile</P
+><P
+>logfile에 나타난 파일명에 <SPAN
+CLASS="PRODUCTNAME"
+>PgBouncer</SPAN
+>의 log정보를 남기게 된다.</P
+></LI
+><LI
+><P
+>pidfile</P
+><P
+><SPAN
+CLASS="PRODUCTNAME"
+>PgBouncer</SPAN
+>를 시스템의 background에서 daemon화 시켜 수행하기 위해서는 pidfile에 파일명을 명시하여야 한다.</P
+></LI
+></UL
+></LI
+><LI
+><P
+>listen_port</P
+><P
+>listen_port는 <SPAN
+CLASS="PRODUCTNAME"
+>PgBouncer</SPAN
+>으로의 접속 port를 명시한다. 클라이언트 측에서는 해당 port를 통하여 <SPAN
+CLASS="PRODUCTNAME"
+>Agens SQL</SPAN
+>에 접속하여야만 PgBouncer의 Connection Pooling 기능을 사용할 수 있다.</P
+></LI
+><LI
+><P
+>auth_file, auth_type</P
+><P
+></P
+><UL
+><LI
+><P
+>auth_file</P
+><P
+>                                         auth_file 속성은 <SPAN
+CLASS="PRODUCTNAME"
+>PgBouncer</SPAN
+>에 접속할 계정 정보(유저명, 비밀번호)를 담고 있는 파일을 명시한다.
+                                     </P
+></LI
+><LI
+><P
+>auth_type</P
+><P
+>                                         auth_type은 유효한 유저에 대한 판별은 어떻게 입증할 것 인지에 대한 속성이다. <SPAN
+CLASS="PRODUCTNAME"
+>Agens SQL</SPAN
+>이 단순한 비밀번호 방식으로 유저 유효성을 검사할 경우에는 plain을 명시하고, md5 방식으로 유저 유효성을 검사할 경우 md5를 명시하면 된다. 이때 md5를 이용한 검증을 하기 위해서는 auth_file내에 md5화된 암호를 기술하여야 한다. 이에 대한 자세한 설명은 공식 문서 <A
+HREF="https://pgbouncer.github.io/config.html#authentication-file-format"
+TARGET="_top"
+>https://pgbouncer.github.io/config.html#authentication-file-format</A
+>을 참고하기 바란다.
+                                     </P
+></LI
+></UL
+></LI
+><LI
+><P
+>pool_mode</P
+><P
+><SPAN
+CLASS="PRODUCTNAME"
+>PgBouncer</SPAN
+>는 세가지 방식의 pooling 모드를 제공한다. session pooling, transaction pooling, statement pooling이 바로 그것이다. pool_mode 속성은 이에 대한 바를 명시한다.</P
+></LI
+><LI
+><P
+>max_client_conn</P
+><P
+><SPAN
+CLASS="PRODUCTNAME"
+>PgBouncer</SPAN
+>를 통해 Agens SQL에 접속할 수 있는 클라이언트의 개수를 설정한다. 클라이언트는 해당 속성에 명시된 값 이상으로 <SPAN
+CLASS="PRODUCTNAME"
+>PgBouncer</SPAN
+>를 통한 DB 연결을 성립시킬 수가 없다.</P
+></LI
+><LI
+><P
+>admin_users</P
+><P
+>admin_users에 DB 유저이름을 넣음으로써 <SPAN
+CLASS="PRODUCTNAME"
+>PgBouncer</SPAN
+> 가상 DB를 통해 <SPAN
+CLASS="PRODUCTNAME"
+>PgBouncer</SPAN
+>의 상태 정보를 실시간으로 모니터링 할 수 있다.</P
+></LI
+></UL
+></LI
+></UL
+></LI
+></UL
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="pgbouncer.html"
+ACCESSKEY="P"
+>이전</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>처음으로</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="pgbouncer-quickstart.html"
+ACCESSKEY="N"
+>다음</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><SPAN
+CLASS="PRODUCTNAME"
+>PgBouncer</SPAN
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="pgbouncer.html"
+ACCESSKEY="U"
+>위로</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Quick Start</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

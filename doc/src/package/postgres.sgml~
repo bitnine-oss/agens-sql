@@ -1,0 +1,27 @@
+<!DOCTYPE book PUBLIC "-//OASIS//DTD DocBook V4.2//EN" [
+
+<!ENTITY % version SYSTEM "version.sgml">
+%version;
+<!ENTITY % filelist SYSTEM "filelist.sgml">
+%filelist;
+<!ENTITY reference  SYSTEM "reference.sgml">
+
+]>
+<book id="postgres" lang=ko>
+<part id="package">
+ <title>Packages</title>
+ <partintro>
+  <para> Package를 소개하는 부분입니다. </para>
+ </partintro>
+ &agensmgr;
+ &plproxy;
+ &pgbouncer;
+ &skytools;
+ &pgpoolII;
+ &slonyI;
+ &postGis;
+ &pgHintPlan;
+ &powa;
+ &monitoring;
+</part>
+</book>

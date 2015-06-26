@@ -1,0 +1,281 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>pgpool-II</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REV="MADE"
+HREF="mailto:pgsql-docs@postgresql.org"><LINK
+REL="HOME"
+TITLE="Agens SQL 1.0 문서"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Packages"
+HREF="package.html"><LINK
+REL="PREVIOUS"
+TITLE="Quick Start"
+HREF="skytools-start.html"><LINK
+REL="NEXT"
+TITLE="설정"
+HREF="pgpool-ii-config.html"><LINK
+REL="STYLESHEET"
+TYPE="text/css"
+HREF="stylesheet.css"><META
+HTTP-EQUIV="Content-Type"
+CONTENT="text/html; charset=UTF-8"><META
+name="viewport"
+content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width"><META
+NAME="creation"
+CONTENT="2015-06-26T06:33:42"></HEAD
+><BODY
+CLASS="CHAPTER"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="4"
+ALIGN="center"
+VALIGN="bottom"
+><A
+HREF="index.html"
+>Agens SQL 1.0 문서</A
+></TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="top"
+><A
+TITLE="Quick Start"
+HREF="skytools-start.html"
+ACCESSKEY="P"
+>이전</A
+></TD
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="package.html"
+ACCESSKEY="U"
+>위로</A
+></TD
+><TD
+WIDTH="60%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="20%"
+ALIGN="right"
+VALIGN="top"
+><A
+TITLE="설정"
+HREF="pgpool-ii-config.html"
+ACCESSKEY="N"
+>다음</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="CHAPTER"
+><H1
+><A
+NAME="PGPOOLII"
+></A
+>장 4. pgpool-II</H1
+><DIV
+CLASS="TOC"
+><DL
+><DT
+><B
+>차례</B
+></DT
+><DT
+>4.1. <A
+HREF="pgpool-ii-config.html"
+>설정</A
+></DT
+><DT
+>4.2. <A
+HREF="pgpool-ii-quick.html"
+>시작하기</A
+></DT
+></DL
+></DIV
+><P
+>pgpool-II는 PostgreSQL 서버와 PostgreSQL 클라이언트의 사이에서 작동하는 미들웨어이다. </P
+><P
+>pgpool-II가 제공하는 기능은 다음과 같다:
+    <P
+></P
+></P><UL
+><LI
+><P
+>            Connection pooling
+        </P
+><P
+></P
+><UL
+><LI
+><P
+>pgpool-II는 PostgreSQL 서버와의 connection을 저장하고 새로운 같은 properties를 가진 connection 들어올때마다 사용
+                </P
+></LI
+><LI
+><P
+>connection overhead 감소, 시스템의 전체 처리량을 향상
+                </P
+></LI
+></UL
+></LI
+><LI
+><P
+>            Replication
+        </P
+><P
+></P
+><UL
+><LI
+><P
+>                    pgpool-II는 여러개의 PostgreSQL 서버의 관리를 가능하게 함
+                </P
+></LI
+><LI
+><P
+>                    Replication 기능을 사용하면 2대 이상의 물리적 디스크에 실시간 백업 생성이 가능
+                </P
+></LI
+><LI
+><P
+>                    disk failure가 발생해도 서버가 지속적인 서비스를 제공하게 함
+                </P
+></LI
+></UL
+></LI
+><LI
+><P
+>Load Balancing</P
+><P
+></P
+><UL
+><LI
+><P
+>Replication이 구성된 서버들 사이에 SELECT 질의들을 분산 처리 함
+                </P
+></LI
+><LI
+><P
+>시스템 전체의 처리량을 향상</P
+></LI
+><LI
+><P
+>PostgreSQL 서버의 수에 비례해서 성능 향상</P
+></LI
+></UL
+></LI
+><LI
+><P
+>Limiting Exceeding Connections</P
+><P
+></P
+><UL
+><LI
+><P
+>postgreSQL는 최대 동시 접속 제한을 채운 이후의 연결에 대해서는 전부 reject한다.</P
+></LI
+><LI
+><P
+>pgpool-II도 최대 동시 접속 수에 제한이 있지만 connection에 대해 에러를 반환하는 대신 큐에 넣어 관리한다.</P
+></LI
+></UL
+></LI
+><LI
+><P
+>Parallel Query(사용되지 않음, 사라질 예정)</P
+></LI
+></UL
+><P>
+    pgpool-II에 대한 자세한 정보는 <A
+HREF="http://www.pgpool.net/docs/latest/pgpool-en.html"
+TARGET="_top"
+> http://www.pgpool.net/docs/latest/pgpool-en.html</A
+>에서 확인할 수 있다. </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="skytools-start.html"
+ACCESSKEY="P"
+>이전</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>처음으로</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="pgpool-ii-config.html"
+ACCESSKEY="N"
+>다음</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Quick Start</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="package.html"
+ACCESSKEY="U"
+>위로</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>설정</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

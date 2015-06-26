@@ -1,0 +1,263 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>WAL 인터널</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REV="MADE"
+HREF="mailto:pgsql-docs@postgresql.org"><LINK
+REL="HOME"
+TITLE="Agens SQL 1.0 문서"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="안정성 및 Write-Ahead 로그"
+HREF="wal.html"><LINK
+REL="PREVIOUS"
+TITLE="WAL 환경 설정"
+HREF="wal-configuration.html"><LINK
+REL="NEXT"
+TITLE="색인"
+HREF="bookindex.html"><LINK
+REL="STYLESHEET"
+TYPE="text/css"
+HREF="stylesheet.css"><META
+HTTP-EQUIV="Content-Type"
+CONTENT="text/html; charset=UTF-8"><META
+name="viewport"
+content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width"><META
+NAME="creation"
+CONTENT="2015-06-26T04:43:18"></HEAD
+><BODY
+CLASS="SECT1"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="4"
+ALIGN="center"
+VALIGN="bottom"
+><A
+HREF="index.html"
+>Agens SQL 1.0 문서</A
+></TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="top"
+><A
+TITLE="WAL 환경 설정"
+HREF="wal-configuration.html"
+ACCESSKEY="P"
+>이전</A
+></TD
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="wal.html"
+ACCESSKEY="U"
+>위로</A
+></TD
+><TD
+WIDTH="60%"
+ALIGN="center"
+VALIGN="bottom"
+>장 13. 안정성 및 Write-Ahead 로그</TD
+><TD
+WIDTH="20%"
+ALIGN="right"
+VALIGN="top"
+><A
+TITLE="색인"
+HREF="bookindex.html"
+ACCESSKEY="N"
+>다음</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="WAL-INTERNALS"
+>13.5. WAL 인터널</A
+></H1
+><P
+>   <ACRONYM
+CLASS="ACRONYM"
+>WAL</ACRONYM
+>은 자동으로 활성화된다. 
+   <ACRONYM
+CLASS="ACRONYM"
+>WAL</ACRONYM
+> 로그에 대한 디스크 공간 요구사항을 맞춰야 할 때 및 필수 튜닝이 완료되었을 때 외에는 관리자의 개입이 불필요하다(<A
+HREF="wal-configuration.html"
+>13.4절</A
+> 참조).
+  </P
+><P
+>   <ACRONYM
+CLASS="ACRONYM"
+>WAL</ACRONYM
+> 로그는 각각의 크기가 보통 16 MB인 세그먼트 파일 집합으로, 데이터 디렉토리 하위인 <TT
+CLASS="FILENAME"
+>pg_xlog</TT
+> 디렉토리에 저장된다(서버 빌드 시 <TT
+CLASS="OPTION"
+>--with-wal-segsize</TT
+> 환경 설정 옵션을 변경하면 크기를 바꿀 수 있다). 
+   각 세그먼트는 일반적으로 각각 8 kB의 페이지로 분할된다(이 크기는 <TT
+CLASS="OPTION"
+>--with-wal-blocksize</TT
+> 환경 설정 옵션을 통해 변경할 수 있다). 
+   로그 레코드 헤더는 <TT
+CLASS="FILENAME"
+>access/xlog.h</TT
+>에 설명되어 있다. 
+   레코드 내용은 로깅된 이벤트 유형에 따라 다르다. 세그먼트 파일 이름은 <TT
+CLASS="FILENAME"
+>000000010000000000000000</TT
+>에서 시작되며 숫자가 계속 증가한다. 
+   숫자는 랩(wrap)되지 않지만 가용 숫자 재고가 소진되려면 아주 오래 걸린다.
+  </P
+><P
+>   로그가 메인 데이터베이스 파일이 아닌 다른 디스크에 위치한 경우에 이것은 장점이 된다. 
+   서버가 종료된 상태에서 <TT
+CLASS="FILENAME"
+>pg_xlog</TT
+> 디렉토리를 다른 위치로 옮기고, 메인 데이터 디렉토리의 원래 위치로부터 새 위치로 심볼릭 링크를 생성하면 된다.
+  </P
+><P
+>   <ACRONYM
+CLASS="ACRONYM"
+>WAL</ACRONYM
+>의 목적은 데이터베이스 레코드가 변경되기 전에 로그가 기록되도록 하는 것이지만, 
+   사실은 데이터를 캐싱만하고 디스크에 미처 저장하지 못한 경우 디스크 드라이브가 커널에 쓰기를 성공했단 내용을 잘못 리포트해 엉망이 될 수 있다. 
+   이러한 상황에서 정전이 발생하면 복구 불가능한 데이터 손상이 발생하게 된다. 
+   관리자는 <SPAN
+CLASS="PRODUCTNAME"
+>Agens SQL</SPAN
+>의 <ACRONYM
+CLASS="ACRONYM"
+>WAL</ACRONYM
+> 로그 파일이 저장되는 디스크가 이런 잘못된 리포트를 하지 않도록 해야 한다. 
+   (<A
+HREF="wal-reliability.html"
+>13.1절</A
+> 참조.)
+  </P
+><P
+>   checkpoint가 설정되고 로그가 쓰기된 후 checkpoint의 위치는 <TT
+CLASS="FILENAME"
+>pg_control</TT
+> 파일에 저장된다. 
+   그러므로, 복구 시작 시 서버는 먼저 <TT
+CLASS="FILENAME"
+>pg_control</TT
+>을 읽은 다음, checkpoint 레코드를 읽는다. 
+   그러고 나서 chekcpoint 레코드에 표시된 로그 위치에서 순방향으로 스캔하여 REDO 명령을 수행한다. 
+   데이터 페이지의 전체 내용은 checkpoint 이후의 첫 번째 페이지 수정에 대한 로그에 저장되므로
+   (full_page_writes는 비활성화되었다고 가정) checkpoint 이후의 모든 페이지 변경은 일관된 상태로 복원된다.
+  </P
+><P
+>   <TT
+CLASS="FILENAME"
+>pg_control</TT
+>가 손상된 경우를 처리하려면 최신 checkpoint를 찾기 위해 역순(가장 최신- 가장 과거 순)으로 기존 로그 세그먼트를 스캐닝 해봐야 한다. 
+   이는 아직 구현되지 않았다. 
+   <TT
+CLASS="FILENAME"
+>pg_control</TT
+>은 충분히 작아서(디스크 페이지 1개 미만) partial-write 문제에 해당되지 않으며, 현재까지, <TT
+CLASS="FILENAME"
+>pg_control</TT
+> 자체가 읽지 못하는 것만으로 데이터베이스 오류가 난 적은 없었다. 
+   따라서, 이론적으론 고쳐야 할 부분이지만 <TT
+CLASS="FILENAME"
+>pg_control</TT
+>이 실제로 문제가 되는 것은 아니다.
+  </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="wal-configuration.html"
+ACCESSKEY="P"
+>이전</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>처음으로</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="bookindex.html"
+ACCESSKEY="N"
+>다음</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><ACRONYM
+CLASS="ACRONYM"
+>WAL</ACRONYM
+> 환경 설정</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="wal.html"
+ACCESSKEY="U"
+>위로</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>색인</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

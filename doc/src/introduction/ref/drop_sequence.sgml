@@ -1,0 +1,112 @@
+<!--
+doc/src/sgml/ref/drop_sequence.sgml
+PostgreSQL documentation
+-->
+
+<refentry id="SQL-DROPSEQUENCE">
+ <refmeta>
+  <refentrytitle>DROP SEQUENCE</refentrytitle>
+  <manvolnum>7</manvolnum>
+  <refmiscinfo>SQL - Language Statements</refmiscinfo>
+ </refmeta>
+
+ <refnamediv>
+  <refname>DROP SEQUENCE</refname>
+  <refpurpose>시퀀스 삭제</refpurpose>
+ </refnamediv>
+
+ <indexterm zone="sql-dropsequence">
+  <primary>DROP SEQUENCE</primary>
+ </indexterm>
+
+ <refsynopsisdiv>
+<synopsis>
+DROP SEQUENCE [ IF EXISTS ] <replaceable class="PARAMETER">이름</replaceable> [, ...] [ CASCADE | RESTRICT ]
+</synopsis>
+ </refsynopsisdiv>
+
+ <refsect1>
+  <title>설명</title>
+
+  <para>
+   <command>DROP SEQUENCE</command> 명령은 지정한 시퀀스를 삭제한다.  이
+   명령은 해당 시퀀스의 소유주나 슈퍼 유저만 실행 할 수 있다.
+  </para>
+ </refsect1>
+
+ <refsect1>
+  <title>매개 변수</title>
+
+  <variablelist>
+   <varlistentry>
+    <term><literal>IF EXISTS</literal></term>
+    <listitem>
+     <para>
+      해당 시퀀스가 없어도 오류를 내지 않고, 알림 메시지만
+      보여주고 종료한다.
+     </para>
+    </listitem>
+   </varlistentry>
+
+   <varlistentry>
+    <term><replaceable class="PARAMETER">name</replaceable></term>
+    <listitem>
+     <para>
+      삭제하려는 (스키마 이름이 포함 될 수도 있는) 시퀀스 이름.
+     </para>
+    </listitem>
+   </varlistentry>
+
+   <varlistentry>
+    <term><literal>CASCADE</literal></term>
+    <listitem>
+     <para>
+      해당 시퀀스와 의존성 관계가 있는 모든 객체들로 함께 삭제 한다.
+     </para>
+    </listitem>
+   </varlistentry>
+
+   <varlistentry>
+    <term><literal>RESTRICT</literal></term>
+    <listitem>
+     <para>
+      해당 시퀀스와 의존성 관계가 있는 객체가 
+      있으면 작업을 중지한다.  이 옵션이 기본값이다.
+     </para>
+    </listitem>
+   </varlistentry>
+  </variablelist>
+ </refsect1>
+
+ <refsect1>
+  <title>예제</title>
+
+  <para>
+   <literal>serial</literal> 이름의 시퀀스를 삭제하려면:
+
+<programlisting>
+DROP SEQUENCE serial;
+</programlisting></para>
+ </refsect1>
+
+ <refsect1>
+  <title>호환성</title>
+
+  <para>
+   <command>DROP SEQUENCE</command> 명령은 표준 <acronym>SQL</acronym>
+   구문이며,  표준 구문은 하나의 명령에는 하나의 시퀀스만 
+   삭제 할 수 있다.  <literal>IF EXISTS</> 옵션은 
+   <productname>PostgreSQL</> 확장 기능이다.
+  </para>
+ </refsect1>
+
+ <refsect1>
+  <title>관련 항목</title>
+
+  <simplelist type="inline">
+   <member><xref linkend="sql-createsequence"></member>
+   <member><xref linkend="sql-altersequence"></member>
+  </simplelist>
+ </refsect1>
+
+</refentry>

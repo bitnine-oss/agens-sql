@@ -1,0 +1,972 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>쿼리 플랜</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REV="MADE"
+HREF="mailto:pgsql-docs@postgresql.org"><LINK
+REL="HOME"
+TITLE="Agens SQL 1.0 문서"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="서버 환경 설정"
+HREF="runtime-config.html"><LINK
+REL="PREVIOUS"
+TITLE="복제"
+HREF="runtime-config-replication.html"><LINK
+REL="NEXT"
+TITLE="에러 리포팅 및 로깅"
+HREF="runtime-config-logging.html"><LINK
+REL="STYLESHEET"
+TYPE="text/css"
+HREF="stylesheet.css"><META
+HTTP-EQUIV="Content-Type"
+CONTENT="text/html; charset=UTF-8"><META
+name="viewport"
+content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width"><META
+NAME="creation"
+CONTENT="2015-06-26T04:43:18"></HEAD
+><BODY
+CLASS="SECT1"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="4"
+ALIGN="center"
+VALIGN="bottom"
+><A
+HREF="index.html"
+>Agens SQL 1.0 문서</A
+></TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="top"
+><A
+TITLE="복제"
+HREF="runtime-config-replication.html"
+ACCESSKEY="P"
+>이전</A
+></TD
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="runtime-config.html"
+ACCESSKEY="U"
+>위로</A
+></TD
+><TD
+WIDTH="60%"
+ALIGN="center"
+VALIGN="bottom"
+>장 2. 서버 환경 설정</TD
+><TD
+WIDTH="20%"
+ALIGN="right"
+VALIGN="top"
+><A
+TITLE="에러 리포팅 및 로깅"
+HREF="runtime-config-logging.html"
+ACCESSKEY="N"
+>다음</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="RUNTIME-CONFIG-QUERY"
+>2.7. 쿼리 플랜</A
+></H1
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="RUNTIME-CONFIG-QUERY-ENABLE"
+>2.7.1. 플래너 방법 환경 설정</A
+></H2
+><P
+> 이 환경 설정 매개변수는 쿼리 옵티마이저에 의해 선택된 쿼리 플랜에 영향을 주는 대략적인 방법을 제공한다. 
+ 특정 쿼리에 대한 옵티마이저에 의해 선택된 기본 플랜이 최적이 아닌 경우 <SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>임시</I
+></SPAN
+> 솔루션이 이 환경 설정 매개변수 중 하나를 사용하여 옵티마이저가 다른 플랜을 선택하게 강제할 수 있다. 
+ 옵티마이저가 선택한 플랜의 수준을 개선하는 더 나은 방법은 플래너 비용 상수를 조절하고(<A
+HREF="runtime-config-query.html#RUNTIME-CONFIG-QUERY-CONSTANTS"
+>2.7.2절</A
+> 참조), ANALYZE를 수동으로 실행하고, <A
+HREF="runtime-config-query.html#GUC-DEFAULT-STATISTICS-TARGET"
+>default_statistics_target</A
+> 환경 설정 매개변수 늘리고, <TT
+CLASS="COMMAND"
+>ALTER TABLE SET
+ STATISTICS</TT
+>를 사용하여 특정 칼럼에 대해 수집된 통계량을 늘리는 것이다.</P
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><DL
+><DT
+><A
+NAME="GUC-ENABLE-BITMAPSCAN"
+></A
+><TT
+CLASS="VARNAME"
+>enable_bitmapscan</TT
+> (<TT
+CLASS="TYPE"
+>boolean</TT
+>)
+&#13;</DT
+><DD
+><P
+>쿼리 플래너의 bitmap-scan plan types 사용을 활성화 또는 비활성화한다. 기본값은 <TT
+CLASS="LITERAL"
+>on</TT
+>이다.
+ </P
+></DD
+><DT
+><A
+NAME="GUC-ENABLE-HASHAGG"
+></A
+><TT
+CLASS="VARNAME"
+>enable_hashagg</TT
+> (<TT
+CLASS="TYPE"
+>boolean</TT
+>)&#13;</DT
+><DD
+><P
+>쿼리 플래너의 hashed aggregation plan types 사용을 활성화 또는 비활성화한다. 기본값은 <TT
+CLASS="LITERAL"
+>on</TT
+>이다.
+ </P
+></DD
+><DT
+><A
+NAME="GUC-ENABLE-HASHJOIN"
+></A
+><TT
+CLASS="VARNAME"
+>enable_hashjoin</TT
+> (<TT
+CLASS="TYPE"
+>boolean</TT
+>)&#13;</DT
+><DD
+><P
+>쿼리 플래너의 hash-join plan types 사용을 활성화 또는 비활성화한다. 기본값은 <TT
+CLASS="LITERAL"
+>on</TT
+>이다.
+ </P
+></DD
+><DT
+><A
+NAME="GUC-ENABLE-INDEXSCAN"
+></A
+><TT
+CLASS="VARNAME"
+>enable_indexscan</TT
+> (<TT
+CLASS="TYPE"
+>boolean</TT
+>)
+&#13;</DT
+><DD
+><P
+>쿼리 플래너의 index-scan plan types 사용을 활성화 또는 비활성화한다. 기본값은 <TT
+CLASS="LITERAL"
+>on</TT
+>이다.
+ </P
+></DD
+><DT
+><A
+NAME="GUC-ENABLE-INDEXONLYSCAN"
+></A
+><TT
+CLASS="VARNAME"
+>enable_indexonlyscan</TT
+> (<TT
+CLASS="TYPE"
+>boolean</TT
+>)
+&#13;</DT
+><DD
+><P
+>쿼리 플래너의 index-only-scan plan types 사용을 활성화 또는 비활성화한다. 기본값은 <TT
+CLASS="LITERAL"
+>on</TT
+>이다.
+ </P
+></DD
+><DT
+><A
+NAME="GUC-ENABLE-MATERIAL"
+></A
+><TT
+CLASS="VARNAME"
+>enable_material</TT
+> (<TT
+CLASS="TYPE"
+>boolean</TT
+>)&#13;</DT
+><DD
+><P
+>쿼리 플래너의 materialization의 사용을 활성화 또는 비활성화한다. materialization을 완전히 억제하는 것은 어렵지만 이 변수를 해제하면 정확도가 요구되는 경우 외에는 플래너의 materialize 노드 삽입이 방지된다. 기본값은 <TT
+CLASS="LITERAL"
+>on</TT
+>이다.
+ </P
+></DD
+><DT
+><A
+NAME="GUC-ENABLE-MERGEJOIN"
+></A
+><TT
+CLASS="VARNAME"
+>enable_mergejoin</TT
+> (<TT
+CLASS="TYPE"
+>boolean</TT
+>)&#13;</DT
+><DD
+><P
+>쿼리 플래너의 merge-join plan types 사용을 활성화 또는 비활성화한다. 기본값은 <TT
+CLASS="LITERAL"
+>on</TT
+>이다.
+ </P
+></DD
+><DT
+><A
+NAME="GUC-ENABLE-NESTLOOP"
+></A
+><TT
+CLASS="VARNAME"
+>enable_nestloop</TT
+> (<TT
+CLASS="TYPE"
+>boolean</TT
+>)&#13;</DT
+><DD
+><P
+>쿼리 플래너의 nested-loop join plans 사용을 활성화 또는 비활성화한다. 
+nested-loop joins를 완전히 억제하는 것은 어렵지만 이 변수를 해제하면 사용 가능한 다른 방법이 있는 경우 플래너가 하나를 사용하는 것이 방지된다. 기본값은 <TT
+CLASS="LITERAL"
+>on</TT
+>이다.
+ </P
+></DD
+><DT
+><A
+NAME="GUC-ENABLE-SEQSCAN"
+></A
+><TT
+CLASS="VARNAME"
+>enable_seqscan</TT
+> (<TT
+CLASS="TYPE"
+>boolean</TT
+>)
+&#13;</DT
+><DD
+><P
+>쿼리 플래너의 sequential scan plan types 사용을 활성화 또는 비활성화한다. 
+sequential scans를 완전히 억제하는 것은 어렵지만 이 변수를 해제하면 사용 가능한 다른 방법이 있는 경우 플래너가 하나를 사용하는 것이 방지된다. 기본값은 <TT
+CLASS="LITERAL"
+>on</TT
+>이다.
+ </P
+></DD
+><DT
+><A
+NAME="GUC-ENABLE-SORT"
+></A
+><TT
+CLASS="VARNAME"
+>enable_sort</TT
+> (<TT
+CLASS="TYPE"
+>boolean</TT
+>)&#13;</DT
+><DD
+><P
+>쿼리 플래너의 explicit sort steps 사용을 활성화 또는 비활성화한다. 
+explicit sorts를 완전히 억제하는 것은 어렵지만 이 변수를 해제하면 사용 가능한 다른 방법이 있는 경우 플래너가 하나를 사용하는 것이 방지된다. 기본값은 <TT
+CLASS="LITERAL"
+>on</TT
+>이다.
+ </P
+></DD
+><DT
+><A
+NAME="GUC-ENABLE-TIDSCAN"
+></A
+><TT
+CLASS="VARNAME"
+>enable_tidscan</TT
+> (<TT
+CLASS="TYPE"
+>boolean</TT
+>)&#13;</DT
+><DD
+><P
+>쿼리 플래너의 <ACRONYM
+CLASS="ACRONYM"
+>TID</ACRONYM
+> scan plan types 사용을 활성화 또는 비활성화한다. 기본값은 <TT
+CLASS="LITERAL"
+>on</TT
+>이다.
+ </P
+></DD
+></DL
+></DIV
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="RUNTIME-CONFIG-QUERY-CONSTANTS"
+>2.7.2. 플래너 비용 상수</A
+></H2
+><P
+> 이 절에서 설명하는 <I
+CLASS="FIRSTTERM"
+>cost</I
+> 변수는 임의의 규모로 계산된다. 동일한 계수로 상향 또는 하향되는 상대적인 값만 플래너의 선택으로 바뀌지 않는다. 기본적으로, 이러한 비용 변수는 순차적 페이지 가져오기 비용을 근거로 한다. 
+ 즉, <TT
+CLASS="VARNAME"
+>seq_page_cost</TT
+>는 인습적으로 <TT
+CLASS="LITERAL"
+>1.0</TT
+>으로 설정되며, 다른 비용 변수는 그것을 기준으로 설정된다. 그러나 사용자가 원한다면 특정 머신에서 밀리초 단위의 실제 실행 시간 같이 다른 스케일을 사용할 수도 있다.</P
+><DIV
+CLASS="NOTE"
+><BLOCKQUOTE
+CLASS="NOTE"
+><P
+><B
+>참고: </B
+> 아쉽게도 비용 변수에 대한 이상적인 값을 결정하는 제대로 정의된(well-defined) 방법은 없다. 특정한 설치가 수신하는 전체 쿼리 믹스에 대한 평균으로 처리하는 것이 최선이다. 
+ 이것은 몇 가지 경험에 비추어 값을 변경하는 것은 매우 위험할 수 있음을 의미한다.</P
+></BLOCKQUOTE
+></DIV
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><DL
+><DT
+><A
+NAME="GUC-SEQ-PAGE-COST"
+></A
+><TT
+CLASS="VARNAME"
+>seq_page_cost</TT
+> (<TT
+CLASS="TYPE"
+>floating point</TT
+>)&#13;</DT
+><DD
+><P
+>플래너가 예상한, 순차 가져오기 시리즈의 일부분인 디스크 페이지 가져오기 비용을 설정한다. 기본값은 1.0이다. 
+이 값은 동일한 이름의 테이블스페이스 매개변수 설정에 의해 특수한 테이블스페이스의 테이블과 인덱스를 오버라이드할 수 있다.
+ </P
+></DD
+><DT
+><A
+NAME="GUC-RANDOM-PAGE-COST"
+></A
+><TT
+CLASS="VARNAME"
+>random_page_cost</TT
+> (<TT
+CLASS="TYPE"
+>floating point</TT
+>)&#13;</DT
+><DD
+><P
+>플래너가 예상한, 비순차적으로 가져온 디스크 페이지의 처리 비용을 설정한다. 기본값은 4.0이다. 
+이 값은 동일한 이름의 테이블스페이스 매개변수 설정에 의해 특수한 테이블스페이스의 테이블과 인덱스를 오버라이드할 수 있다.
+ </P
+><P
+>이 값을 <TT
+CLASS="VARNAME"
+>seq_page_cost</TT
+>에 비례하여 줄이면 시스템이 인덱스 스캔 쪽으로 치우치게 된다. 이 값을 늘리면 인덱스 스캔이 좀 더 비싸진다. 
+양쪽 값을 함께 늘리거나 줄여서 CPU 비용에 비례하여 디스크 I/O 비용의 중요도를 변경할 수 있다. 이것은 이후의 매개변수에서 설명된다.
+ </P
+><P
+>기계적 디스크 저장소에 대한 랜덤 액세스는 일반적으로 순차 액세스보다 4배 이상 비싸다. 
+그러나 인덱싱된 읽기 같이 디스크에 대한 랜덤 액세스 대부분은 캐시에서 일어나므로 작은 기본값이 사용된다(4.0). 
+랜덤 읽기의 90%는 캐싱되는 것으로 예상되는 반면, 기본값은 순차보다 모델링 랜덤 액세스가 40배 느린 것으로 생각될 수 있다.
+ </P
+><P
+>사용자의 작업 부하에서 90%의 캐시율이 잘못된 가정인 경우 random_page_cost를 늘려서 랜덤 저장소 읽기의 실제 비용이 반영되도록 할 수 있다. 그에 따라, 총 서버 메모리보다 데이터베이스가 작아서 데이터가 완전히 캐시되는 경우 random_page_cost를 줄이는 것이 적절할 수 있다. 반도체 드라이브 같이 랜덤 읽기 비용이 시퀀스에 비해 상대적으로 낮은 저장소는 더 낮은 random_page_cost 값으로 모델링이 더 잘 될 수도 있다.
+ </P
+><DIV
+CLASS="TIP"
+><BLOCKQUOTE
+CLASS="TIP"
+><P
+><B
+>작은 정보: </B
+> <TT
+CLASS="VARNAME"
+>random_page_cost</TT
+>를 <TT
+CLASS="VARNAME"
+>seq_page_cost</TT
+> 미만으로 설정하는 것이 시스템에서 허용되더라도 실제로는 그렇게 하는 것이 합리적이지 않다. 
+ 단, 데이터베이스 전체가 RAM에 캐치되는 경우에는 시퀀스 밖 페이지를 손대는 것에 대한 패널티가 없으므로 동일하게 설정하는 것은 괜찮다. 
+ 또한 과도하게 캐시되는 데이터베이스에서 RAM에 이미 있는 페이지를 가져오는 비용이 일반적인 상태의 것보다 훨씬 적으므로 사용자는 CPU 매개변수에 비례하여 양쪽 값을 줄여야 한다. </P
+></BLOCKQUOTE
+></DIV
+></DD
+><DT
+><A
+NAME="GUC-CPU-TUPLE-COST"
+></A
+><TT
+CLASS="VARNAME"
+>cpu_tuple_cost</TT
+> (<TT
+CLASS="TYPE"
+>floating point</TT
+>)&#13;</DT
+><DD
+><P
+>플래너가 예상한 쿼리 도중 각 행의 처리 비용을 설정한다. 기본값은 0.01이다.
+ </P
+></DD
+><DT
+><A
+NAME="GUC-CPU-INDEX-TUPLE-COST"
+></A
+><TT
+CLASS="VARNAME"
+>cpu_index_tuple_cost</TT
+> (<TT
+CLASS="TYPE"
+>floating point</TT
+>)&#13;</DT
+><DD
+><P
+>플래너가 예상한 인덱스 스캔 도중 각 인덱스 항목의 처리 비용을 설정한다. 기본값은 0.005이다.
+ </P
+></DD
+><DT
+><A
+NAME="GUC-CPU-OPERATOR-COST"
+></A
+><TT
+CLASS="VARNAME"
+>cpu_operator_cost</TT
+> (<TT
+CLASS="TYPE"
+>floating point</TT
+>)&#13;</DT
+><DD
+><P
+>플래너가 예상한, 쿼리 도중 실행된 각 연산자 또는 함수의 처리 비용을 설정한다. 기본값은 0.0025이다.
+ </P
+></DD
+><DT
+><A
+NAME="GUC-EFFECTIVE-CACHE-SIZE"
+></A
+><TT
+CLASS="VARNAME"
+>effective_cache_size</TT
+> (<TT
+CLASS="TYPE"
+>integer</TT
+>)&#13;</DT
+><DD
+><P
+>단일 쿼리에 사용할 수 있는 디스크 캐시의 효율적인 크기에 대한 플래너의 가정을 설정한다. 이것은 인덱스를 사용하는 비용 추정에 반영된다. 
+값이 클수록 인덱스 스캔이 사용될 가능성이 높다. 값이 작을수록 순차 스캔이 사용될 가능성이 높다. 
+이 매개변수를 설정하는 경우 <SPAN
+CLASS="PRODUCTNAME"
+>Agens SQL</SPAN
+>의 공유 버퍼와, <SPAN
+CLASS="PRODUCTNAME"
+>Agens SQL</SPAN
+> 데이터 파일에 사용되는 커널의 디스크 캐시 부분을 모두 고려해야 한다. 
+또한 사용 가능한 공간을 공유해야 하므로 서로 다른 테이블에 대해 예상되는 동시 쿼리 수도 고려해야 한다. 
+이 매개변수는 <SPAN
+CLASS="PRODUCTNAME"
+>Agens SQL</SPAN
+>에 의해 할당된 공유 메모리 크기에는 효과가 없으며, 커널 디스크 캐시도 예약하지 않는다. 
+추정용으로만 사용된다. 또한 시스템은 디스크 캐시에 쿼리 간 데이터가 잔류할 것이라고 가정하지 않는다. 기본값은 4기가바이트이다(<TT
+CLASS="LITERAL"
+>4GB</TT
+>).
+ </P
+></DD
+></DL
+></DIV
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="RUNTIME-CONFIG-QUERY-GEQO"
+>2.7.3. 제네릭 쿼리 옵티마이저</A
+></H2
+><P
+>제네릭 쿼리 옵티마이저(GEQO)는 휴리스틱 검색을 사용하는 쿼리 플래닝을 하는 알고리즘이다. 
+이것은 검색 비용이 많이 드는 일반 알고리즘보다 적은 플랜 생성 비용으로, 복잡한 쿼리(다수의 관계 조인)의 플래닝 시간을 줄인다. 
+ </P
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><DL
+><DT
+><A
+NAME="GUC-GEQO"
+></A
+><TT
+CLASS="VARNAME"
+>geqo</TT
+> (<TT
+CLASS="TYPE"
+>boolean</TT
+>)
+
+&#13;</DT
+><DD
+><P
+>전체 쿼리 최적화를 활성화 또는 비활성화한다. 기본값은 on이다. 
+보통은 운영 중 해제하지 않는 것이 최선이며 <TT
+CLASS="VARNAME"
+>geqo_threshold</TT
+> 변수는 좀 더 세분화된 GEQO 제어를 제공한다.
+ </P
+></DD
+><DT
+><A
+NAME="GUC-GEQO-THRESHOLD"
+></A
+><TT
+CLASS="VARNAME"
+>geqo_threshold</TT
+> (<TT
+CLASS="TYPE"
+>integer</TT
+>)&#13;</DT
+><DD
+><P
+>최소한 <TT
+CLASS="LITERAL"
+>FROM</TT
+> 항목에 관련된 수만큼 쿼리를 플랜하는 전체 쿼리 최적화을 사용한다. (<TT
+CLASS="LITERAL"
+>FULL OUTER JOIN</TT
+> 구문은 하나의 <TT
+CLASS="LITERAL"
+>FROM</TT
+> 항목으로 계산된다.) 기본값은 12이다. 
+단순 쿼리의 경우는 일반적으로 정규, 소모성 검색 플래너를 사용하는 것이 낫지만, 테이블이 다수 있는 쿼리의 경우 소모성 검색은 너무 오래 걸리며, 차선의 플랜을 실행하는 것보다 더 오래 걸릴 수도 있다. 
+따라서 쿼리 크기에 대한 임계값은 GEQO 사용 관리에 편리한 방법이다.
+ </P
+></DD
+><DT
+><A
+NAME="GUC-GEQO-EFFORT"
+></A
+><TT
+CLASS="VARNAME"
+>geqo_effort</TT
+> (<TT
+CLASS="TYPE"
+>integer</TT
+>)&#13;</DT
+><DD
+><P
+>GEQO에서 플래닝 시간과 쿼리 플랜의 수준 간 트레이드 오프를 제어한다. 이 변수는 1 ~ 10 사이의 integer여야 한다. 
+기본값은 5이다. 값이 클수록 쿼리 플래닝에 소요되는 시간이 늘어나지만, 효율적인 쿼리 플랜이 선택될 가능성도 높아진다.
+ </P
+><P
+><TT
+CLASS="VARNAME"
+>geqo_effort</TT
+>가 직접 아는 일은 실제로 없다. GEQO 동작에 영향을 미치는 다른 변수에 대한 기본 값을 계산하는 데에만 이용된다(아래에 설명). 
+원한다면 그 대신 다른 매개변수를 직접 설정할 수 있다.
+ </P
+></DD
+><DT
+><A
+NAME="GUC-GEQO-POOL-SIZE"
+></A
+><TT
+CLASS="VARNAME"
+>geqo_pool_size</TT
+> (<TT
+CLASS="TYPE"
+>integer</TT
+>)&#13;</DT
+><DD
+><P
+>GEQO에서 사용되는 풀 크기를 제어한다. 풀 크기는 제네틱 채우기(genetic population)에서의 개체 수를 뜻한다. 
+이것은 최소 2 이상의 유용한 값이어야 하며, 일반적으로 100 ~ 1000이다. 0으로 설정되면(기본 설정) 적정값이 <TT
+CLASS="VARNAME"
+>geqo_effort</TT
+> 및 쿼리의 테이블 수에 따라 선택된다.
+ </P
+></DD
+><DT
+><A
+NAME="GUC-GEQO-GENERATIONS"
+></A
+><TT
+CLASS="VARNAME"
+>geqo_generations</TT
+> (<TT
+CLASS="TYPE"
+>integer</TT
+>)&#13;</DT
+><DD
+><P
+>알고리즘 반복 숫자이자, GEQO에서 사용되는 생성 수를 제어한다. 이것은 최소 1 이상이어야 하며, 유용한 값은 풀 크기와 동일한 범위 내이다. 
+0으로 설정되면(기본 설정) 적정값이 <TT
+CLASS="VARNAME"
+>geqo_pool_size</TT
+>에 따라 선택된다.
+ </P
+></DD
+><DT
+><A
+NAME="GUC-GEQO-SELECTION-BIAS"
+></A
+><TT
+CLASS="VARNAME"
+>geqo_selection_bias</TT
+> (<TT
+CLASS="TYPE"
+>floating point</TT
+>)&#13;</DT
+><DD
+><P
+>GEQO에 의해 사용된 selection bias를 제어한다. selection bias는 채우기 내부의 선택적 압력이다. 값은 1.50 ~ 2.00일 수 있으며, 후자가 기본값이다.
+ </P
+></DD
+><DT
+><A
+NAME="GUC-GEQO-SEED"
+></A
+><TT
+CLASS="VARNAME"
+>geqo_seed</TT
+> (<TT
+CLASS="TYPE"
+>floating point</TT
+>)&#13;</DT
+><DD
+><P
+>조인 순서 검색 공간의 랜덤 경로를 선택하기 위해 GEQO에 의한 난수 발생기의 초기값을 제어한다. 값은 0(기본값) ~ 1일 수 있다. 
+값을 변경하면 탐색할 조인 경로 집합이 바뀌고 결과적으로 발견된 최상의 경로가 좋을 수도 있고 나쁠 수도 있다.
+ </P
+></DD
+></DL
+></DIV
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="RUNTIME-CONFIG-QUERY-OTHER"
+>2.7.4. Other Planner Options</A
+></H2
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><DL
+><DT
+><A
+NAME="GUC-DEFAULT-STATISTICS-TARGET"
+></A
+><TT
+CLASS="VARNAME"
+>default_statistics_target</TT
+> (<TT
+CLASS="TYPE"
+>integer</TT
+>)&#13;</DT
+><DD
+><P
+><TT
+CLASS="COMMAND"
+>ALTER TABLE
+SET STATISTICS</TT
+>를 통해 설정된 칼럼 특정 타겟 없이, 테이블 칼럼에 대한 기본 통계 타겟을 설정한다. 
+큰 값을 설정하면 <TT
+CLASS="COMMAND"
+>ANALYZE</TT
+>를 수행하는 데 필요한 시간이 늘어나지만 플래너 평가 수준을 높일 수 있다. 기본값은 100이다. 
+ </P
+></DD
+><DT
+><A
+NAME="GUC-CONSTRAINT-EXCLUSION"
+></A
+><TT
+CLASS="VARNAME"
+>constraint_exclusion</TT
+> (<TT
+CLASS="TYPE"
+>enum</TT
+>)
+&#13;</DT
+><DD
+><P
+>쿼리 최적화를 위해 쿼리 플래너의 테이블 제약 조건을 제어한다. 
+<TT
+CLASS="VARNAME"
+>constraint_exclusion</TT
+>의 허용 값은 <TT
+CLASS="LITERAL"
+>on</TT
+>(모든 테이블에 대해 제약 조건 검사), <TT
+CLASS="LITERAL"
+>off</TT
+>(제약 조건 검사 안함) 및 <TT
+CLASS="LITERAL"
+>partition</TT
+>(상속 자식 테이블 및 <TT
+CLASS="LITERAL"
+>UNION ALL</TT
+> 하위 쿼리에 대해서만 제약 조건 검사)이다. 
+<TT
+CLASS="LITERAL"
+>partition</TT
+>은 기본 설정이다. </P
+><P
+>이 매개변수가 이것을 특정 테이블에 대해 허용하면 플래너가 쿼리 조건을 테이블의 <TT
+CLASS="LITERAL"
+>CHECK</TT
+> 제약 조건과 비교하고 제약 조건에 위배되는 테이블을 검색하는 것은 생략한다. 
+예를 들면:
+
+</P><PRE
+CLASS="PROGRAMLISTING"
+>CREATE TABLE parent(key integer, ...);
+CREATE TABLE child1000(check (key between 1000 and 1999)) INHERITS(parent);
+CREATE TABLE child2000(check (key between 2000 and 2999)) INHERITS(parent);
+...
+SELECT * FROM parent WHERE key = 2400;</PRE
+><P>
+
+제약 조건 배제가 활성화되면 이 <TT
+CLASS="COMMAND"
+>SELECT</TT
+>는 성능 개선을 위해 <TT
+CLASS="STRUCTNAME"
+>child1000</TT
+>을 일절 스캔하지 않는다.
+ </P
+><P
+>현재, 제약 조건 배제는 테이블 파티션에 주로 사용되는 경우에만 기본값으로 활성화된다. 모든 테이블에 대해 활성화되며, 간단한 쿼리에도 눈에 띄게 플래닝 오버헤드가 가중되어 간단한 쿼리의 장점이 상쇄된다. 
+파티션된 테이블이 없을 경우 전적으로 해제하는 것이 좋다.
+ </P
+></DD
+><DT
+><A
+NAME="GUC-CURSOR-TUPLE-FRACTION"
+></A
+><TT
+CLASS="VARNAME"
+>cursor_tuple_fraction</TT
+> (<TT
+CLASS="TYPE"
+>floating point</TT
+>)&#13;</DT
+><DD
+><P
+>검색할 커서 행의 분할에 대한 플래너의 추정치를 설정한다. 기본값은 0.1이다. 
+값이 작을수록 플래너가 커서에 대해 <SPAN
+CLASS="QUOTE"
+>"fast start"</SPAN
+> 플랜을 사용하도록 유도되고, 그러면 전체 행을 가져오느라 시간이 오래 걸리는 와중에 처음 몇 개의 행만 빠르게 검색된다. 
+값이 클수록 총 예상 시간이 중요해진다. 최대 설정 1.0에서는 커서가 정확히 일반 쿼리처럼 플랜되어 총 예상 시간만 고려되고, 첫 번째 행을 얼마나 빨리 가져오는지는 고려하지 않는다.
+ </P
+></DD
+><DT
+><A
+NAME="GUC-FROM-COLLAPSE-LIMIT"
+></A
+><TT
+CLASS="VARNAME"
+>from_collapse_limit</TT
+> (<TT
+CLASS="TYPE"
+>integer</TT
+>)&#13;</DT
+><DD
+><P
+>결과로 나온 <TT
+CLASS="LITERAL"
+>FROM</TT
+> 목록에 이 숫자만큼의 항목이 없을 경우 플래너가 하위 쿼리를 상위 쿼리에 병합한다. 값이 작을수록 플래닝 시간은 짧아지지만 하위 쿼리 플랜이 나올 수 있다. 
+기본값은 8이다. 
+ </P
+><P
+>이 값을 <A
+HREF="runtime-config-query.html#GUC-GEQO-THRESHOLD"
+>geqo_threshold</A
+> 이상으로 설정하면 GEQO 플래너의 사용이 트리거되어 결과적으로 최적화되지 않은 플랜이 된다. <A
+HREF="runtime-config-query.html#RUNTIME-CONFIG-QUERY-GEQO"
+>2.7.3절</A
+>을 참조 바란다.
+ </P
+></DD
+><DT
+><A
+NAME="GUC-JOIN-COLLAPSE-LIMIT"
+></A
+><TT
+CLASS="VARNAME"
+>join_collapse_limit</TT
+> (<TT
+CLASS="TYPE"
+>integer</TT
+>)&#13;</DT
+><DD
+><P
+>결과 목록이 이 항목에 미치지 못할 경우 플래너는 명시적 <TT
+CLASS="LITERAL"
+>JOIN</TT
+> 구문(<TT
+CLASS="LITERAL"
+>FULL JOIN</TT
+> 제외)을 <TT
+CLASS="LITERAL"
+>FROM</TT
+> 항목으로 재작성한다. 값이 작을수록 플래닝 시간은 짧아지지만 하위 쿼리 플랜이 나올 수 있다.
+ </P
+><P
+>기본적으로 이 변수는 <TT
+CLASS="VARNAME"
+>from_collapse_limit</TT
+>와 동일하게 설정되며, 대부분의 사용에 적합하다. 1로 설정하면 명시적 <TT
+CLASS="LITERAL"
+>JOIN</TT
+>의 재정렬이 방지된다. 따라서 이 쿼리에서 지정된 명시적 조인 순서는 관계가 조인되는 실제 순서가 된다. 
+쿼리 플래너가 항상 최적의 조인 순서를 선택하는 것은 아니므로 고급 사용자는 이 변수를 임시로 1로 선택한 다음, 원하는 조인 순서를 명시적으로 지정할 수 있다. 
+ </P
+><P
+>이 값을 <A
+HREF="runtime-config-query.html#GUC-GEQO-THRESHOLD"
+>geqo_threshold</A
+> 이상으로 설정하면 GEQO 플래너의 사용이 트리거되어 결과적으로 최적화되지 않은 플랜이 된다. 
+<A
+HREF="runtime-config-query.html#RUNTIME-CONFIG-QUERY-GEQO"
+>2.7.3절</A
+>을 참조 바란다.
+ </P
+></DD
+></DL
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="runtime-config-replication.html"
+ACCESSKEY="P"
+>이전</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>처음으로</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="runtime-config-logging.html"
+ACCESSKEY="N"
+>다음</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>복제</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="runtime-config.html"
+ACCESSKEY="U"
+>위로</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>에러 리포팅 및 로깅</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

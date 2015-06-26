@@ -1,0 +1,107 @@
+<!--
+doc/src/sgml/ref/drop_tablespace.sgml
+PostgreSQL documentation
+-->
+
+<refentry id="SQL-DROPTABLESPACE">
+ <refmeta>
+  <refentrytitle>DROP TABLESPACE</refentrytitle>
+  <manvolnum>7</manvolnum>
+  <refmiscinfo>SQL - Language Statements</refmiscinfo>
+ </refmeta>
+
+ <refnamediv>
+  <refname>DROP TABLESPACE</refname>
+  <refpurpose>테이블스페이스 삭제</refpurpose>
+ </refnamediv>
+
+ <indexterm zone="sql-droptablespace">
+  <primary>DROP TABLESPACE</primary>
+ </indexterm>
+
+ <refsynopsisdiv>
+<synopsis>
+DROP TABLESPACE [ IF EXISTS ] <replaceable class="PARAMETER">이름</replaceable>
+</synopsis>
+ </refsynopsisdiv>
+
+ <refsect1>
+  <title>설명</title>
+
+  <para>
+   <command>DROP TABLESPACE</command> 명령은 시스템에서 테이블스페이스를 지운다.
+  </para>
+
+  <para>
+   테이블스페이스는 해당 소유주나 슈퍼 유저만 삭제할 수 있다.  해당
+   테이블스페이스를 사용하고 있는 어떠한 객체도 없어야 삭제 할 수 있다.  또한
+   현재 접속한 데이터베이스가 이 테이블스페이스를 사용하고 있어도 삭제
+   할 수 없다.  또한 <xref
+      linkend="guc-temp-tablespaces"> 설정으로 지정된 테이블스페이스라면
+   다른 접속한 사용자 있어도 그 테이블스페이스를 삭제할 수 없다.
+  </para>
+ </refsect1>
+
+ <refsect1>
+  <title>매개 변수</title>
+
+  <variablelist>
+
+   <varlistentry>
+    <term><literal>IF EXISTS</literal></term>
+    <listitem>
+     <para>
+          해당 테이블스페이스가 없어도 오류를 내지 않고, 알림 메시지만 보여준다.
+     </para>
+    </listitem>
+   </varlistentry>
+
+   <varlistentry>
+    <term><replaceable class="PARAMETER">이름</replaceable></term>
+    <listitem>
+     <para>
+          삭제하려는 테이블스페이스 이름.
+     </para>
+    </listitem>
+   </varlistentry>
+  </variablelist>
+ </refsect1>
+
+ <refsect1>
+  <title>참고</title>
+
+   <para>
+    <command>DROP TABLESPACE</> 명령은 트랜잭션 내에서는 사용할 수 없다.
+   </para>
+ </refsect1>
+
+
+ <refsect1>
+  <title>예제</title>
+
+  <para>
+   시스템에서 <literal>mystuff</literal> 테이블스페이스를 삭제하려면:
+<programlisting>
+DROP TABLESPACE mystuff;
+</programlisting></para>
+ </refsect1>
+
+ <refsect1>
+  <title>호환성</title>
+
+  <para>
+   <command>DROP TABLESPACE</command> 명령은 <productname>PostgreSQL</>
+   확장 기능이다.
+  </para>
+ </refsect1>
+
+ <refsect1>
+  <title>관련 항목</title>
+
+  <simplelist type="inline">
+   <member><xref linkend="sql-createtablespace"></member>
+   <member><xref linkend="sql-altertablespace"></member>
+  </simplelist>
+ </refsect1>
+
+</refentry>

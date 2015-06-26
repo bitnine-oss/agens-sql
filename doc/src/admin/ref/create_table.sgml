@@ -1,0 +1,1354 @@
+<!--
+doc/src/sgml/ref/create_table.sgml
+PostgreSQL documentation
+-->
+
+<refentry id="SQL-CREATETABLE">
+ <refmeta>
+  <refentrytitle>CREATE TABLE</refentrytitle>
+  <manvolnum>7</manvolnum>
+  <refmiscinfo>SQL - Language Statements</refmiscinfo>
+ </refmeta>
+
+ <refnamediv>
+  <refname>CREATE TABLE</refname>
+  <refpurpose>새로운 테이블을 정의합니다</refpurpose>
+ </refnamediv>
+
+ <indexterm zone="sql-createtable">
+  <primary>CREATE TABLE</primary>
+ </indexterm>
+
+ <refsynopsisdiv>
+<synopsis>
+CREATE [ [ GLOBAL | LOCAL ] { TEMPORARY | TEMP } | UNLOGGED ] TABLE [ IF NOT EXISTS ] <replaceable class="PARAMETER">table_name</replaceable> ( [
+  { <replaceable class="PARAMETER">column_name</replaceable> <replaceable class="PARAMETER">data_type</replaceable> [ COLLATE <replaceable>collation</replaceable> ] [ <replaceable class="PARAMETER">column_constraint</replaceable> [ ... ] ]
+    | <replaceable>table_constraint</replaceable>
+    | LIKE <replaceable>source_table</replaceable> [ <replaceable>like_option</replaceable> ... ] }
+    [, ... ]
+] )
+[ INHERITS ( <replaceable>parent_table</replaceable> [, ... ] ) ]
+[ WITH ( <replaceable class="PARAMETER">storage_parameter</replaceable> [= <replaceable class="PARAMETER">value</replaceable>] [, ... ] ) | WITH OIDS | WITHOUT OIDS ]
+[ ON COMMIT { PRESERVE ROWS | DELETE ROWS | DROP } ]
+[ TABLESPACE <replaceable class="PARAMETER">tablespace_name</replaceable> ]
+
+CREATE [ [ GLOBAL | LOCAL ] { TEMPORARY | TEMP } | UNLOGGED ] TABLE [ IF NOT EXISTS ] <replaceable class="PARAMETER">table_name</replaceable>
+    OF <replaceable class="PARAMETER">type_name</replaceable> [ (
+  { <replaceable class="PARAMETER">column_name</replaceable> WITH OPTIONS [ <replaceable class="PARAMETER">column_constraint</replaceable> [ ... ] ]
+    | <replaceable>table_constraint</replaceable> }
+    [, ... ]
+) ]
+[ WITH ( <replaceable class="PARAMETER">storage_parameter</replaceable> [= <replaceable class="PARAMETER">value</replaceable>] [, ... ] ) | WITH OIDS | WITHOUT OIDS ]
+[ ON COMMIT { PRESERVE ROWS | DELETE ROWS | DROP } ]
+[ TABLESPACE <replaceable class="PARAMETER">tablespace_name</replaceable> ]
+
+<phrase>여기서 <replaceable class="PARAMETER">column_constraint</replaceable>는:</phrase>
+
+[ CONSTRAINT <replaceable class="PARAMETER">constraint_name</replaceable> ]
+{ NOT NULL |
+  NULL |
+  CHECK ( <replaceable class="PARAMETER">expression</replaceable> ) [ NO INHERIT ] |
+  DEFAULT <replaceable>default_expr</replaceable> |
+  UNIQUE <replaceable class="PARAMETER">index_parameters</replaceable> |
+  PRIMARY KEY <replaceable class="PARAMETER">index_parameters</replaceable> |
+  REFERENCES <replaceable class="PARAMETER">reftable</replaceable> [ ( <replaceable class="PARAMETER">refcolumn</replaceable> ) ] [ MATCH FULL | MATCH PARTIAL | MATCH SIMPLE ]
+    [ ON DELETE <replaceable class="parameter">action</replaceable> ] [ ON UPDATE <replaceable class="parameter">action</replaceable> ] }
+[ DEFERRABLE | NOT DEFERRABLE ] [ INITIALLY DEFERRED | INITIALLY IMMEDIATE ]
+
+<phrase>그리고 <replaceable class="PARAMETER">table_constraint</replaceable>는:</phrase>
+
+[ CONSTRAINT <replaceable class="PARAMETER">constraint_name</replaceable> ]
+{ CHECK ( <replaceable class="PARAMETER">expression</replaceable> ) [ NO INHERIT ] |
+  UNIQUE ( <replaceable class="PARAMETER">column_name</replaceable> [, ... ] ) <replaceable class="PARAMETER">index_parameters</replaceable> |
+  PRIMARY KEY ( <replaceable class="PARAMETER">column_name</replaceable> [, ... ] ) <replaceable class="PARAMETER">index_parameters</replaceable> |
+  EXCLUDE [ USING <replaceable class="parameter">index_method</replaceable> ] ( <replaceable class="parameter">exclude_element</replaceable> WITH <replaceable class="parameter">operator</replaceable> [, ... ] ) <replaceable class="parameter">index_parameters</replaceable> [ WHERE ( <replaceable class="parameter">predicate</replaceable> ) ] |
+  FOREIGN KEY ( <replaceable class="PARAMETER">column_name</replaceable> [, ... ] ) REFERENCES <replaceable class="PARAMETER">reftable</replaceable> [ ( <replaceable class="PARAMETER">refcolumn</replaceable> [, ... ] ) ]
+    [ MATCH FULL | MATCH PARTIAL | MATCH SIMPLE ] [ ON DELETE <replaceable class="parameter">action</replaceable> ] [ ON UPDATE <replaceable class="parameter">action</replaceable> ] }
+[ DEFERRABLE | NOT DEFERRABLE ] [ INITIALLY DEFERRED | INITIALLY IMMEDIATE ]
+
+<phrase>그리고 <replaceable class="PARAMETER">like_option</replaceable>은:</phrase>
+
+{ INCLUDING | EXCLUDING } { DEFAULTS | CONSTRAINTS | INDEXES | STORAGE | COMMENTS | ALL }
+
+<phrase><literal>UNIQUE</literal>, <literal>PRIMARY KEY</literal>, 그리고 <literal>EXCLUDE</literal> constraint에 있는 <replaceable class="PARAMETER">index_parameters</replaceable>는:</phrase>
+
+[ WITH ( <replaceable class="PARAMETER">storage_parameter</replaceable> [= <replaceable class="PARAMETER">value</replaceable>] [, ... ] ) ]
+[ USING INDEX TABLESPACE <replaceable class="PARAMETER">tablespace_name</replaceable> ]
+
+<phrase><literal>EXCLUDE</literal> constraint에 있는 <replaceable class="PARAMETER">exclude_element</replaceable>는:</phrase>
+
+{ <replaceable class="parameter">column_name</replaceable> | ( <replaceable class="parameter">expression</replaceable> ) } [ <replaceable class="parameter">opclass</replaceable> ] [ ASC | DESC ] [ NULLS { FIRST | LAST } ]
+</synopsis>
+
+ </refsynopsisdiv>
+
+ <refsect1 id="SQL-CREATETABLE-description">
+  <title>설명</title>
+
+  <para>
+   <command>CREATE TABLE</command>은 현재 데이터베이스에 신규 빈 테이블을 생성합니다.
+   해당 테이블은 명령을 수행한 사용자의 소유가 됩니다.
+  </para>
+
+  <para>
+   Schema명을 지정하면(예를 들면, <literal>CREATE TABLE
+   myschema.mytable ...</>), 지정한 schema에 해당 테이블이 생성됩니다.
+   그렇지 않으면 현재 schema에 생성됩니다. 임시 테이블은 특별한 schema에 위치하기 때문에,
+   임시 테이블을 생성할 때엔 schema명을 지정할 수 없습니다.
+   해당 테이블 명은 동일 schema 내의 다른 테이블, 시퀀스, 인덱스, 뷰 및 외래 테이블의 이름과 구분되어야 합니다.
+  </para>
+
+  <para>
+   <command>CREATE TABLE</command>은 또한 테이블의 한 행에 대응되는 복합 자료형을 표현하는
+   데이터 자료형을 자동으로 생성합니다.
+   때문에, 테이블은 같은 schema 내에 존재하는 데이터 자료형 명과 같은 이름을 가질 수 없습니다.
+  </para>
+
+  <para>
+   선택적 constraint 절은, 신규 또는 업데이트되는 행이 삽입 또는 업데이트 동작을 성공적으로 수행하기 위해 
+   충족해야 하는, 제약(조건)을 지정합니다.
+   제약조건은 다양한 방식으로 테이블의 유효값 집합을 정의하는 데 도움을 주는 SQL 객체입니다.
+  </para>
+
+  <para>
+   제약조건을 정의하는 두 가지 방법이 있습니다: 바로 테이블 제약과 열 제약입니다.
+   열 제약은 열 정의의 일부분으로 정의됩니다. 테이블 제약은 특정 열에 종속되지 않으며, 둘 이상의 열을 포함할 수 있습니다.
+   모든 열 제약은 테이블 제약으로도 작성할 수 있습니다.
+   열 제약은 단지, 해당 제약조건이 단일 열에만 영향을 주기 때문에, 간편하게 표기하도록 만든 것입니다.
+  </para>
+
+  <para>
+   테이블을 생성하려면, 여러분은 모든 열 자료형 또는 <literal>OF</literal> 절의 자료형에,
+   각각 <literal>USAGE</literal> 권한을 갖고 있어야 합니다.
+  </para>
+ </refsect1>
+
+ <refsect1>
+  <title>매개 변수</title>
+
+  <variablelist>
+
+   <varlistentry id="SQL-CREATETABLE-TEMPORARY">
+    <term><literal>TEMPORARY</> 또는 <literal>TEMP</></term>
+    <listitem>
+     <para>
+      지정되면, 해당 테이블은 임시 테이블로 생성됩니다.
+          임시 테이블은 세션이 종료될 때, 또는 옵션에 따라 현재 트랜젝션이 끝날 때
+          (아래 <literal>ON COMMIT</literal> 참조) 자동으로 drop 됩니다.
+          같은 이름의 영구적 테이블이 있다면, 스키마-수식명으로 참조하지 않는 한, 
+          임시 테이블이 존재하는 동안은 현재 세션에서 보이지 않습니다.
+          임시 테이블에 생성된 모든 인덱스 또한 자동으로 임시 객체가 됩니다.
+     </para>
+
+     <para>
+      <link linkend="autovacuum">autovacuum daemon</link>은
+          임시 테이블에 접근할 수 없기 때문에, 임시 테이블에 대한 vacuum이나 analyze를 수행할 수 없습니다.
+          이러한 이유로, 세션에서 SQL 명령을 통해, 적절한 vacuum과 analyze 작업이 수행되어야 합니다.
+          예를 들면, 복잡한 쿼리에서 임시 테이블을 사용하려면, 
+          임시 테이블이 증식된 후에 <command>ANALYZE</>를 수행하는 것이 좋습니다.
+     </para>
+
+     <para>
+      선택적으로, <literal>TEMPORARY</>나 <literal>TEMP</> 앞에 
+          <literal>GLOBAL</literal> 또는 <literal>LOCAL</literal>을 붙일 수 있습니다.
+          이는 현재 <productname>PostgreSQL</>에서는 아무런 효과도 없으며, 만료된 기능입니다. 
+          <xref linkend="sql-createtable-compatibility"
+      endterm="sql-createtable-compatibility-title">를 참고하십시오.
+     </para>
+    </listitem>
+   </varlistentry>
+
+   <varlistentry id="SQL-CREATETABLE-UNLOGGED">
+    <term><literal>UNLOGGED</></term>
+    <listitem>
+     <para>
+      지정되면, 해당 테이블이 unlogged 테이블로 생성됩니다.
+          Unlogged 테이블에 기록되는 데이터는 write-ahead 로그 (<xref
+          linkend="wal">참고)에 기록되지 않으며, 때문에 일반 테이블보다 확연히 빠르게 기록됩니다.
+          하지만, 이는 사고에 안전하지 않습니다. Unlogged table은 crash 또는 비정상 shutdown
+          이후에 자동으로 truncate 됩니다. Unlogged table의 내용 또한 standby 서버로 복제되지 않습니다.
+          Unlogged table에 생성된 모든 인덱스도 또한 자동으로 unlogged 상태가 됩니다.
+     </para>
+    </listitem>
+   </varlistentry>
+
+   <varlistentry>
+    <term><literal>IF NOT EXISTS</></term>
+    <listitem>
+     <para>
+      같은 이름의 관계가 이미 있는 경우에 error가 발생하지 않습니다. 대신에 notice가 발생합니다.
+          기존의 관계가 새로 생성되는 것과 같다는 보장이 없음을 주의하십시오.
+     </para>
+    </listitem>
+   </varlistentry>
+
+   <varlistentry>
+    <term><replaceable class="PARAMETER">table_name</replaceable></term>
+    <listitem>
+     <para>
+      생성될 테이블의 (옵션으로 스키마 수식된) 이름.
+     </para>
+    </listitem>
+   </varlistentry>
+
+   <varlistentry>
+    <term><literal>OF <replaceable class="PARAMETER">type_name</replaceable></literal></term>
+    <listitem>
+     <para>
+      지정된 복합 (옵션으로 스키마 수식된 이름의) 자료형 구조를 이용한
+          <firstterm>typed table</firstterm>을 생성합니다.
+          typed table은 자신의 자료형에 묶여 있습니다. 예를 들면, 자료형이 
+          (<literal>DROP TYPE ... CASCADE</literal>으로)
+          drop되면 테이블도 같이 drop될 것입니다.
+     </para>
+
+     <para>
+      Typed 테이블이 생성되면, 해당 열의 데이터 자료형은 
+          <literal>CREATE TABLE</literal> 명령으로 지정되는 것이 아니라
+          내재된 복합 자료형에 따라 결정됩니다.
+          하지만 <literal>CREATE TABLE</literal> 명령으로
+          테이블에 기본값과 제약조건을 추가할 수 있고, storage parameter를 지정할 수 있습니다.
+     </para>
+    </listitem>
+   </varlistentry>
+
+   <varlistentry>
+    <term><replaceable class="PARAMETER">column_name</replaceable></term>
+    <listitem>
+     <para>
+      신규 테이블에 생성될 열의 이름.
+     </para>
+    </listitem>
+   </varlistentry>
+
+   <varlistentry>
+    <term><replaceable class="PARAMETER">data_type</replaceable></term>
+    <listitem>
+     <para>
+      열의 데이터 자료형. 배열 지정자를 포함할 수 있습니다.
+          <productname>PostgreSQL</productname>에서 지원하는 
+          데이터 자료형에 대한 더 많은 정보는 <xref 
+          linkend="datatype">을 참고하십시오.
+     </para>
+    </listitem>
+   </varlistentry>
+
+   <varlistentry>
+    <term><literal>COLLATE <replaceable>collation</replaceable></literal></term>
+    <listitem>
+     <para>
+      <literal>COLLATE</>절은 해당 열에 (collate 가능한 데이터 자료형의 열이어야 한다)
+          collation을 할당합니다. 지정하지 않으면, 열 데이터 자료형의 기본 collation이 사용됩니다.
+     </para>
+    </listitem>
+   </varlistentry>
+
+   <varlistentry>
+    <term><literal>INHERITS ( <replaceable>parent_table</replaceable> [, ... ] )</literal></term>
+    <listitem>
+     <para>
+      선택적 <literal>INHERITS</> 절은,
+          신규 테이블이 자동으로 모든 열을 상속받게 될 테이블의 목록을 지정합니다.          
+     </para>
+
+     <para>
+      <literal>INHERITS</>를 사용하면 신규 자식 테이블과 그 부모 테이블 간에 영구적 관계를 생성합니다.
+          부모의 schema를 변경하면 일반적으로 자식에도 전파되며,
+          기본적으로 부모(들)를 검색할 때 자식의 데이터가 같이 포함됩니다.
+     </para>
+
+     <para>
+      둘 이상의 부모 테이블에 동일한 열 이름이 있다면, 
+          열들의 데이터 자료형이 각 부모 테이블 간에 일치하지 않는 경우 에러가 발생합니다.
+          출동이 없다면, 중복 열은 새로운 테이블에서 하나의 열로 병합됩니다.
+          신규 테이블의 열 이름 목록에, 상속받은 열과 동일한 이름이 포함된다면, 
+          해당 데이터 자료형은 상속받은 열의 것과 일치해야 하며, 해당 열의 정의는 하나로 합쳐집니다.
+          신규 테이블이 명시적으로 열에 대한 기본값을 지정한다면, 이 기본값은 상속받은 열에 선언되어 있던 기본값을 재정의합니다.
+          명시적으로 지정하지 않은 경우, 해당 열에 기본값을 정의한 부모가 있다면, 모두 동일한 기본값을 지정해야 하며,
+          그렇지 않으면 에러가 발생합니다.
+     </para>
+
+     <para>
+          <literal>CHECK</> 제약은 근본적으로 열과 동일한 방식으로 병합됩니다:
+          여러 부모 테이블 과/또는 새로운 테이블 정의가, 동일한 이름의 
+          <literal>CHECK</> 제약을 포함하는 경우,
+          이들 제약은 동일한 check 수식으로 되어 있어야 하며, 그렇지 않으면 에러가 발생합니다.
+          같은 이름과 수식으로 된 제약조건은 하나로 병합될 것입니다.
+          부모쪽에서 <literal>NO INHERIT</>으로 표기된 제약조건은 대상이 아닙니다.
+          신규 테이블의 <literal>CHECK</> 제약에 이름을 지정하지 않은 경우,
+          항상 고유한 이름이 선택되기 때문에 절대로 병합되지 않습니다.
+     </para>
+
+     <para>
+      열의 <literal>STORAGE</> 설정 또한, 부모 테이블에서 복사됩니다.
+     </para>
+
+    </listitem>
+   </varlistentry>
+
+   <varlistentry>
+    <term><literal>LIKE <replaceable>source_table</replaceable> [ <replaceable>like_option</replaceable> ... ]</literal></term>
+    <listitem>
+     <para>
+      <literal>LIKE</literal> 절은, 신규 테이블이 자동으로
+          모든 열 이름, 데이터 자료형, not-null 제약을 복사해서 가져올 테이블을 지정합니다.
+     </para>
+     <para>
+      <literal>INHERITS</literal>와 달리,
+          생성이 완료된 후에는 신규 테이블과 원본 테이블이 완전히 분리됩니다.
+          원본 테이블에 대한 변경이 신규 테이블에 적용되지 않으며,
+          신규 테이블에 포함된 데이터를 원본 테이블에서 검색할 수도 없습니다.
+     </para>
+     <para>
+      <literal>INCLUDING DEFAULTS</literal>를 지정할 경우에만,
+          기본값 표현식이 복사되는 열 정의에 복사됩니다.
+          기본 동작은 기본값 표현식을 제외하는 것이며,
+          이 경우 신규 테이블로 복제된 열은 null 기본값을 갖게 됩니다.
+     </para>
+     <para>
+      Not-null 제약은 항상 신규 테이블로 복사됩니다.
+          <literal>INCLUDING CONSTRAINTS</literal>가 지정된 경우에만,
+          <literal>CHECK</literal> 제약이 복사됩니다.
+          <literal>INCLUDING INDEXES</literal> 절이 지정된 경우에만,
+          원본 테이블의 인덱스, <literal>PRIMARY KEY</> 및 <literal>UNIQUE</>
+          제약조건이 신규 테이블에 생성됩니다.
+          열 제약과 테이블 제약은 따로 구분하지 않습니다.
+     </para>
+     <para>
+      <literal>INCLUDING STORAGE</literal>를 지정한 경우에만,
+          <literal>STORAGE</literal> 설정이 복사되는 열 정의에 복사됩니다.
+          기본 동작은 <literal>STORAGE</literal> 설정을 제외하는 것으로,
+          이 경우 신규 테이블로 복사된 열은 자료형에 따른 기본 설정을 갖게 됩니다.
+          더 많은 <literal>STORAGE</literal> 설정 정보는 
+          <xref linkend="storage-toast">를 참고하십시오.
+     </para>
+     <para>
+          <literal>INCLUDING COMMENTS</literal>를 지정한 경우에만,
+          복사되는 열, 제약, 인덱스에 대한 comment가 복사됩니다.
+          기본 동작은 comment를 제외하는 것으로,
+          이 경우 신규 테이블로 복사된 열과 제약은 comment가 빠집니다.
+     </para>
+     <para>
+          <literal>INCLUDING ALL</literal>은
+          <literal>INCLUDING DEFAULTS INCLUDING CONSTRAINTS INCLUDING INDEXES INCLUDING STORAGE INCLUDING COMMENTS</literal>
+          의 축약형입니다.
+     </para>
+     <para>
+      <literal>INHERITS</literal>와 다르게, <literal>LIKE</>로 복사되는
+          열과 제약조건은 유사한 이름의 열과 제약끼리 병합되지 않는다는 점도 유의하십시오.
+          동일한 이름이 명시적으로 지정되거나, 
+          동일한 이름이 다른 <literal>LIKE</literal>절에 있는 경우, 에러가 발생합니다.
+     </para>
+     <para>
+      <literal>LIKE</literal> 절은 뷰, 외래 테이블 또는 복합 자료형 들로부터
+          열을 복사해 오는 데에도 이용할 수 있습니다.
+          적용할 수 없는 옵션(예를 들어,뷰로부터의 <literal>INCLUDING INDEXES</literal>)은 무시됩니다.
+     </para>
+    </listitem>
+   </varlistentry>
+
+   <varlistentry>
+    <term><literal>CONSTRAINT <replaceable class="PARAMETER">constraint_name</replaceable></literal></term>
+    <listitem>
+     <para>
+      선택적인, 열이나 테이블 제약의 이름.
+          제약조건에 위배되는 경우 해당 제약명이 에러 메시지에 나타나기 때문에,
+          <literal>col must be positive</>와 같은 제약명은, 
+          유용한 제약조건 정보를 클라이언트 응용프로그램에 전달할 수 있습니다.
+          (빈칸이 포함된 제약명을 지정하려면 이중 따옴표가 필요합니다.)
+          제약명을 지정하지 않으면, 시스템에서 이름을 생성합니다.
+     </para>
+    </listitem>
+   </varlistentry>
+
+   <varlistentry>
+    <term><literal>NOT NULL</></term>
+    <listitem>
+     <para>
+      해당 열은 null 값을 가질 수 없습니다.
+     </para>
+    </listitem>
+   </varlistentry>
+
+   <varlistentry>
+    <term><literal>NULL</></term>
+    <listitem>
+     <para>
+      해당 열은 null 값을 가질 수 있습니다. 이게 기본값입니다.
+     </para>
+
+     <para>
+      이 절은 단지 비표준 SQL 데이터베이스와의 호환을 위해서 제공됩니다.
+          신규 응용프로그램에 사용하는 것은 권장하지 않습니다.
+     </para>
+    </listitem>
+   </varlistentry>
+
+   <varlistentry>
+    <term><literal>CHECK ( <replaceable class="PARAMETER">expression</replaceable> ) [ NO INHERIT ] </literal></term>
+    <listitem>
+     <para>
+      <literal>CHECK</>절은, 
+          신규 또는 업데이트되는 행이 삽입 또는 업데이트 동작을 성공적으로 수행하기 위해 충족해야 하는,
+          Boolean 결과를 생성하는 수식을 지정합니다.
+          TRUE 또는 UNKNOWN으로 계산되는 수식은 성공입니다.
+          결과로 FALSE 생성하는 열 삽입이나 업데이트 작업은 에러 예외가 발생하며,
+          해당 작업은 데이터베이스에 영향을 주지 않습니다.
+          열 제약으로 지정된 Check 제약은 해당 열의 값만 참조해야 하며,
+          테이블 제약의 수식은 여러 열을 참조할 수 있습니다.
+     </para>
+
+     <para>
+      현재, <literal>CHECK</literal> 수식은 서브쿼리를 포함할 수 없으며,
+          현재 행의 열이 아닌 것의 값을 참조할 수도 없습니다.
+     </para>
+
+     <para>
+      <literal>NO INHERIT</>로 표기된 제약은 자식 테이블에 전파되지 않습니다.
+     </para>
+    </listitem>
+   </varlistentry>
+
+   <varlistentry>
+    <term><literal>DEFAULT
+    <replaceable>default_expr</replaceable></literal></term>
+    <listitem>
+     <para>
+      <literal>DEFAULT</> 절은 이를 정의에 포함하는 열에 대한 기본값을 할당합니다.
+          해당 값은 변하지 않는 어떠한 수식이라도 됩니다.
+          (서브쿼리나 현재 테이블의 다른 열에 대한 상호 참조는 허용되지 않습니다.)
+          기본값 수식의 데이터 자료형은 해당 열의 데이터 자료형과 일치해야 합니다.
+     </para>
+
+     <para>
+      기본값 수식은 해당 열의 값을 지정하지 않은 모든 삽입 작업에 사용될 것입니다.
+          열에 기본값이 없는 경우, null이 기본값이 됩니다.
+     </para>
+    </listitem>
+   </varlistentry>
+
+   <varlistentry>
+    <term><literal>UNIQUE</> (column constraint)</term>
+    <term><literal>UNIQUE ( <replaceable class="PARAMETER">column_name</replaceable> [, ... ] )</> (table constraint)</term>
+
+    <listitem>
+     <para>
+          <literal>UNIQUE</literal> 제약은 테이블 내에서 고유값만 포함할 수 있는
+          하나 이상의 열 그룹을 지정합니다.
+          Unique 테이블 제약의 동작은 unique 열 제약과 동일하나, 여러 열을 포함할 수 있게 됩니다.
+     </para>
+
+     <para>
+          Unique 제약의 목적에 맞게, null 값은 서로 다른 것으로 간주됩니다.
+     </para>
+
+     <para>
+          각 unique 테이블 제약에서 지정한 열 집합은,
+          다른 unique나 primary key 제약에서 지정한 열 집합과 달라야 합니다.
+          (그렇지 않으면, 단지 같은 제약이 두 번 나열될 뿐입니다.)
+     </para>
+    </listitem>
+   </varlistentry>
+
+   <varlistentry>
+    <term><literal>PRIMARY KEY</> (column constraint)</term>
+    <term><literal>PRIMARY KEY ( <replaceable class="PARAMETER">column_name</replaceable> [, ... ] )</> (table constraint)</term>
+    <listitem>
+     <para>
+      Primary key 제약은 테이블의 어떠한 열(들)이 (중복되지 않고) 고유한, null이 아닌 값만을 포함할 수 있도록 지정합니다.
+          기술적으로, <literal>PRIMARY KEY</literal>는 단지
+          <literal>UNIQUE</>와 <literal>NOT NULL</>의 조합이지만,
+          primary key는 다른 테이블이 이 열집합을 행(들)에 대한 고유 식별자로서 신뢰할 수 있다는 걸 의미하기 때문에,
+          열 집합을 primary key로 지정하면 스키마의 디자인에 대한 메타데이터를 추가로 제공하게 됩니다.
+     </para>
+
+     <para>
+      열 제약이든 테이블 제약이든, 하나의 테이블에는 하나의 primary key만 지정할 수 있습니다.
+     </para>
+
+     <para>
+      Primary key 제약은 동일한 테이블에 지정된 unique 제약의 열 집합과 서로 다른 열 집합을 지정해야 합니다.
+     </para>
+    </listitem>
+   </varlistentry>
+
+   <varlistentry id="SQL-CREATETABLE-EXCLUDE">
+    <term><literal>EXCLUDE [ USING <replaceable class="parameter">index_method</replaceable> ] ( <replaceable class="parameter">exclude_element</replaceable> WITH <replaceable class="parameter">operator</replaceable> [, ... ] ) <replaceable class="parameter">index_parameters</replaceable> [ WHERE ( <replaceable class="parameter">predicate</replaceable> ) ]</literal></term>
+    <listitem>
+     <para>
+      <literal>EXCLUDE</> 절은,
+          임의의 두 행이 지정된 열 또는 지정된 연산자를 이용하는 수식으로 서로 비교되는 경우,
+          비교 결과가 모두 <literal>TRUE</>가 되지 않도록 보장하는, exclusion 제약을 정의합니다.
+          지정된 연산자가 모두 동등 비교를 한다면, 이는 <literal>UNIQUE</> 제약과 동일합니다,
+          물론 보통의 unqiue 제약이 더 빠를 것입니다.
+          하지만, exclusion 제약은 단순한 동등 비교보다 더 포괄적으로 제약을 지정할 수 있습니다.
+          예를 들어, <literal>&amp;&amp;</> 연산자를 이용하면, 
+          테이블의 어떠한 두 행도 서로 겹쳐지는 원<xref linkend="datatype-geometric"> 참고)을 포함하지 못하도록
+          제약을 지정할 수 있습니다.
+     </para>
+
+     <para>
+      Exclusion 제약은 인덱스를 이용하여 구현되며, 
+          때문에 각 지정 연산자는 인덱스 접근 메서드 <replaceable>index_method</>와 맞는
+          적절한 연산자 클래스(<xref linkend="indexes-opclass"> 참고)와 연결되어야 합니다.
+          해당 연산자는 각 항의 나열순서에 관계없이 결과가 동일해야 합니다.
+          각 <replaceable class="parameter">exclude_element</replaceable>는 
+          선택적으로 연산자 클래스 와/또는 정렬 옵션을 지정할 수 있습니다.
+          이에 대해서는 <xref linkend="sql-createindex">에서 모두 설명됩니다.
+     </para>
+
+     <para>
+      해당 접근 메서드는 <literal>amgettuple</>(<xref
+      linkend="indexam"> 참고)를 지원해야 합니다.
+          현재 이는 <acronym>GIN</>이 사용될 수 없다는 것을 의미합니다.
+          설령 허용된다 해도, exclusion 제약에 B-tree나 hash 인덱스를 사용하는 것은 별로 의미가 없습니다.
+          일반 unique 제약보다 나을게 아무것도 없기 때문입니다.
+          때문에, 실질적으로 접근 메서드는 항상 <acronym>GiST</>거나 <acronym>SP-GiST</>가 됩니다.
+     </para>
+
+     <para>
+      <replaceable class="parameter">predicate</>는
+          테이블의 서브셋에 exclusion 제약을 지정하는 것을 허용합니다.
+          이것은 내부적으로 부분 인덱스를 생성합니다.
+          해당 predicate를 괄호로 감싸야 한다는 점에 주의하십시오.
+     </para>
+    </listitem>
+   </varlistentry>
+
+   <varlistentry>
+    <term><literal>REFERENCES <replaceable class="parameter">reftable</replaceable> [ ( <replaceable class="parameter">refcolumn</replaceable> ) ] [ MATCH <replaceable class="parameter">matchtype</replaceable> ] [ ON DELETE <replaceable class="parameter">action</replaceable> ] [ ON UPDATE <replaceable class="parameter">action</replaceable> ]</literal> (column constraint)</term>
+
+   <term><literal>FOREIGN KEY ( <replaceable class="parameter">column_name</replaceable> [, ... ] )
+    REFERENCES <replaceable class="parameter">reftable</replaceable> [ ( <replaceable class="parameter">refcolumn</replaceable> [, ... ] ) ]
+    [ MATCH <replaceable class="parameter">matchtype</replaceable> ]
+    [ ON DELETE <replaceable class="parameter">action</replaceable> ]
+    [ ON UPDATE <replaceable class="parameter">action</replaceable> ]</literal>
+    (table constraint)</term>
+
+    <listitem>
+     <para>
+      이 절은, 신규 테이블의 하나 이상의 열 그룹이, 참조되는 테이블의 행에 있는 열(들)의 값과 일치하도록 요구하는,
+          외래키 제약을 지정합니다.
+          <replaceable class="parameter">refcolumn</replaceable>이 생략되면,
+          <replaceable class="parameter">reftable</replaceable>의 primary key가 사용됩니다.
+          참조되는 열은 참조되는 테이블의 non-deferrable unique나 primary key 제약의 열이어야 합니다.
+          외래키 제약은 임시 테이블과 영구적 테이블 간에 정의할 수 없다는 점을 유의하십시오.
+     </para>
+
+     <para>
+      지정된 일치 조건을 이용하여, 참조하는 열(들)에 삽입되는 값이 참조되는 테이블과 참조되는 열의 값에 대응됩니다.
+          다음의 세가지 일치 조건: <literal>MATCH FULL</>, <literal>MATCH PARTIAL</>,
+          그리고 기본값인 <literal>MATCH SIMPLE</literal>이 있습니다.
+          <literal>MATCH FULL</>은 외래키의 모든 열이 null인 경우를 제외하고, 다중열 외래키의 한개 열이 null이 되는 것을 허용하지 않을 것입니다.
+          모두 null인 경우, 해당 행은 참조되는 테이블의 것과 일치되지 않아도 됩니다.
+          <literal>MATCH SIMPLE</literal>은 외래키의 일부 열이 null이 되는 것을 허용합니다.
+          어떤 열이든 null이 있으면, 해당 행은 참조되는 테이블의 것과 일치되지 않아도 됩니다.
+          <literal>MATCH PARTIAL</>은 아직 구현되지 않았습니다.
+          (물론, 이런 일이 일어나는 것을 방지하기 위해,
+          <literal>NOT NULL</> 제약을 참조하는 열(들)에 적용할 수 있습니다.)
+     </para>
+
+     <para>
+      추가로, 참조되는 열의 데이터가 변경될 때, 이 테이블의 열 데이터에 특정 작업이 수행됩니다.
+          <literal>ON DELETE</literal> 절은 참조되는 테이블의 참조되는 행이 삭제될 때에 수행될 작업을 지정합니다.
+          마찬가지로, <literal>ON UPDATE</literal> 절은 참조되는 테이블의 참조되는 열이 새로운 값으로 업데이트 될 때에 수행될 작업을 지정합니다.
+          해당 행이 업데이트 되었지만, 실제론 참조되는 열에 변경점이 없다면, 아무런 작업도 수행되지 않습니다.
+          제약이 deferred로 선언되었더라도, <literal>NO ACTION</literal>을 제외한 참조 작업은 deferred가 될 수 없습니다.
+          다음은 각 절에 가능한 작업입니다:
+      <variablelist>
+       <varlistentry>
+        <term><literal>NO ACTION</literal></term>
+        <listitem>
+         <para>
+          삭제나 업데이트를 실행하면 외래키 제약에 위배되는 경우 에러를 발생합니다.
+                  제약조건이 deferred면, 이 에러는 참조하는 행이 존재하는 경우 제약조건 검사 시점에 발생합니다.
+                  이것이 기본 동작입니다.
+         </para>
+        </listitem>
+       </varlistentry>
+
+       <varlistentry>
+        <term><literal>RESTRICT</literal></term>
+        <listitem>
+         <para>
+          삭제나 업데이트를 실행하면 외래키 제약에 위배되는 경우 에러를 발생합니다.
+                  검사가 deferrable이 아닌 점을 빼면, <literal>NO ACTION</literal>과 동일합니다.
+         </para>
+        </listitem>
+       </varlistentry>
+
+       <varlistentry>
+        <term><literal>CASCADE</literal></term>
+        <listitem>
+         <para>
+          삭제인 경우 삭제되는 행을 참조하는 모든 행을 삭제하고,
+                  업데이트인 경우 참조되는 열의 바뀐 값으로, 참조중인 열의 값을 업데이트 합니다.
+         </para>
+        </listitem>
+       </varlistentry>
+
+       <varlistentry>
+        <term><literal>SET NULL</literal></term>
+        <listitem>
+         <para>
+          참조하는 열(들)을 null로 설정합니다.
+         </para>
+        </listitem>
+       </varlistentry>
+
+       <varlistentry>
+        <term><literal>SET DEFAULT</literal></term>
+        <listitem>
+         <para>
+          참조하는 열(들)을 기본값으로 설정합니다.
+                  (참조되는 테이블에 해당 기본값과 일치하는 행이 있어야 하며, 그렇지 않은 경우 null이 아니라면 해당 동작은 실패하게 됩니다.)
+         </para>
+        </listitem>
+       </varlistentry>
+      </variablelist>
+     </para>
+
+     <para>
+      참조되는 열(들)이 자주 변경되는 경우, 외래키 제약과 관련된 참조동작이 좀더 효율적으로 수행될 수 있도록,
+          외래키 열에 인덱스를 추가하는 것이 좋습니다.
+     </para>
+    </listitem>
+   </varlistentry>
+
+   <varlistentry>
+    <term><literal>DEFERRABLE</literal></term>
+    <term><literal>NOT DEFERRABLE</literal></term>
+    <listitem>
+     <para>
+      이는 제약조건이 연기될 수 있는지 여부를 제어합니다.
+          Deferrable이 아닌 제약조건은 매 명령 직후에 검사될 것입니다.
+          (<xref linkend="sql-set-constraints"> 명령을 사용헤서) Deferrable인 제약조건은
+          트랜잭션이 끝날 때까지 검사를 연기합니다.
+          <literal>NOT DEFERRABLE</literal>이 기본값입니다.
+          현재, <literal>UNIQUE</>, <literal>PRIMARY KEY</>, <literal>EXCLUDE</> 및
+          <literal>REFERENCES</>(외래키) 제약에만 이 절을 입력할 수 있습니다.
+          <literal>NOT NULL</> 및 <literal>CHECK</> 제약은 deferrable이 될 수 없습니다.
+     </para>
+    </listitem>
+   </varlistentry>
+
+   <varlistentry>
+    <term><literal>INITIALLY IMMEDIATE</literal></term>
+    <term><literal>INITIALLY DEFERRED</literal></term>
+    <listitem>
+     <para>
+      제약조건이 deferrable이면, 이 절은 제약을 검사하는 기본 시점을지정합니다.
+          제약조건이 <literal>INITIALLY IMMEDIATE</literal>이면, 매 문장 뒤에 검사됩니다. 이것이 기본값입니다.
+          제약조건이 <literal>INITIALLY DEFERRED</literal>이면, 트랜잭션의 마지막에만 검사됩니다.
+          제약 검사시점은 <xref linkend="sql-set-constraints"> 명령으로 변경할 수 있습니다.
+     </para>
+    </listitem>
+   </varlistentry>
+
+   <varlistentry>
+    <term><literal>WITH ( <replaceable class="PARAMETER">storage_parameter</replaceable> [= <replaceable class="PARAMETER">value</replaceable>] [, ... ] )</literal></term>
+    <listitem>
+     <para>
+      이절은 테이블이나 인덱스에 대한 선택적 storage parameter를 지정합니다.
+          더 많은 정보는 <xref linkend="sql-createtable-storage-parameters"
+      endterm="sql-createtable-storage-parameters-title">를 참고하십시오.
+          또한, 테이블에 대한 <literal>WITH</> 절은,
+          신규 테이블의 행이 OID(개체 식별자)를 갖도록 지정하는 <literal>OIDS=TRUE</> (또는 그냥 <literal>OIDS</>)나
+          행이 OID를 가질수 없도록 지정하는 <literal>OIDS=FALSE</>를 포함할 수 있습니다.
+          <literal>OIDS</>가 지정되지 않으면, 기본 설정은 <xref linkend="guc-default-with-oids"> 구성 파라미터를 따라갑니다.
+          (신규 테이블이 OID를 갖는 테이블을 상속받는 경우, <literal>OIDS=FALSE</>라고 명령을 내려도 강제로 <literal>OID=TRUE</>가 됩니다.)
+     </para>
+
+     <para>
+      <literal>OIDS=FALSE</literal>가 지정되거나 암시되면,
+          신규 테이블은 OID를 저장하지 않으며, 해당 테이블에 새로 추가되는 행에도 OID가 할당되지 않게 됩니다.
+          이는 보통 유용한데, OID 소비를 줄이며 32비트 OID 카운터의 꺾어짐(wrap-around)을 지연시키기 때문입니다.
+          카운터가 한번 꺾어지면, OID는 더 이상 고유하지 않게되어, 유용성이 상당히 떨어지게 됩니다.
+          또한, 테이블에서 OID를 제거하면 디스크에 해당 테이블을 저장하기 위한 공간이, 매 행마다 (대부분의 장치에서)4바이트씩 줄어들며,
+          성능 향상에 약간의 도움이 됩니다.
+          </para>
+
+     <para>
+      테이블이 생성된 이후 OID를 제거하려면, <xref
+      linkend="sql-altertable">을이용하십시오.
+     </para>
+    </listitem>
+   </varlistentry>
+
+   <varlistentry>
+    <term><literal>WITH OIDS</></term>
+    <term><literal>WITHOUT OIDS</></term>
+    <listitem>
+     <para>
+      각각, <literal>WITH (OIDS)</> 및 <literal>WITH (OIDS=FALSE)</>와 동일한 구식 문법입니다.
+          만약, <literal>OIDS</> 설정과 storage parameter를 동시에 지정하고 싶다면,
+          위의 <literal>WITH ( ... )</>구문을 사용해야 합니다. 위를 참고하십시오.
+     </para>
+    </listitem>
+   </varlistentry>
+
+   <varlistentry>
+    <term><literal>ON COMMIT</literal></term>
+    <listitem>
+     <para>
+          <literal>ON COMMIT</literal>을 이용하여,
+          트랜잭션 블록의 마지막에 임시 테이블의 동작 방식을 제어할 수 있습니다.
+          다음에 3가지 옵션이 있습니다:
+      <variablelist>
+       <varlistentry>
+        <term><literal>PRESERVE ROWS</literal></term>
+        <listitem>
+         <para>
+          트랜잭션의 마지막에 아무런 특별한 동작도 이루어지지 않습니다.
+                  이것이 기본 동작입니다.
+         </para>
+        </listitem>
+       </varlistentry>
+
+       <varlistentry>
+        <term><literal>DELETE ROWS</literal></term>
+        <listitem>
+         <para>
+          각 트랜잭션 블록의 끝에서 임시 테이블의 모든 행이 삭제됩니다.
+                  본질적으로 각 commit마다 자동으로 <xref
+          linkend="sql-truncate">이 행해집니다.
+         </para>
+        </listitem>
+       </varlistentry>
+
+       <varlistentry>
+        <term><literal>DROP</literal></term>
+        <listitem>
+         <para>
+          현재 트랜잭션 블록의 끝에서 임시 테이블이 drop 됩니다.
+         </para>
+        </listitem>
+       </varlistentry>
+      </variablelist></para>
+    </listitem>
+   </varlistentry>
+
+   <varlistentry>
+    <term><literal>TABLESPACE <replaceable class="PARAMETER">tablespace_name</replaceable></literal></term>
+    <listitem>
+     <para>
+      <replaceable class="PARAMETER">tablespace_name</replaceable>은
+          신규 테이블이 생성될 tablespace의 이름입니다.
+          지정하지 않으면 <xref linkend="guc-default-tablespace">이 제시되며,
+          임시 테이블인 경우엔 <replaceable class="PARAMETER">temp_tablespaces</replaceable>이 됩니다.
+     </para>
+    </listitem>
+   </varlistentry>
+
+   <varlistentry>
+    <term><literal>USING INDEX TABLESPACE <replaceable class="PARAMETER">tablespace_name</replaceable></literal></term>
+    <listitem>
+     <para>
+      이 절은 <literal>UNIQUE</literal>, <literal>PRIMARY KEY</literal>, 
+          또는 <literal>EXCLUDE</> 제약과 연관된 인덱스가 생성될 테이블스페이스를 선택할 수 있게 합니다.
+          지정하지 않으면 <xref linkend="guc-default-tablespace">가 제시되며,
+          임시 테이블인 경우엔 <xref linkend="guc-temp-tablespaces">가 됩니다.
+     </para>
+    </listitem>
+   </varlistentry>
+
+  </variablelist>
+
+  <refsect2 id="SQL-CREATETABLE-storage-parameters">
+   <title id="SQL-CREATETABLE-storage-parameters-title">Storage Parameters</title>
+
+ <indexterm zone="sql-createtable-storage-parameters">
+  <primary>storage parameters</primary>
+ </indexterm>
+
+   <para>
+    <literal>WITH</>절은 테이블 및 <literal>UNIQUE</literal>, 
+        <literal>PRIMARY KEY</literal>, 또는 <literal>EXCLUDE</> 제약과 연결된 인덱스에,
+        <firstterm>storage parameters</>를 지정할 수 있습니다.
+        인덱스에 대한 storage parameter는 <xref linkend="SQL-CREATEINDEX">에 문서화되어 있습니다.
+        테이블에 현재 설정할 수 있는 storage parameter는 아래에 나열되어 있습니다.
+        특별히 명시되어있지 않다면, 각 매개변수에는, 해당 테이블의 부가적인
+        <acronym>TOAST</> 테이블(있다면)의 동작 방식을 제어하는데 사용할 수 있는,
+        같은 이름에 <literal>toast.</literal>접두어가 붙여진 이름의 추가 매개변수가 존재합니다.
+        (TOAST에 대한 더 많은 정보는 (see <xref linkend="storage-toast">을 참고하십시오).
+        TOAST 테이블은, <literal>toast.autovacuum_*</literal> 설정을 하지 않았다면,
+        부모 테이블의 <literal>autovacuum_*</literal> 값을 상속받는다는 점에 주의하십시오
+   </para>
+
+   <variablelist>
+
+   <varlistentry>
+    <term><literal>fillfactor</> (<type>integer</>)</term>
+    <listitem>
+     <para>
+      테이블에 대한 fillfactor는 10부터 100까지의 백분율입니다.
+          100(완전패킹)이 기본값입니다. 
+          더 작은 값이 지정되면, <command>INSERT</> 연산이 테이블 페이지를 표시된 백분율만큼만 패킹합니다. 
+          각 페이지의 남은 공간은 해당 페이지에 있는 행이 업데이트 될 공간으로 예약됩니다. 
+          이는 <command>UPDATE</>를 실행했을 때 업데이트된 행 복사본이 원본과 동일한 페이지에 들어갈 수 있는 기회가 되며,
+          이는 다른 페이지로 들어가는 것보다 효율적입니다. 
+          절대로 항목이 업데이트 되지 않는 테이블이라면 완전 패킹이 가장 좋은 선택이지만, 
+          빈번하게 업데이트되는 테이블이라면 작은 fillfactor 값이 적합할 것입니다.
+          이 매개변수는 TOAST 테이블에 설정할 수 없습니다.
+     </para>
+    </listitem>
+   </varlistentry>
+
+   <varlistentry>
+    <term><literal>autovacuum_enabled</>, <literal>toast.autovacuum_enabled</literal> (<type>boolean</>)</term>
+    <listitem>
+     <para>
+     지정 테이블에 대한 autovacuum daemon을 활성화 또는 비활성화 합니다.
+         True면, 업데이트되거나 삭제된 튜플의 수가,
+         <literal>autovacuum_vacuum_threshold</>+(<literal>autovacuum_vacuum_scale_factor</> * 현재 해당 관계에 존재할 것이라 예상되는 활성 튜플의 수)를 초과할 때,
+         autovacuum daemon이 지정 테이블에 대해 <command>VACUUM</> 작업을 개시합니다.
+         이와 유사하게, 추가되고, 업데이트되고, 삭제된 튜플의 수가,
+         <literal>autovacuum_analyze_threshold</>+(<literal>autovacuum_analyze_scale_factor</>*현재 해당 관계에 존재할 것이라 예상되는 활성 튜플의 수)를 초과할 때, 
+         <command>ANALYZE</> 작업을 개시합니다.
+         False이면, 테이블은 transaction Id wraparound를 방지할 때를 제외하고, autovacuum 되지 않습니다.
+         wraparound 방지에 대한 더 자세한 내용은, <xref linkend="vacuum-for-wraparound">를 참고하시시오.
+         이 변수는 <xref
+     linkend="guc-autovacuum"> 설정으로부터 값을 상속받는다는 것을 확인해 보십시오.
+     </para>
+    </listitem>
+   </varlistentry>
+
+   <varlistentry>
+    <term><literal>autovacuum_vacuum_threshold</>, <literal>toast.autovacuum_vacuum_threshold</literal> (<type>integer</>)</term>
+    <listitem>
+     <para>
+     지정 테이블에 <command>VACUUM</> 작업이 개시되기 위한, 업데이트 및 삭제된 튜플의 최소 개수.
+     </para>
+    </listitem>
+   </varlistentry>
+
+   <varlistentry>
+    <term><literal>autovacuum_vacuum_scale_factor</>, <literal>toast.autovacuum_vacuum_scale_factor</literal> (<type>float4</>)</term>
+    <listitem>
+     <para>
+     <literal>autovacuum_vacuum_threshold</> 값에 더하기 위한 <structfield>관련-튜플</>의 가중치.
+     </para>
+    </listitem>
+   </varlistentry>
+
+   <varlistentry>
+    <term><literal>autovacuum_analyze_threshold</> (<type>integer</>)</term>
+    <listitem>
+     <para>
+     지정 테이블에 <command>ANALYZE</> 작업이 개시되기 위한, 추가, 업데이트 및 삭제된 튜플의 최소 개수.
+     </para>
+    </listitem>
+   </varlistentry>
+
+   <varlistentry>
+    <term><literal>autovacuum_analyze_scale_factor</> (<type>float4</>)</term>
+    <listitem>
+     <para>
+     <literal>autovacuum_analyze_threshold</> 값에 더하기 위한 <structfield>관련-튜플</> 가중치.
+     </para>
+    </listitem>
+   </varlistentry>
+
+   <varlistentry>
+    <term><literal>autovacuum_vacuum_cost_delay</>, <literal>toast.autovacuum_vacuum_cost_delay</literal> (<type>integer</>)</term>
+    <listitem>
+     <para>
+         사용자 지정 <xref linkend="guc-autovacuum-vacuum-cost-delay"> 매개변수.
+     </para>
+    </listitem>
+   </varlistentry>
+
+   <varlistentry>
+    <term><literal>autovacuum_vacuum_cost_limit</>, <literal>toast.autovacuum_vacuum_cost_limit</literal> (<type>integer</>)</term>
+    <listitem>
+     <para>
+     사용자 지정 <xref linkend="guc-autovacuum-vacuum-cost-limit"> 매개변수.
+     </para>
+    </listitem>
+   </varlistentry>
+
+   <varlistentry>
+    <term><literal>autovacuum_freeze_min_age</>, <literal>toast.autovacuum_freeze_min_age</literal> (<type>integer</>)</term>
+    <listitem>
+     <para>
+         사용자 지정 <xref linkend="guc-vacuum-freeze-min-age"> 매개변수.
+         autovacuum은 테이블별 <literal>autovacuum_freeze_min_age</>를
+         범 시스템적 <xref linkend="guc-autovacuum-freeze-max-age"> 설정의 절반보다 큰 값으로 설정하려는 시도를
+         무시한다는 점에 주의하십시오.
+     </para>
+    </listitem>
+   </varlistentry>
+
+   <varlistentry>
+    <term><literal>autovacuum_freeze_max_age</>, <literal>toast.autovacuum_freeze_max_age</literal> (<type>integer</>)</term>
+    <listitem>
+     <para>
+     사용자 지정 <xref linkend="guc-autovacuum-freeze-max-age"> 매개변수.
+         autovacuum은 테이블별 <literal>autovacuum_freeze_max_age</>를 
+         범시스템 설정보다 큰 값으로 설정하려는 시도를 무시한다는 점에 주의하십시오 (더 작은 값만 설정가능). 
+         <literal>autovacuum_freeze_max_age</>를 매우 작은 값으로, 심지어 0으로도, 설정할 수 있지만,
+         이는 빈번한 vacuum 수행을 강제하기 때문에, 아는 현명하지 못한 선택입니다.
+     </para>
+    </listitem>
+   </varlistentry>
+
+   <varlistentry>
+    <term><literal>autovacuum_freeze_table_age</literal>, <literal>toast.autovacuum_freeze_table_age</literal> (<type>integer</type>)</term>
+    <listitem>
+     <para>
+          사용자 지정 <xref linkend="guc-vacuum-freeze-table-age"> 매개변수.
+     </para>
+    </listitem>
+   </varlistentry>
+
+   <varlistentry>
+    <term><literal>autovacuum_multixact_freeze_min_age</literal>, <literal>toast.autovacuum_multixact_freeze_min_age</literal> (<type>integer</type>)</term>
+    <listitem>
+     <para>
+          사용자 지정 <xref linkend="guc-vacuum-multixact-freeze-min-age"> 매개변수.
+      autovacuum이 테이블 별 <literal>autovacuum_multixact_freeze_min_age</> 설정을
+          범 시스템적 <xref linkend="guc-autovacuum-multixact-freeze-max-age">의 절반보다 큰 값으로
+          설정하려는 시도를 무시한다는 점에 주의하십시오.
+     </para>
+    </listitem>
+   </varlistentry>
+
+   <varlistentry>
+    <term><literal>autovacuum_multixact_freeze_max_age</literal>, <literal>toast.autovacuum_multixact_freeze_max_age</literal> (<type>integer</type>)</term>
+    <listitem>
+     <para>
+      사용자 지정 <xref linkend="guc-autovacuum-multixact-freeze-max-age"> 매개변수.
+          autovacuum이 테이블 별 <literal>autovacuum_multixact_freeze_max_age</> 설정을
+          범 시스템적 설정보다 크게 설정하려는 시도를 무시한다는 점에 주의하십시오 (더 작은 값만 설정가능).
+      <literal>autovacuum_multixact_freeze_max_age</>을 매우 작은 값으로, 심지어 0으로도, 설정할 수 있지만,
+      빈번한 vacuum 수행을 강제하기 때문에, 이는 현명하지 못한 선택입니다.
+     </para>
+    </listitem>
+   </varlistentry>
+
+   <varlistentry>
+    <term><literal>autovacuum_multixact_freeze_table_age</literal>, <literal>toast.autovacuum_multixact_freeze_table_age</literal> (<type>integer</type>)</term>
+    <listitem>
+     <para>
+          사용자 지정 <xref linkend="guc-vacuum-multixact-freeze-table-age"> 매개변수.
+     </para>
+    </listitem>
+   </varlistentry>
+
+   </variablelist>
+
+  </refsect2>
+ </refsect1>
+
+ <refsect1 id="SQL-CREATETABLE-notes">
+  <title>참고</title>
+
+    <para>
+     신규 응용프로그램에 OID를 사용하는 것은 권장하지 않습니다.
+         가능하면, 테이블의 primary key로 <literal>SERIAL</literal>이나 다른 시퀀스 생성기를 사용하는 것을 추천합니다.
+         하지만, 여러분의 응용프로그램이 OID를 테이블의 특정 행을 식별하기 위해 사용한다면,
+         카운터가 꺾어지더라도 테이블에 있는 OID가 실제로 행을 고유하게 식별함을 보장하기 위해,
+         해당 테이블의 <structfield>oid</> 열에 unique 제약을 생성하는 것을 추천합니다.
+         OID가 테이블 전체에서 고유하다고 가정하지 마십시오.
+         데이터베이스 전반에 고유한 식별자가 필요하다면,
+         <structfield>tableoid</>와 행 OID를 조합하여 사용하십시오.
+    </para>
+
+    <tip>
+     <para>
+          Primary key가 없는 테이블에 <literal>OIDS=FALSE</literal>를 사용하는 것은 추천하지 않습니다.
+          OID나 고유 데이터 키 둘다 없기 때문에, 특정 행을 식별하기가 어렵습니다.
+     </para>
+    </tip>
+
+    <para>
+     <productname>PostgreSQL</productname>은 고유성을 강제하기 위해,
+         각 unique 제약과 primary 제약에 대한 인덱스를 자동으로 생성합니다.
+         때문에, primary key 열에 명시적으로 인덱스를 생성할 필요는 없습니다.
+         (더 많은 정보는 <xref
+     linkend="sql-createindex">를 참고하십시오.)
+    </para>
+
+    <para>
+     현재 구현에서 unique 제약과 primary key는 상속되지 않습니다.
+         이는 상속과 unique 제약과 결합되는 경우에 다소 문제가 될 수 있습니다.
+    </para>
+
+    <para>
+     하나의 테이블이 가질 수 있는 열의 개수는 최대 1600개 입니다.
+         (실질적인 유효 한계는, 튜플 길이 제약으로 인해 이보다 더 낮습니다.)
+    </para>
+
+ </refsect1>
+
+
+ <refsect1 id="SQL-CREATETABLE-examples">
+  <title>예제</title>
+
+  <para>
+   <structname>films</> 테이블과 <structname>distributors</> 테이블을 생성:
+
+<programlisting>
+CREATE TABLE films (
+    code        char(5) CONSTRAINT firstkey PRIMARY KEY,
+    title       varchar(40) NOT NULL,
+    did         integer NOT NULL,
+    date_prod   date,
+    kind        varchar(10),
+    len         interval hour to minute
+);
+
+CREATE TABLE distributors (
+     did    integer PRIMARY KEY DEFAULT nextval('serial'),
+     name   varchar(40) NOT NULL CHECK (name &lt;&gt; '')
+);
+</programlisting>
+  </para>
+
+  <para>
+   2차원 배열을 갖는 테이블을 정의:
+
+<programlisting>
+CREATE TABLE array_int (
+    vector  int[][]
+);
+</programlisting>
+  </para>
+
+  <para>
+   <literal>films</literal> 테이블에 대한 unique 제약을 정의.
+   Unique 테이블 제약은 해당 테이블의 하나 이상의 열로 정의될 수 있습니다:
+
+<programlisting>
+CREATE TABLE films (
+    code        char(5),
+    title       varchar(40),
+    did         integer,
+    date_prod   date,
+    kind        varchar(10),
+    len         interval hour to minute,
+    CONSTRAINT production UNIQUE(date_prod)
+);
+</programlisting>
+  </para>
+
+  <para>
+   Check 열 제약을 정의:
+
+<programlisting>
+CREATE TABLE distributors (
+    did     integer CHECK (did &gt; 100),
+    name    varchar(40)
+);
+</programlisting>
+  </para>
+
+  <para>
+   Check 테이블 제약을 정의:
+
+<programlisting>
+CREATE TABLE distributors (
+    did     integer,
+    name    varchar(40)
+    CONSTRAINT con1 CHECK (did &gt; 100 AND name &lt;&gt; '')
+);
+</programlisting>
+  </para>
+
+  <para>
+   <structname>films</> 테이블에 대한 primary key 테이블 제약을 정의:
+
+<programlisting>
+CREATE TABLE films (
+    code        char(5),
+    title       varchar(40),
+    did         integer,
+    date_prod   date,
+    kind        varchar(10),
+    len         interval hour to minute,
+    CONSTRAINT code_title PRIMARY KEY(code,title)
+);
+</programlisting>
+  </para>
+
+  <para>
+   <structname>distributors</> 테이블에 대한 Primary key 제약을 정의.
+   다음 두 예제는 동일하며, 첫 번째 것은 테이블 제약 구문을 사용하고, 두 번째 것은 열 제약 구문을 사용:
+
+<programlisting>
+CREATE TABLE distributors (
+    did     integer,
+    name    varchar(40),
+    PRIMARY KEY(did)
+);
+
+CREATE TABLE distributors (
+    did     integer PRIMARY KEY,
+    name    varchar(40)
+);
+</programlisting>
+  </para>
+
+  <para>
+   <literal>name</literal> 열에 문자열 상수 기본값을 할당하고,
+   <literal>did</literal> 열에 대한 기본 값으로 시퀀스 개체에서 다음번에 생성되는 값을 배치하며,
+   <literal>modtime</literal>의 기본값이 행이 삽입된 시각이 되도록:
+
+<programlisting>
+CREATE TABLE distributors (
+    name      varchar(40) DEFAULT 'Luso Films',
+    did       integer DEFAULT nextval('distributors_serial'),
+    modtime   timestamp DEFAULT current_timestamp
+);
+</programlisting>
+  </para>
+
+  <para>
+   <classname>distributors</classname> 테이블에 두 <literal>NOT NULL</> 열 제약을 정의.
+   그 중 하나는 이름을 직접 지정:
+
+<programlisting>
+CREATE TABLE distributors (
+    did     integer CONSTRAINT no_null NOT NULL,
+    name    varchar(40) NOT NULL
+);
+</programlisting>
+    </para>
+
+    <para>
+         <literal>name</literal> 열에 unique 제약을 지정:
+
+<programlisting>
+CREATE TABLE distributors (
+    did     integer,
+    name    varchar(40) UNIQUE
+);
+</programlisting>
+
+     위와 동일하지만, 테이블 제약으로 지정:
+
+<programlisting>
+CREATE TABLE distributors (
+    did     integer,
+    name    varchar(40),
+    UNIQUE(name)
+);
+</programlisting>
+  </para>
+
+  <para>
+   같은 테이블을, 테이블과 unique index 양쪽에 70% fill factor를 정의하면서 생성:
+
+<programlisting>
+CREATE TABLE distributors (
+    did     integer,
+    name    varchar(40),
+    UNIQUE(name) WITH (fillfactor=70)
+)
+WITH (fillfactor=70);
+</programlisting>
+  </para>
+
+  <para>
+   두 원이 겹치지 않도록 하는 exclusion 제약과 함께
+   <structname>circles</> 테이블을 생성:
+
+<programlisting>
+CREATE TABLE circles (
+    c circle,
+    EXCLUDE USING gist (c WITH &amp;&amp;)
+);
+</programlisting>
+  </para>
+
+  <para>
+   <structname>cinemas</> 테이블을 <structname>diskvol1</> 테이블스페이스에 생성:
+
+<programlisting>
+CREATE TABLE cinemas (
+        id serial,
+        name text,
+        location text
+) TABLESPACE diskvol1;
+</programlisting>
+  </para>
+
+  <para>
+   복합 자료형과 Typed 테이블을 생성:
+<programlisting>
+CREATE TYPE employee_type AS (name text, salary numeric);
+
+CREATE TABLE employees OF employee_type (
+    PRIMARY KEY (name),
+    salary WITH OPTIONS DEFAULT 1000
+);
+</programlisting></para>
+ </refsect1>
+
+ <refsect1 id="SQL-CREATETABLE-compatibility">
+  <title id="SQL-CREATETABLE-compatibility-title">Compatibility</title>
+
+  <para>
+   <command>CREATE TABLE</command> 명령은 아래에 나열된 예외를 제외하고,
+   <acronym>SQL</acronym> 표준을 따릅니다.
+  </para>
+
+  <refsect2>
+   <title>임시 테이블</title>
+
+   <para>
+    <literal>CREATE TEMPORARY TABLE</literal>구문이 SQL 표준과 닮아 있지만, 그 효과는 같지 않습니다.
+        표준에서는, 임시 테이블이 한 번만 정의되고 이를 필요로 하는 모든 세션에 자동으로 (내용이 빈 상태부터) 존재하게 됩니다.
+        <productname>PostgreSQL</productname>에서는 그 대신,
+        각 세션에서 사용될 각 임시테이블에 대해,
+        각자 <literal>CREATE TEMPORARY TABLE</literal> 명령을 발행하기를 요구합니다.
+        이는 서로 다른 세션이 동일한 임시 테이블 명을 서로 다른 목적으로 사용할 수 있도록 해줍니다.
+        반면에 표준 방식에서는 지정된 임시 테이블 명이 모든 인스턴스에서 동일한 테이블 구조를 갖도록 제약합니다.
+   </para>
+
+   <para>
+    표준에서 정의한 임시 테이블 동작 방식이 상당 부분 무시됩니다.
+        <productname>PostgreSQL</productname>에서 이 부분의 동작 방식은, 몇몇 다른 SQL 데이터베이스와 유사합니다.
+   </para>
+
+   <para>
+    SQL 표준은 또한 전역과 지역 임시 테이블을 구분하고 있습니다.
+        지역 임시테이블은, 세션 내부의 각각의 SQL 모듈에 대한 분리된 컨텐츠 집합을 갖고 있으며,
+        다만, 그 정의를 세션 전체에 공유합니다.
+        <productname>PostgreSQL</productname>이 SQL 모듈을 지원하지 않기 때문에,
+        이러한 구별이 <productname>PostgreSQL</productname>에서는 의미가 없습니다.
+   </para>
+
+   <para>
+        호환성을 위해서, <productname>PostgreSQL</productname>은 임시 테이블 선언부에
+        <literal>GLOBAL</literal>과 <literal>LOCAL</literal> 키워드를 받을 수 있지만,
+        현재 아무런 효과가 없습니다.
+        <productname>PostgreSQL</productname>의 나중 버전에서
+        이들의 의미에 대해 좀 더 표준에 부합하는 해석을 적용할 것이기 때문에,
+        이 키워드를 사용하는 것을 권장하지 않습니다.
+   </para>
+
+   <para>
+    임시 테이블에 대한 <literal>ON COMMIT</literal> 절은
+        SQL 표준과 비슷하지만, 몇 가지 차이점이 있습니다.
+        <literal>ON COMMIT</> 절이 생략된 경우, SQL 사양에서는 기본값이 <literal>ON COMMIT DELETE ROWS</>입니다. 
+        하지만 <productname>PostgreSQL</productname>에서는 기본값이 
+        ON <literal>COMMIT PRESERVE ROWS</literal>입니다.
+        SQL 표준에 <literal>ON COMMIT DROP</literal> 옵션은 존재하지 않습니다.
+   </para>
+  </refsect2>
+
+  <refsect2>
+   <title>Non-deferred Uniqueness Constraints</title>
+
+   <para>
+    <literal>UNIQUE</>나 <literal>PRIMARY KEY</> 제약이 not deferrable이면,
+        <productname>PostgreSQL</productname>는 
+        행이 추가되거나 수정될 때마다 즉시 고유성(uniqueness)을 검사합니다.
+        SQL 표준에서는 고유성이 문장의 마지막에만 강제되어야 한다고 합니다.
+        이는, 예를 들면, 단일 명령으로 여러 개의 키 값을 변경할 때, 차이가 납니다.
+        표준에 부합하도록 하려면, 제약조건을 deferred (즉, <literal>INITIALLY IMMEDIATE</>)가 아닌 
+        <literal>DEFERRABLE</>로 선언하십시오.
+        이 경우, 고유성을 즉시 검사하는 것에 비해 상당히 느려진다는 점에 주의하십시오.
+   </para>
+  </refsect2>
+
+  <refsect2>
+   <title>열 Check 제약</title>
+
+   <para>
+    SQL 표준은 <literal>CHECK</> 열 제약이, 해당 열만 참조할 수 있다고 합니다.
+        즉, <literal>CHECK</> 테이블 제약만이 여러 열을 참조할 수 있습니다.
+        <productname>PostgreSQL</productname>는 이 규칙을 강제하지 않습니다.
+        즉, 열과 테이블 check 제약을 동일하게 취급합니다.
+   </para>
+  </refsect2>
+
+  <refsect2>
+   <title><literal>EXCLUDE</literal> 제약</title>
+
+   <para>
+    <literal>EXCLUDE</> 제약 유형은 <productname>PostgreSQL</productname>의 확장입니다.
+   </para>
+  </refsect2>
+
+  <refsect2>
+   <title><literal>NULL</literal> <quote>제약</quote></title>
+
+   <para>
+    <literal>NULL</> <quote>제약</quote> (실은 제약이 아니지만)은
+        몇몇 다른 데이터베이스와의 호환을 위해        (그리고, <literal>NOT NULL</literal> 제약과의 균형을 위해) 포함된,
+        SQL 표준에 대한 <productname>PostgreSQL</productname> 확장입니다.
+        이는 모든 열에 대한 기본값이기 때문에, 이것은 단지 귀찮은 정도의 존재 의미를 갖습니다.
+   </para>
+  </refsect2>
+
+  <refsect2>
+   <title>상속</title>
+
+   <para>
+    <literal>INHERITS</literal>절을 통해 다중 상속하는 것은,
+        <productname>PostgreSQL</productname> 언어 확장입니다.
+        SQL:1999 이후 버전에서 이와 다른 구문과 문장(semantics)으로 단일 상속을 정의하고 있습니다.
+        SQL:1999 스타일의 상속은 <productname>PostgreSQL</productname>에서 아직 지원되지 않습니다.
+   </para>
+  </refsect2>
+
+  <refsect2>
+   <title>열이 없는 테이블(Zero-column Table)</title>
+
+   <para>
+    <productname>PostgreSQL</productname>는 열이 없는 테이블을 생성할 수 있습니다.
+        (예를들면, <literal>CREATE TABLE foo();</>). 
+        이는 열이 없는 테이블을 허용하지 않는 SQL 표준을 확장한 것입니다.
+        열이 없는 테이블은 그 자체로는 별로 쓸모가 없지만, 이를 허용하지 않는 경우
+        <command>ALTER TABLE DROP COLUMN</>에서 특이 상황이 발생합니다.
+        때문에 이 제약은 무시 하는게 더 깔끔해 보입니다.
+   </para>
+  </refsect2>
+
+  <refsect2>
+   <title><literal>WITH</> 절</title>
+
+   <para>
+    <literal>WITH</>절은 <productname>PostgreSQL</productname>의 확장입니다.
+        Storage parameters와 OID 둘 다 표준에는 없습니다.
+   </para>
+  </refsect2>
+
+  <refsect2>
+   <title>Tablespaces</title>
+
+   <para>
+    <productname>PostgreSQL</productname> 개념의 테이블 스페이스는 표준에 포함되어 있지 않습니다.
+        이러한 이유로, <literal>TABLESPACE</literal>와 
+        <literal>USING INDEX TABLESPACE</literal>절은 확장입니다.
+   </para>
+  </refsect2>
+
+  <refsect2>
+   <title>Typed Tables</title>
+
+   <para>
+    Typed table은 SQL 표준의 subset을 구현합니다.
+        표준에 따라, typed 테이블은 내재된 복합 자료형과 관련된 열과 더불어,
+        <quote>자기-참조 열</quote>과 관련된 열을 하나 더 갖고 있습니다.
+        PostgreSQL은 이 자기-참조열을 명시적으로 지원하지 않지만,
+        OID 기능을 이용하여 동일한 효과를 얻을 수 있습니다.
+   </para>
+  </refsect2>
+ </refsect1>
+
+
+ <refsect1>
+  <title>관련 항목</title>
+
+  <simplelist type="inline">
+   <member><xref linkend="sql-altertable"></member>
+   <member><xref linkend="sql-droptable"></member>
+   <member><xref linkend="sql-createtableas"></member>
+   <member><xref linkend="sql-createtablespace"></member>
+   <member><xref linkend="sql-createtype"></member>
+  </simplelist>
+ </refsect1>
+</refentry>

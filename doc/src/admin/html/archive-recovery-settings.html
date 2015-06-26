@@ -1,0 +1,327 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>아카이브 복구 설정</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REV="MADE"
+HREF="mailto:pgsql-docs@postgresql.org"><LINK
+REL="HOME"
+TITLE="Agens SQL 1.0 문서"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="복구 환경설정"
+HREF="recovery-config.html"><LINK
+REL="PREVIOUS"
+TITLE="복구 환경설정"
+HREF="recovery-config.html"><LINK
+REL="NEXT"
+TITLE="복구 시점 설정"
+HREF="recovery-target-settings.html"><LINK
+REL="STYLESHEET"
+TYPE="text/css"
+HREF="stylesheet.css"><META
+HTTP-EQUIV="Content-Type"
+CONTENT="text/html; charset=UTF-8"><META
+name="viewport"
+content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width"><META
+NAME="creation"
+CONTENT="2015-06-26T04:43:18"></HEAD
+><BODY
+CLASS="SECT1"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="4"
+ALIGN="center"
+VALIGN="bottom"
+><A
+HREF="index.html"
+>Agens SQL 1.0 문서</A
+></TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="top"
+><A
+TITLE="복구 환경설정"
+HREF="recovery-config.html"
+ACCESSKEY="P"
+>이전</A
+></TD
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="recovery-config.html"
+ACCESSKEY="U"
+>위로</A
+></TD
+><TD
+WIDTH="60%"
+ALIGN="center"
+VALIGN="bottom"
+>장 10. 복구 환경설정</TD
+><TD
+WIDTH="20%"
+ALIGN="right"
+VALIGN="top"
+><A
+TITLE="복구 시점 설정"
+HREF="recovery-target-settings.html"
+ACCESSKEY="N"
+>다음</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="ARCHIVE-RECOVERY-SETTINGS"
+>10.1. 아카이브 복구 설정</A
+></H1
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><DL
+><DT
+><A
+NAME="RESTORE-COMMAND"
+></A
+><TT
+CLASS="VARNAME"
+>restore_command</TT
+> (<TT
+CLASS="TYPE"
+>문자열</TT
+>)</DT
+><DD
+><P
+>            복구 과정에서 사용할 WAL 세그먼트 파일들을 서버에 적용시킬 시스템 명령이다.
+                아카이브 모드 복구 작업을 하는 경우에 이 매개변수는 반드시 지정해야 한다.
+                스트리밍 리플리케이션 대기 서버를 구축하는 경우라면 이 설정이 꼭 필요한 것은 
+                아니지만, 마스터 서버와의 통신이 끊겨서 수동으로 트랜잭션 로그를 반영해야하는 
+                경우를 대비해서 설정해 두는 것이 좋다.
+                <TT
+CLASS="LITERAL"
+>%f</TT
+> 예약어는 적용 할 WAL 파일 이름으로,
+                <TT
+CLASS="LITERAL"
+>%p</TT
+> 예약어는 서버에서 사용할 WAL 파일 경로로 사용된다.
+        (상대 경로를 사용하면, 서버를 실행하는 현재 디렉토리를 기준으로 
+                처리된다.)
+                <TT
+CLASS="LITERAL"
+>%r</TT
+> 예약어는 마지막 실행 가능한 위치 정보를 나타내는 
+                이름으로 처리된다. 
+                <TT
+CLASS="LITERAL"
+>%r</TT
+> 예약어는 warm-standby 설정에서만 사용된다.
+        (<A
+HREF="warm-standby.html"
+>9.2절</A
+> 참조).
+                <TT
+CLASS="LITERAL"
+>%</TT
+> 문자를 사용하려면, <TT
+CLASS="LITERAL"
+>%%</TT
+> 를 사용한다.
+       </P
+><P
+>            여기서 중요한 사항은 여기서 지정한 작업이 성공했을 경우에는 
+                반드시 그 명령의 리턴값이 0(zero)이어야 하며, 
+                실패했을 경우에는 0이 아니여야한다.
+                서버가 이 명령을 통해 보관하고 있지 않는 파일을 사용하려고 
+                할 때, 이 명령은 반드시 리턴 값으로 0 아닌 값으로 종료되어야한다.
+        다음은 일반적인 사례다:
+</P><PRE
+CLASS="PROGRAMLISTING"
+>restore_command = 'cp /mnt/server/archivedir/%f "%p"'
+restore_command = 'copy "C:\\server\\archivedir\\%f" "%p"'  # Windows</PRE
+><P>
+       </P
+></DD
+><DT
+><A
+NAME="ARCHIVE-CLEANUP-COMMAND"
+></A
+><TT
+CLASS="VARNAME"
+>archive_cleanup_command</TT
+> (<TT
+CLASS="TYPE"
+>문자열</TT
+>)</DT
+><DD
+><P
+>            이 설정은 선택 항목이다.
+                여기서 지정한 명령은 warm-standby 서버가 중지 되었다가 
+                다시 실행 될 때 사용된다.
+                이미 대기 서버에 반영 되어 더 이상 쓸모 없는 WAL 세그먼트 파일들을 
+                찾아서 지우는 일을 할 수 있도록 지정한다.
+                이렇게 해서, 대기 서버가 빠르게 대기 상황이 될 수 있도록 한다.
+                이 때 주의할 점은 대기 서버가 여러 대가 있을 경우, 
+                그 서버들이 같은 백업 WAL 파일을 사용할 경우,
+                이 명령이 실행되어 미처 반영되지 못한 파일이 지워지는 경우를 막아야한다.
+                <TT
+CLASS="LITERAL"
+>%r</TT
+> 예약어는 최종 반영된 위치로 처리된다.
+                즉, <TT
+CLASS="LITERAL"
+>%r</TT
+> 이름보다 이전 파일들은 지워도 되지만, 그 이후 파일들은 
+                지우지 말아야한다.
+                이 작업을 쉽게 하기 위해 이 설정값에는 일반적으로 
+            pg archivecleanup 확장 모듈로 설치되는 명령을 사용한다.
+                (이 명령은 파일을 지우는 작업을 하기 때문에 단독 대기 서버 환경일 경우에만 
+                사용하는 것이 좋다.)
+                사용법은 다음과 같다:
+</P><PRE
+CLASS="PROGRAMLISTING"
+>archive_cleanup_command = 'pg_archivecleanup /mnt/server/archivedir %r'</PRE
+><P>
+        다중 대기 서버 환경이라면, 이 WAL 정리 작업은 좀 더 복잡해지는데, 
+                이 부분은 관리자에게 맡긴다.
+                이 설정값은 warm-standby 서버 구축 환경에서만 사용된다.
+        (<A
+HREF="warm-standby.html"
+>9.2절</A
+> 참조).
+                <TT
+CLASS="LITERAL"
+>%</TT
+> 문자를 사용하려면, <TT
+CLASS="LITERAL"
+>%%</TT
+>를 사용한다.
+       </P
+><P
+>            이 명령이 0 아닌 값을 리턴값으로 종료되면, 서버 로그에 WARNING으로 
+                기록된다.
+       </P
+></DD
+><DT
+><A
+NAME="RECOVERY-END-COMMAND"
+></A
+><TT
+CLASS="VARNAME"
+>recovery_end_command</TT
+> (<TT
+CLASS="TYPE"
+>문자열</TT
+>)</DT
+><DD
+><P
+>            복구 작업이 완료되면 딱 한 번 여기서 지정한 명령이 실행된다.
+                이 설정값도 선택적으로 지정할 수 있다. 
+                여기서 지정한 명령은 아카이브 모드 백업을 이용한 운영 서버 복구 때나 
+                대기 서버가 운영 서버로 바뀌는 시점이나 
+                스트리밍 리플리케이션 서버에서 마스터 서버와의 스트리밍 통신이 끊겨 
+                백업 파일을 다시 참조해서 모두 반영한 경우에 실행된다.
+        <TT
+CLASS="LITERAL"
+>%r</TT
+> 예약어는 마지막 반영된 위치이다.
+                이것은 archive-cleanup-command 명령에서 사용된다.
+       </P
+><P
+>            이 작업이 0 아닌 값으로 종료되면 데이터베이스 서버 로그에 WARNING 레벨로
+                오류 메시지가 기록되며, 서버는 가동된다. 하지만, 
+                이 작업 도중 명령어가 시그널을 받아서 종료되는 경우는 
+                데이터베이스 서버는 가동 되지 않는다.
+       </P
+></DD
+></DL
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="recovery-config.html"
+ACCESSKEY="P"
+>이전</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>처음으로</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="recovery-target-settings.html"
+ACCESSKEY="N"
+>다음</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>복구 환경설정</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="recovery-config.html"
+ACCESSKEY="U"
+>위로</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>복구 시점 설정</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

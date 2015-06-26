@@ -1,0 +1,79 @@
+<!--
+doc/src/sgml/ref/alter_large_object.sgml
+PostgreSQL documentation
+-->
+
+<refentry id="SQL-ALTERLARGEOBJECT">
+ <refmeta>
+  <refentrytitle>ALTER LARGE OBJECT</refentrytitle>
+  <manvolnum>7</manvolnum>
+  <refmiscinfo>SQL - Language Statements</refmiscinfo>
+ </refmeta>
+
+ <refnamediv>
+  <refname>ALTER LARGE OBJECT</refname>
+  <refpurpose>large object 변경</refpurpose>
+ </refnamediv>
+
+ <indexterm zone="sql-alterlargeobject">
+  <primary>ALTER LARGE OBJECT</primary>
+ </indexterm>
+
+ <refsynopsisdiv>
+<synopsis>
+ALTER LARGE OBJECT <replaceable class="PARAMETER">large_object_oid</replaceable> OWNER TO <replaceable>new_owner</replaceable>
+</synopsis>
+ </refsynopsisdiv>
+
+ <refsect1>
+  <title>설명</title>
+
+  <para>
+   <command>ALTER LARGE OBJECT</command> 명령은 
+    large object의 정의를 변경한다. 이 명령은 현재 
+   해당 객체의 소유주만 변경 할 수 있다.  <command>ALTER LARGE OBJECT</command>
+   명령은 슈퍼유저나 해당 객체의 현재 소유주만 실행 할 수 있다.
+  </para>
+ </refsect1>
+
+ <refsect1>
+  <title>매개 변수</title>
+
+  <variablelist>
+   <varlistentry>
+    <term><replaceable>large_object_oid</replaceable></term>
+    <listitem>
+     <para>
+      변경 하려는 large object의 OID
+     </para>
+    </listitem>
+   </varlistentry>
+
+   <varlistentry>
+    <term><replaceable>new_owner</replaceable></term>
+    <listitem>
+     <para>
+      새 large object 소유주
+     </para>
+    </listitem>
+   </varlistentry>
+  </variablelist>
+ </refsect1>
+
+ <refsect1>
+  <title>호환성</title>
+
+  <para>
+   표준 SQL에는 <command>ALTER LARGE OBJECT</command> 구문이 없다.
+  </para>
+ </refsect1>
+
+ <refsect1>
+  <title>관련 항목</title>
+
+  <simplelist type="inline">
+   <member><xref linkend="largeobjects"></member>
+  </simplelist>
+ </refsect1>
+
+</refentry>

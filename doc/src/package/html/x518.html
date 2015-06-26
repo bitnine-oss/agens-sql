@@ -1,0 +1,285 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>Slony-I 개념 정의</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REV="MADE"
+HREF="mailto:pgsql-docs@postgresql.org"><LINK
+REL="HOME"
+TITLE="Agens SQL 1.0 문서"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Slony-I"
+HREF="slonyi.html"><LINK
+REL="PREVIOUS"
+TITLE="Slony-I"
+HREF="slonyi.html"><LINK
+REL="NEXT"
+TITLE="Slony-I 구동 예제 (1)"
+HREF="x548.html"><LINK
+REL="STYLESHEET"
+TYPE="text/css"
+HREF="stylesheet.css"><META
+HTTP-EQUIV="Content-Type"
+CONTENT="text/html; charset=UTF-8"><META
+name="viewport"
+content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width"><META
+NAME="creation"
+CONTENT="2015-06-24T07:42:48"></HEAD
+><BODY
+CLASS="SECT1"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="4"
+ALIGN="center"
+VALIGN="bottom"
+><A
+HREF="index.html"
+>Agens SQL 1.0 문서</A
+></TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="top"
+><A
+TITLE="Slony-I"
+HREF="slonyi.html"
+ACCESSKEY="P"
+>이전</A
+></TD
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="slonyi.html"
+ACCESSKEY="U"
+>위로</A
+></TD
+><TD
+WIDTH="60%"
+ALIGN="center"
+VALIGN="bottom"
+>장 5. Slony-I</TD
+><TD
+WIDTH="20%"
+ALIGN="right"
+VALIGN="top"
+><A
+TITLE="Slony-I 구동 예제 (1)"
+HREF="x548.html"
+ACCESSKEY="N"
+>다음</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="AEN518"
+>5.1. <SPAN
+CLASS="PRODUCTNAME"
+>Slony-I</SPAN
+> 개념 정의</A
+></H1
+><P
+>            이번 절에서는 <SPAN
+CLASS="PRODUCTNAME"
+>Slony-I</SPAN
+>를 이해하기 위한 용어를 설명한다.
+        </P
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="AEN523"
+>5.1.1. Cluster</A
+></H2
+><P
+>                Cluster는 <SPAN
+CLASS="PRODUCTNAME"
+>PostgreSQL</SPAN
+> 데이터베이스 인스턴스들 묶어 주는 이름을 말한다. Replication은 동일한 cluster명으로 묶인 데이터베이스들 간에 동작한다. 
+                Cluster명은 <TT
+CLASS="COMMAND"
+>Slonik</TT
+> 스크립트에 다음과 같이 직접적으로 명시한다.
+            </P
+><P
+>                </P><PRE
+CLASS="PROGRAMLISTING"
+>#!/bin/sh
+
+slonik &#60;&#60;_EOF_
+                cluster name = something;
+...</PRE
+><P>
+            </P
+><P
+>                Cluster명을 <TT
+CLASS="COMMAND"
+>something</TT
+>으로 한다면, <SPAN
+CLASS="PRODUCTNAME"
+>Slony-I</SPAN
+>는 각각의 데이터베이스는 _something으 cluster명으로 묶인다.
+            </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="AEN533"
+>5.1.2. Node</A
+></H2
+><P
+>                Slony-I 노드는 replication에 참여하는 PostgreSQL의 데이터베이스 이름이다. Node는 Slonik 스크립트에 직접적으로 작성하여 사용하고, 작성방법은 다음과 같다.
+            </P
+><P
+>                </P><PRE
+CLASS="PROGRAMLISTING"
+>#!/bin/sh
+
+slonik &#60;&#60;_EOF_
+...
+                NODE 1 ADMIN CONNINFO = 'dbname=testdb host=server1 user=slony';
+                NODE 2 ADMIN CONNINFO = 'dbname=testdbslave host=server1slave user=slony';
+...</PRE
+><P>
+            </P
+><P
+>                ADMIN CONNINFO는 데이터베이스 접속 정보를 나타낸다. 이 정보는 libpq 함수의 PQconnectdb()로 넘겨진다.
+            </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="AEN539"
+>5.1.3. Replication Set</A
+></H2
+><P
+>                Replication Set은 Slony-I 클러스터의 노드들 간에 복제되는 테이블들과 시쿼스의 집합으로 정의 된다.
+                Replication Set은 여러가지 세트를 가질수 있고, replication의 "flow"는 동일할 필요가 없다.
+            </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="AEN542"
+>5.1.4. Origin, Providers 그리고 Subscribers</A
+></H2
+><P
+>                Replication Set은 테이블의 데이터를 수정하고 복제될 데이터를 가지고 있는 origin 노드를 가지고 있다. 이 origin 는 origin 또는 master provider라고 한다. Slonik 스크립트에서 작성은 다음과 같다.
+            </P
+><P
+>                </P><PRE
+CLASS="PROGRAMLISTING"
+>#!/bin/sh
+
+slonik &#60;&#60;_EOF_
+...
+        create set (id=1, origin=1, comment='All pgbench tables');
+        set add table (set id=1, origin=1, id=1, fully qualified name = 'public.pgbench_accounts', comment='accounts table');
+        set add table (set id=1, origin=1, id=2, fully qualified name = 'public.pgbench_branches', comment='branches table');
+        set add table (set id=1, origin=1, id=3, fully qualified name = 'public.pgbench_tellers', comment='tellers table');
+        set add table (set id=1, origin=1, id=4, fully qualified name = 'public.pgbench_history', comment='history table');
+...</PRE
+><P>
+            </P
+><P
+>                Subscribers는 slave 노드를 뜻한다. origin 또는 master provider의 변경이 있으면 slave 노드의 테이블의 값을 변경 한다. 
+            </P
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="slonyi.html"
+ACCESSKEY="P"
+>이전</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>처음으로</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="x548.html"
+ACCESSKEY="N"
+>다음</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Slony-I</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="slonyi.html"
+ACCESSKEY="U"
+>위로</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><SPAN
+CLASS="PRODUCTNAME"
+>Slony-I</SPAN
+> 구동 예제 (1)</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

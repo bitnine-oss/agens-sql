@@ -1,0 +1,123 @@
+<!-- doc/src/sgml/diskusage.sgml -->
+
+<chapter id="diskusage">
+ <title>디스크 사용량 모니터링</title>
+
+ <para>
+  이 장에서는 <productname>Agens SQL</> 데이터베이스 시스템의 디스크 사용량을 모니터링하는 방법을 다룬다.
+ </para>
+
+ <sect1 id="disk-usage">
+  <title>디스크 사용량 결정</title>
+
+  <indexterm zone="disk-usage">
+   <primary>디스크 사용량</primary>
+  </indexterm>
+
+  <para>
+   각 테이블은 대부분의 데이터가 저장되는 1차 힙 디스크 파일을 갖고 있다. 
+   테이블 칼럼의 값이 잠재적으로 큰 범위인 경우 메인 테이블에 잘 맞지 않는 값을 저장하는 데 사용되고 테이블에 연결된 <acronym>TOAST</> 파일이 있을 수도 있다. 
+   그런 경우에는, 유효 인덱스 1개가 <acronym>TOAST</> 테이블에 존재한다. 또한 베이스 테이블에 연결된 인덱스도 있을 수 있다. 각 테이블 및 인덱스는 개별 디스크 파일에 저장된다. 
+   파일 크기가 1기가바이트를 초과하는 경우에는 파일이 하나 이상일 수 있다. 
+  </para>
+
+  <para>
+   디스크 공간은 3가지 방법으로 모니터링할 수 있는데, 
+   SQL 함수를 사용하거나, oid2name 모듈을 사용하거나, 시스템 카탈로그 수동 검사를 사용할 수 있다. 
+   SQL 함수는 사용법이 매우 쉬워 보편적으로 권장된다. 
+   이 절의 나머지 부분에서는 시스템 카탈로그를 검사하는 방법에 대해 설명한다.
+  </para>
+
+  <para>
+   최근 vacuum되었거나 분석된 데이터베이스에서 <application>psql</>을 사용하면 쿼리를 실행하여 임의의 테이블에서 디스크 사용량을 볼 수 있다.
+<programlisting>
+SELECT pg_relation_filepath(oid), relpages FROM pg_class WHERE relname = 'customer';
+
+ pg_relation_filepath | relpages
+----------------------+----------
+ base/16384/16806     |       60
+(1 row)
+</programlisting>
+   각 페이지는 일반적으로 8킬로바이트이다. (<structfield>relpages</>는 <command>VACUUM</> 및 <command>ANALYZE</>, <command>CREATE INDEX</> 같은 몇 가지 DDL 명령으로만 업데이트된다.) 
+   파일 경로명은 테이블의 디스크 파일을 직접 검사하려는 경우에 중요하다.
+  </para>
+
+  <para>
+   <acronym>TOAST</> 테이블에서 사용하는 공간을 표시하려면 다음과 같은 쿼리를 사용한다.
+<programlisting>
+SELECT relname, relpages
+FROM pg_class,
+     (SELECT reltoastrelid
+      FROM pg_class
+      WHERE relname = 'customer') AS ss
+WHERE oid = ss.reltoastrelid OR
+      oid = (SELECT indexrelid
+             FROM pg_index
+             WHERE indrelid = ss.reltoastrelid)
+ORDER BY relname;
+
+       relname        | relpages
+----------------------+----------
+ pg_toast_16806       |        0
+ pg_toast_16806_index |        1
+</programlisting>
+  </para>
+
+  <para>
+   인덱스 크기를 손쉽게 표시할 수도 있다.
+<programlisting>
+SELECT c2.relname, c2.relpages
+FROM pg_class c, pg_class c2, pg_index i
+WHERE c.relname = 'customer' AND
+      c.oid = i.indrelid AND
+      c2.oid = i.indexrelid
+ORDER BY c2.relname;
+
+       relname        | relpages
+----------------------+----------
+ customer_id_indexdex |       26
+</programlisting>
+  </para>
+
+  <para>
+   이 정보를 이용하면 최대 크기의 테이블과 인덱스를 찾을 때 용이하다.
+<programlisting>
+SELECT relname, relpages
+FROM pg_class
+ORDER BY relpages DESC;
+
+       relname        | relpages
+----------------------+----------
+ bigtable             |     3290
+ customer             |     3144
+</programlisting>
+  </para>
+ </sect1>
+
+ <sect1 id="disk-full">
+  <title>디스크 꽉 참(Full) 실패</title>
+
+  <para>
+   데이터베이스 관리자의 가장 중요한 디스크 모니터링 작업은 디스크가 꽉 차지 않게 관리하는 것이다. 
+   채워진 데이터 디스크가 데이터 손상으로 이어지지는 않지만 작동에 지장을 줄 수 있다. 
+   WAL 파일이 저장된 디스크가 꽉 차게 되면 데이터베이스 서버에 혼란이 생기고, 결과적으로 셧다운이 발생할 수 있다.
+  </para>
+
+  <para>
+   다른 데이터를 삭제함으로써 추가 공간을 확보하기 어려운 경우 테이블스페이스를 사용하여 데이터베이스 파일 일부를 다른 파일 시스템으로 옮길 수 있다. 
+   자세한 내용은 <xref
+   linkend="manage-ag-tablespaces">을 참조 바란다.
+  </para>
+
+  <tip>
+   <para>
+    파일 시스템 중 일부는 용량이 꽉 차게 되면 작동에 문제가 생기므로 디스크가 꽉 찰 때까지 기다리면 안 된다.
+   </para>
+  </tip>
+
+  <para>
+   사용자별 디스크 한도가 지원되는 시스템인 경우 서버를 실행하는 사용자에게 부여된 한도에 따라 데이터베이스가 자연스럽게 적용된다. 
+   한도를 초과하면 디스크 공간을 완전히 초과했을 때와 동일한 효과가 나타난다.
+  </para>
+ </sect1>
+</chapter>

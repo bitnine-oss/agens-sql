@@ -1,0 +1,234 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>개요</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REV="MADE"
+HREF="mailto:pgsql-docs@postgresql.org"><LINK
+REL="HOME"
+TITLE="Agens SQL 1.0 문서"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="데이터베이스 관리"
+HREF="managing-databases.html"><LINK
+REL="PREVIOUS"
+TITLE="데이터베이스 관리"
+HREF="managing-databases.html"><LINK
+REL="NEXT"
+TITLE="데이터베이스 생성"
+HREF="manage-ag-createdb.html"><LINK
+REL="STYLESHEET"
+TYPE="text/css"
+HREF="stylesheet.css"><META
+HTTP-EQUIV="Content-Type"
+CONTENT="text/html; charset=UTF-8"><META
+name="viewport"
+content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width"><META
+NAME="creation"
+CONTENT="2015-06-26T04:43:18"></HEAD
+><BODY
+CLASS="SECT1"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="4"
+ALIGN="center"
+VALIGN="bottom"
+><A
+HREF="index.html"
+>Agens SQL 1.0 문서</A
+></TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="top"
+><A
+TITLE="데이터베이스 관리"
+HREF="managing-databases.html"
+ACCESSKEY="P"
+>이전</A
+></TD
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="managing-databases.html"
+ACCESSKEY="U"
+>위로</A
+></TD
+><TD
+WIDTH="60%"
+ALIGN="center"
+VALIGN="bottom"
+>장 5. 데이터베이스 관리</TD
+><TD
+WIDTH="20%"
+ALIGN="right"
+VALIGN="top"
+><A
+TITLE="데이터베이스 생성"
+HREF="manage-ag-createdb.html"
+ACCESSKEY="N"
+>다음</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="MANAGE-AG-OVERVIEW"
+>5.1. 개요</A
+></H1
+><P
+>   데이터베이스는 명명된 <ACRONYM
+CLASS="ACRONYM"
+>SQL</ACRONYM
+> 객체 컬렉션이다(<SPAN
+CLASS="QUOTE"
+>"데이터베이스 객체"</SPAN
+>). 
+   일반적으로 모든 데이터베이스 객체(테이블, 함수 등)은 데이터베이스 한 곳에만 속한다. 
+   (예를 들면, <TT
+CLASS="LITERAL"
+>pg_database</TT
+>처럼 전체 클러스터에 속하고 클러스터 내의 각 데이터베이스에서 접근 가능한 시스템 카탈로그는 몇 개 있다.) 
+   좀 더 정확하게 말하면 데이터베이스는 스키마의 컬렉션이며, 스키마에는 테이블, 함수 등이 포함된다. 따라서 전체 구조는 서버, 데이터베이스, 스키마, 테이블(또는 함수 같이 종류가 다른 일부 객체)로 구성된다.
+  </P
+><P
+>   데이터베이스 서버에 연결하는 경우 클라이언트는 연결하려는 데이터베이스 이름을 연결을 요청할 때 지정해야 한다. 연결당 데이터베이스를 하나 이상 접근할 수도 있다. 
+   단, 애플리케이션은 동일한 데이터베이스 또는 다른 데이터베이스에 대해 열리는 연결 수에 제한되지 않는다. 데이터베이스는 물리적으로 구분되며 접근 제어는 연결 수준에서 관리된다. 
+   한 <SPAN
+CLASS="PRODUCTNAME"
+>Agens SQL</SPAN
+> 서버 인스턴스가 서로 인식하지 못하는 프로젝트 또는 사용자를 수용하는 경우, 두 가지를 별도의 데이터베이스에 두는 것이 좋다. 
+   프로젝트 또는 사용자가 서로 연관되어 있고 서로의 자원을 사용해야 하는 경우에는 두 가지를 동일한 데이터베이스에 두고 스키마는 분리해야 한다. 
+   스키마는 순전히 논리적 구조이며 권한 시스템이 관리하는 대상에 접근할 수 있는 사용자이다. 
+  </P
+><P
+>   데이터베이스는 <TT
+CLASS="COMMAND"
+>CREATE DATABASE</TT
+> 명령(<A
+HREF="manage-ag-createdb.html"
+>5.2절</A
+> 참조)으로 생성되고 DROP DATABASE 명령(<A
+HREF="manage-ag-dropdb.html"
+>5.5절</A
+> 참조)으로 소멸된다. 
+   기존 데이터베이스를 판단하려면 <TT
+CLASS="STRUCTNAME"
+>pg_database</TT
+> 시스템 카탈로그를 검사해야 한다. 예를 들면,
+</P><PRE
+CLASS="SYNOPSIS"
+>SELECT datname FROM pg_database;</PRE
+><P>
+   psql 프로그램의 <TT
+CLASS="LITERAL"
+>\l</TT
+> 메타 명령 및 <TT
+CLASS="OPTION"
+>-l</TT
+> 커맨드라인 옵션도 기존 데이터베이스를 나열하는 데 유용하다.
+  </P
+><DIV
+CLASS="NOTE"
+><BLOCKQUOTE
+CLASS="NOTE"
+><P
+><B
+>참고: </B
+>    <ACRONYM
+CLASS="ACRONYM"
+>SQL</ACRONYM
+> 표준은 데이터베이스 <SPAN
+CLASS="QUOTE"
+>"카탈로그"</SPAN
+>를 호출하지만 실제로는 차이가 없다.
+   </P
+></BLOCKQUOTE
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="managing-databases.html"
+ACCESSKEY="P"
+>이전</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>처음으로</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="manage-ag-createdb.html"
+ACCESSKEY="N"
+>다음</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>데이터베이스 관리</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="managing-databases.html"
+ACCESSKEY="U"
+>위로</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>데이터베이스 생성</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

@@ -1,0 +1,99 @@
+<!--
+doc/src/sgml/ref/deallocate.sgml
+PostgreSQL documentation
+-->
+
+<refentry id="SQL-DEALLOCATE">
+ <refmeta>
+  <refentrytitle>DEALLOCATE</refentrytitle>
+  <manvolnum>7</manvolnum>
+  <refmiscinfo>SQL - Language Statements</refmiscinfo>
+ </refmeta>
+
+ <refnamediv>
+  <refname>DEALLOCATE</refname>
+  <refpurpose>prepared statement를 지운다</refpurpose>
+ </refnamediv>
+
+ <indexterm zone="sql-deallocate">
+  <primary>DEALLOCATE</primary>
+ </indexterm>
+
+ <indexterm zone="sql-deallocate">
+  <primary>prepared statements</primary>
+  <secondary>삭제</secondary>
+ </indexterm>
+
+ <refsynopsisdiv>
+<synopsis>
+DEALLOCATE [ PREPARE ] { <replaceable class="parameter">이름</replaceable> | ALL }
+</synopsis>
+ </refsynopsisdiv>
+
+ <refsect1>
+  <title>설명</title>
+
+  <para>
+   <command>DEALLOCATE</command> 명령은 이미 지정한
+   prepared statement를 삭제한다.  이미 지정한 
+   prepared statement를 지우지 않는다면, 세션이 종료될 때 자동으로
+   없어진다.
+  </para>
+
+  <para>
+   prepared statement에 대한 자세한 설명은  <xref
+      linkend="sql-prepare">명령을 참조하라.
+  </para>
+ </refsect1>
+
+ <refsect1>
+  <title>매개 변수</title>
+
+  <variablelist>
+   <varlistentry>
+    <term><literal>PREPARE</literal></term>
+    <listitem>
+     <para>
+      이 예약어는 무시 된다.
+     </para>
+    </listitem>
+   </varlistentry>
+
+   <varlistentry>
+    <term><replaceable class="parameter">이름</replaceable></term>
+    <listitem>
+     <para>
+          지우고자 하는 구문의 이름.
+     </para>
+    </listitem>
+   </varlistentry>
+
+   <varlistentry>
+    <term><literal>ALL</literal></term>
+    <listitem>
+     <para>
+      모든 prepared statement를 지운다.
+     </para>
+    </listitem>
+   </varlistentry>
+  </variablelist>
+ </refsect1>
+
+ <refsect1>
+  <title>호환성</title>
+
+  <para>
+   표준 SQL에 <command>DEALLOCATE</command> 명령이 있지만,
+   임베디드 SQL에서만 사용할 수 있다.
+  </para>
+ </refsect1>
+
+ <refsect1>
+  <title>관련 항목</title>
+
+  <simplelist type="inline">
+   <member><xref linkend="sql-execute"></member>
+   <member><xref linkend="sql-prepare"></member>
+  </simplelist>
+ </refsect1>
+</refentry>

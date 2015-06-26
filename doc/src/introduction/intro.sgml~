@@ -1,0 +1,425 @@
+<!-- doc/src/sgml/intro.sgml -->
+
+<part id="preface">
+ <title>머리말</title>
+ <partIntro>
+ <para>
+  이 책은 <productname>PostgreSQL</productname>의 공식 문서다.
+  이 문서는 <productname>PostgreSQL</productname> 개발자들과, 
+  <productname>PostgreSQL</productname> 소프트웨어 개발과 대응하는 
+  여러 자원봉사자들에 의해서 쓰여졌다.
+  여기서는 <productname>PostgreSQL</productname> 현재 버전의 모든 기능적인
+  설명을 공식적으로 지원하고 있다.
+ </para>
+
+ <para>
+  <productname>PostgreSQL</productname> 사용법에 대한 방대한 정보를 
+  체계적으로 다루기 위해서, 이 책은 여러 부분으로 구성되었다. 
+  각 분야는 여러 다른 사용자층을 대상으로, <productname>PostgreSQL</productname>
+  사용 경험에 따라, 관심 분야에 따라 구성되었다.
+
+  <itemizedlist>
+   <listitem>
+    <para>
+      처음 PostgreSQL을 사용하는 이들을 위한 자습서
+    </para>
+   </listitem>
+
+   <listitem>
+    <para>
+      <acronym>SQL</acronym> 쿼리 언어 환경에 대한 문서들.
+     여기서는 자료형, 함수, 일반 사용자 차원의 성능 개선 방법등을 다룬다.
+     <productname>PostgreSQL</>을 사용하는 모든 사용자는 이 부분을 꼭 읽으시길.
+    </para>
+   </listitem>
+
+   <listitem>
+    <para>
+      서버 설치 및 관리에 관한 문서들. 
+     <productname>PostgreSQL</productname> 서버를 운영하는 모든 사용자는 
+     이 부분을 꼭 읽으시길.
+    </para>
+   </listitem>
+
+   <listitem>
+    <para>
+     <productname>PostgreSQL</productname> 클라이언트 프로그램 개발에 
+     필요한 프로그래밍 인터페이스에 대한 문서들.
+    </para>
+   </listitem>
+
+
+   <listitem>
+    <para>
+     서버 기능을 확장하려고 하는 고급 사용자들을 위한 문서들.
+     여기서는 사용자 정의 자료형, 함수 등을 구현하는 방법을 다루고 있다.
+    </para>
+   </listitem>
+
+   <listitem>
+    <para>
+     SQL 명령어, 클라이언트, 서버 응용 프로그램들에 대한 자세한 설명서들을 다룬다.
+     여기 문서들은 다른 부분의 문서들을 읽는데 그 기반이 되는 자세한 설명들을 다룬다.
+    </para>
+   </listitem>
+
+   <listitem>
+    <para>
+     <productname>PostgreSQL</> 개발에 관심 있는 이들에게 관계된 정보들을 다룬다.
+    </para>
+   </listitem>
+  </itemizedlist>
+ </para>
+ </partIntro>
+
+ <chapter id="intro-whatis">
+  <title> <productname>PostgreSQL</productname>이 무엇인가?</title>
+
+  <para>
+   <productname>PostgreSQL</productname>은 
+   객체관계형 데이터베이스 관리 시스템(<acronym>ORDBMS</acronym>)이다.
+   이것은 미국 캘리포니아에 있는 버클리 대학 컴퓨터 과학부에서 개발한 
+   <ulink url="http://db.cs.berkeley.edu/postgres.html">
+   <productname>POSTGRES, Version 4.2</productname></ulink>를 기반으로 개발되었다.
+   POSTGRES는 훗날 몇몇 상용 데이터베이스에 영향을 준 많은 개념들을 개척했다.
+  </para>
+
+  <para>
+   <productname>PostgreSQL</productname>은
+   이 원래의 버클리 소스를 기반으로 확장된 오픈 소스이다.
+   이것은 표준 SQL 기능을 대부분 지원하며, 
+   다음과 같은 진보된 많은 기능도 함께 지원한다:
+
+   <itemizedlist spacing="compact">
+    <listitem>
+     <simpara>복합 쿼리</simpara>
+    </listitem>
+    <listitem>
+     <simpara>참조키</simpara>
+    </listitem>
+    <listitem>
+     <simpara>트리거</simpara>
+    </listitem>
+    <listitem>
+     <simpara>업데이트 가능한 뷰</simpara>
+    </listitem>
+    <listitem>
+     <simpara>트랜잭션</simpara>
+    </listitem>
+    <listitem>
+     <simpara>다중 버전 병행 제어</simpara>
+    </listitem>
+   </itemizedlist>
+
+   또한, <productname>PostgreSQL</productname>에서는 
+   다양한 방법으로 기능을 확장 할 수 있다. 예로, 다음과 같은 것들을
+   사용자가 직접 새로 만들 수 있다.
+
+   <itemizedlist spacing="compact">
+    <listitem>
+     <simpara>자료형</simpara>
+    </listitem>
+    <listitem>
+     <simpara>함수</simpara>
+    </listitem>
+    <listitem>
+     <simpara>연산자</simpara>
+    </listitem>
+    <listitem>
+     <simpara>집계 함수</simpara>
+    </listitem>
+    <listitem>
+     <simpara>인덱스 방법</simpara>
+    </listitem>
+    <listitem>
+     <simpara>프로시져 언어</simpara>
+    </listitem>
+   </itemizedlist>
+  </para>
+
+  <para>
+   그리고, <productname>PostgreSQL</productname>의 라이센스는 
+   개인적이든, 상업적이든, 교육용이든 어떠한 목적으로도 누구나가, 
+   소스를 수정하고, 재배포할 수 있다.
+  </para>
+    <sect1 id="history">
+     <title><productname>PostgreSQL</productname> 간추린 역사</title>
+
+     <indexterm zone="history">
+      <primary>history</primary>
+      <secondary>of PostgreSQL</secondary>
+     </indexterm>
+
+     <para>
+      <productname>PostgreSQL</productname>이라는 객체-관계형 데이터베이스 관리 시스템은
+  캘리포니아의 버클리 대학교에서 <productname>POSTGRES</productname>라는 이름으로
+  처음 개발 되었다.
+  이것을 바탕으로 20년 넘게 개발되어, <productname>PostgreSQL</productname>은 이제 
+  어느 곳에서나 사용될 수 있는 가장 나은 오픈 소스 데이터베이스로 인정받고 있다.
+
+     </para>
+   </sect1>
+ </chapter>
+
+ <chapter id="agensql">
+  <title><productname>Agens-SQL</>이 무엇인가?</title>
+  <para>Agens(아젠스)는 라틴어로 고대 로마 황제의 정보보좌관을 뜻한다.
+정보를 제공함에 있어서 필요한 정보를 가장 정확하고 빠르게 전달하고, 이러한 정보를 수집, 가공하여
+최적의 정보를 제공하고자 하는 취지에서 만들어진 비트나인의 데이터베이스 통합 솔루션의 명칭이다.</para>
+
+  <sect1 id="sysStructure">
+   <title>시스템 구조</title>
+   <para>
+    비트나인의 Agens는 아래와 같은 구성으로 이루어져 있다.
+    <variablelist>
+     <varlistentry>
+      <term>Agens-SQL</term>
+      <listitem>
+       <para>
+국내 최초로 오픈소스의 <productname>PostgreSQL</> 기반의 DBMS와 그 확장 모듈에 대한 통합 솔루션.
+<productname>Agens-SQL V1.0</>은 <productname>PostgreSQL</>의 최신버전인 9.4를 기반으로 하고 있으며,
+누구나 무료로 사용할 수 있는 검증된 오픈소스 DBMS 이다.
+주요 확장 모듈로는
+Query optimizer(<productname>pg_plan_hint</>), Connection pooling(<productname>PGBouncer</>),
+Event Processing System(<productname>PGQ</>), Remote Function Call(<productname>PL/Proxy</>),
+GIS System(<productname>PostGIS</>) 등이 있다.
+       </para>
+      </listitem>
+     </varlistentry>
+
+     <varlistentry>
+      <term>Agens-Graph</term>
+       <listitem>
+        <para>
+국내 최초의 Graph Database 상용화 솔루션
+최근 폭발적으로 증가되는 소셜 네트워크 데이터는 모두 그래프 데이터 구조로
+이루어져 있으며, 이러한 데이터에 대한 처리 및 분석 등의 작업을 위해
+그래프 데이터 관리시스템이 필요함.
+Agens-Graph그래프 데이터의 처리부분, 그래프 데이터의 분석 플랫폼,
+그에 따른 시각화 부분까지 총 3가지 영역을 포함하고 있음.
+        </para>
+ <graphic align="center" width="1000" fileref="../agens-graph.png"/>
+      </listitem>
+     </varlistentry>
+    </variablelist>
+   </para>
+  </sect1>
+
+  <sect1 id="features">
+   <title>특징</title>
+   <sect2 id="activity">
+   <title>Agens-SQL</title>
+   <para>
+ <productname>Agens-SQL</>은 <productname>PostgreSQL</> 기반의 오픈소스 RDBMS입니다. 비트나인은 PostgreSQL의 소스분석
+과 오픈소스 커뮤니티에서의 활발한 communication 및 활동을 통해 그 기술력을 축적해왔으며, 추후
+<productname>Agens-SQL</>에 새로운 Graph Database 기술을 접목하여 시장에서의 그 가치를 인정받고, 데이터베이스
+기술의 선두주자 역할을 하고자 합니다.
+   </para>
+<figure>
+<title><productname>Agens-SQL</> 수행영역</title>
+ <graphic align="center" fileref="../activity.png"/>
+</figure>
+<variablelist>
+ <varlistentry>
+      <term><productname>PostgreSQL</></term>
+       <listitem>
+        <para>
+<productname>PostgreSQL</>은 오랜기간 동안 축적된
+DBMS 기술을 보유하고 있고, 성능과 안정성
+에서도 그 가치를 인정받고 있음
+<productname>Agens-SQL</>은 <productname>PostgreSQL</>을 기반으로
+한 RDBMS 이고, <productname>PostgreSQL</>의 기본적인
+기술 및 기능을 가져옴
+        </para>
+        <para>
+비트나인은 <productname>Agens-SQL</>을 통해
+<productname>PostgreSQL</>의 원천기술을 보유하고
+있고, Graph Database를 접목하기
+위한 각종 R<literal>&</literal>D 활동을 통해
+보다 진보된 솔루션을 개발
+        </para>
+       </listitem>
+ </varlistentry>
+ <varlistentry>
+      <term><productname>PostgreSQL</> Open Source Community</term>
+       <listitem>
+         <itemizedlist>
+          <listitem override='dash'>
+           <para>
+<productname>PostgreSQL</> Open Source
+Community 참여
+           </para>
+          </listitem>
+          <listitem override='dash'>
+           <para>
+<productname>PostgreSQL</> 기술력을 바탕으로 한 OSS
+Community 에서의 기술 발전 기여
+           </para>
+          </listitem>
+          <listitem override='dash'>
+           <para>
+<productname>Agens-SQL</> Extension에 대한
+Open Source로 전환 및 OSS
+Community leading
+           </para>
+          </listitem>
+         </itemizedlist>
+       </listitem>
+ </varlistentry>
+ <varlistentry>
+      <term>Extension 및 Tool 개발</term>
+       <listitem>
+         <itemizedlist>
+          <listitem override='dash'>
+           <para>
+<productname>PostgreSQL</> Admin tool인 Agens-
+Mgr 개발
+           </para>
+          </listitem>
+          <listitem override='dash'>
+           <para>
+Open Source 기반의 Extension tool에
+대한 development 및 Agens 제품으로의
+패 키지화
+           </para>
+          </listitem>
+          <listitem override='dash'>
+           <para>
+Extension Tool에 대한 커뮤니티
+운영 및 기술 발전
+           </para>
+          </listitem>
+         </itemizedlist>
+       </listitem>
+ </varlistentry>
+ <varlistentry>
+      <term>기술지원 및 버전관리</term>
+       <listitem>
+         <itemizedlist>
+          <listitem override='dash'>
+           <para>
+<productname>Agens-SQL</>의 설치 및 운영에 대한 기술지원
+           </para>
+          </listitem>
+          <listitem override='dash'>
+           <para>
+타 DBMS의 data 이관 및 migration에
+대한 기술지원
+           </para>
+          </listitem>
+          <listitem override='dash'>
+           <para>
+장애 발생 시 신속한 지원 및 코드 분석을 통한
+원인규명, 필요 시 patch 제작 및 배포
+           </para>
+          </listitem>
+          <listitem override='dash'>
+           <para>
+<productname>PostgreSQL</> 버전에 맞는 <productname>Agens-SQL</>
+버전 관리
+           </para>
+          </listitem>
+         </itemizedlist>
+       </listitem>
+ </varlistentry>
+</variablelist>
+   </sect2>
+   <sect2 id="package">
+    <title>패키지</title>
+    <para>
+<productname>Agens-SQL</>은 <productname>PostgreSQL</> 기반으로, 유용한 open source 패키지들을 선택적으로 사용가능한 형태로
+제공함으로써, 편리성과 안정성을 제공합니다. 또한, Oracle의 오픈소스 버전이라고 평가를 받는만큼,
+기존의 Oracle 사용자들도 큰 이질감 없이 쉽게 사용할 수 있습니다. Replication, Failover, Connection
+Pooling 등과 같은 데이터베이스 필수 기능을 위한 다양한 패키지들 또한 제공하고 있습니다.
+    </para>
+<graphic fileref="../package.png">
+   </sect2>
+   <sect2 id="postgresql">
+    <title><productname>PostgreSQL</></title>
+    <orderedlist>
+     <listitem>
+      <para><emphasis>Open Source DBMS</emphasis></para>
+      <para>
+<productname>PostgreSQL</>은 현재 Open Source DBMS중에서 Enterprise급의 성능과 기능을 제공 하고 있고, 앞으로도
+더운 발전가능성이 무궁무진하다. 또한 사용자가 직접 커뮤니티에 참여하여 불편한 점이나 버그 리포트 등을
+할 수 있다는 장점이 있다.
+      </para>
+     </listitem>
+     <listitem>
+      <para><emphasis>다양한 커뮤니티</emphasis></para>
+      <para>
+<productname>PostgreSQL</>의 장점 중 하나는 커뮤니티가 다양하다는 것이다. <productname>PostgreSQL</>이 Open Source DBMS인
+만큼 사용자들이 원하는 모듈을 직접 개발 또는 커뮤니티에 건의 함으로써 만들 수 있다. 이러한 모듈이나
+<productname>PostgreSQL</> 자체의 커뮤니티들은 많은 사람들의 의견을 취합하여 발전 할 수 있다. 집단 지성의 이념처럼
+다양하고 많은 커뮤니티가 발달하여 지식의 쉬운 전달이 가능하다.
+      </para>
+     </listitem>
+     <listitem>
+      <para><emphasis>함수</emphasis></para>
+      <para>
+‘저장 프로시저’ 라고 불리는 SQL문으로 작성된 함수를 서버환경에서 사용할 수 있다. 또한 오라클의 PL/
+SQL과 유사한 PL/pgSQL, PL/Python, PL/Perl, C/C++, PL/R 등 다양한 언어들을 지원하고 있다.
+      </para>
+     </listitem>
+     <listitem>
+      <para><emphasis>ACID와 Transaction</emphasis></para>
+      <para>
+<productname>PostgreSQL</>은 Full ACID(원자성, 일관성, 고립성, 지속성)을 지원한다.
+      </para>
+     </listitem>
+     <listitem>
+      <para><emphasis>MVCC</emphasis></para>
+      <para>
+<productname>PostgreSQL</>은 MVCC(Multiversion Concurrency Control)을 지원 함으로써
+수행 속도의 성능을 향상 되었다.
+      </para>
+     </listitem>
+     <listitem>
+      <para><emphasis>다양한 인덱스 기법</emphasis></para>
+      <para>
+<productname>PostgreSQL</>은 MVCC(Multiversion Concurrency Control)을 지원 함으로써
+수행 속도의 성능을 향상 되었다.
+      </para>
+     </listitem>
+    </orderedlist>
+   </sect2>
+   <sect2 id="architecture">
+    <title>Agens-SQL 아키텍처 및 주요 기능</title>
+<graphic fileref="../architecture.png">
+     <para>
+<productname>PostgreSQL</>기반 통합 패키지 솔루션은 <productname>PostgreSQL</> 공개소스 DBMS를 중심으로
+다양한 모듈들이 패키지화 되어 있다. 패키징의 목적은 즉각적인 상용화를 위함이며,
+이에 초점을 맞춘 모듈들을 엄선하고 추가 발전시켜 전체 패키지에 포함 시킨다.
+통합 패키지 솔루션에 기본적으로 패키징 되는 모듈들은 다음과 같다.
+     </para>
+    <orderedlist numeration="loweralpha">
+     <listitem>
+      <para>pg_loader : MySQL, SQLite, dBase 등의 데이터를 <productname>PostgreSQL</>로 migration 하는 모듈</para>
+     </listitem>
+     <listitem>
+      <para>Orafce : Oracle의 데이터를 <productname>PostgreSQL</>로 migration 하는 모듈</para>
+     </listitem>
+     <listitem>
+      <para>pg_plan_hint : Oracle에서 성능향상을 위해 제공하는 강력한 기능인 hint 기능을
+<productname>PostgreSQL</>에서도 사용을 가능케 하는 모듈</para>
+     </listitem>
+     <listitem>
+      <para>PGBouncer : DB와 세션간의 접속 작업으로 인해 발생하는 리소스를 최소화시켜 성능확보를 위한 모듈</para>
+     </listitem>
+     <listitem>
+      <para>plProxy : Replication DB server 환경에서 Remote function call을 지원해주는 모듈</para>
+     </listitem>
+     <listitem>
+      <para>PGQ : Asynchronous Event Processing 기능을 통해 효율적인 Batch Processing을 위한 모듈</para>
+     </listitem>
+     <listitem>
+      <para>pg-pool : Server 이중화 관련 기능들을 관리하기 위한 middleware 모듈</para>
+     </listitem>
+     <listitem>
+      <para>PostGIS : <productname>PostgreSQL</>에서 공간데이터 처리를 가능케 하기 위한 모듈</para>
+     </listitem>
+    </orderedlist>
+   </sect2>
+  </sect1>
+ </chapter>
+</part>

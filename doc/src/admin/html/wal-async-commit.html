@@ -1,0 +1,313 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>비동기 커밋</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REV="MADE"
+HREF="mailto:pgsql-docs@postgresql.org"><LINK
+REL="HOME"
+TITLE="Agens SQL 1.0 문서"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="안정성 및 Write-Ahead 로그"
+HREF="wal.html"><LINK
+REL="PREVIOUS"
+TITLE="Write-Ahead 로깅(WAL)"
+HREF="wal-intro.html"><LINK
+REL="NEXT"
+TITLE="WAL 환경 설정"
+HREF="wal-configuration.html"><LINK
+REL="STYLESHEET"
+TYPE="text/css"
+HREF="stylesheet.css"><META
+HTTP-EQUIV="Content-Type"
+CONTENT="text/html; charset=UTF-8"><META
+name="viewport"
+content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width"><META
+NAME="creation"
+CONTENT="2015-06-26T04:43:18"></HEAD
+><BODY
+CLASS="SECT1"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="4"
+ALIGN="center"
+VALIGN="bottom"
+><A
+HREF="index.html"
+>Agens SQL 1.0 문서</A
+></TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="top"
+><A
+TITLE="Write-Ahead 로깅(WAL)"
+HREF="wal-intro.html"
+ACCESSKEY="P"
+>이전</A
+></TD
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="wal.html"
+ACCESSKEY="U"
+>위로</A
+></TD
+><TD
+WIDTH="60%"
+ALIGN="center"
+VALIGN="bottom"
+>장 13. 안정성 및 Write-Ahead 로그</TD
+><TD
+WIDTH="20%"
+ALIGN="right"
+VALIGN="top"
+><A
+TITLE="WAL 환경 설정"
+HREF="wal-configuration.html"
+ACCESSKEY="N"
+>다음</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="WAL-ASYNC-COMMIT"
+>13.3. 비동기 커밋</A
+></H1
+><P
+>   <I
+CLASS="FIRSTTERM"
+>비동기 커밋</I
+>은 데이터베이스가 충돌한 경우 가장 최근 트랜잭션이 분실될 수도 있는 대신, 트랜잭션을 좀 더 빨리 완료할 수 있는 옵션이다. 
+   다수의 애플리케이션에서 이것은 수용 가능한 트레이드오프이다.
+  </P
+><P
+>   앞 절에서 설명한 대로 트랜잭션 커밋은 일반적으로 <I
+CLASS="FIRSTTERM"
+>동기식</I
+>이며, 서버는 클라이언트로 성공 표시를 리턴하기 전에 트랜잭션의 <ACRONYM
+CLASS="ACRONYM"
+>WAL</ACRONYM
+> 레코드가 영구적 저장소에 쓰기될 때까지 기다린다. 
+   따라서 클라이언트는 커밋 직후에 서버 충돌이 일어났더라도 커밋하려는 트랜잭션이 보존되었음을 확신할 수 있다. 
+   그러나 짧은 트랜잭션의 경우 이러한 지연은 총 트랜잭션 시간의 주요 부분을 환경 설정한다. 
+   비동기 커밋 모드를 선택하는 것은 <ACRONYM
+CLASS="ACRONYM"
+>WAL</ACRONYM
+> 레코드가 실제로 디스크에 기록되기 전에 트랜잭션이 논리적으로 완료되는 즉시 서버는 성공을 리턴한다는 것을 의미한다. 
+   이것은 소규모 트랜잭션의 경우 처리량을 확 늘릴 수 있다.
+  </P
+><P
+>   비동기 커밋은 데이터 손실의 위험이 있다. 
+   트랜잭션이 완료됨을 클라이언트에 알리는 리포트와 트랜잭션이 실제로 커밋된 때 사이에는 짧은 시간차가 있다(즉, 서버 충돌 시 무손실 보장). 
+   따라서 클라이언트가 트랜잭션을 기억할 것이라는 전제 하에서 외부 액션을 취하는 경우에는 비동기 커밋을 사용해서는 안 된다. 
+   예를 들면, 은행은 ATM의 현금 인출 트랜잭션 레코딩에 대한 비동기 커밋을 절대로 사용하지 않을 것이다. 
+   그러나, 이벤트 로깅 같은 다수의 시나리오에서 이러한 유형을 강력하게 보장할 필요는 없다.
+  </P
+><P
+>   비동기 커밋을 사용함으로써 유발되는 위험은 데이터 손상이 아니라 데이터 손실이다. 
+   데이터베이스가 충돌한 경우 쓰기 되었던 최신 레코드로 <ACRONYM
+CLASS="ACRONYM"
+>WAL</ACRONYM
+>를 리플레이함으로써 복구가 된다. 
+   따라서 데이터베이스는 자기 모순이 없는 상태로 복원되지만 미처 디스크에 쓰기 되지 않는 트랜잭션은 해당 상태가 반영되지 못한다. 
+   그러므로 순수 효과는 마지막 몇 개 트랜잭션의 손실이다. 트랜잭션은 커밋 명령에서 리플레이되기 때문에 불일치가 있을 수는 없다. 
+   예를 들면, 트랜잭션 B가 이전 트랜잭션 A의 결과에 따라 변경을 하는 경우 B의 효과는 유지하면서 A의 효과는 소실되게 하는 것은 불가능하다.
+  </P
+><P
+>   사용자는 트랜잭션별로 커밋 모드를 선택할 수 있으므로 동시에 실행되는 동기 및 비동기 커밋 트랜잭션을 모두 갖는 것이 가능하다. 
+   이것은 성능과 트랜잭션 영속성의 확실성 사이에 유연한 트레이드 오프가 가능하다. 
+   커밋 모드는 사용자가 설정한 매개 변수 synchronous_commit로 제어되며, 환경 설정 매개 변수를 설정하는 방법대로 변경이 가능하다. 
+   임의의 트랜잭션 하나에 대해 사용되는 모드는 트랜잭션 커밋이 시작된 경우 <TT
+CLASS="VARNAME"
+>synchronous_commit</TT
+>의 값에 따라 달라진다.
+  </P
+><P
+>   예를 들면, <TT
+CLASS="COMMAND"
+>DROP TABLE</TT
+>같은 특정 유틸리티 명령은 <TT
+CLASS="VARNAME"
+>synchronous_commit</TT
+> 설정과 무관하게 강제로 동기식 커밋을 한다. 
+   이것은 서버의 파일 시스템과 데이터베이스의 논리적 상태 간에 일관성을 유지하기 위한 것이다. 
+   <TT
+CLASS="COMMAND"
+>PREPARE
+   TRANSACTION</TT
+>같이 2단계 커밋을 지원하는 명령도 항상 동기식이다.
+  </P
+><P
+>   비동기 커밋 시점과 트랜잭션의 <ACRONYM
+CLASS="ACRONYM"
+>WAL</ACRONYM
+> 레코드 쓰기 시점 사이의 위험 시간대에 데이터베이스가 충돌할 경우 해당 트랜잭션 중에 만들어진 변경 사항은 <SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>손실될</I
+></SPAN
+> 것이다. 
+   백그라운드 프로세스(<SPAN
+CLASS="QUOTE"
+>"WAL
+   writer"</SPAN
+>)는 wal_writer_delay 밀리초 단위로 쓰기 되지 않은 <ACRONYM
+CLASS="ACRONYM"
+>WAL</ACRONYM
+> 레코드를 디스크에 기록하기 때문에 위험 시간대의 지연 시간은 제한된다. 
+   WAL writer는 바쁜 기간 중에 전체 페이지를 한 번에 작성하도록 되어 있으므로 위험 시간대의 실제 최대 지연 시간은 <TT
+CLASS="VARNAME"
+>wal_writer_delay</TT
+>의 세 배이다.
+  </P
+><DIV
+CLASS="CAUTION"
+><P
+></P
+><TABLE
+CLASS="CAUTION"
+BORDER="1"
+WIDTH="100%"
+><TR
+><TD
+ALIGN="CENTER"
+><B
+>경고</B
+></TD
+></TR
+><TR
+><TD
+ALIGN="LEFT"
+><P
+>    즉시 방식(immediate-mode) 셧다운은 서버 충돌과 동일하며, 따라서 미기록된 비동기 커밋의 손실이 야기된다.
+   </P
+></TD
+></TR
+></TABLE
+></DIV
+><P
+>   비동기 커밋은 fsync = off 설정과는 다르게 동작한다. 
+   fsync는 모든 트랜잭션의 동작이 바뀌는 서버 차원(server-wide)의 설정이다. 
+   이것은 데이터베이스의 서로 다른 부분에 쓰기를 동기화하는 <SPAN
+CLASS="PRODUCTNAME"
+>Agens SQL</SPAN
+> 내의 모든 로직을 비활성화하므로 시스템 충돌(즉, <SPAN
+CLASS="PRODUCTNAME"
+>Agens SQL</SPAN
+> 자체의 실패가 아니라 하드웨어 또는 운영 체제 충돌) 시 데이터베이스 상태가 제멋대로 망가지게 된다. 
+   여러 가지 시나리오에서 비동기 커밋은 데이터 손상 위험 없이 <TT
+CLASS="VARNAME"
+>fsync</TT
+>를 해제하여 성능을 최고로 개선해 준다. 
+  </P
+><P
+>   commit_delay 역시 비동기 커밋과 매우 유사하지만 이것은 실제로 동기 커밋 방식이다(사실, <TT
+CLASS="VARNAME"
+>commit_delay</TT
+>는 비동기 커밋 중에 무시된다). 
+   <TT
+CLASS="VARNAME"
+>commit_delay</TT
+>는 해당 트랜잭션에 의해 실행된 쓰기가 다른 트랜잭션 커밋도 동시에 수행할 수 있도록 트랜잭션이 <ACRONYM
+CLASS="ACRONYM"
+>WAL</ACRONYM
+>을 디스크에 쓰기 직전에 지연을 야기한다. 
+   이 설정으로 여러 트랜잭션에 쓰기 비용을 분할하기 위해 트랜잭션이 쓰기(flush) 하려는 그룹에 조인하는 시간을 늘릴 수 있다.
+  </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="wal-intro.html"
+ACCESSKEY="P"
+>이전</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>처음으로</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="wal-configuration.html"
+ACCESSKEY="N"
+>다음</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Write-Ahead 로깅(<ACRONYM
+CLASS="ACRONYM"
+>WAL</ACRONYM
+>)</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="wal.html"
+ACCESSKEY="U"
+>위로</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><ACRONYM
+CLASS="ACRONYM"
+>WAL</ACRONYM
+> 환경 설정</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>
