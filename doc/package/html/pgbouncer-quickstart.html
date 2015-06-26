@@ -1,0 +1,1013 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>Quick Start</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REV="MADE"
+HREF="mailto:pgsql-docs@postgresql.org"><LINK
+REL="HOME"
+TITLE="Agens SQL 1.0 문서"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="PgBouncer"
+HREF="pgbouncer.html"><LINK
+REL="PREVIOUS"
+TITLE="설정"
+HREF="pgbouncer-configuration.html"><LINK
+REL="NEXT"
+TITLE="Skytools"
+HREF="skytools.html"><LINK
+REL="STYLESHEET"
+TYPE="text/css"
+HREF="stylesheet.css"><META
+HTTP-EQUIV="Content-Type"
+CONTENT="text/html; charset=UTF-8"><META
+name="viewport"
+content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width"><META
+NAME="creation"
+CONTENT="2015-06-26T06:33:42"></HEAD
+><BODY
+CLASS="SECT1"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="4"
+ALIGN="center"
+VALIGN="bottom"
+><A
+HREF="index.html"
+>Agens SQL 1.0 문서</A
+></TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="top"
+><A
+TITLE="설정"
+HREF="pgbouncer-configuration.html"
+ACCESSKEY="P"
+>이전</A
+></TD
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="pgbouncer.html"
+ACCESSKEY="U"
+>위로</A
+></TD
+><TD
+WIDTH="60%"
+ALIGN="center"
+VALIGN="bottom"
+>장 2. <SPAN
+CLASS="PRODUCTNAME"
+>PgBouncer</SPAN
+></TD
+><TD
+WIDTH="20%"
+ALIGN="right"
+VALIGN="top"
+><A
+TITLE="Skytools"
+HREF="skytools.html"
+ACCESSKEY="N"
+>다음</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="PGBOUNCER-QUICKSTART"
+>2.2. Quick Start</A
+></H1
+><P
+>         <SPAN
+CLASS="PRODUCTNAME"
+>PgBouncer</SPAN
+>는 세가지의 pooling 방식을 지원한다(session, transaction, statement). 본 장에서는 간단한 예제를 통하여 이 세 가지의 pooling 방식을 살펴본다.
+     </P
+><P
+></P
+><UL
+><LI
+><P
+><SPAN
+CLASS="PRODUCTNAME"
+>PgBouncer</SPAN
+>의 구동과 모니터링</P
+><P
+></P
+><UL
+><LI
+><P
+><SPAN
+CLASS="PRODUCTNAME"
+>PgBouncer</SPAN
+> 구동</P
+><P
+><SPAN
+CLASS="PRODUCTNAME"
+>PgBouncer</SPAN
+>가 설치된 디렉토리 내에서 환경설정 <TT
+CLASS="FILENAME"
+>.ini</TT
+>파일을 인자로 넘겨주어 다음과 같이 실행한다.</P
+><P
+><TT
+CLASS="COMMAND"
+>$ pgbouncer pgbouncer.ini</TT
+></P
+><P
+><SPAN
+CLASS="PRODUCTNAME"
+>PgBouncer</SPAN
+>를 데몬화 시켜서 백그라운드에서 실행되게 하기 위해서는 상기 커맨드에 -d 옵션을 추가하여 수행한다. 이때 <TT
+CLASS="FILENAME"
+>.ini</TT
+>에 pidfile 속성이 명시되어 있어야 한다.</P
+><P
+><TT
+CLASS="COMMAND"
+>$ pgbouncer -d pgbouncer.ini</TT
+></P
+></LI
+><LI
+><P
+><SPAN
+CLASS="PRODUCTNAME"
+>PgBouncer</SPAN
+> 모니터링</P
+><P
+><SPAN
+CLASS="PRODUCTNAME"
+>PgBouncer</SPAN
+>를 백그라운드에서 실행하게 하면 손쉬운 모니터링이 가능하다. 모니터링을 위해서는 <TT
+CLASS="FILENAME"
+>.ini</TT
+>파일의 admin_user에 명시되어 있는 유저를 이용하여 pgbouncer DB에 접속한다.</P
+><P
+>                     </P><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="PROMPT"
+>[agens@localhost ~]$</SAMP
+> <KBD
+CLASS="USERINPUT"
+>psql -p 6432 -U postgres pgbouncer</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>Password for user postgres:<KBD
+CLASS="USERINPUT"
+></KBD
+>
+psql (9.4.2, server 1.5.5/bouncer)
+Type "help" for help.
+
+<SAMP
+CLASS="PROMPT"
+>pgbouncer=#</SAMP
+></SAMP
+></PRE
+><P>
+                     </P
+><P
+>pgbouncer DB에 연결된 상태에서 help 명령을 누르면 <SPAN
+CLASS="PRODUCTNAME"
+>PgBouncer</SPAN
+>가 지원하는 명령어가 나오며 이 명령어들을 활용하여 실시간 모니터링 및 <SPAN
+CLASS="PRODUCTNAME"
+>PgBouncer</SPAN
+> 제어가 가능하다.</P
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="PROMPT"
+>pgbouncer=#</SAMP
+> <KBD
+CLASS="USERINPUT"
+>show help;</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>NOTICE:  Console usage
+DETAIL:  
+    SHOW HELP|CONFIG|DATABASES|POOLS|CLIENTS|SERVERS|VERSION
+    SHOW STATS|FDS|SOCKETS|ACTIVE_SOCKETS|LISTS|MEM
+    SHOW DNS_HOSTS|DNS_ZONES
+    SET key = arg
+    RELOAD
+    PAUSE [&lt;db&gt;]
+    RESUME [&lt;db&gt;]
+    KILL &lt;db&gt;
+    SUSPEND
+    SHUTDOWN
+SHOW</SAMP
+>
+<SAMP
+CLASS="PROMPT"
+>pgbouncer=#</SAMP
+></PRE
+></LI
+></UL
+></LI
+><LI
+><P
+><SPAN
+CLASS="PRODUCTNAME"
+>PgBouncer</SPAN
+>의 Connection State</P
+><P
+><SPAN
+CLASS="PRODUCTNAME"
+>PgBouncer</SPAN
+>에서 구분짓는 Connection의 대표적인 State에 대해서 간략히 알아보겠다.(하기 명시된 State명은 이해를 돕기위해 show pools 명령에 의해 나오는 정보를 기준으로 작성된 것이며 정식 명칭은 아니다.)</P
+><P
+></P
+><UL
+><LI
+><P
+>sv_active</P
+><P
+>서버 연결이 열려 있으며 현재 특정 클라이언트가 사용 중인 상태이다.</P
+></LI
+><LI
+><P
+>sv_idle</P
+><P
+>서버 연결이 열려 있으며 클라이언트와는 연결이 안되어 있는 상태이다. 새로운 클라이언트와의 연결이 언제라도 가능한 상태이며 내부적으로는 server_reset_query(session feature 초기화)가 불려졌으며 server_check_delay로 지정된 시간보다 적은 시간을 머문 상태이다.</P
+></LI
+><LI
+><P
+>sv_used</P
+><P
+>서버 연결이 열려있으며 sv_idle상태에서 server_check_delay로 지정된 시간을 초과하여 옮겨진 상태이다. 새로운 클라이언트와의 연결을 통해 reuse를 하기 위해서는 server_check_query가 호출되어야 한다.</P
+></LI
+><LI
+><P
+>sv_tested</P
+><P
+>server_reset_query 혹은 server_check_query에 의해 test가 진행 중인 상태이다. 테스트가 완료 되면 sv_idle 상태로 옮겨진다.</P
+></LI
+><LI
+><P
+>sv_login</P
+><P
+>서버 연결이 열려있으며 현재 DB에 login한 상태이다.</P
+></LI
+></UL
+></LI
+><LI
+><P
+><SPAN
+CLASS="PRODUCTNAME"
+>PgBouncer</SPAN
+>의 세 가지 pooling 방식</P
+><P
+>세 가지 각각의 pooling방식을 간단한 예제를 통해 살펴보도록 하겠다. 이에 앞서 기본적인 <TT
+CLASS="FILENAME"
+>.ini</TT
+>파일의 설정은 다음과 같으며 session pooling, transaction pooling은 auto commit 모드를 끈 상태로 진행된다.</P
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="PROMPT"
+>[agens@localhost bin]$</SAMP
+><KBD
+CLASS="USERINPUT"
+>vi pgbouncer.ini</KBD
+>
+
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>[databases]
+test1 = host=127.0.0.1 port=5432 dbname=test user=postgres
+[pgbouncer]
+listen_port = 6432
+listen_addr = *
+auth_file = users.txt
+auth_type = plain
+max_client_conn = 3
+pool_mode = session
+pidfile = pgbouncer.pid
+admin_users = postgres
+server_check_query = SELECT 1;
+server_check_delay = 10</SAMP
+></PRE
+><P
+>또한 <SPAN
+CLASS="PRODUCTNAME"
+>PgBouncer</SPAN
+>를 백그라운드에서 실행한다.</P
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+><SAMP
+CLASS="PROMPT"
+>[agens@localhost bin]$</SAMP
+> <KBD
+CLASS="USERINPUT"
+>pgbouncer -d pgbouncer.ini </KBD
+>
+2015-06-08 00:49:20.702 6351 LOG File descriptor limit: 1024 (H:4096), max_client_conn: 3, max fds possible: 33</SAMP
+></PRE
+><P
+></P
+><OL
+TYPE="a"
+><LI
+><P
+>session pooling</P
+><P
+>클라이언트 측에서 연결을 해제할 시에 서버연결은 pool로 반환된다. 다음은 session pooling을 위한 예제이다.</P
+><P
+>먼저 초기상태의 pool상태를 확인한다.</P
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="PROMPT"
+>[agens@localhost bin]$</SAMP
+> <KBD
+CLASS="USERINPUT"
+>psql -p 6432 -U postgres pgbouncer</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>Password for user postgres:<KBD
+CLASS="USERINPUT"
+></KBD
+> 
+psql (9.4.2, server 1.5.5/bouncer)
+Type "help" for help.
+
+<SAMP
+CLASS="PROMPT"
+>pgbouncer=#</SAMP
+> <KBD
+CLASS="USERINPUT"
+>show pools;</KBD
+>
+ database  |   user    | cl_active | cl_waiting | sv_active | sv_idle | sv_used | sv_tested | sv_login | maxwait 
+-----------+-----------+-----------+------------+-----------+---------+---------+-----------+----------+---------
+ pgbouncer | pgbouncer |         1 |          0 |         0 |       0 |       0 |         0 |        0 |       0
+ test1     | postgres  |         0 |          0 |         0 |       0 |       0 |         0 |        0 |       0
+(2 rows)
+
+<SAMP
+CLASS="PROMPT"
+>pgbouncer=#</SAMP
+></SAMP
+>
+                     </PRE
+><P
+>이제 클라이언트의 접속을 시도하고 다시 pool정보를 살펴본다. cl_active가 1로 변하여 클라이언트의 접속이 이루어졌다는 것을 살펴볼 수 있다.</P
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="PROMPT"
+>[agens@localhost ~]$</SAMP
+> <KBD
+CLASS="USERINPUT"
+>psql -p 6432 -U kim test1</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>Password for user kim: <KBD
+CLASS="USERINPUT"
+></KBD
+>
+psql (9.4.2)
+Type "help" for help.
+
+<SAMP
+CLASS="PROMPT"
+>test1=#</SAMP
+></SAMP
+>
+                     </PRE
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+><SAMP
+CLASS="PROMPT"
+>pgbouncer=#</SAMP
+> <KBD
+CLASS="USERINPUT"
+>show pools;</KBD
+>
+ database  |   user    | cl_active | cl_waiting | sv_active | sv_idle | sv_used | sv_tested | sv_login | maxwait 
+-----------+-----------+-----------+------------+-----------+---------+---------+-----------+----------+---------
+ pgbouncer | pgbouncer |         1 |          0 |         0 |       0 |       0 |         0 |        0 |       0
+ test1     | postgres  |         1 |          0 |         0 |       0 |       0 |         0 |        0 |       0
+(2 rows)
+
+<SAMP
+CLASS="PROMPT"
+>pgbouncer=#</SAMP
+></SAMP
+>
+                     </PRE
+><P
+>다음 클라이언트측에서 간단한 질의를 입력하고 commit을 입력한 후 다시 pool의 정보를 살펴본다. sv_active가 1이 되어 현재 1개의 클라이언트가 서버에 연결되어 사용 중이라는 것을 알 수 있다.</P
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+><SAMP
+CLASS="PROMPT"
+>test1=#</SAMP
+> <KBD
+CLASS="USERINPUT"
+>select * from table1;</KBD
+>
+ a | b 
+---+---
+(0 rows)</SAMP
+>
+
+<SAMP
+CLASS="PROMPT"
+>test1=#</SAMP
+> <KBD
+CLASS="USERINPUT"
+>commit;</KBD
+></PRE
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+><SAMP
+CLASS="PROMPT"
+>pgbouncer=#</SAMP
+> <KBD
+CLASS="USERINPUT"
+>show pools;</KBD
+>
+ database  |   user    | cl_active | cl_waiting | sv_active | sv_idle | sv_used | sv_tested | sv_login | maxwait 
+-----------+-----------+-----------+------------+-----------+---------+---------+-----------+----------+---------
+ pgbouncer | pgbouncer |         1 |          0 |         0 |       0 |       0 |         0 |        0 |       0
+ test1     | postgres  |         1 |          0 |         1 |       0 |       0 |         0 |        0 |       0
+(2 rows)
+
+<SAMP
+CLASS="PROMPT"
+>pgbouncer=#</SAMP
+></SAMP
+>
+                     </PRE
+><P
+>이제 클라이언트에서 연결을 끊고 pool을 살펴본다. cl_active가 0으로 되어 클라이언트의 연결이 끊어졌고 방금 사용한 연결은 sv_idle상태로 옮겨졌음을 볼 수 있다. 그리고 일정시간(<TT
+CLASS="FILENAME"
+>.ini</TT
+>파일의 server_check_delay에 명시된 시간)이 지난 후 다시 pool의 상태정보를 보면 sv_used 상태로 다시 옮겨졌음을 볼 수 있다. </P
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+><SAMP
+CLASS="PROMPT"
+>test1=#</SAMP
+> <KBD
+CLASS="USERINPUT"
+>\q</KBD
+></SAMP
+></PRE
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+><SAMP
+CLASS="PROMPT"
+>pgbouncer=#</SAMP
+> <KBD
+CLASS="USERINPUT"
+>show pools;</KBD
+>
+ database  |   user    | cl_active | cl_waiting | sv_active | sv_idle | sv_used | sv_tested | sv_login | maxwait 
+-----------+-----------+-----------+------------+-----------+---------+---------+-----------+----------+---------
+ pgbouncer | pgbouncer |         1 |          0 |         0 |       0 |       0 |         0 |        0 |       0
+ test1     | postgres  |         0 |          0 |         0 |       1 |       0 |         0 |        0 |       0
+(2 rows)
+
+<SAMP
+CLASS="PROMPT"
+>pgbouncer=#</SAMP
+></SAMP
+>
+                     </PRE
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+><SAMP
+CLASS="PROMPT"
+>pgbouncer=#</SAMP
+> <KBD
+CLASS="USERINPUT"
+>show pools;</KBD
+>
+ database  |   user    | cl_active | cl_waiting | sv_active | sv_idle | sv_used | sv_tested | sv_login | maxwait 
+-----------+-----------+-----------+------------+-----------+---------+---------+-----------+----------+---------
+ pgbouncer | pgbouncer |         1 |          0 |         0 |       0 |       0 |         0 |        0 |       0
+ test1     | postgres  |         0 |          0 |         0 |       0 |       1 |         0 |        0 |       0
+(2 rows)
+
+<SAMP
+CLASS="PROMPT"
+>pgbouncer=#</SAMP
+></SAMP
+>
+                     </PRE
+><P
+>이 상태에서 다시 클라이언트가 다시 연결을 시도하여 질의를 수행하면 sv_used 상태에 있었던 연결이 sv_active로 옮겨져 재사용 되었음을 알 수 있다.</P
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="PROMPT"
+>[agens@localhost ~]$</SAMP
+> <KBD
+CLASS="USERINPUT"
+>psql -p 6432 -U kim test1</KBD
+>
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>Password for user kim: <KBD
+CLASS="USERINPUT"
+></KBD
+>
+psql (9.4.2)
+Type "help" for help.
+
+<SAMP
+CLASS="PROMPT"
+>test1=#</SAMP
+> <KBD
+CLASS="USERINPUT"
+>select * from table1;</KBD
+></SAMP
+>
+                     </PRE
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+><SAMP
+CLASS="PROMPT"
+>pgbouncer=#</SAMP
+> <KBD
+CLASS="USERINPUT"
+>show pools;</KBD
+>
+ database  |   user    | cl_active | cl_waiting | sv_active | sv_idle | sv_used | sv_tested | sv_login | maxwait 
+-----------+-----------+-----------+------------+-----------+---------+---------+-----------+----------+---------
+ pgbouncer | pgbouncer |         1 |          0 |         0 |       0 |       0 |         0 |        0 |       0
+ test1     | postgres  |         1 |          0 |         1 |       0 |       0 |         0 |        0 |       0
+(2 rows)
+
+<SAMP
+CLASS="PROMPT"
+>pgbouncer=#</SAMP
+></SAMP
+>
+                     </PRE
+></LI
+><LI
+><P
+>transaction pooling</P
+><P
+>트랜잭션이 완료되면 서버연결은 pool로 반환된다. 다음은 transaction pooling을 위한 예제이다.</P
+><P
+>먼저 <TT
+CLASS="FILENAME"
+>.ini</TT
+>파일의 pool_mode = transaction으로 고친다.</P
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="PROMPT"
+>[agens@localhost bin]$</SAMP
+><KBD
+CLASS="USERINPUT"
+>vi pgbouncer.ini</KBD
+>
+
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>[databases]
+test1 = host=127.0.0.1 port=5432 dbname=test user=postgres
+[pgbouncer]
+listen_port = 6432
+listen_addr = *
+auth_file = users.txt
+auth_type = plain
+max_client_conn = 3
+pool_mode = transaction
+pidfile = pgbouncer.pid
+admin_users = postgres
+server_check_query = SELECT 1;
+server_check_delay = 10</SAMP
+></PRE
+><P
+>다음 RELOAD 명령을 통하여 <SPAN
+CLASS="PRODUCTNAME"
+>PgBouncer</SPAN
+>의 새로운 환경설정을 다시 로드한다.</P
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+><SAMP
+CLASS="PROMPT"
+>pgbouncer=#</SAMP
+> <KBD
+CLASS="USERINPUT"
+>RELOAD;</KBD
+>
+RELOAD
+<SAMP
+CLASS="PROMPT"
+>pgbouncer=#</SAMP
+> <KBD
+CLASS="USERINPUT"
+>show pools;</KBD
+>
+ database  |   user    | cl_active | cl_waiting | sv_active | sv_idle | sv_used | sv_tested | sv_login | maxwait 
+-----------+-----------+-----------+------------+-----------+---------+---------+-----------+----------+---------
+ pgbouncer | pgbouncer |         1 |          0 |         0 |       0 |       0 |         0 |        0 |       0
+ test1     | postgres  |         0 |          0 |         0 |       0 |       0 |         0 |        0 |       0
+(2 rows)</SAMP
+></PRE
+><P
+>이제 클라이언트에서 새롭게 접속을 하고 질의를 수행한 후 pool의 상태정보를 확인한다. cl_active와 sv_active가 1이 되어 현재 클라이언트 1명이 작업중임을 알 수 있다.</P
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+><SAMP
+CLASS="PROMPT"
+>[agens@localhost ~]$</SAMP
+> <KBD
+CLASS="USERINPUT"
+>psql -p 6432 -U kim test1</KBD
+>
+Password for user kim:<KBD
+CLASS="USERINPUT"
+></KBD
+> 
+psql (9.4.2)
+Type "help" for help.
+
+<SAMP
+CLASS="PROMPT"
+>test1=#</SAMP
+> <KBD
+CLASS="USERINPUT"
+>select * from table1;</KBD
+>
+ a | b 
+---+---
+(0 rows)
+
+<SAMP
+CLASS="PROMPT"
+>test1=#</SAMP
+></SAMP
+></PRE
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+><SAMP
+CLASS="PROMPT"
+>pgbouncer=#</SAMP
+> <KBD
+CLASS="USERINPUT"
+>show pools;</KBD
+>
+ database  |   user    | cl_active | cl_waiting | sv_active | sv_idle | sv_used | sv_tested | sv_login | maxwait 
+-----------+-----------+-----------+------------+-----------+---------+---------+-----------+----------+---------
+ pgbouncer | pgbouncer |         1 |          0 |         0 |       0 |       0 |         0 |        0 |       0
+ test1     | postgres  |         1 |          0 |         1 |       0 |       0 |         0 |        0 |       0
+(2 rows)</SAMP
+></PRE
+><P
+>이제 클라이언트 측에서 commit을 수행하여 pool의 정보를 확인한다. session 모드에서와는 다르게 sv_active가 0이 되고 sv_idle이 1이 되어 있음을 확인할 수 있다.</P
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+><SAMP
+CLASS="PROMPT"
+>test1=#</SAMP
+> <KBD
+CLASS="USERINPUT"
+>commit;</KBD
+>
+COMMIT
+<SAMP
+CLASS="PROMPT"
+>test1=#</SAMP
+></SAMP
+></PRE
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+><SAMP
+CLASS="PROMPT"
+>pgbouncer=#</SAMP
+> <KBD
+CLASS="USERINPUT"
+>show pools;</KBD
+>
+ database  |   user    | cl_active | cl_waiting | sv_active | sv_idle | sv_used | sv_tested | sv_login | maxwait 
+-----------+-----------+-----------+------------+-----------+---------+---------+-----------+----------+---------
+ pgbouncer | pgbouncer |         1 |          0 |         0 |       0 |       0 |         0 |        0 |       0
+ test1     | postgres  |         1 |          0 |         0 |       1 |       0 |         0 |        0 |       0
+(2 rows)</SAMP
+>
+                     </PRE
+><P
+>이제 다시 질의를 수행하여 pool을 살펴본다. sv_idle에 있던 1이 sv_active로 옮겨갔음을 확인할 수 있다. 만약 질의 수행을 server_check_delay에 명시된 시간보다 늦게 하였다면 sv_idle에서 sv_used로 옮겨간게 다시 sv_active로 옮겨가 연결을 재사용하였음을 확인할 수 있다.</P
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+><SAMP
+CLASS="PROMPT"
+>test1=#</SAMP
+> <KBD
+CLASS="USERINPUT"
+>select * from table1;</KBD
+>
+ a | b 
+---+---
+(0 rows)</SAMP
+></PRE
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+><SAMP
+CLASS="PROMPT"
+>pgbouncer=#</SAMP
+> <KBD
+CLASS="USERINPUT"
+>show pools;</KBD
+>
+ database  |   user    | cl_active | cl_waiting | sv_active | sv_idle | sv_used | sv_tested | sv_login | maxwait 
+-----------+-----------+-----------+------------+-----------+---------+---------+-----------+----------+---------
+ pgbouncer | pgbouncer |         1 |          0 |         0 |       0 |       0 |         0 |        0 |       0
+ test1     | postgres  |         1 |          0 |         1 |       0 |       0 |         0 |        0 |       0
+(2 rows)</SAMP
+></PRE
+><P
+>이제 commit을 하여 sv_idle상태로 전이된 연결을 확인한다. 이와 같이 transaction pooling 모드에서는 transaction의 시작과 완료 기점을 중심으로 클라이언트와의 연결을 성립 및 해제한다.</P
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+><SAMP
+CLASS="PROMPT"
+>test1=#</SAMP
+> <KBD
+CLASS="USERINPUT"
+>commit;</KBD
+>
+COMMIT
+<SAMP
+CLASS="PROMPT"
+>test1=#</SAMP
+></SAMP
+></PRE
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+><SAMP
+CLASS="PROMPT"
+>pgbouncer=#</SAMP
+> <KBD
+CLASS="USERINPUT"
+>show pools;</KBD
+>
+ database  |   user    | cl_active | cl_waiting | sv_active | sv_idle | sv_used | sv_tested | sv_login | maxwait 
+-----------+-----------+-----------+------------+-----------+---------+---------+-----------+----------+---------
+ pgbouncer | pgbouncer |         1 |          0 |         0 |       0 |       0 |         0 |        0 |       0
+ test1     | postgres  |         1 |          0 |         0 |       1 |       0 |         0 |        0 |       0
+(2 rows)</SAMP
+>
+                     </PRE
+></LI
+><LI
+><P
+>statement pooling</P
+><P
+>개별의 Query가 끝날시에 서버연결은 pool로 반환된다. Autocommit모드가 활성화된다. 앞선 예제와 마찬가지로 <TT
+CLASS="FILENAME"
+>.ini</TT
+>파일의 pool_mode를 statement로 변경한다.</P
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="PROMPT"
+>[agens@localhost bin]$</SAMP
+><KBD
+CLASS="USERINPUT"
+>vi pgbouncer.ini</KBD
+>
+
+<SAMP
+CLASS="COMPUTEROUTPUT"
+>[databases]
+test1 = host=127.0.0.1 port=5432 dbname=test user=postgres
+[pgbouncer]
+listen_port = 6432
+listen_addr = *
+auth_file = users.txt
+auth_type = plain
+max_client_conn = 3
+pool_mode = statement
+pidfile = pgbouncer.pid
+admin_users = postgres
+server_check_query = SELECT 1;
+server_check_delay = 10</SAMP
+></PRE
+><P
+>다음 RELOAD 명령을 통하여 <SPAN
+CLASS="PRODUCTNAME"
+>PgBouncer</SPAN
+>의 새로운 환경설정을 다시 로드한다.</P
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+><SAMP
+CLASS="PROMPT"
+>pgbouncer=#</SAMP
+> <KBD
+CLASS="USERINPUT"
+>RELOAD;</KBD
+>
+RELOAD
+<SAMP
+CLASS="PROMPT"
+>pgbouncer=#</SAMP
+> <KBD
+CLASS="USERINPUT"
+>show pools;</KBD
+>
+ database  |   user    | cl_active | cl_waiting | sv_active | sv_idle | sv_used | sv_tested | sv_login | maxwait 
+-----------+-----------+-----------+------------+-----------+---------+---------+-----------+----------+---------
+ pgbouncer | pgbouncer |         1 |          0 |         0 |       0 |       0 |         0 |        0 |       0
+ test1     | postgres  |         0 |          0 |         0 |       0 |       0 |         0 |        0 |       0
+(2 rows)</SAMP
+></PRE
+><P
+>새로운 클라이언트로 접속 후 질의를 수행하여 pool의 상태를 확인한다. statement가 수행된 이후 이전의 예에서와는 달리 sv_active에 머무르지 않고 바로 sv_idle상태로 옮겨진 것을 볼 수 있다.</P
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="PROMPT"
+>[agens@localhost ~]$</SAMP
+> <KBD
+CLASS="USERINPUT"
+>psql -p 6432 -U kim test1</KBD
+>
+Password for user kim: <KBD
+CLASS="USERINPUT"
+></KBD
+>
+psql (9.4.2)
+Type "help" for help.
+
+<SAMP
+CLASS="PROMPT"
+>test1=#</SAMP
+> <KBD
+CLASS="USERINPUT"
+>select * from table1;</KBD
+>
+ a | b 
+---+---
+(0 rows)
+
+<SAMP
+CLASS="PROMPT"
+>test1=#</SAMP
+></PRE
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+><SAMP
+CLASS="PROMPT"
+>pgbouncer=#</SAMP
+> <KBD
+CLASS="USERINPUT"
+>show pools;</KBD
+>
+ database  |   user    | cl_active | cl_waiting | sv_active | sv_idle | sv_used | sv_tested | sv_login | maxwait 
+-----------+-----------+-----------+------------+-----------+---------+---------+-----------+----------+---------
+ pgbouncer | pgbouncer |         1 |          0 |         0 |       0 |       0 |         0 |        0 |       0
+ test1     | postgres  |         1 |          0 |         0 |       1 |       0 |         0 |        0 |       0
+(2 rows)
+
+<SAMP
+CLASS="PROMPT"
+>pgbouncer=#</SAMP
+></SAMP
+>
+                     </PRE
+></LI
+></OL
+></LI
+></UL
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="pgbouncer-configuration.html"
+ACCESSKEY="P"
+>이전</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>처음으로</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="skytools.html"
+ACCESSKEY="N"
+>다음</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>설정</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="pgbouncer.html"
+ACCESSKEY="U"
+>위로</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Skytools</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

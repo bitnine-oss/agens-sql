@@ -1,0 +1,480 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>Slony-I 구동 예제 (1)</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REV="MADE"
+HREF="mailto:pgsql-docs@postgresql.org"><LINK
+REL="HOME"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Slony-I"
+HREF="slonyi.html"><LINK
+REL="PREVIOUS"
+TITLE="Slony-I 개념 정의"
+HREF="x500.html"><LINK
+REL="NEXT"
+TITLE="Slony-I 구동 예제 (2)"
+HREF="x610.html"><LINK
+REL="STYLESHEET"
+TYPE="text/css"
+HREF="stylesheet.css"><META
+HTTP-EQUIV="Content-Type"
+CONTENT="text/html; charset=UTF-8"><META
+name="viewport"
+content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width"><META
+NAME="creation"
+CONTENT="2015-06-24T03:44:37"></HEAD
+><BODY
+CLASS="SECT1"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="4"
+ALIGN="center"
+VALIGN="bottom"
+><A
+HREF="index.html"
+></A
+></TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="top"
+><A
+TITLE="Slony-I 개념 정의"
+HREF="x500.html"
+ACCESSKEY="P"
+>이전</A
+></TD
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="slonyi.html"
+ACCESSKEY="U"
+>위로</A
+></TD
+><TD
+WIDTH="60%"
+ALIGN="center"
+VALIGN="bottom"
+>장 5. Slony-I</TD
+><TD
+WIDTH="20%"
+ALIGN="right"
+VALIGN="top"
+><A
+TITLE="Slony-I 구동 예제 (2)"
+HREF="x610.html"
+ACCESSKEY="N"
+>다음</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="AEN530"
+>5.2. <SPAN
+CLASS="PRODUCTNAME"
+>Slony-I</SPAN
+> 구동 예제 (1)</A
+></H1
+><P
+>            이번절에서는 로컬 데이터베이스로 master-slave를 구성하여 <SPAN
+CLASS="PRODUCTNAME"
+>Slony-I</SPAN
+>를 구동하는 예제를 보인다. 
+        </P
+><P
+>            
+        </P
+><P
+></P
+><OL
+TYPE="1"
+><LI
+><P
+>환경변수 설정</P
+><P
+>                자주 사용해야 하는 변수는 다음과 같이 환경 변수로 등록후에 사용하면 편리하다. 다음은 환경변수를 임시로 설정하는 방법이다. 
+                다른 방법은 <TT
+CLASS="FILENAME"
+>.bashrc</TT
+> 파일 또는 <TT
+CLASS="FILENAME"
+>.bash_profile</TT
+> 파일에 등록 후에 사용하면 편하게 설정 할 수 있다.
+            </P
+><P
+>                </P><PRE
+CLASS="PROGRAMLISTING"
+>export CLUSTERNAME=slony_example
+export MASTERDBNAME=pgbench
+export SLAVEDBNAME=pgbenchslave
+export MASTERHOST=localhost
+export SLAVEHOST=localhost
+export REPLICATIONUSER=postgres
+export PGBENCHUSER=pgbench</PRE
+><P>
+            </P
+></LI
+><LI
+><P
+>데이터베이스 사용자 생성</P
+><P
+>                다음 명령어는 데이터베이스 사용자를 생성하는 명령어이다. 
+                사용자의 이름은 <TT
+CLASS="COMMAND"
+>pgbench</TT
+>로 만들고 생성 옵션 <TT
+CLASS="COMMAND"
+>-SRD</TT
+>를 줌으로써 수퍼유저가 아니고 role을 생성하지 않고 데이터베이스를 생성하지 않는 사용자를 만드는 명령어이다.
+            </P
+><P
+>                </P><PRE
+CLASS="PROGRAMLISTING"
+>createuser -SRD $PGBENCHUSER</PRE
+><P>
+            </P
+></LI
+><LI
+><P
+>데이터베이스 생성</P
+><P
+>                다음 명령어는 master 노드와 slave 노드를 구성하는 두 개의 데이터베이스를 생성한 후에 마스터 노드에 <TT
+CLASS="COMMAND"
+>pgbench</TT
+>를 실행하여 데이터를 생성하는 명령어 이다.
+            </P
+><P
+>                </P><PRE
+CLASS="PROGRAMLISTING"
+>createdb -O $PGBENCHUSER -h $MASTERHOST $MASTERDBNAME
+createdb -O $PGBENCHUSER -h $SLAVEHOST $SLAVEDBNAME
+pgbench -i -s 1 -U $PGBENCHUSER -h $MASTERHOST $MASTERDBNAME</PRE
+><P>
+            </P
+><P
+>                <SPAN
+CLASS="PRODUCTNAME"
+>Slony-I</SPAN
+>는 replication을 실행하려고 하는 테이블에 primary key가 존재 해야한다. 다음 명령어는 pgbench_history 테이블에 primary key를 생성하는 명령어이다.
+            </P
+><P
+>                </P><PRE
+CLASS="PROGRAMLISTING"
+>psql -U $PGBENCHUSER -h $MASTERHOST -d $MASTERDBNAME -c "begin;
+alter table pgbench_history add column id serial;
+update pgbench_history set id = nextval('pgbench_history_id_seq');
+alter table pgbench_history add primary key(id);
+commit;"</PRE
+><P>
+            </P
+><P
+>                <SPAN
+CLASS="PRODUCTNAME"
+>Slony-I</SPAN
+>는 자동적으로 DDL 명령을 실행 하지 못한다. 따라서 다음 명령어로 master 노드의 테이블 스키마를 slave 노드에 생성 시켜주어야 한다.
+            </P
+><P
+>                </P><PRE
+CLASS="PROGRAMLISTING"
+>pg_dump -s -U $REPLICATIONUSER -h $MASTERHOST $MASTERDBNAME | psql -U $REPLICATIONUSER -h $SLAVEHOST $SLAVEDBNAME</PRE
+><P>
+            </P
+></LI
+><LI
+><P
+><SPAN
+CLASS="PRODUCTNAME"
+>Slony-I</SPAN
+>를 사용한 replication 시작</P
+><P
+>                다음 스크립트는 <TT
+CLASS="COMMAND"
+>slonik</TT
+> 설정 프로세서를 실행하여 <SPAN
+CLASS="PRODUCTNAME"
+>Slony-I</SPAN
+>의 설정을 하는 스크립트이다.
+            </P
+><P
+>                </P><PRE
+CLASS="PROGRAMLISTING"
+>#!/bin/sh
+
+slonik &#60;&#60;_EOF_
+    #--
+    # define the namespace the replication system uses in our example it is
+    # slony_example
+    #--
+    cluster name = $CLUSTERNAME;
+
+    #--
+    # admin conninfo's are used by slonik to connect to the nodes one for each
+    # node on each side of the cluster, the syntax is that of PQconnectdb in
+    # the C-API
+    # --
+    node 1 admin conninfo = 'dbname=$MASTERDBNAME host=$MASTERHOST user=$REPLICATIONUSER';
+    node 2 admin conninfo = 'dbname=$SLAVEDBNAME host=$SLAVEHOST user=$REPLICATIONUSER';
+
+    #--
+    # init the first node.  This creates the schema
+    # _$CLUSTERNAME containing all replication system specific database
+    # objects.
+
+    #--
+    init cluster ( id=1, comment = 'Master Node');
+ 
+    #--
+    # Slony-I organizes tables into sets.  The smallest unit a node can
+    # subscribe is a set.  The following commands create one set containing
+    # all 4 pgbench tables.  The master or origin of the set is node 1.
+    #--
+    create set (id=1, origin=1, comment='All pgbench tables');
+    set add table (set id=1, origin=1, id=1, fully qualified name = 'public.pgbench_accounts', comment='accounts table');
+    set add table (set id=1, origin=1, id=2, fully qualified name = 'public.pgbench_branches', comment='branches table');
+    set add table (set id=1, origin=1, id=3, fully qualified name = 'public.pgbench_tellers', comment='tellers table');
+    set add table (set id=1, origin=1, id=4, fully qualified name = 'public.pgbench_history', comment='history table');
+
+    #--
+    # Create the second node (the slave) tell the 2 nodes how to connect to
+    # each other and how they should listen for events.
+    #--
+
+    store node (id=2, comment = 'Slave node', event node=1);
+    store path (server = 1, client = 2, conninfo='dbname=$MASTERDBNAME host=$MASTERHOST user=$REPLICATIONUSER');
+    store path (server = 2, client = 1, conninfo='dbname=$SLAVEDBNAME host=$SLAVEHOST user=$REPLICATIONUSER');
+_EOF_</PRE
+><P>
+            </P
+><P
+>                스크립트의 이름은 상관이 없지만 이 예제에서는 <TT
+CLASS="FILENAME"
+>slony-conf.sh</TT
+>로 생성한다. 다음은 해당 스크립트에 실행 권한을 준후에 실행 하는 명령어이다.
+            </P
+><P
+>                </P><PRE
+CLASS="PROGRAMLISTING"
+><SAMP
+CLASS="PROMPT"
+>localhost</SAMP
+> $ <KBD
+CLASS="USERINPUT"
+><TT
+CLASS="COMMAND"
+>[sudo]chmod a+x ./<TT
+CLASS="FILENAME"
+>slony-conf.sh</TT
+></TT
+></KBD
+>
+<SAMP
+CLASS="PROMPT"
+>localhost</SAMP
+> $ <KBD
+CLASS="USERINPUT"
+><TT
+CLASS="COMMAND"
+>./<TT
+CLASS="FILENAME"
+>slony-conf.sh</TT
+></TT
+></KBD
+></PRE
+><P>
+            </P
+><P
+>                다음에는 <SPAN
+CLASS="PRODUCTNAME"
+>Slony-I</SPAN
+> replication 데몬을 실행시켜준다.
+            </P
+><P
+>                </P><PRE
+CLASS="PROGRAMLISTING"
+><SAMP
+CLASS="PROMPT"
+>localhost</SAMP
+> $ <KBD
+CLASS="USERINPUT"
+><TT
+CLASS="COMMAND"
+>slon $CLUSTERNAME "dbname=$MASTERDBNAME user=$REPLICATIONUSER host=$MASTERHOST"</TT
+></KBD
+>
+<SAMP
+CLASS="PROMPT"
+>localhost</SAMP
+> $ <KBD
+CLASS="USERINPUT"
+><TT
+CLASS="COMMAND"
+>slon $CLUSTERNAME "dbname=$SLAVEDBNAME user=$REPLICATIONUSER host=$SLAVEHOST"</TT
+></KBD
+></PRE
+><P>
+            </P
+><P
+>                Replication을 시작 하기 위해 다음 스크립트 파일을 생성 후 시작 한다.
+            </P
+><P
+>                </P><PRE
+CLASS="PROGRAMLISTING"
+>#!/bin/sh
+
+slonik &#60;&#60;_EOF_
+    # ----
+    # This defines which namespace the replication system uses
+    # ----
+    cluster name = $CLUSTERNAME;
+
+    # ----
+    # Admin conninfo's are used by the slonik program to connect
+    # to the node databases.  So these are the PQconnectdb arguments
+    # that connect from the administrators workstation (where
+    # slonik is executed).
+    # ----
+    node 1 admin conninfo = 'dbname=$MASTERDBNAME host=$MASTERHOST user=$REPLICATIONUSER';
+    node 2 admin conninfo = 'dbname=$SLAVEDBNAME host=$SLAVEHOST user=$REPLICATIONUSER';
+
+    # ----
+    # Node 2 subscribes set 1
+    # ----
+    subscribe set ( id = 1, provider = 1, receiver = 2, forward = no);
+_EOF_</PRE
+><P>
+            </P
+><P
+>                위의 스크립트를 <TT
+CLASS="FILENAME"
+>sloni-start.sh</TT
+>로 만든 후 실행 시켜주면 성공적으로 replication이 동작된 것을 확인 할 수 있다.
+            </P
+><P
+>                </P><PRE
+CLASS="PROGRAMLISTING"
+><SAMP
+CLASS="PROMPT"
+>localhost</SAMP
+> $ <KBD
+CLASS="USERINPUT"
+><TT
+CLASS="COMMAND"
+>[sudo]chmod a+x ./<TT
+CLASS="FILENAME"
+>sloni-start.sh</TT
+></TT
+></KBD
+>
+<SAMP
+CLASS="PROMPT"
+>localhost</SAMP
+> $ <KBD
+CLASS="USERINPUT"
+><TT
+CLASS="COMMAND"
+>./<TT
+CLASS="FILENAME"
+>sloni-start.sh</TT
+></TT
+></KBD
+></PRE
+><P>
+            </P
+></LI
+></OL
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="x500.html"
+ACCESSKEY="P"
+>이전</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>처음으로</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="x610.html"
+ACCESSKEY="N"
+>다음</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><SPAN
+CLASS="PRODUCTNAME"
+>Slony-I</SPAN
+> 개념 정의</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="slonyi.html"
+ACCESSKEY="U"
+>위로</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><SPAN
+CLASS="PRODUCTNAME"
+>Slony-I</SPAN
+> 구동 예제 (2)</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

@@ -1,0 +1,271 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>데이터베이스 성능 모니터링</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REV="MADE"
+HREF="mailto:pgsql-docs@postgresql.org"><LINK
+REL="HOME"
+TITLE="Agens SQL 1.0 문서"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Administrator"
+HREF="admin.html"><LINK
+REL="PREVIOUS"
+TITLE="대기 서버 설정"
+HREF="standby-settings.html"><LINK
+REL="NEXT"
+TITLE="표준 유닉스 도구들"
+HREF="monitoring-ps.html"><LINK
+REL="STYLESHEET"
+TYPE="text/css"
+HREF="stylesheet.css"><META
+HTTP-EQUIV="Content-Type"
+CONTENT="text/html; charset=UTF-8"><META
+name="viewport"
+content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width"><META
+NAME="creation"
+CONTENT="2015-06-26T04:43:18"></HEAD
+><BODY
+CLASS="CHAPTER"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="4"
+ALIGN="center"
+VALIGN="bottom"
+><A
+HREF="index.html"
+>Agens SQL 1.0 문서</A
+></TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="top"
+><A
+TITLE="대기 서버 설정"
+HREF="standby-settings.html"
+ACCESSKEY="P"
+>이전</A
+></TD
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="admin.html"
+ACCESSKEY="U"
+>위로</A
+></TD
+><TD
+WIDTH="60%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="20%"
+ALIGN="right"
+VALIGN="top"
+><A
+TITLE="표준 유닉스 도구들"
+HREF="monitoring-ps.html"
+ACCESSKEY="N"
+>다음</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="CHAPTER"
+><H1
+><A
+NAME="MONITORING"
+></A
+>장 11. 데이터베이스 성능 모니터링</H1
+><DIV
+CLASS="TOC"
+><DL
+><DT
+><B
+>차례</B
+></DT
+><DT
+>11.1. <A
+HREF="monitoring-ps.html"
+>표준 유닉스 도구들</A
+></DT
+><DT
+>11.2. <A
+HREF="monitoring-stats.html"
+>통계 수집기</A
+></DT
+><DD
+><DL
+><DT
+>11.2.1. <A
+HREF="monitoring-stats.html#MONITORING-STATS-SETUP"
+>통계 수집기 환경설정</A
+></DT
+><DT
+>11.2.2. <A
+HREF="monitoring-stats.html#MONITORING-STATS-VIEWS"
+>수집된 통계 정보 보기</A
+></DT
+><DT
+>11.2.3. <A
+HREF="monitoring-stats.html#MONITORING-STATS-FUNCTIONS"
+>통계 함수들</A
+></DT
+></DL
+></DD
+><DT
+>11.3. <A
+HREF="monitoring-locks.html"
+>잠금 보기</A
+></DT
+><DT
+>11.4. <A
+HREF="dynamic-trace.html"
+>Dynamic Tracing</A
+></DT
+><DD
+><DL
+><DT
+>11.4.1. <A
+HREF="dynamic-trace.html#COMPILING-FOR-TRACE"
+>Dynamic Tracing을 위한 컴파일링</A
+></DT
+><DT
+>11.4.2. <A
+HREF="dynamic-trace.html#TRACE-POINTS"
+>Built-in Probes</A
+></DT
+><DT
+>11.4.3. <A
+HREF="dynamic-trace.html#USING-TRACE-POINTS"
+>Using Probes</A
+></DT
+><DT
+>11.4.4. <A
+HREF="dynamic-trace.html#DEFINING-TRACE-POINTS"
+>Defining New Probes</A
+></DT
+></DL
+></DD
+></DL
+></DIV
+><P
+>  데이터베이스 관리자가 하는 일 가운데 하나는 
+  <SPAN
+CLASS="QUOTE"
+>"이 데이터베이스 서버가 정상적으로 운영 되고 있는지"</SPAN
+>
+  를 지켜 보는 일이다.
+  여기서는 이에 대한 부분을 다룬다.
+ </P
+><P
+>   데이터베이스 운영 상태를 지켜 보거나, 성능을 분석하는 도구들은 
+   여러가지가 있다. 
+   이 장에서 다루는 대부분의 내용은 <SPAN
+CLASS="PRODUCTNAME"
+>Agens SQL</SPAN
+>
+   통계수집기에 대한 것이지만, 
+   <TT
+CLASS="COMMAND"
+>ps</TT
+>, <TT
+CLASS="COMMAND"
+>top</TT
+>, <TT
+CLASS="COMMAND"
+>iostat</TT
+>, <TT
+CLASS="COMMAND"
+>vmstat</TT
+>
+   같은 유닉스에서 일반적으로 사용하는 모니터링 프로그램에 대한 
+   설명도 함께 한다. 또한 EXPLAIN
+   명령어로 살펴보아야 하는 최적화 되지 못한 쿼리들에 대한 해결 방법도 
+   잠깐 다룬다. 
+  </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="standby-settings.html"
+ACCESSKEY="P"
+>이전</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>처음으로</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="monitoring-ps.html"
+ACCESSKEY="N"
+>다음</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>대기 서버 설정</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="admin.html"
+ACCESSKEY="U"
+>위로</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>표준 유닉스 도구들</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

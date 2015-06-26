@@ -1,0 +1,111 @@
+<!--
+doc/src/sgml/ref/drop_server.sgml
+PostgreSQL documentation
+-->
+
+<refentry id="SQL-DROPSERVER">
+ <refmeta>
+  <refentrytitle>DROP SERVER</refentrytitle>
+  <manvolnum>7</manvolnum>
+  <refmiscinfo>SQL - Language Statements</refmiscinfo>
+ </refmeta>
+
+ <refnamediv>
+  <refname>DROP SERVER</refname>
+  <refpurpose>지정한 외부 서버 등록정보를 삭제한다</refpurpose>
+ </refnamediv>
+
+ <indexterm zone="sql-dropserver">
+  <primary>DROP SERVER</primary>
+ </indexterm>
+
+ <refsynopsisdiv>
+<synopsis>
+DROP SERVER [ IF EXISTS ] <replaceable class="parameter">이름</replaceable> [ CASCADE | RESTRICT ]
+</synopsis>
+ </refsynopsisdiv>
+
+ <refsect1>
+  <title>설명</title>
+
+  <para>
+   <command>DROP SERVER</command> 명령은 서버에 등록된 외부 서버를 
+   삭제한다.  이 명령은 슈퍼 유저만 사용할 수 있다.
+  </para>
+ </refsect1>
+
+ <refsect1>
+  <title>매개 변수</title>
+
+  <variablelist>
+   <varlistentry>
+    <term><literal>IF EXISTS</literal></term>
+    <listitem>
+     <para>
+          이 구문을 사용하면, 지정한 서버가 없어도 오류를 내지 않는다.  단지
+          알림 메시지만 보인다.
+     </para>
+    </listitem>
+   </varlistentry>
+
+   <varlistentry>
+    <term><replaceable class="parameter">이름</replaceable></term>
+    <listitem>
+     <para>
+      지우려는 외부 서버 이름
+     </para>
+    </listitem>
+   </varlistentry>
+
+   <varlistentry>
+    <term><literal>CASCADE</literal></term>
+    <listitem>
+     <para>
+          사용자 맵핑 정보와 같이 해당 서버와 의존성 관계가 있는 
+          모든 객체들도 함께 지운다.
+     </para>
+    </listitem>
+   </varlistentry>
+
+   <varlistentry>
+    <term><literal>RESTRICT</literal></term>
+    <listitem>
+     <para>
+          해당 서버와 의존성 관계가 있는 객체가 있다면, 
+          작업을 중지한다.  이 설정은 기본값이다.
+     </para>
+    </listitem>
+   </varlistentry>
+  </variablelist>
+ </refsect1>
+
+ <refsect1>
+  <title>예제</title>
+
+  <para>
+   <literal>foo</> 외부 서버가 있다면, 지우고자 할 때:
+<programlisting>
+DROP SERVER IF EXISTS foo;
+</programlisting></para>
+ </refsect1>
+
+ <refsect1>
+  <title>호환성</title>
+
+  <para>
+   <command>DROP SERVER</command> 명령은 ISO/IEC 9075-9
+      (SQL/MED) 에서 승인되었다.  <literal>IF EXISTS</>절은 
+          <productname>PostgreSQL</> 확장 기능이다.
+  </para>
+ </refsect1>
+
+ <refsect1>
+  <title>관련 항목</title>
+
+  <simplelist type="inline">
+   <member><xref linkend="sql-createserver"></member>
+   <member><xref linkend="sql-alterserver"></member>
+  </simplelist>
+ </refsect1>
+
+</refentry>

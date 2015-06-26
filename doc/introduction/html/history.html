@@ -1,0 +1,520 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>PostgreSQL 간추린 역사</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REV="MADE"
+HREF="mailto:pgsql-docs@postgresql.org"><LINK
+REL="HOME"
+TITLE="Agens SQL 1.0 문서"
+HREF="index.html"><LINK
+REL="UP"
+TITLE=" PostgreSQL이 무엇인가?"
+HREF="intro-whatis.html"><LINK
+REL="PREVIOUS"
+TITLE=" PostgreSQL이 무엇인가?"
+HREF="intro-whatis.html"><LINK
+REL="NEXT"
+TITLE="일러두기"
+HREF="notation.html"><LINK
+REL="STYLESHEET"
+TYPE="text/css"
+HREF="stylesheet.css"><META
+HTTP-EQUIV="Content-Type"
+CONTENT="text/html; charset=UTF-8"><META
+name="viewport"
+content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width"><META
+NAME="creation"
+CONTENT="2015-06-26T06:33:35"></HEAD
+><BODY
+CLASS="SECT1"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="4"
+ALIGN="center"
+VALIGN="bottom"
+><A
+HREF="index.html"
+>Agens SQL 1.0 문서</A
+></TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="top"
+><A
+TITLE=" PostgreSQL이 무엇인가?"
+HREF="intro-whatis.html"
+ACCESSKEY="P"
+>이전</A
+></TD
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="intro-whatis.html"
+ACCESSKEY="U"
+>위로</A
+></TD
+><TD
+WIDTH="60%"
+ALIGN="center"
+VALIGN="bottom"
+>장 1. <SPAN
+CLASS="PRODUCTNAME"
+>PostgreSQL</SPAN
+>이 무엇인가?</TD
+><TD
+WIDTH="20%"
+ALIGN="right"
+VALIGN="top"
+><A
+TITLE="일러두기"
+HREF="notation.html"
+ACCESSKEY="N"
+>다음</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="HISTORY"
+>1.1. <SPAN
+CLASS="PRODUCTNAME"
+>PostgreSQL</SPAN
+> 간추린 역사</A
+></H1
+><P
+>  <SPAN
+CLASS="PRODUCTNAME"
+>PostgreSQL</SPAN
+>이라는 객체-관계형 데이터베이스 관리 시스템은
+  캘리포니아의 버클리 대학교에서 <SPAN
+CLASS="PRODUCTNAME"
+>POSTGRES</SPAN
+>라는 이름으로
+  처음 개발 되었다.
+  이것을 바탕으로 20년 넘게 개발되어, <SPAN
+CLASS="PRODUCTNAME"
+>PostgreSQL</SPAN
+>은 이제 
+  어느 곳에서나 사용될 수 있는 가장 나은 오픈 소스 데이터베이스로 인정받고 있다.
+ </P
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="HISTORY-BERKELEY"
+>1.1.1. 버클리 <SPAN
+CLASS="PRODUCTNAME"
+>POSTGRES</SPAN
+> 프로젝트</A
+></H2
+><P
+>   <SPAN
+CLASS="PRODUCTNAME"
+>POSTGRES</SPAN
+> 프로젝트는 마이클 스턴브래커 
+   교수가 이끌었으며, 미국 국방성 고등연구 계획국(<ACRONYM
+CLASS="ACRONYM"
+>DARPA</ACRONYM
+>),
+   육군 연구소(<ACRONYM
+CLASS="ACRONYM"
+>ARO</ACRONYM
+>), 국립 과학 재단(<ACRONYM
+CLASS="ACRONYM"
+>NSF</ACRONYM
+>),
+   ESL 주식회사의 후원을 받아서 진행되었다.
+   <SPAN
+CLASS="PRODUCTNAME"
+>POSTGRES</SPAN
+> 프로젝트는 1986년에 시작되었다.
+   그 시스템의 기초 개념은 The design of POSTGRES 문서를 따랐으며,
+   기초 자료 구조의 정의는 The POSTGRES data model 문서를 기반으로 했다.
+   그 당시 rule에 대한 설계는 The design of the POSTGRES rules system 문서에서 기술하고 있다.
+   자료 저장 관리에 대한 이론적 근거와 구조설계에 대한 것은 the design of the POSTGRES storage system 문서에서 자세히 기술하고 있다.
+  </P
+><P
+>   <SPAN
+CLASS="PRODUCTNAME"
+>POSTGRES</SPAN
+>는 여러번의 공식 배포본을
+   내어놓으며 발전해 갔다. 첫번째 <SPAN
+CLASS="QUOTE"
+>"데모웨어"</SPAN
+> 시스템은
+   1987년에 작동되었으며, 1988년 <ACRONYM
+CLASS="ACRONYM"
+>ACM-SIGMOD</ACRONYM
+> 회견에서
+   시현되었다. The implementation of POSTGRES 문서에서 언급한 버전 1 시스템은
+   1989년 6월에 몇몇 외부관계자들에게 배포되었다. A commentary on the POSTGRES rules system
+   문서에서 언급한 첫번째 rule 시스템의 비판적인 반응을 수용하여,
+   rule 시스템이 다시 설계 되었으며(On Rules, Procedures, Caching and Views in Database Systems 문서 참조),
+   버전 2에서 새로운 rule 시스템을 도입해서, 1990년 6월에 발표되었다.
+   이어, 1991년에 버전 3에서 다중 저장 관리자, 향상된 쿼리 실행기, 
+   재작성된 rule 시스템을 지원하기 시작했다. <SPAN
+CLASS="PRODUCTNAME"
+>Postgres95</SPAN
+>
+   (아래 참조) 발표 이전의 대부분 버전들은 이식성과 신뢰성에 초점을 두고 
+   개발되었다.
+  </P
+><P
+>   <SPAN
+CLASS="PRODUCTNAME"
+>POSTGRES</SPAN
+>는 다양한 조사 작업과, 응용프로그램
+   개발에 사용되었다. 금융 자료 분석 시스템, 제트 엔진 성능 검사 패키지,
+   소행성 추적 데이터베이스, 의료 정보 데이터베이스, 여러 지리 정보 시스템에서
+   사용되었다. 
+   또한 <SPAN
+CLASS="PRODUCTNAME"
+>POSTGRES</SPAN
+>는 여러 대학교에서 교육용 도구로도
+   사용되었다. 마침내, Illustra Information Technologies(현재, <A
+HREF="http://www.ibm.com/"
+TARGET="_top"
+>IBM</A
+>에서 소유권을 가지고 있는 <A
+HREF="http://www.informix.com/"
+TARGET="_top"
+><SPAN
+CLASS="PRODUCTNAME"
+>Informix</SPAN
+></A
+>
+   에 합병됨)에서 코드가 사용되고 상업화 되었다. 그 뒤, 1992년에 
+   <A
+HREF="http://meteora.ucsd.edu/s2k/s2k_home.html"
+TARGET="_top"
+>   Sequoia 2000 scientific computing project</A
+>에서 기본 자료 관리자로 사용되었다.
+  </P
+><P
+>   1993년에 와서는 외부 사용자층이 거의 두 배 가까이 증가하게 되었다.
+   이렇게 되면서, 코드 원형을 관리하고 데이터베이스 조사에 할애할 시간이
+   보다 많이 필요하게 되었다. 결국 이런 지원 작업의 비용을
+   줄이기 위해서 버클리 <SPAN
+CLASS="PRODUCTNAME"
+>POSTGRES</SPAN
+> 
+   프로젝트는 버전 4.2에서 공식적으로 마감하였다.
+  </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="HISTORY-POSTGRES95"
+>1.1.2. <SPAN
+CLASS="PRODUCTNAME"
+>Postgres95</SPAN
+></A
+></H2
+><P
+>   1994년에 앤드류 유와, 졸리 첸이 <SPAN
+CLASS="PRODUCTNAME"
+>POSTGRES</SPAN
+>
+   에 SQL 언어 인터프리터를 추가했다.
+   그리고는 <SPAN
+CLASS="PRODUCTNAME"
+>Postgres95</SPAN
+>라는 새로운 이름으로
+   원본 <SPAN
+CLASS="PRODUCTNAME"
+>POSTGRES</SPAN
+> 버클리 코드의 오픈 소스
+   정책을 이어 받아 웹을 통해서 발표했다.
+  </P
+><P
+>   <SPAN
+CLASS="PRODUCTNAME"
+>Postgres95</SPAN
+> 코드는 ANSI C 호환성으로 
+   작성되었으며, 코드 분량은 25%정도 줄였다. 
+   내부적인 개선 작업으로 성능이 향상 되었으며, 유지 보수가 쉬워졌다.
+   위스콘신 벤치마크에 따르면, 
+   <SPAN
+CLASS="PRODUCTNAME"
+>Postgres95</SPAN
+> 1.0.x 배포판은
+   <SPAN
+CLASS="PRODUCTNAME"
+>POSTGRES</SPAN
+> 버전 4.2보다 약 
+   30-50% 빠른 속도로 작동했다고 한다. 버그 수정에 대한 것은 제외하고, 
+   아래와 같은 굵직한 성능향상을 기했다:
+
+   <P
+></P
+></P><UL
+><LI
+><P
+>      서버측에서 구현되었던, PostQUEL이라는 쿼리 언어를 
+      <ACRONYM
+CLASS="ACRONYM"
+>SQL</ACRONYM
+>로 바꾸었다. (훗날,
+       PostQUEL 쪽은 libpq 라는 인터페이스 라이브러리로 명명되었다.)
+      서브쿼리는 <SPAN
+CLASS="PRODUCTNAME"
+>PostgreSQL</SPAN
+>
+      에서 지원되기 시작했지만, <SPAN
+CLASS="PRODUCTNAME"
+>Postgres95</SPAN
+>에서도
+      사용자 정의 <ACRONYM
+CLASS="ACRONYM"
+>SQL</ACRONYM
+> 함수를 만들어서 그것을 구현할 수도 있었다.
+      집계 함수들이 다시 구현되었으며, 이를 사용하기 위해 <TT
+CLASS="LITERAL"
+>GROUP BY</TT
+>
+      쿼리 구문을 지원했다.
+     </P
+></LI
+><LI
+><P
+>      SQL 쿼리를 대화식으로 사용할 수 있도록 새로운 프로그램(<SPAN
+CLASS="APPLICATION"
+>psql</SPAN
+>)을 
+      제공했다. 이것으로 옛날 <SPAN
+CLASS="APPLICATION"
+>monitor</SPAN
+> 프로그램에서
+      하던 작업들의 대부분을 대체하게 되었다.
+     </P
+></LI
+><LI
+><P
+>      <ACRONYM
+CLASS="ACRONYM"
+>Tcl</ACRONYM
+> 기반 클라이언트에서 사용할 수 있는 
+      새로운 <TT
+CLASS="FILENAME"
+>libpgtcl</TT
+> 라이브러리를 제공했다.
+      <TT
+CLASS="COMMAND"
+>pgtclsh</TT
+> 이라는 간단한 쉘은 
+      <SPAN
+CLASS="PRODUCTNAME"
+>Postgres95</SPAN
+> 서버를 
+      <SPAN
+CLASS="APPLICATION"
+>Tcl</SPAN
+> 프로그램으로 이용할 수 있도록
+      새로운 Tcl 명령들을 제공했다.
+     </P
+></LI
+><LI
+><P
+>      대형 객체(large-object) 인터페이스를 전면 재검토했으며, 
+      대형 객체 inversion은 대형 객체 저장하는 메커니즘으로만 사용되었다.
+      (inversion 파일 시스템은 없앴음)
+     </P
+></LI
+><LI
+><P
+>      예제 차원의 rule 시스템을 없애고, 재작성된 rule을 사용할 수 있었다.
+     </P
+></LI
+><LI
+><P
+>      <SPAN
+CLASS="PRODUCTNAME"
+>Postgres95</SPAN
+>에서 사용할 수 있는 
+      일반적인 <ACRONYM
+CLASS="ACRONYM"
+>SQL</ACRONYM
+> 구문 소개용 간단한 
+      자습서 코드들이 함께 배포되었다.
+     </P
+></LI
+><LI
+><P
+>      <ACRONYM
+CLASS="ACRONYM"
+>BSD</ACRONYM
+> make 대신에, <ACRONYM
+CLASS="ACRONYM"
+>GNU</ACRONYM
+> make를 
+      사용했다. 또한 <SPAN
+CLASS="PRODUCTNAME"
+>Postgres95</SPAN
+> 코드는 패치(doubles
+      자료 정렬이 고정된) 되지 않은 
+      <SPAN
+CLASS="PRODUCTNAME"
+>GCC</SPAN
+>로도 컴파일 될 수 있었다.
+     </P
+></LI
+></UL
+><P>
+  </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="AEN143"
+>1.1.3. <SPAN
+CLASS="PRODUCTNAME"
+>PostgreSQL</SPAN
+></A
+></H2
+><P
+>   1996년이 되면서 <SPAN
+CLASS="QUOTE"
+>"Postgres95"</SPAN
+> 이름을 바꾸기로 했다. 
+   왜냐하면, 같은 연도를 계속 사용할 수 없기 때문이다.
+   그래서 새로운 이름으로 <SPAN
+CLASS="PRODUCTNAME"
+>PostgreSQL</SPAN
+>로 정했다.
+   모체가 된 <SPAN
+CLASS="PRODUCTNAME"
+>POSTGRES</SPAN
+>와 <ACRONYM
+CLASS="ACRONYM"
+>SQL</ACRONYM
+>
+   기능이 추가되었기에 이 두 단어를 합치기로 했다.
+   그리고 버클리 <SPAN
+CLASS="PRODUCTNAME"
+>POSTGRES</SPAN
+> 프로젝트의 전통을
+   이어받았다는 것을 고려해서 버전을 6.0부터 시작하기로 했다.
+   (Postgres95를 버전 5.0으로 감안하기로 하고)
+  </P
+><P
+>   많은 사람들이 요즘도 관례적이거나 발음하기 쉽다는 이유로
+   <SPAN
+CLASS="PRODUCTNAME"
+>PostgreSQL</SPAN
+>을
+   <SPAN
+CLASS="QUOTE"
+>"Postgres"</SPAN
+>라고 부른다. (물론 요즘은 모두 대문자로 표기하는 경우는 드물지만)
+   이것은 별명 또는 별칭으로 널리 사용되고 있다.
+  </P
+><P
+>   <SPAN
+CLASS="PRODUCTNAME"
+>Postgres95</SPAN
+> 개발은
+   서버 코드에 있는 문제점들을 찾고 이해하는 것에 초점을 두었다. 
+   <SPAN
+CLASS="PRODUCTNAME"
+>PostgreSQL</SPAN
+>에서는 더 나아가 
+   이것들을 수정하고 기능을 확장하고 호환성을 넓히는 등
+   모든 분야의 작업이 골고루 이루어졌다.
+  </P
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="intro-whatis.html"
+ACCESSKEY="P"
+>이전</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>처음으로</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="notation.html"
+ACCESSKEY="N"
+>다음</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><SPAN
+CLASS="PRODUCTNAME"
+>PostgreSQL</SPAN
+>이 무엇인가?</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="intro-whatis.html"
+ACCESSKEY="U"
+>위로</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>일러두기</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

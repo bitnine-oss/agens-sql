@@ -1,0 +1,294 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>백업과 복원</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REV="MADE"
+HREF="mailto:pgsql-docs@postgresql.org"><LINK
+REL="HOME"
+TITLE="Agens SQL 1.0 문서"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Administrator"
+HREF="admin.html"><LINK
+REL="PREVIOUS"
+TITLE="로그 파일 관리"
+HREF="logfile-maintenance.html"><LINK
+REL="NEXT"
+TITLE="SQL 덤프"
+HREF="backup-dump.html"><LINK
+REL="STYLESHEET"
+TYPE="text/css"
+HREF="stylesheet.css"><META
+HTTP-EQUIV="Content-Type"
+CONTENT="text/html; charset=UTF-8"><META
+name="viewport"
+content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width"><META
+NAME="creation"
+CONTENT="2015-06-26T04:43:18"></HEAD
+><BODY
+CLASS="CHAPTER"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="4"
+ALIGN="center"
+VALIGN="bottom"
+><A
+HREF="index.html"
+>Agens SQL 1.0 문서</A
+></TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="top"
+><A
+TITLE="로그 파일 관리"
+HREF="logfile-maintenance.html"
+ACCESSKEY="P"
+>이전</A
+></TD
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="admin.html"
+ACCESSKEY="U"
+>위로</A
+></TD
+><TD
+WIDTH="60%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="20%"
+ALIGN="right"
+VALIGN="top"
+><A
+TITLE="SQL 덤프"
+HREF="backup-dump.html"
+ACCESSKEY="N"
+>다음</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="CHAPTER"
+><H1
+><A
+NAME="BACKUP"
+></A
+>장 8. 백업과 복원</H1
+><DIV
+CLASS="TOC"
+><DL
+><DT
+><B
+>차례</B
+></DT
+><DT
+>8.1. <A
+HREF="backup-dump.html"
+><ACRONYM
+CLASS="ACRONYM"
+>SQL</ACRONYM
+> 덤프</A
+></DT
+><DD
+><DL
+><DT
+>8.1.1. <A
+HREF="backup-dump.html#BACKUP-DUMP-RESTORE"
+>덤프 파일 복원하기</A
+></DT
+><DT
+>8.1.2. <A
+HREF="backup-dump.html#BACKUP-DUMP-ALL"
+><SPAN
+CLASS="APPLICATION"
+>pg_dumpall</SPAN
+> 명령어 이용하기</A
+></DT
+><DT
+>8.1.3. <A
+HREF="backup-dump.html#BACKUP-DUMP-LARGE"
+>대용량 데이터베이스 다루기</A
+></DT
+></DL
+></DD
+><DT
+>8.2. <A
+HREF="backup-file.html"
+>파일 시스템 기반 백업</A
+></DT
+><DT
+>8.3. <A
+HREF="continuous-archiving.html"
+>아카이브 모드 백업(Continuous Archiving)과, 특정시점 복구(Point-in-Time Recovery, PITR)</A
+></DT
+><DD
+><DL
+><DT
+>8.3.1. <A
+HREF="continuous-archiving.html#BACKUP-ARCHIVING-WAL"
+>WAL의 아카이브 파일 만들기</A
+></DT
+><DT
+>8.3.2. <A
+HREF="continuous-archiving.html#BACKUP-BASE-BACKUP"
+>베이스 백업 만들기</A
+></DT
+><DT
+>8.3.3. <A
+HREF="continuous-archiving.html#BACKUP-LOWLEVEL-BASE-BACKUP"
+>저수준 API를 이용한 베이스 백업 만들기</A
+></DT
+><DT
+>8.3.4. <A
+HREF="continuous-archiving.html#BACKUP-PITR-RECOVERY"
+>아카이브 모드 백업을 이용한 복구</A
+></DT
+><DT
+>8.3.5. <A
+HREF="continuous-archiving.html#BACKUP-TIMELINES"
+>타임라인</A
+></DT
+><DT
+>8.3.6. <A
+HREF="continuous-archiving.html#BACKUP-TIPS"
+>팁과 예제</A
+></DT
+><DT
+>8.3.7. <A
+HREF="continuous-archiving.html#CONTINUOUS-ARCHIVING-CAVEATS"
+>위험부담</A
+></DT
+></DL
+></DD
+></DL
+></DIV
+><P
+>  모든 데이터베이스 시스템이 그렇듯이, 
+  <SPAN
+CLASS="PRODUCTNAME"
+>Agens SQL</SPAN
+> 데이터베이스 백업은 아주 중요한 사항이다.
+  대부분의 서비스는 그 중요한 자료들은 대부분 데이터베이스에 보관하고 있기 때문이다.
+  백업과 복원(restore) 과정은 비교적 간단한 작업이지만, 
+  이 과정에 기술적인 부분과 개념적인 부분에 대해서 분명하게 숙지해 둘 필요가 
+  있다.
+ </P
+><P
+>  이 장에서는 <SPAN
+CLASS="PRODUCTNAME"
+>Agens SQL</SPAN
+> 자료를 백업하는
+  세 가지 서로 다른 방법을 소개하고 있다.
+  <P
+></P
+></P><UL
+><LI
+><P
+><ACRONYM
+CLASS="ACRONYM"
+>SQL</ACRONYM
+> 덤프</P
+></LI
+><LI
+><P
+>파일 시스템 기반 백업</P
+></LI
+><LI
+><P
+>아카이브 모드 백업</P
+></LI
+></UL
+><P>
+  위 방법들은 서로 장단점이 있다. 이것들에 대한 자세한 설명은 다음 각 절에서 설명하고 있다.
+ </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="logfile-maintenance.html"
+ACCESSKEY="P"
+>이전</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>처음으로</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="backup-dump.html"
+ACCESSKEY="N"
+>다음</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>로그 파일 관리</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="admin.html"
+ACCESSKEY="U"
+>위로</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><ACRONYM
+CLASS="ACRONYM"
+>SQL</ACRONYM
+> 덤프</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

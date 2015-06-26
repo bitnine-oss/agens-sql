@@ -1,0 +1,436 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>Linux</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REV="MADE"
+HREF="mailto:pgsql-docs@postgresql.org"><LINK
+REL="HOME"
+TITLE="Agens SQL 1.0 문서"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="설치"
+HREF="install.html"><LINK
+REL="PREVIOUS"
+TITLE="설치"
+HREF="install.html"><LINK
+REL="NEXT"
+TITLE="Windows"
+HREF="install-window.html"><LINK
+REL="STYLESHEET"
+TYPE="text/css"
+HREF="stylesheet.css"><META
+HTTP-EQUIV="Content-Type"
+CONTENT="text/html; charset=UTF-8"><META
+name="viewport"
+content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width"><META
+NAME="creation"
+CONTENT="2015-06-26T04:52:31"></HEAD
+><BODY
+CLASS="SECT1"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="4"
+ALIGN="center"
+VALIGN="bottom"
+><A
+HREF="index.html"
+>Agens SQL 1.0 문서</A
+></TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="top"
+><A
+TITLE="설치"
+HREF="install.html"
+ACCESSKEY="P"
+>이전</A
+></TD
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="install.html"
+ACCESSKEY="U"
+>위로</A
+></TD
+><TD
+WIDTH="60%"
+ALIGN="center"
+VALIGN="bottom"
+>장 2. 설치</TD
+><TD
+WIDTH="20%"
+ALIGN="right"
+VALIGN="top"
+><A
+TITLE="Windows"
+HREF="install-window.html"
+ACCESSKEY="N"
+>다음</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="INSTALL-LINUX"
+>2.1. Linux</A
+></H1
+><P
+CLASS="LITERALLAYOUT"
+>Agens&nbsp;SQL&nbsp;인스톨러는&nbsp;자바를&nbsp;기반으로&nbsp;한&nbsp;인스톨러이다.<br>
+설치는&nbsp;GUI&nbsp;모드와&nbsp;콘솔&nbsp;모드로&nbsp;나뉘어&nbsp;있으며&nbsp;이번&nbsp;장에서는&nbsp;GUI&nbsp;모드로&nbsp;설치하는&nbsp;방법을&nbsp;설명한다.</P
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="INSTALL-LINUX-PREPARE"
+>2.1.1. 설치 전 준비사항</A
+></H2
+><P
+>Agens SQL을 설치하기에 앞서 다음과 같은 사항이 준비되어 있어야 한다.</P
+><P
+></P
+><UL
+><LI
+><P
+>Agens SQL 인스톨러를 실행시키기 위한 Java JRE(Java Runtime Environment)가 설치되어 있어야 한다.</P
+></LI
+><LI
+><P
+>Agens SQL를 관리하기 위한 OS User가 생성 되어 있어야 한다. Agens SQL은 OS User의 이름을 'agens'로 사용할 것을 권장한다.</P
+></LI
+></UL
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="INSTALL-LINUX-START"
+>2.1.2. 설치 시작</A
+></H2
+><P
+></P
+><OL
+TYPE="1"
+><LI
+><P
+>Agens SQL을 설치할 OS User로 로그인한다.</P
+><PRE
+CLASS="SCREEN"
+>  <SAMP
+CLASS="PROMPT"
+>$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>su agens</KBD
+></PRE
+></LI
+><LI
+><P
+>Technical Sheet를 참고하여 Agens SQL 홈페이지에서 본인의 운영체제에 맞는 인스톨러를 다운로드 받는다. (!!링크 주소 넣기)</P
+></LI
+><LI
+><P
+>인스톨러를 다운로드 받은 곳으로 이동하여 다음의 명령어를 통해 인스톨러를 실행한다.</P
+><PRE
+CLASS="SCREEN"
+>  <SAMP
+CLASS="PROMPT"
+>$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>java -jar Agens_SQL_Version.jar</KBD
+></PRE
+></LI
+><LI
+><P
+>인스톨러가 정상적으로 실행되었다면 다음과 같이 초기화면이 나타난다.</P
+><P
+><IMG
+SRC="images/welcome.png"
+ALIGN="CENTER"></P
+><P
+CLASS="LITERALLAYOUT"
+>제품의&nbsp;버전정보와&nbsp;고객지원팀의&nbsp;이메일&nbsp;그리고&nbsp;제품&nbsp;홈페이지에&nbsp;대한&nbsp;정보를&nbsp;확인할&nbsp;수&nbsp;있다.<br>
+[다음]&nbsp;버튼을&nbsp;클릭하여&nbsp;설치를&nbsp;계속&nbsp;진행한다.<br>
+설치하는&nbsp;도중에&nbsp;[종료]&nbsp;버튼을&nbsp;클릭하여&nbsp;설치를&nbsp;취소&nbsp;할&nbsp;수&nbsp;있다.</P
+></LI
+><LI
+><P
+>Agens SQL에 대한 소개</P
+><P
+><IMG
+SRC="images/infomation.png"
+ALIGN="CENTER"></P
+><P
+CLASS="LITERALLAYOUT"
+>Agens&nbsp;SQL에&nbsp;대한&nbsp;소개가&nbsp;나타난다.&nbsp;확인&nbsp;후&nbsp;[다음]&nbsp;버튼을&nbsp;클릭하여&nbsp;설치를&nbsp;계속&nbsp;진행한다.<br>
+설치하는&nbsp;도중에&nbsp;[이전]&nbsp;버튼을&nbsp;클릭하여&nbsp;이전의&nbsp;단계로&nbsp;이동할&nbsp;수&nbsp;있다.</P
+></LI
+><LI
+><P
+>Agens SQL 라이선스 동의</P
+><P
+><IMG
+SRC="images/license.png"
+ALIGN="CENTER"></P
+><P
+CLASS="LITERALLAYOUT"
+>Agens&nbsp;SQL의&nbsp;라이선스&nbsp;정보가&nbsp;나타난다.&nbsp;라이선스를&nbsp;확인하고&nbsp;'이&nbsp;라이선스&nbsp;조항에&nbsp;동의한다'를&nbsp;선택해야&nbsp;[다음]&nbsp;버튼이&nbsp;활성화된다.<br>
+[다음]&nbsp;버튼을&nbsp;클릭하여&nbsp;설치를&nbsp;계속&nbsp;진행한다.</P
+></LI
+><LI
+><P
+>Agens SQL 설치 경로 설정</P
+><P
+><IMG
+SRC="images/target.png"
+ALIGN="CENTER"></P
+><P
+CLASS="LITERALLAYOUT"
+>Agens&nbsp;SQL의&nbsp;설치&nbsp;경로를&nbsp;설정하는&nbsp;창이&nbsp;나타난다.<br>
+디폴트&nbsp;디렉터리는&nbsp;'$HOME/Agens&nbsp;SQL'로&nbsp;설정되어&nbsp;있다.<br>
+설치&nbsp;경로를&nbsp;변경하려면&nbsp;[찾아보기]&nbsp;버튼을&nbsp;클릭하여&nbsp;Agens&nbsp;SQL가&nbsp;설치될&nbsp;디렉터리의&nbsp;위치를&nbsp;선택하거나&nbsp;디폴트&nbsp;설치&nbsp;경로가&nbsp;작성되어&nbsp;있는&nbsp;곳을&nbsp;클릭하여&nbsp;직접&nbsp;설치&nbsp;경로를&nbsp;입력한다.<br>
+경로&nbsp;설정을&nbsp;마쳤으면&nbsp;[다음]&nbsp;버튼을&nbsp;클릭하여&nbsp;설치를&nbsp;계속&nbsp;진행한다.</P
+></LI
+><LI
+><P
+>새 디렉터리 생성 팝업</P
+><P
+><IMG
+SRC="images/target_popup.png"
+ALIGN="CENTER"></P
+><P
+CLASS="LITERALLAYOUT"
+>입력한&nbsp;설치&nbsp;디렉터리가&nbsp;존재하지&nbsp;않을&nbsp;경우&nbsp;팝업&nbsp;창이&nbsp;나타난다.<br>
+디렉터리를&nbsp;생성할&nbsp;것이라면&nbsp;[OK]&nbsp;버튼&nbsp;클릭하여&nbsp;다음&nbsp;단계로&nbsp;진행하고&nbsp;그렇지&nbsp;않으면&nbsp;[취소]&nbsp;버튼을&nbsp;클릭하여&nbsp;이전&nbsp;단계로&nbsp;돌아간다.</P
+></LI
+><LI
+><P
+>설치할 패키지 선택</P
+><P
+><IMG
+SRC="images/packages.png"
+ALIGN="CENTER"></P
+><P
+CLASS="LITERALLAYOUT"
+>설치할&nbsp;패키지를&nbsp;선택하는&nbsp;창이&nbsp;나타난다.&nbsp;각&nbsp;패키지의&nbsp;이름을&nbsp;클릭하면&nbsp;해당&nbsp;패키지에&nbsp;대한&nbsp;설명을&nbsp;볼&nbsp;수&nbsp;있다.<br>
+체크박스에&nbsp;체크&nbsp;된&nbsp;패키지들이&nbsp;설치가&nbsp;되며,&nbsp;체크박스를&nbsp;클릭하여&nbsp;설치하고자&nbsp;하는&nbsp;패키지를&nbsp;추가하거나&nbsp;제거할&nbsp;수&nbsp;있다.<br>
+설치하고자&nbsp;하는&nbsp;패키지의&nbsp;선택을&nbsp;마치면&nbsp;[다음]&nbsp;버튼을&nbsp;클릭하여&nbsp;설치를&nbsp;계속&nbsp;진행한다.</P
+></LI
+><LI
+><P
+>포트 번호 설정</P
+><P
+><IMG
+SRC="images/port.png"
+ALIGN="CENTER"></P
+><P
+CLASS="LITERALLAYOUT"
+>Agens&nbsp;SQL이&nbsp;사용할&nbsp;포트&nbsp;번호를&nbsp;설정한다.&nbsp;입력&nbsp;가능한&nbsp;포트&nbsp;번호는&nbsp;0부터&nbsp;65535까지의&nbsp;숫자이며,&nbsp;기본&nbsp;값은&nbsp;5456으로&nbsp;설정되어&nbsp;있다.<br>
+설치되는&nbsp;머신에서&nbsp;이미&nbsp;사용중이거나&nbsp;0부터&nbsp;65535&nbsp;사이의&nbsp;정수값이&nbsp;아니면&nbsp;다음단계로&nbsp;진행되지&nbsp;않는다.</P
+></LI
+><LI
+><P
+>데이터베이스 생성 디렉토리 입력</P
+><P
+><IMG
+SRC="images/data_dir.png"
+ALIGN="CENTER"></P
+><P
+CLASS="LITERALLAYOUT"
+>데이터베이스가&nbsp;생성될&nbsp;디렉토리의&nbsp;경로를&nbsp;입력한다.<br>
+기본값은&nbsp;$AGENS_SQL/pgsql/data로&nbsp;설정되어&nbsp;있다.</P
+></LI
+><LI
+><P
+>설치 패키지 목록 확인</P
+><P
+><IMG
+SRC="images/summary.png"
+ALIGN="CENTER"></P
+><P
+>Agens SQL을 설치할 경로와 선택한 패키지의 목록이 나타난다. [다음] 버튼을 클릭하면 설치가 시작된다.</P
+></LI
+><LI
+><P
+>설치 시작</P
+><P
+><IMG
+SRC="images/installation.png"
+ALIGN="CENTER"></P
+><P
+> 설치 진행 상황을 확인 할 수 있다. 현재 창에서는 실시간으로 설치되고 있는 패키지와 파일을 확인 할 수 있다.</P
+></LI
+><LI
+><P
+>설치 완료</P
+><P
+><IMG
+SRC="images/installation_end.png"
+ALIGN="CENTER"></P
+><P
+CLASS="LITERALLAYOUT"
+>진행&nbsp;표시줄에&nbsp;[완료됨]이&nbsp;나타나면&nbsp;문제&nbsp;없이&nbsp;정상적으로&nbsp;설치가&nbsp;완료된&nbsp;것이다.<br>
+[다음]&nbsp;버튼을&nbsp;클릭하여&nbsp;마지막&nbsp;단계로&nbsp;이동한다.</P
+></LI
+><LI
+><P
+>Agens SQL 인스톨러 종료</P
+><P
+><IMG
+SRC="images/finish.png"
+ALIGN="CENTER"></P
+><P
+CLASS="LITERALLAYOUT"
+>설치가&nbsp;모두&nbsp;끝났다는&nbsp;것을&nbsp;알리는&nbsp;창이&nbsp;나타난다.<br>
+[완료]를&nbsp;클릭하면&nbsp;인스톨러가&nbsp;정상적으로&nbsp;종료된다.</P
+></LI
+></OL
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="INSTALL-LINUX-POSTINSTALL"
+>2.1.3. 설치 후 작업</A
+></H2
+><P
+>   환경변수를 등록하지 않으면 설치된 라이브러리를 제대로 읽어들이지 않아 올바르게 작동하지 않고, 명령어를 호출할 때 psql과 같이 단순한 명령어가 아닌 /path/to/Agens_SQL/pgsql/bin/psql과 같이 절대경로를 입력해야 한다.
+   </P
+><P
+>Agens SQL이 설치된 OS User의 bash_profile에 환경변수를 추가한다.
+</P><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="PROMPT"
+>$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>vi ~/.bash_profile</KBD
+></PRE
+><P></P
+><P
+>다음의 내용을 입력한다.</P
+><PRE
+CLASS="PROGRAMLISTING"
+>export AGENS_HOME=/path/to/Agens_SQL
+export PATH=/path/to/Agens_SQL/pgsql/bin:$PATH
+export LD_LIBRARY_PATH=/path/to/Agens_SQL/pgsql/lib:$LD_LIBRARY_PATH</PRE
+><P
+>    다음과 같은 방법을 하나를 선택하여 환경변수가 적용되도록 한다.
+    <P
+></P
+></P><UL
+><LI
+><P
+>로그아웃 후 다시 로그인</P
+></LI
+><LI
+><P
+>다음의 명령을 호출</P
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="PROMPT"
+>$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>source ~/.bash_profile</KBD
+></PRE
+></LI
+></UL
+><P>
+  </P
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="install.html"
+ACCESSKEY="P"
+>이전</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>처음으로</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="install-window.html"
+ACCESSKEY="N"
+>다음</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>설치</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="install.html"
+ACCESSKEY="U"
+>위로</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Windows</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

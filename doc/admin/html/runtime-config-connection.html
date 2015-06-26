@@ -1,0 +1,1131 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>연결 및 인증</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REV="MADE"
+HREF="mailto:pgsql-docs@postgresql.org"><LINK
+REL="HOME"
+TITLE="Agens SQL 1.0 문서"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="서버 환경 설정"
+HREF="runtime-config.html"><LINK
+REL="PREVIOUS"
+TITLE="파일 위치"
+HREF="runtime-config-file-locations.html"><LINK
+REL="NEXT"
+TITLE="리소스 소비"
+HREF="runtime-config-resource.html"><LINK
+REL="STYLESHEET"
+TYPE="text/css"
+HREF="stylesheet.css"><META
+HTTP-EQUIV="Content-Type"
+CONTENT="text/html; charset=UTF-8"><META
+name="viewport"
+content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width"><META
+NAME="creation"
+CONTENT="2015-06-26T04:43:18"></HEAD
+><BODY
+CLASS="SECT1"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="4"
+ALIGN="center"
+VALIGN="bottom"
+><A
+HREF="index.html"
+>Agens SQL 1.0 문서</A
+></TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="top"
+><A
+TITLE="파일 위치"
+HREF="runtime-config-file-locations.html"
+ACCESSKEY="P"
+>이전</A
+></TD
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="runtime-config.html"
+ACCESSKEY="U"
+>위로</A
+></TD
+><TD
+WIDTH="60%"
+ALIGN="center"
+VALIGN="bottom"
+>장 2. 서버 환경 설정</TD
+><TD
+WIDTH="20%"
+ALIGN="right"
+VALIGN="top"
+><A
+TITLE="리소스 소비"
+HREF="runtime-config-resource.html"
+ACCESSKEY="N"
+>다음</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="RUNTIME-CONFIG-CONNECTION"
+>2.3. 연결 및 인증</A
+></H1
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="RUNTIME-CONFIG-CONNECTION-SETTINGS"
+>2.3.1. 연결 설정</A
+></H2
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><DL
+><DT
+><A
+NAME="GUC-LISTEN-ADDRESSES"
+></A
+><TT
+CLASS="VARNAME"
+>listen_addresses</TT
+> (<TT
+CLASS="TYPE"
+>string</TT
+>)&#13;</DT
+><DD
+><P
+> 서버가 클라이언트 애플리케이션에서 들어온 연결을 listen하는 TCP/IP 주소를 지정한다. 
+ 값은 호스트 이름 및/또는 숫자 IP 주소가 쉼표로 구분된 목록의 형태이다.
+ <TT
+CLASS="LITERAL"
+>*</TT
+>는 사용 가능한 IP 인터페이스 모두를 뜻한다. 
+ <TT
+CLASS="LITERAL"
+>0.0.0.0</TT
+>은 모든 IPv4 주소에 대해 listen하며, <TT
+CLASS="LITERAL"
+>::</TT
+>는 모든 IPv6 주소에 대해 listen한다는 뜻이다.
+ 목록이 빈칸이면 서버가 IP 인터페이스를 일절 listen하지 않으며, 이런 경우 Unix 도메인 소켓만 사용해서 연결할 수 있다는 뜻이다.
+ 기본값은 <SPAN
+CLASS="SYSTEMITEM"
+>localhost</SPAN
+>이며, 로컬 TCP/IP <SPAN
+CLASS="QUOTE"
+>"루프백"</SPAN
+> 연결을 구성한다. 
+ 클라이언트 인증(<A
+HREF="client-authentication.html"
+>3장</A
+>)으로 서버 접근 권한을 세분화할 수 있는 반면,
+ <TT
+CLASS="VARNAME"
+>listen_addresses</TT
+>는 연결 시도를 수락하는 인터페이스를 제어하여
+ 안전하지 않은 네트워크 인터페이스 상에서 악의적 연결 요청이 반복되는 것을 방지할 수 있다. 
+ 이 매개변수는 서버 시작 시 설정된다.
+ </P
+></DD
+><DT
+><A
+NAME="GUC-PORT"
+></A
+><TT
+CLASS="VARNAME"
+>포트</TT
+> (<TT
+CLASS="TYPE"
+>integer</TT
+>)&#13;</DT
+><DD
+><P
+>기본적으로 서버가 listen하는 TCP 포트는 5432이다. 
+서버가 listen하는 모든 IP 주소에 동일한 포트 번호가 사용된다. 
+이 매개변수는 서버 시작 시 설정된다.
+ </P
+></DD
+><DT
+><A
+NAME="GUC-MAX-CONNECTIONS"
+></A
+><TT
+CLASS="VARNAME"
+>max_connections</TT
+> (<TT
+CLASS="TYPE"
+>integer</TT
+>)&#13;</DT
+><DD
+><P
+>데이터베이스 서버 동시 접속 최대 수를 결정한다. 
+기본값은 일반적으로 100이지만, 커널이 100을 지원하지 않으면 이보다 낮을 수도 있다(<SPAN
+CLASS="APPLICATION"
+>initdb</SPAN
+> 중에 결정됨). 
+이 매개변수는 서버 시작 시 설정된다.
+ </P
+><P
+>대기 서버 실행 중에 사용자는 max_connections를 마스터 서버의 값보다 크거나 같게 설정해야 한다. 
+그렇게 하지 않으면 대기 서버가 쿼리를 허용하지 않는다.
+ </P
+></DD
+><DT
+><A
+NAME="GUC-SUPERUSER-RESERVED-CONNECTIONS"
+></A
+><TT
+CLASS="VARNAME"
+>superuser_reserved_connections</TT
+>
+(<TT
+CLASS="TYPE"
+>integer</TT
+>)&#13;</DT
+><DD
+><P
+><SPAN
+CLASS="PRODUCTNAME"
+>Agens SQL</SPAN
+> 슈퍼유저의 연결용으로 예약된 연결 <SPAN
+CLASS="QUOTE"
+>"슬롯"</SPAN
+> 수를 결정한다. 
+최대 <A
+HREF="runtime-config-connection.html#GUC-MAX-CONNECTIONS"
+>max_connections</A
+> 까지 결정된다.
+동시 연결 수가 <TT
+CLASS="VARNAME"
+>max_connections</TT
+>에서 <TT
+CLASS="VARNAME"
+>superuser_reserved_connections</TT
+>를 뺀 값보다 크면
+슈퍼유저만 더 연결되고 복제 연결은 되지 않는다.
+ </P
+><P
+>기본값은 3이고, <TT
+CLASS="VARNAME"
+>max_connections</TT
+> 미만이어야 한다. 이 매개변수는 서버 시작 시 설정된다.
+ </P
+></DD
+><DT
+><A
+NAME="GUC-UNIX-SOCKET-DIRECTORIES"
+></A
+><TT
+CLASS="VARNAME"
+>unix_socket_directories</TT
+> (<TT
+CLASS="TYPE"
+>string</TT
+>)&#13;</DT
+><DD
+><P
+>서버가 클라이언트 애플리케이션 연결을 listen하는 도메인 소켓의 디렉토리이다. 
+디렉토리들을 쉼표로 구분하여 나열하면 소켓들을 생성할 수 있다. 항목 간 공백은 무시된다. 
+이름에 공백이나 쉼표를 넣어야 하는 경우 디렉토리 이름 앞뒤에 큰따옴표를 사용한다. 
+값을 빈칸으로 두면 Unix 도메인 소켓에서 일절 listen하지 않는다. 이때 TCP/IP 소켓만 서버에 연결하는 데 사용될 수 있다. 
+기본값은 통상 <TT
+CLASS="FILENAME"
+>/tmp</TT
+>이지만, 빌드 시에는 변경 가능하다. 이 매개변수는 서버 시작 시 설정된다.
+ </P
+><P
+>소켓 외에, 파일 자체의 이름도 <TT
+CLASS="LITERAL"
+>.s.PGSQL.<TT
+CLASS="REPLACEABLE"
+><I
+>nnnn</I
+></TT
+></TT
+>이다. 
+여기서 <TT
+CLASS="REPLACEABLE"
+><I
+>nnnn</I
+></TT
+>은 서버의 포트 번호이며, 
+이름이 <TT
+CLASS="LITERAL"
+>.s.PGSQL.<TT
+CLASS="REPLACEABLE"
+><I
+>nnnn</I
+></TT
+>.lock</TT
+>인 일반 파일이 각 <TT
+CLASS="VARNAME"
+>unix_socket_directories</TT
+> 디렉토리에 생성된다. 
+어떤 파일이든 수동으로 삭제하면 절대 안 된다.
+ </P
+><P
+>Unix 도메인 소켓이 없는 Windows와 이 매개변수는 무관하다.
+ </P
+></DD
+><DT
+><A
+NAME="GUC-UNIX-SOCKET-GROUP"
+></A
+><TT
+CLASS="VARNAME"
+>unix_socket_group</TT
+> (<TT
+CLASS="TYPE"
+>string</TT
+>)&#13;</DT
+><DD
+><P
+>Unix 도메인 소켓의 소유자 그룹을 설정한다. 
+(소켓을 소유한 사용자는 항상 서버를 시작하는 사용자이다.) 
+<TT
+CLASS="VARNAME"
+>unix_socket_permissions</TT
+> 매개변수와 함께 unix_socket_group을 Unix 도메인 연결 시 접근 제어 메커니즘으로 사용할 수 있다. 
+기본적으로 unix_socket_group은 비어 있는 string이며, 서버 사용자의 기본 그룹을 사용한다. 이 매개변수는 서버 시작 시 설정된다.
+ </P
+><P
+>Unix 도메인 소켓이 없는 Windows와 이 매개변수는 무관하다.
+ </P
+></DD
+><DT
+><A
+NAME="GUC-UNIX-SOCKET-PERMISSIONS"
+></A
+><TT
+CLASS="VARNAME"
+>unix_socket_permissions</TT
+> (<TT
+CLASS="TYPE"
+>integer</TT
+>)&#13;</DT
+><DD
+><P
+>Unix 도메인 소켓의 액세스 권한을 설정한다. Unix 도메인 소켓은 일반적인 Unix 파일 시스템 권한 세트를 사용한다. 
+매개변수 값은 <CODE
+CLASS="FUNCTION"
+>chmod</CODE
+> 및 <CODE
+CLASS="FUNCTION"
+>umask</CODE
+> 시스템 쉘에서 수용되는 숫자 형식을 따른다
+(8진수 형식을 사용하려면 <TT
+CLASS="LITERAL"
+>0</TT
+>(영)으로 시작되는 숫자여야 한다.).
+ </P
+><P
+>기본 권한은 누구나 연결 가능한 <TT
+CLASS="LITERAL"
+>0777</TT
+>이다. 
+합리적인 다른 대안은 <TT
+CLASS="LITERAL"
+>0770</TT
+>(사용자와 그룹만. <TT
+CLASS="VARNAME"
+>unix_socket_group</TT
+> 참조) 및 <TT
+CLASS="LITERAL"
+>0700</TT
+>(사용자만)이다. 
+(Unix 도메인 소켓의 경우 쓰기 권한에만 해당되는 문제이므로, 읽기 설정이나 취소 또는 실행 권한과는 무관하다.)
+ </P
+><P
+>이러한 접근 제어 메커니즘은 <A
+HREF="client-authentication.html"
+>3장</A
+>에 설명된 것과는 별개이다.
+ </P
+><P
+>이 매개변수는 서버 시작 시 설정된다.
+ </P
+><P
+>이 매개변수는 특히 현재 Solaris 10인 Solaris 시스템과 무관하다. 
+Solaris는 소켓 권한을 완전히 무시한다. 
+<TT
+CLASS="VARNAME"
+>unix_socket_directories</TT
+>를 원하는 대상에 한정된 검색 권한을 갖고 있는 디렉토리로 하여 유사한 효과를 낼 수 있다. 
+Unix 도메인 소켓이 없는 Windows에서 이 매개변수는 사용할 수 없다. 
+ </P
+></DD
+><DT
+><A
+NAME="GUC-BONJOUR"
+></A
+><TT
+CLASS="VARNAME"
+>bonjour</TT
+> (<TT
+CLASS="TYPE"
+>boolean</TT
+>)&#13;</DT
+><DD
+><P
+><SPAN
+CLASS="PRODUCTNAME"
+>Bonjour</SPAN
+>를 통해 서버의 존재를 알린다. 기본값은 off이다. 이 매개변수는 서버 시작 시 설정된다.
+ </P
+></DD
+><DT
+><A
+NAME="GUC-BONJOUR-NAME"
+></A
+><TT
+CLASS="VARNAME"
+>bonjour_name</TT
+> (<TT
+CLASS="TYPE"
+>string</TT
+>)&#13;</DT
+><DD
+><P
+><SPAN
+CLASS="PRODUCTNAME"
+>Bonjour</SPAN
+> 서비스 이름을 지정한다. 
+이 매개변수가 비어 있는 string <TT
+CLASS="LITERAL"
+>''</TT
+>으로 설정된 경우 컴퓨터 이름이 사용된다(기본값). 
+서버가 <SPAN
+CLASS="PRODUCTNAME"
+>Bonjour</SPAN
+> 지원으로 컴파일되지 않은 경우 이 매개변수가 무시된다. 
+이 매개변수는 서버 시작 시에만 설정 가능하다.
+ </P
+></DD
+><DT
+><A
+NAME="GUC-TCP-KEEPALIVES-IDLE"
+></A
+><TT
+CLASS="VARNAME"
+>tcp_keepalives_idle</TT
+> (<TT
+CLASS="TYPE"
+>integer</TT
+>)&#13;</DT
+><DD
+><P
+>TCP가 keepalive 메시지를 클라이언트에 전송하기 전에 비활성화 상태로 대기하는 시간(초). 
+0을 지정하면 시스템 기본값을 사용한다. 
+<TT
+CLASS="SYMBOL"
+>TCP_KEEPIDLE</TT
+> 또는 <TT
+CLASS="SYMBOL"
+>TCP_KEEPALIVE</TT
+> 심볼을 지원하는 시스템과 Windows에서만 지원된다.
+다른 시스템에서는 항상 0이어야 한다. 
+Unix 도메인 소켓을 통해 연결된 세션에서 이 매개변수는 무시되고 항상 0으로 읽힌다.
+ </P
+><DIV
+CLASS="NOTE"
+><BLOCKQUOTE
+CLASS="NOTE"
+><P
+><B
+>참고: </B
+> Windows는 시스템 기본값을 읽을 수 있는 방법이 없으므로 Windows에서 0은 2시간으로 설정된다.</P
+></BLOCKQUOTE
+></DIV
+></DD
+><DT
+><A
+NAME="GUC-TCP-KEEPALIVES-INTERVAL"
+></A
+><TT
+CLASS="VARNAME"
+>tcp_keepalives_interval</TT
+> (<TT
+CLASS="TYPE"
+>integer</TT
+>)&#13;</DT
+><DD
+><P
+>클라이언트에 의해 승인되지 않은 TCP keepalive 메시지를 재전송하기 전에 대기하는 시간(초).
+0은 기본값을 사용한다. <TT
+CLASS="SYMBOL"
+>TCP_KEEPINTVL</TT
+> 심볼을 지원하는 시스템과 Windows에서만 지원된다.
+다른 시스템에서는 항상 0이어야 한다. 
+Unix 도메인 소켓을 통해 연결된 세션에서는 항상 0으로 읽힌다.
+ </P
+><DIV
+CLASS="NOTE"
+><BLOCKQUOTE
+CLASS="NOTE"
+><P
+><B
+>참고: </B
+> Windows는 시스템 기본값을 읽을 수 있는 방법이 없으므로 Windows에서 0은 1초로 설정된다.</P
+></BLOCKQUOTE
+></DIV
+></DD
+><DT
+><A
+NAME="GUC-TCP-KEEPALIVES-COUNT"
+></A
+><TT
+CLASS="VARNAME"
+>tcp_keepalives_count</TT
+> (<TT
+CLASS="TYPE"
+>integer</TT
+>)&#13;</DT
+><DD
+><P
+>몇 개의 TCP keepalive를 분실해야 클라이언트와 서버의 연결 상태를 dead로 판단하는 기준이 되는 지를 정한다. 
+0은 시스템 기본값을 사용한다. 이 매개변수는 <TT
+CLASS="SYMBOL"
+>TCP_KEEPCNT</TT
+> 심볼을 지원하는 시스템과 기타 시스템에서만 지원된다.
+다른 시스템에서는 항상 0이어야 한다. 
+Unix 도메인 소켓을 통해 연결된 세션에서는 항상 0으로 읽힌다.
+ </P
+><DIV
+CLASS="NOTE"
+><BLOCKQUOTE
+CLASS="NOTE"
+><P
+><B
+>참고: </B
+> 이 매개변수는 Windows에서 지원되지 않으며, 0이어야 한다.</P
+></BLOCKQUOTE
+></DIV
+></DD
+></DL
+></DIV
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="RUNTIME-CONFIG-CONNECTION-SECURITY"
+>2.3.2. 보안 및 인증</A
+></H2
+><P
+></P
+><DIV
+CLASS="VARIABLELIST"
+><DL
+><DT
+><A
+NAME="GUC-AUTHENTICATION-TIMEOUT"
+></A
+><TT
+CLASS="VARNAME"
+>authentication_timeout</TT
+> (<TT
+CLASS="TYPE"
+>integer</TT
+>)
+
+&#13;</DT
+><DD
+><P
+>클라이언트 인증이 완료되는 최대 시간. 초 단위. 클라이언트가 이 시간 내에 인증 프로토콜이 완료되지 않은 경우 서버는 연결을 닫는다. 
+이로써 응답이 없는 클라이언트가 연결을 무기한 점유하는 것을 방지한다. 
+기본값은 1분이다(<TT
+CLASS="LITERAL"
+>1m</TT
+>). 이 매개변수는 <TT
+CLASS="FILENAME"
+>postgresql.conf</TT
+> 파일 또는 서버 커맨드 라인에서만 설정 가능하다.
+ </P
+></DD
+><DT
+><A
+NAME="GUC-SSL"
+></A
+><TT
+CLASS="VARNAME"
+>ssl</TT
+> (<TT
+CLASS="TYPE"
+>boolean</TT
+>)&#13;</DT
+><DD
+><P
+><ACRONYM
+CLASS="ACRONYM"
+>SSL</ACRONYM
+> 연결을 설정한다. 이것을 사용하기 전에 <A
+HREF="ssl-tcp.html"
+>1.9절</A
+>을 읽어보기 바란다. 
+기본값은 <TT
+CLASS="LITERAL"
+>off</TT
+>이다. 이 매개변수는 서버 시작 시 설정된다.
+<ACRONYM
+CLASS="ACRONYM"
+>SSL</ACRONYM
+> 통신은 유일하게 TCP/IP 연결만 가능하다.
+ </P
+></DD
+><DT
+><A
+NAME="GUC-SSL-CA-FILE"
+></A
+><TT
+CLASS="VARNAME"
+>ssl_ca_file</TT
+> (<TT
+CLASS="TYPE"
+>string</TT
+>)&#13;</DT
+><DD
+><P
+>SSL 서버 인증 기관(CA)이 포함된 파일 이름을 지정한다. 
+기본값은 로드된 CA 파일이 없고 클라이언트 인증서 검증이 수행되지 않음을 뜻하는 빈칸이다. 
+(Agens SQL의 이전 릴리스에서 이 파일의 이름은 <TT
+CLASS="FILENAME"
+>root.crt</TT
+>로 하드 코딩되었다.) 
+상대 경로는 데이터 디렉토리에 상대적이다. 이 매개변수는 서버 시작 시 설정된다.
+ </P
+></DD
+><DT
+><A
+NAME="GUC-SSL-CERT-FILE"
+></A
+><TT
+CLASS="VARNAME"
+>ssl_cert_file</TT
+> (<TT
+CLASS="TYPE"
+>string</TT
+>)&#13;</DT
+><DD
+><P
+>SSL 서버 인증서가 포함된 파일 이름을 지정한다. 기본값은 <TT
+CLASS="FILENAME"
+>server.crt</TT
+>이다. 
+상대 경로는 데이터 디렉토리에 상대적이다. 이 매개변수는 서버 시작 시 설정된다.
+ </P
+></DD
+><DT
+><A
+NAME="GUC-SSL-CRL-FILE"
+></A
+><TT
+CLASS="VARNAME"
+>ssl_crl_file</TT
+> (<TT
+CLASS="TYPE"
+>string</TT
+>)&#13;</DT
+><DD
+><P
+>SSL 서버 인증서 해지 목록(CRL)이 포함된 파일 이름을 지정한다. 
+기본값은 로드된 CRL 파일이 없음을 뜻하는 빈칸이다. 
+(Agens SQL의 이전 릴리스에서 이 파일의 이름은 <TT
+CLASS="FILENAME"
+>root.crl</TT
+>로 하드 코딩되었다.) 
+상대 경로는 데이터 디렉토리에 상대적이다. 이 매개변수는 서버 시작 시 설정된다.
+ </P
+></DD
+><DT
+><A
+NAME="GUC-SSL-KEY-FILE"
+></A
+><TT
+CLASS="VARNAME"
+>ssl_key_file</TT
+> (<TT
+CLASS="TYPE"
+>string</TT
+>)&#13;</DT
+><DD
+><P
+>SSL 서버 개인 키가 포함된 파일 이름을 지정한다. 기본값은 <TT
+CLASS="FILENAME"
+>server.key</TT
+>이다. 상대 경로는 데이터 디렉토리에 상대적이다. 
+이 매개변수는 서버 시작 시 설정된다.
+ </P
+></DD
+><DT
+><A
+NAME="GUC-SSL-RENEGOTIATION-LIMIT"
+></A
+><TT
+CLASS="VARNAME"
+>ssl_renegotiation_limit</TT
+> (<TT
+CLASS="TYPE"
+>integer</TT
+>)&#13;</DT
+><DD
+><P
+>세션 키 renegotiation 일어나기 전에 암호화된 <ACRONYM
+CLASS="ACRONYM"
+>SSL</ACRONYM
+> 연결로 흐를 수 있는 데이터 양.
+renegotiation은, 대규모 트래픽을 검사할 수 있는 경우에 공격자의 암호 해독 가능성을 줄이지만 큰 성능 저하도 초래한다. 
+전송 및 수신된 트래픽 합계는 제한을 확인하는 데 사용된다. 
+이 매개변수가 0으로 설정되면 renegotiation이 실행되지 않는다. 기본값은 <TT
+CLASS="LITERAL"
+>512MB</TT
+>이다.
+ </P
+><DIV
+CLASS="NOTE"
+><BLOCKQUOTE
+CLASS="NOTE"
+><P
+><B
+>참고: </B
+> 2009년 11월 이전의 SSL 라이브러리는 SSL 프로토콜의 취약성 때문에 SSL renegotiation 사용 시 보안상 허점이 있다.
+ 임시 수정 대책으로 일부 벤더는 renegotiation이 불가능한 SSL 라이브러리를 출시했다. 
+ 클라이언트 또는 서버에서 이 라이브러리를 사용하고 있으면 SSL renegotiation이 실행되지 않는다.</P
+></BLOCKQUOTE
+></DIV
+></DD
+><DT
+><A
+NAME="GUC-SSL-CIPHERS"
+></A
+><TT
+CLASS="VARNAME"
+>ssl_ciphers</TT
+> (<TT
+CLASS="TYPE"
+>string</TT
+>)&#13;</DT
+><DD
+><P
+>보안 연결에 사용할 수 있는 <ACRONYM
+CLASS="ACRONYM"
+>SSL</ACRONYM
+> cipher 스위트(suite) 목록을 지정한다. 
+이 설정 구문 및 지원되는 값 목록은 <SPAN
+CLASS="APPLICATION"
+>OpenSSL</SPAN
+> 패키지의 <SPAN
+CLASS="CITEREFENTRY"
+><SPAN
+CLASS="REFENTRYTITLE"
+>ciphers</SPAN
+></SPAN
+> 설명서를 참조 바란다. 
+기본값은 <TT
+CLASS="LITERAL"
+>HIGH:MEDIUM:+3DES:!aNULL</TT
+>이다. 이것은 특별한 보안 요구사항이 없을 경우에 일반적으로 합당하다.
+ </P
+><P
+>기본값 설명:
+<P
+></P
+></P><DIV
+CLASS="VARIABLELIST"
+><DL
+><DT
+><TT
+CLASS="LITERAL"
+>HIGH</TT
+></DT
+><DD
+><P
+><TT
+CLASS="LITERAL"
+>HIGH</TT
+> 그룹에서 cipher를 사용하는 Cipher 스위트(예: AES, Camellia, 3DES)
+ </P
+></DD
+><DT
+><TT
+CLASS="LITERAL"
+>MEDIUM</TT
+></DT
+><DD
+><P
+><TT
+CLASS="LITERAL"
+>MEDIUM</TT
+> 그룹에서 cipher를 사용하는 Cipher 스위트(예: RC4, SEED)
+ </P
+></DD
+><DT
+><TT
+CLASS="LITERAL"
+>+3DES</TT
+></DT
+><DD
+><P
+><TT
+CLASS="LITERAL"
+>HIGH</TT
+>에 대한 OpenSSL 기본 순서는 3DES 서열이 AES128보다 높기 때문에 문제가 된다. 
+3DES는 AES128보다 보안 수준이 떨어지고 느리기까지 하므로 이것은 잘못된 방법이다.
+<TT
+CLASS="LITERAL"
+>+3DES</TT
+>는 다른 모든 <TT
+CLASS="LITERAL"
+>HIGH</TT
+> 및 <TT
+CLASS="LITERAL"
+>MEDIUM</TT
+>을 해독한 후, 재배치한다.
+ </P
+></DD
+><DT
+><TT
+CLASS="LITERAL"
+>!aNULL</TT
+></DT
+><DD
+><P
+>인증이 없는 익명의 cipher 스위트를 실행하지 않는다. 
+해당 cipher 스위트는 중간자(man-in-the-middle) 공격에 취약하므로 사용해서는 안 된다.
+ </P
+></DD
+></DL
+></DIV
+><P>
+ </P
+><P
+>사용 가능한 cipher 스위트 상세 내역은 OpenSSL 버전에 따라 달라진다. 
+현재 설치된 <SPAN
+CLASS="APPLICATION"
+>OpenSSL</SPAN
+> 버전에 대한 실제 상세 내역은 <TT
+CLASS="LITERAL"
+>openssl ciphers -v 'HIGH:MEDIUM:+3DES:!aNULL'</TT
+> 명령을 사용해야 한다. 
+이 목록은 서버 키 유형에 따라 런타임 시 필터링된다는 점에 유의해야 한다.
+ </P
+></DD
+><DT
+><A
+NAME="GUC-SSL-PREFER-SERVER-CIPHERS"
+></A
+><TT
+CLASS="VARNAME"
+>ssl_prefer_server_ciphers</TT
+> (<TT
+CLASS="TYPE"
+>bool</TT
+>)&#13;</DT
+><DD
+><P
+>SSL cipher 기본 설정을 서버 것으로 사용할 것인지, 클라이언트 것으로 사용할 것인지 지정한다. 기본값은 true이다.
+ </P
+><P
+>다른 <SPAN
+CLASS="PRODUCTNAME"
+>Agens SQL</SPAN
+> 버전은 이 설정이 없으며, 항상 클라이언트 기본 설정을 사용한다. 
+이 설정은 주로 해당 버전의 이전 버전과의 호환성에 대한 것이다. 
+서버가 적절하게 환경 설정되어 있을 가능성이 높으므로 보통은 서버의 기본 설정을 사용하는 것이 더 낫다.
+ </P
+></DD
+><DT
+><A
+NAME="GUC-SSL-ECDH-CURVE"
+></A
+><TT
+CLASS="VARNAME"
+>ssl_ecdh_curve</TT
+> (<TT
+CLASS="TYPE"
+>string</TT
+>)&#13;</DT
+><DD
+><P
+><ACRONYM
+CLASS="ACRONYM"
+>ECDH</ACRONYM
+> 키 교환에서 사용할 curve 이름을 지정한다. 연결하는 모든 클라이언트에서 지원되어야 한다. 
+서버의 Elliptic Curve 키에서 사용되는 것과 동일한 curve일 필요는 없다. 기본값은 <TT
+CLASS="LITERAL"
+>prime256v1</TT
+>이다.
+ </P
+><P
+>가장 일반적인 curve의 OpenSSL 이름: <TT
+CLASS="LITERAL"
+>prime256v1</TT
+> (NIST P-256), <TT
+CLASS="LITERAL"
+>secp384r1</TT
+> (NIST P-384), <TT
+CLASS="LITERAL"
+>secp521r1</TT
+> (NIST P-521).
+ </P
+><P
+>사용 가능한 curve의 전체 목록은 <TT
+CLASS="COMMAND"
+>openssl ecparam -list_curves</TT
+> 명령을 사용하면 표시할 수 있다. 
+그렇더라도 모든 curve를 <ACRONYM
+CLASS="ACRONYM"
+>TLS</ACRONYM
+>에서 사용할 수 있는 것은 아니다.
+ </P
+></DD
+><DT
+><A
+NAME="GUC-PASSWORD-ENCRYPTION"
+></A
+><TT
+CLASS="VARNAME"
+>password_encryption</TT
+> (<TT
+CLASS="TYPE"
+>boolean</TT
+>)&#13;</DT
+><DD
+><P
+><TT
+CLASS="LITERAL"
+>ENCRYPTED</TT
+> 또는 <TT
+CLASS="LITERAL"
+>UNENCRYPTED</TT
+>를 쓰지 않고 패스워드를 CREATE USER 또는 ALTER ROLE에 지정한 경우, 
+패스워드를 암호화할 것인지 결정한다. 
+기본값은 <TT
+CLASS="LITERAL"
+>on</TT
+>이다(패스워드 암호화).
+ </P
+></DD
+><DT
+><A
+NAME="GUC-KRB-SERVER-KEYFILE"
+></A
+><TT
+CLASS="VARNAME"
+>krb_server_keyfile</TT
+> (<TT
+CLASS="TYPE"
+>string</TT
+>)&#13;</DT
+><DD
+><P
+>Kerberos 서버 키 파일의 위치를 설정한다. 
+자세한 내용은 <A
+HREF="auth-methods.html#GSSAPI-AUTH"
+>3.3.3절</A
+>을 참조 바란다. 
+이 매개변수는 <TT
+CLASS="FILENAME"
+>postgresql.conf</TT
+> 파일 또는 서버 커맨드 라인에서만 설정 가능하다.
+ </P
+></DD
+><DT
+><A
+NAME="GUC-KRB-CASEINS-USERS"
+></A
+><TT
+CLASS="VARNAME"
+>krb_caseins_users</TT
+> (<TT
+CLASS="TYPE"
+>boolean</TT
+>)&#13;</DT
+><DD
+><P
+>GSSAPI 사용자 이름의 대소문자를 구분할 것인지 설정한다. 기본값은 <TT
+CLASS="LITERAL"
+>off</TT
+>이다(대소문자 구분). 
+<TT
+CLASS="FILENAME"
+>postgresql.conf</TT
+> 파일 또는 서버 커맨드 라인에서만 설정 가능하다.
+ </P
+></DD
+><DT
+><A
+NAME="GUC-DB-USER-NAMESPACE"
+></A
+><TT
+CLASS="VARNAME"
+>db_user_namespace</TT
+> (<TT
+CLASS="TYPE"
+>boolean</TT
+>)&#13;</DT
+><DD
+><P
+>데이터베이스별 사용자 이름 사용 여부이다. 기본값은 off이다. 
+<TT
+CLASS="FILENAME"
+>postgresql.conf</TT
+> 파일 또는 서버 커맨드 라인에서만 설정 가능하다.
+ </P
+><P
+>on일 경우 <TT
+CLASS="LITERAL"
+>username@dbname</TT
+>처럼 사용자를 생성해야 한다. 
+연결된 클라이언트가 <TT
+CLASS="LITERAL"
+>username</TT
+>이 전달하면,
+<TT
+CLASS="LITERAL"
+>@</TT
+> 및 데이터베이스 이름이 사용자 이름에 추가되고 해당 데이터베이스 특정 사용자 이름이 서버에서 조회된다. 
+SQL 환경에서 사용자 이름에 <TT
+CLASS="LITERAL"
+>@</TT
+>를 넣어 사용자를 생성하면 사용자 이름에 따옴표를 사용해야 한다는 점에 유의해야 한다.
+ </P
+><P
+>일반 전역 사용자를 생성할 수 있다. 예를 들면 <TT
+CLASS="LITERAL"
+>joe@</TT
+>처럼 사용자 이름에 간단히 <TT
+CLASS="LITERAL"
+>@</TT
+>를 추가하면 된다. 
+<TT
+CLASS="LITERAL"
+>@</TT
+>는 사용자 이름이 서버에 의해 조회되기 전에 제거된다.
+ </P
+><P
+><TT
+CLASS="VARNAME"
+>db_user_namespace</TT
+>는 클라이언트와 서버의 사용자 이름이 다르게 표시되게 한다. 
+인증 검사는 항상 서버의 사용자 이름이 이용되므로 인증 방법은 클라이언트가 아니라 서버의 사용자 이름으로 설정되어야 한다. 
+<TT
+CLASS="LITERAL"
+>md5</TT
+>는 클라이언트와 서버에서 사용자 이름을 솔트로 사용하므로, <TT
+CLASS="LITERAL"
+>md5</TT
+>를 <TT
+CLASS="VARNAME"
+>db_user_namespace</TT
+>와 함께 사용할 수 없다.
+ </P
+><DIV
+CLASS="NOTE"
+><BLOCKQUOTE
+CLASS="NOTE"
+><P
+><B
+>참고: </B
+> 이 기능을 완벽한 솔루션을 찾을 때까지의 임시 방편용이다. 때가 되면 이 옵션은 없어질 것이다.</P
+></BLOCKQUOTE
+></DIV
+></DD
+></DL
+></DIV
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="runtime-config-file-locations.html"
+ACCESSKEY="P"
+>이전</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>처음으로</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="runtime-config-resource.html"
+ACCESSKEY="N"
+>다음</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>파일 위치</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="runtime-config.html"
+ACCESSKEY="U"
+>위로</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>리소스 소비</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

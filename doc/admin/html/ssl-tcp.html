@@ -1,0 +1,598 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>SSL을 사용한 TCP/IP 연결 보호</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REV="MADE"
+HREF="mailto:pgsql-docs@postgresql.org"><LINK
+REL="HOME"
+TITLE="Agens SQL 1.0 문서"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="서버 설정 및 운용"
+HREF="runtime.html"><LINK
+REL="PREVIOUS"
+TITLE="암호화 옵션"
+HREF="encryption-options.html"><LINK
+REL="NEXT"
+TITLE="SSH 터널을 사용하여 TCP/IP 연결 보호"
+HREF="ssh-tunnels.html"><LINK
+REL="STYLESHEET"
+TYPE="text/css"
+HREF="stylesheet.css"><META
+HTTP-EQUIV="Content-Type"
+CONTENT="text/html; charset=UTF-8"><META
+name="viewport"
+content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width"><META
+NAME="creation"
+CONTENT="2015-06-26T04:43:18"></HEAD
+><BODY
+CLASS="SECT1"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="4"
+ALIGN="center"
+VALIGN="bottom"
+><A
+HREF="index.html"
+>Agens SQL 1.0 문서</A
+></TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="top"
+><A
+TITLE="암호화 옵션"
+HREF="encryption-options.html"
+ACCESSKEY="P"
+>이전</A
+></TD
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="runtime.html"
+ACCESSKEY="U"
+>위로</A
+></TD
+><TD
+WIDTH="60%"
+ALIGN="center"
+VALIGN="bottom"
+>장 1. 서버 설정 및 운용</TD
+><TD
+WIDTH="20%"
+ALIGN="right"
+VALIGN="top"
+><A
+TITLE="SSH 터널을 사용하여 TCP/IP 연결 보호"
+HREF="ssh-tunnels.html"
+ACCESSKEY="N"
+>다음</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="SSL-TCP"
+>1.9. SSL을 사용한 TCP/IP 연결 보호</A
+></H1
+><P
+><SPAN
+CLASS="PRODUCTNAME"
+>Agens SQL</SPAN
+>은 <ACRONYM
+CLASS="ACRONYM"
+>SSL</ACRONYM
+> 연결을 이용해서 기본적으로 클라이언트/서버 통신을 암호화하는 보안 기능을 지원한다.
+이것은 클라이언트와 서버 시스템에 <SPAN
+CLASS="PRODUCTNAME"
+>OpenSSL</SPAN
+>을 설치해야 하고, 빌드시 <SPAN
+CLASS="PRODUCTNAME"
+>Agens SQL</SPAN
+>에서 활성화 된다.
+  </P
+><P
+>컴파일된 <ACRONYM
+CLASS="ACRONYM"
+>SSL</ACRONYM
+>을 사용함으로써 <TT
+CLASS="FILENAME"
+>postgresql.conf</TT
+>에서 <A
+HREF="runtime-config-connection.html#GUC-SSL"
+>ssl</A
+>을 <TT
+CLASS="LITERAL"
+>on</TT
+>으로 설정하면 
+<ACRONYM
+CLASS="ACRONYM"
+>SSL</ACRONYM
+>이 활성화된 상태로 <SPAN
+CLASS="PRODUCTNAME"
+>Agens SQL</SPAN
+> 서버를 시작할 수 있다. 
+서버는 동일한 TCP 포트에서 일반적인 혹은 <ACRONYM
+CLASS="ACRONYM"
+>SSL</ACRONYM
+> 연결을 listen하므로, 클라이언트를 <ACRONYM
+CLASS="ACRONYM"
+>SSL</ACRONYM
+>로 연결할지 결정한다.
+기본적으로 이것은 클라이언트의 옵션이다. 
+일부 또는 모든 연결에 대해 <ACRONYM
+CLASS="ACRONYM"
+>SSL</ACRONYM
+>의 사용을 요구하도록 서버를 설정하는 방법은 <A
+HREF="auth-pg-hba-conf.html"
+>3.1절</A
+>을 참조 바란다.
+  </P
+><P
+><SPAN
+CLASS="PRODUCTNAME"
+>Agens SQL</SPAN
+>은 시스템 차원(system-wide)의 <SPAN
+CLASS="PRODUCTNAME"
+>OpenSSL</SPAN
+> 환경 설정 파일을 읽는다.
+기본적으로 이 파일의 이름은 <TT
+CLASS="FILENAME"
+>openssl.cnf</TT
+>이고 <TT
+CLASS="LITERAL"
+>openssl version -d</TT
+>으로 확인되는 디렉토리에 위치한다. 
+이러한 기본값은 환경 변수 <TT
+CLASS="ENVAR"
+>OPENSSL_CONF</TT
+>를 원하는 환경 설정 파일에 설정하여 덮어쓸 수 있다.
+  </P
+><P
+><SPAN
+CLASS="PRODUCTNAME"
+>OpenSSL</SPAN
+>은 다양한 암호화 및 다양한 레벨의 인증 알고리즘을 지원한다. 
+암호 목록을 <SPAN
+CLASS="PRODUCTNAME"
+>OpenSSL</SPAN
+> 환경 설정 파일에 지정할 수 있는 반면, 
+<TT
+CLASS="FILENAME"
+>postgresql.conf</TT
+>에서 <A
+HREF="runtime-config-connection.html#GUC-SSL-CIPHERS"
+>ssl_ciphers</A
+>를 
+데이터베이스 서버에서 특별히 사용하기 위한 암호로 수정할 수 있다.
+  </P
+><DIV
+CLASS="NOTE"
+><BLOCKQUOTE
+CLASS="NOTE"
+><P
+><B
+>참고: </B
+><TT
+CLASS="LITERAL"
+>NULL-SHA</TT
+> 또는 <TT
+CLASS="LITERAL"
+>NULL-MD5</TT
+> 암호를 사용하여 암호화 오버헤드 없이 인증을 하는 것이 가능하다. 
+단, 중간자(man-in-the-middle)는 클라이언트와 서버 사이간 통신을 읽고 빠져나갈 수 있다.
+암호화 오버헤드는 인증 오버헤드에 비해 아주 적으므로, NULL 암호는 권장하지 않는다.
+   </P
+></BLOCKQUOTE
+></DIV
+><P
+><ACRONYM
+CLASS="ACRONYM"
+>SSL</ACRONYM
+> 모드에서 시작하려면 서버 인증서가 포함된 파일과 개인 키가 존재해야 한다. 
+기본적으로, 각 파일 이름은 데이터 디렉토리에서 <TT
+CLASS="FILENAME"
+>server.crt</TT
+> 및 <TT
+CLASS="FILENAME"
+>server.key</TT
+>로 되어 있지만,
+환경 설정 매개변수 <A
+HREF="runtime-config-connection.html#GUC-SSL-CERT-FILE"
+>ssl_cert_file</A
+> 및 <A
+HREF="runtime-config-connection.html#GUC-SSL-KEY-FILE"
+>ssl_key_file</A
+>을 사용하여 이름을 변경하거나 위치를 지정할 수 있다. 
+Unix 시스템에서 <TT
+CLASS="FILENAME"
+>server.key</TT
+>에 대한 권한은 월드 또는 그룹에 대한 접근을 차단해야 한다.
+이것은 <TT
+CLASS="COMMAND"
+>chmod 0600 server.key</TT
+> 명령으로 수행된다.
+개인 키가 암호로 보호되는 경우 서버는 암호를 묻는 메시지를 띄우고, 암호가 입력되기 전에는 서버가 시작되지 않는다.
+  </P
+><P
+>경우에 따라 서버 인증서가 클라이언트에게 직접적으로 신뢰받는 기관이 아닌 <SPAN
+CLASS="QUOTE"
+>"중간"</SPAN
+> 인증 기관에서 서명 받을 수도 있다. 
+이러한 인증서를 사용하려면 <TT
+CLASS="FILENAME"
+>server.crt</TT
+> 파일에 서명 기관의 인증서를 첨부한 다음, 
+해당 상급 기관의 인증서를 첨부하고, 클라이언트가 신뢰한 인증 기관 또는 <SPAN
+CLASS="QUOTE"
+>"root"</SPAN
+>, <SPAN
+CLASS="QUOTE"
+>"중간"</SPAN
+> 인증 기관까지 첨부한다
+(예를 들면 클라이언트의 <TT
+CLASS="FILENAME"
+>root.crt</TT
+> 파일에서 인증서로 서명된).
+  </P
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="SSL-CLIENT-CERTIFICATES"
+>1.9.1. 클라이언트 인증서 사용</A
+></H2
+><P
+>신뢰된 인증서를 클라이언트에게 요구하려면 신뢰하는 인증 기관(<ACRONYM
+CLASS="ACRONYM"
+>CA</ACRONYM
+>)의 인증서를 데이터 디렉토리의 <TT
+CLASS="FILENAME"
+>root.crt</TT
+> 파일에 
+삽입하고, <TT
+CLASS="FILENAME"
+>postgresql.conf</TT
+>의 <A
+HREF="runtime-config-connection.html#GUC-SSL-CA-FILE"
+>ssl_ca_file</A
+>를 <TT
+CLASS="LITERAL"
+>root.crt</TT
+>로 설정하고 
+<TT
+CLASS="FILENAME"
+>pg_hba.conf</TT
+>의 적절한 <TT
+CLASS="LITERAL"
+>hostssl</TT
+> 라인에서 <TT
+CLASS="LITERAL"
+>clientcert</TT
+>를 1로 설정해야 한다. 
+그러면, SSL 연결 시작 중에 인증서가 클라이언트로부터 요청된다. 서버는 클라이언트 인증서가 신뢰된 인증 기관 중 한 곳에서 서명된 것인지 검증한다. 
+중간 <ACRONYM
+CLASS="ACRONYM"
+>CA</ACRONYM
+>가 <TT
+CLASS="FILENAME"
+>root.crt</TT
+>에 있어야 하고, 루트 <ACRONYM
+CLASS="ACRONYM"
+>CA</ACRONYM
+>도 포함되어야 한다. 
+<A
+HREF="runtime-config-connection.html#GUC-SSL-CRL-FILE"
+>ssl_crl_file</A
+>가 설정된 경우 Certificate Revocation List (CRL) 엔트리도 있는지 확인된다.
+(SSL 인증서 사용을 보여주는 다이어그램은 <A
+HREF="http://h71000.www7.hp.com/DOC/83final/BA554_90007/ch04s02.html"
+TARGET="_top"
+>http://h71000.www7.hp.com/DOC/83final/BA554_90007/ch04s02.html</A
+> 참조)
+  </P
+><P
+>   <TT
+CLASS="FILENAME"
+>pg_hba.conf</TT
+>의 <TT
+CLASS="LITERAL"
+>clientcert</TT
+> 옵션은 모든 인증 방법에서 사용할 수 있지만 <TT
+CLASS="LITERAL"
+>hostssl</TT
+>로 지정된 행에만 해당된다. 
+   <TT
+CLASS="LITERAL"
+>clientcert</TT
+>가 지정되지 않았거나 0으로 설정되면, 환경 설정된 것이 있을 경우 서버가 CA 목록에서 클라이언트 인증서가 있는지 계속 검증하지만, 
+   클라이언트 인증서가 꼭 있어야 하는 것은 아니다.
+  </P
+><P
+>서버의 <TT
+CLASS="FILENAME"
+>root.crt</TT
+>에는 클라이언트 인증서 서명을 위해 신뢰된 최상위 CA가 나열되어 있다. 
+대부분의 경우 클라이언트 인증서에 대해서는 CA를 신뢰하더라도, 원칙적으로 서버의 인증서를 서명한 CA 목록은 필요 없다.
+
+  </P
+><P
+>사용자가 클라이언트 인증서를 설정하는 경우 <TT
+CLASS="LITERAL"
+>cert</TT
+> 인증 방법을 사용하면 인증서로 사용자 인증을 제어하고 연결 보안도 제공할 수 있다. 
+자세한 내용은 <A
+HREF="auth-methods.html#AUTH-CERT"
+>3.3.9절</A
+>을 참조 바란다.
+  </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="SSL-SERVER-FILES"
+>1.9.2. SSL 서버 파일 사용</A
+></H2
+><P
+>    <A
+HREF="ssl-tcp.html#SSL-FILE-USAGE"
+>표 1-2</A
+>는 서버에서 SSL 설정과 관련된 파일들을 요약한 것이다. (표시된 파일 이름은 기본값 또는 일반적인 이름이다. 
+    로컬에서 환경 설정된 이름은 다를 수 있다.)
+   </P
+><DIV
+CLASS="TABLE"
+><A
+NAME="SSL-FILE-USAGE"
+></A
+><P
+><B
+>표 1-2. SSL 서버 파일 사용</B
+></P
+><TABLE
+BORDER="1"
+CLASS="CALSTABLE"
+><COL><COL><COL><THEAD
+><TR
+><TH
+>파일</TH
+><TH
+>내용</TH
+><TH
+>효과</TH
+></TR
+></THEAD
+><TBODY
+><TR
+><TD
+><A
+HREF="runtime-config-connection.html#GUC-SSL-CERT-FILE"
+>ssl_cert_file</A
+> (<TT
+CLASS="FILENAME"
+>$PGDATA/server.crt</TT
+>)</TD
+><TD
+>서버 인증서</TD
+><TD
+>클라이언트로 전송되어 서버 ID 표시</TD
+></TR
+><TR
+><TD
+><A
+HREF="runtime-config-connection.html#GUC-SSL-KEY-FILE"
+>ssl_key_file</A
+> (<TT
+CLASS="FILENAME"
+>$PGDATA/server.key</TT
+>)</TD
+><TD
+>서버 개인 키</TD
+><TD
+>소유자가 보낸 서버 인증서 검증. 인증서 소유자가 믿을만하다는 뜻은 아님</TD
+></TR
+><TR
+><TD
+><A
+HREF="runtime-config-connection.html#GUC-SSL-CA-FILE"
+>ssl_ca_file</A
+> (<TT
+CLASS="FILENAME"
+>$PGDATA/root.crt</TT
+>)</TD
+><TD
+>신뢰된 인증서 기관</TD
+><TD
+>클라이언트 인증서가 신뢰된 인증 기관에 의해 서명되었는지 확인</TD
+></TR
+><TR
+><TD
+><A
+HREF="runtime-config-connection.html#GUC-SSL-CRL-FILE"
+>ssl_crl_file</A
+> (<TT
+CLASS="FILENAME"
+>$PGDATA/root.crl</TT
+>)</TD
+><TD
+>인증 기관에서 취소된 인증서</TD
+><TD
+>클라이언트가 인증서가 이 목록에 있으면 안 됨</TD
+></TR
+></TBODY
+></TABLE
+></DIV
+><P
+>    <TT
+CLASS="FILENAME"
+>server.key</TT
+>, <TT
+CLASS="FILENAME"
+>server.crt</TT
+>,
+    <TT
+CLASS="FILENAME"
+>root.crt</TT
+> 및 <TT
+CLASS="FILENAME"
+>root.crl</TT
+>
+    파일(또는 환경 설정된 다른 이름)은 서버 시작 중에만 검사되므로 변경 내용을 적용하려면 서버를 재시작해야 한다.
+   </P
+></DIV
+><DIV
+CLASS="SECT2"
+><H2
+CLASS="SECT2"
+><A
+NAME="SSL-CERTIFICATE-CREATION"
+>1.9.3. 자체 서명된 인증서 생성</A
+></H2
+><P
+>서버용 자체 서명된 인증서를 빠르게 생성하려면 다음과 같은 <SPAN
+CLASS="PRODUCTNAME"
+>OpenSSL</SPAN
+> 명령을 사용해야 한다.
+</P><PRE
+CLASS="PROGRAMLISTING"
+>openssl req -new -text -out server.req</PRE
+><P>
+<SPAN
+CLASS="APPLICATION"
+>openssl</SPAN
+>이 요청하는 정보를 입력하고, 로컬 호스트 이름을 <SPAN
+CLASS="QUOTE"
+>"Common Name"</SPAN
+>으로 입력했는지 확인한다. 챌린지 패스워드는 비워둘 수 있다. 
+프로그램은 패스프레이즈로 보호된 키를 생성한다. 4글자 미만의 패스프레이즈는 수락되지 않는다. 
+패스프레이즈를 삭제하려면(서버의 자동 시작을 원하는 경우처럼) 다음 명령을 실행한다.
+</P><PRE
+CLASS="PROGRAMLISTING"
+>openssl rsa -in privkey.pem -out server.key
+rm privkey.pem</PRE
+><P>
+    이전 패스프레이즈를 입력하여 기존 키를 해제하기 위해 아래와 같이 입력한다.
+</P><PRE
+CLASS="PROGRAMLISTING"
+>openssl req -x509 -in server.req -text -key server.key -out server.crt</PRE
+><P>
+    그러면 인증서가 자체 서명된 인증서로 전환되고, 서버가 찾는 위치로 키와 인증서가 복사된다. 마지막으로, 다음과 같이 입력한다.
+</P><PRE
+CLASS="PROGRAMLISTING"
+>chmod og-rwx server.key</PRE
+><P>
+이렇게 하는 이유는 권한이 이것보다 좀 더 자유로운 경우에 서버가 파일을 거부하기 때문이다. 
+서버 개인 키와 인증서를 생성하는 방법에 대한 자세한 내용은 <SPAN
+CLASS="PRODUCTNAME"
+>OpenSSL</SPAN
+> 문서를 참조 바란다.
+   </P
+><P
+>자체 서명된 인증서를 테스트용으로 사용할 수 있지만 클라이언트가 서버 ID를 검증할 수 있도록 인증 기관(<ACRONYM
+CLASS="ACRONYM"
+>CA</ACRONYM
+>) 
+(전역 <ACRONYM
+CLASS="ACRONYM"
+>CA</ACRONYM
+> 또는 로컬 CA 중 하나)이 서명한 인증서는 실제 운영 중에 사용되어야 한다. 
+모든 클라이언트가 로컬인 경우 로컬 <ACRONYM
+CLASS="ACRONYM"
+>CA</ACRONYM
+>를 사용하는 것을 권장한다.
+   </P
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="encryption-options.html"
+ACCESSKEY="P"
+>이전</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>처음으로</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="ssh-tunnels.html"
+ACCESSKEY="N"
+>다음</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>암호화 옵션</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="runtime.html"
+ACCESSKEY="U"
+>위로</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><SPAN
+CLASS="APPLICATION"
+>SSH</SPAN
+> 터널을 사용하여 TCP/IP 연결 보호</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

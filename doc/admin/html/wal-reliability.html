@@ -1,0 +1,491 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>안정성</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REV="MADE"
+HREF="mailto:pgsql-docs@postgresql.org"><LINK
+REL="HOME"
+TITLE="Agens SQL 1.0 문서"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="안정성 및 Write-Ahead 로그"
+HREF="wal.html"><LINK
+REL="PREVIOUS"
+TITLE="안정성 및 Write-Ahead 로그"
+HREF="wal.html"><LINK
+REL="NEXT"
+TITLE="Write-Ahead 로깅(WAL)"
+HREF="wal-intro.html"><LINK
+REL="STYLESHEET"
+TYPE="text/css"
+HREF="stylesheet.css"><META
+HTTP-EQUIV="Content-Type"
+CONTENT="text/html; charset=UTF-8"><META
+name="viewport"
+content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width"><META
+NAME="creation"
+CONTENT="2015-06-26T04:43:18"></HEAD
+><BODY
+CLASS="SECT1"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="4"
+ALIGN="center"
+VALIGN="bottom"
+><A
+HREF="index.html"
+>Agens SQL 1.0 문서</A
+></TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="top"
+><A
+TITLE="안정성 및 Write-Ahead 로그"
+HREF="wal.html"
+ACCESSKEY="P"
+>이전</A
+></TD
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="wal.html"
+ACCESSKEY="U"
+>위로</A
+></TD
+><TD
+WIDTH="60%"
+ALIGN="center"
+VALIGN="bottom"
+>장 13. 안정성 및 Write-Ahead 로그</TD
+><TD
+WIDTH="20%"
+ALIGN="right"
+VALIGN="top"
+><A
+TITLE="Write-Ahead 로깅(WAL)"
+HREF="wal-intro.html"
+ACCESSKEY="N"
+>다음</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="WAL-RELIABILITY"
+>13.1. 안정성</A
+></H1
+><P
+>   안정성은 중요 데이터베이스 시스템에서 중요한 성질이며 <SPAN
+CLASS="PRODUCTNAME"
+>Agens SQL</SPAN
+>은 안정된 실행을 보장하기 위해 할 수 있는 모든 것을 한다. 
+   안정된 실행의 한 가지 측면은, 커밋된 트랜잭션에 의해 기록된 모든 데이터를 비휘발성 영역에 저장해서 정전, 운영 체제 실패 및 하드웨어 고장의 영향으로부터 안전하도록 보장하는 것이다
+   (비휘발성 영역 자체의 실패는 제외). 컴퓨터의 영구적 저장소(디스크 드라이브 등)에 데이터를 성공적으로 기록하면 일반적인 이러한 요구 조건에 부합된다. 
+   사실, 컴퓨터가 치명적으로 손상되었더라도 디스크 드라이브가 망가지지 않아서 
+   유사 하드웨어의 다른 컴퓨터로 옮길 수만 있다면, 모든 커밋된 트랜잭션은 온전하게 유지할 수 있다.
+  </P
+><P
+>   데이터를 디스크 플래터에 강제로 쓰는 것은 간단한 명령처럼 보이지만 그렇지 않다. 
+   디스크 드라이브가 메인 메모리와 CPU보다 훨씬 느려지므로 컴퓨터의 메인 메모리와 디스크 플래터 사이에 몇 개의 캐싱 레이어가 존재한다. 
+   첫째, 요청 빈도가 높은 디스크 블록을 캐시하고 디스크 쓰기를 결합하는 운영 체제의 버퍼 캐시가 있다. 
+   다행히도, 모든 운영 체제는 버퍼 캐시에서 디스크로 강제로 쓰는 애플리케이션을 제공하며, 
+   <SPAN
+CLASS="PRODUCTNAME"
+>Agens SQL</SPAN
+>은 해당 기능을 사용한다. 
+   (이것의 조정 방법은 wal_sync_method 매개 변수를 참조 바란다.)
+  </P
+><P
+>   다음으로, 디스크 드라이브 컨트롤러에 캐시가 있을 수 있다. 
+   이것은 특히 <ACRONYM
+CLASS="ACRONYM"
+>RAID</ACRONYM
+> 컨트롤러 카드에서 공통된 사항이다. 
+   이러한 캐시 중 일부는, 쓰기가 도착하는 즉시 드라이브에 전송되는 <I
+CLASS="FIRSTTERM"
+>write-through</I
+>이다. 
+   다른 캐시들은, 데이터가 시간차를 두고 드라이브에 전송되는 <I
+CLASS="FIRSTTERM"
+>write-back</I
+>이다. 
+   디스크 컨트롤러 캐시의 메모리는 휘발성이라서 정전 시 내용이 삭제될 수 있으므로 해당 캐시는 안정성에 문제가 있을 수 있다. 
+   더 뛰어난 컨트롤러 카드는, 정전 시 캐시 전력을 유지하기 위한 배터리가 포함된 카드를 의미하는 <I
+CLASS="FIRSTTERM"
+>battery-backup units</I
+>(<ACRONYM
+CLASS="ACRONYM"
+>BBU</ACRONYM
+>)를 갖고 있다. 
+   전원이 복구된 후 데이터가 디스크 드라이브에 쓰기 된다.
+  </P
+><P
+>   그리고 마지막으로, 대부분의 디스크 드라이브는 캐시를 갖고 있다. 
+   일부는 write-through이고, 또 일부는 write-back이며, write-back 드라이브 캐시에 대한 데이터 손실 우려는 디스크 컨트롤러 캐시와 동일하다. 
+   소비자 수준의 IDE 및 SATA 드라이브의 캐시는 특히 정전 시 살아남지 못하는 write-back일 가능성이 있다. 
+   다수의 solid-state drives(SSD) 역시 휘발성 write-back 캐시이다.
+  </P
+><P
+>   이러한 캐시는 일반적으로 비활성화된다. 
+   단, 이렇게 하는 방법은 운영 체계 및 드라이브 유형에 따라 다르다.
+  </P
+><P
+></P
+><UL
+><LI
+><P
+>        <SPAN
+CLASS="PRODUCTNAME"
+>Linux</SPAN
+>에서 IDE 및 SATA 드라이브는 <TT
+CLASS="COMMAND"
+>hdparm -I</TT
+>를 사용하여 쿼리할 수 있다. 
+        쓰기 캐싱은 <TT
+CLASS="LITERAL"
+>Write cache</TT
+> 다음에 <TT
+CLASS="LITERAL"
+>*</TT
+>가 있는 경우에 활성화된다. 
+        <TT
+CLASS="COMMAND"
+>hdparm -W 0</TT
+>은 쓰기 캐싱을 끌 때 사용할 수 있다. SCSI 드라이브는 <A
+HREF="http://sg.danny.cz/sg/sdparm.html"
+TARGET="_top"
+><SPAN
+CLASS="APPLICATION"
+>sdparm</SPAN
+></A
+>을 사용하여 쿼리할 수 있다. 
+        쓰기 캐시가 활성화되었는지, <TT
+CLASS="COMMAND"
+>sdparm --get=WCE</TT
+>가 그것을 비활성화하는지를 확인하려면 <TT
+CLASS="COMMAND"
+>sdparm --clear=WCE</TT
+>를 사용해야 한다.
+      </P
+></LI
+><LI
+><P
+>        <SPAN
+CLASS="PRODUCTNAME"
+>FreeBSD</SPAN
+>에서 IDE 드라이브는 <TT
+CLASS="COMMAND"
+>atacontrol</TT
+>을 사용하여 쿼리할 수 있고, 쓰기 캐시는 <TT
+CLASS="FILENAME"
+>/boot/loader.conf</TT
+>에서 <TT
+CLASS="LITERAL"
+>hw.ata.wc=0</TT
+>을 사용하여 끌 수 있다. 
+        SCSI 드라이브는 <TT
+CLASS="COMMAND"
+>camcontrol identify</TT
+>를 사용하여 쿼리할 수 있고, 사용 가능한 경우 <TT
+CLASS="COMMAND"
+>sdparm</TT
+>을 사용하여 쓰기 캐시를 쿼리하고 변경할 수 있다.
+      </P
+></LI
+><LI
+><P
+>        <SPAN
+CLASS="PRODUCTNAME"
+>Solaris</SPAN
+>에서 디스크 쓰기 캐시는 <TT
+CLASS="COMMAND"
+>format -e</TT
+>로 제어된다. 
+        (Solaris <ACRONYM
+CLASS="ACRONYM"
+>ZFS</ACRONYM
+> 파일 시스템은 자체적인 디스크 캐시 쓰기 명령을 실행하므로 디스크 쓰기 캐시가 활성화된 상태에서 안전하다.)
+      </P
+></LI
+><LI
+><P
+>        <SPAN
+CLASS="PRODUCTNAME"
+>Windows</SPAN
+>에서 <TT
+CLASS="VARNAME"
+>wal_sync_method</TT
+>가 <TT
+CLASS="LITERAL"
+>open_datasync</TT
+>(기본값)인 경우 
+        <TT
+CLASS="LITERAL"
+>My Computer\Open\<TT
+CLASS="REPLACEABLE"
+><I
+>disk drive</I
+></TT
+>\Properties\Hardware\Properties\Policies\Enable write caching on the disk</TT
+>를 선택 해제하면 쓰기 캐싱을 비활성화할 수 있다. 
+        또는, <TT
+CLASS="VARNAME"
+>wal_sync_method</TT
+>를 <TT
+CLASS="LITERAL"
+>fsync</TT
+> 또는 <TT
+CLASS="LITERAL"
+>fsync_writethrough</TT
+>로 설정해서 쓰기 캐싱을 금지해야 한다.
+      </P
+></LI
+><LI
+><P
+>        <SPAN
+CLASS="PRODUCTNAME"
+>OS X</SPAN
+>에서 <TT
+CLASS="VARNAME"
+>wal_sync_method</TT
+>를 <TT
+CLASS="LITERAL"
+>fsync_writethrough</TT
+>로 설정하면 쓰기 캐싱을 금지할 수 있다.
+      </P
+></LI
+></UL
+><P
+>   최신 SATA 드라이브(후속 <ACRONYM
+CLASS="ACRONYM"
+>ATAPI-6</ACRONYM
+> 이상)는 드라이브 캐시 쓰기 명령(<TT
+CLASS="COMMAND"
+>FLUSH CACHE EXT</TT
+>)을 제공하며, SCSI 드라이브는 길지만 유사한 지원 명령 <TT
+CLASS="COMMAND"
+>SYNCHRONIZE CACHE</TT
+>를 제공한다. 
+   이러한 명령은 <SPAN
+CLASS="PRODUCTNAME"
+>Agens SQL</SPAN
+>에 직접 액세스할 수 없지만 일부 파일 시스템(예: <ACRONYM
+CLASS="ACRONYM"
+>ZFS</ACRONYM
+>, <ACRONYM
+CLASS="ACRONYM"
+>ext4</ACRONYM
+>)은 이러한 명령을 사용하여 write-back 가능 드라이브의 플래터에 데이터를 쓸 수 있다. 
+   배터리 백업 유닛(<ACRONYM
+CLASS="ACRONYM"
+>BBU</ACRONYM
+>) 디스크 컨트롤러가 결합된 경우에는 아쉽게도 해당 파일 시스템은 최적이 아닌 준최적으로 동작한다. 
+   해당 설정에서 동기화 명령은 컨트롤러 캐시의 모든 데이터를 디스크에 강제로 쓰기 때문에 BBU의 여러 가지 장점이 상쇄된다. 
+   영향이 있을 경우 pg_test_fsync 프로그램을 실행하여 확인해 볼 수 있다. 
+   영향이 있을 경우 이것이 옵션이라면 파일 시스템의 쓰기 차단을 해제하거나 디스크 컨트롤러를 다시 환경 설정함으로써 BBU의 성능상의 장점은 다시 활용할 수 있다. 
+   쓰기 차단을 해제한 경우 배터리가 작동되는 상태인지 확인해야 한다. 배터리 고장 시 데이터가 손실될 가능성이 있다. 
+   다행히 파일 시스템 및 디스크 컨트롤러 설계자는 결국 이러한 준최적 동작을 해결하려고 할 것이다.
+  </P
+><P
+>   운영 체제가 쓰기 요청을 저장소 하드웨어로 전송한 경우 비 휘발성 저장소 영역에 데이터가 정말로 도착했는지 확인할 방법이 없다. 
+   오히려, 모든 저장소 환경 설정요소가 데이터 및 파일 시스템 메타데이터 모두에 대한 무결성을 보장하는지를 확인하는 것은 관리자의 책임이다. 
+   배터리 백업 쓰기 캐시가 없는 디스크 컨트롤러는 피해야 한다. 
+   드라이브 수준에서, 셧다운 전에 데이터가 쓰기될 것이라는 보장을 드라이브가 할 수 없으면 write-back 캐시를 비활성화해야 한다. 
+   SSD를 사용하는 경우에는 다수가 기본적으로 캐시 쓰기 명령을 이행하지 않는다는 점에 유의해야 한다. 
+   I/O 서브 시스템의 동작을 믿을 수 있는지는 <A
+HREF="http://brad.livejournal.com/2116715.html"
+TARGET="_top"
+><TT
+CLASS="FILENAME"
+>diskchecker.pl</TT
+></A
+>을 사용하여 테스트할 수 있다.
+  </P
+><P
+>   데이터 손실의 또 다른 위험은 디스크 플래터 쓰기 명령 자체이다. 
+   디스크 플래터는 일반적으로 각각 512바이트인 섹터로 분할된다. 
+   모든 물리적 읽기 또는 쓰기 명령은 전체 섹터를 처리한다. 
+   쓰기 요청이 드라이브에 도착하면 이것은 512바이트 배수에 대한 것일 수 있으며(<SPAN
+CLASS="PRODUCTNAME"
+>Agens SQL</SPAN
+> 는 보통 한 번에 8192 바이트나 16섹터를 쓰기한다.), 
+   쓰기 프로세스는 언제든 정전 때문에 실패할 수 있다. 이것은 512바이트 섹터의 일부는 쓰기가 되었고, 나머지는 쓰기가 되지 않았다는 것을 의미한다. 
+   이러한 실패를 방지하기 위해, <SPAN
+CLASS="PRODUCTNAME"
+>Agens SQL</SPAN
+>은 디스크에서 실제 페이지를 수정하기 <SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>전</I
+></SPAN
+>에 전체 페이지 이미지를 영구적 WAL 저장소에 주기적으로 기록한다. 
+   이렇게 함으로써 충돌 복구 도중에 <SPAN
+CLASS="PRODUCTNAME"
+>Agens SQL</SPAN
+>은 부분적으로 쓰기된 페이지를 WAL로부터 복구할 수 있다. 
+   부분적 페이지 쓰기를 방지하는 파일 시스템 소프트웨어가 있는 경우(예: ZFS), full_page_writes 매개 변수를 해제하여 이러한 페이지 이미징을 해제할 수 있다. 
+   배터리 백업 유닛(BBU) 디스크 컨트롤러는 전체(8kB) 페이지로 데이터를 BBU에 쓰도록 보장하지 않는 한 부분적 페이지 쓰기를 막지 않는다.
+  </P
+><P
+>   <SPAN
+CLASS="PRODUCTNAME"
+>Agens SQL</SPAN
+>은 하드웨어 에러 또는 읽기/쓰기 가비지 데이터 같이 시간 경과에 따른 매체 실패 때문에 발생할 수 있는 저장 장치의 몇 가지 데이터 손상도 보호한다.
+   <P
+></P
+></P><UL
+><LI
+><P
+>      WAL 파일의 개별 레코드는, 레코드 내용이 올바른지를 사용자에게 알려주는 CRC-32(32비트) 검사로 보호된다. 
+      CRC 값은 각 WAL 레코드를 쓰는 경우에 설정되고, 충돌 복구, 아카이브 복구 및 복제 중에 검사된다.
+     </P
+></LI
+><LI
+><P
+>      WAL 레코드에 기록된 전체 페이지 이미지가 보호되더라도 데이터 페이지는 기본적으로 현재 체크섬되지 않는다. 
+     </P
+></LI
+><LI
+><P
+>      <TT
+CLASS="FILENAME"
+>pg_clog</TT
+>, <TT
+CLASS="FILENAME"
+>pg_subtrans</TT
+>, <TT
+CLASS="FILENAME"
+>pg_multixact</TT
+>,
+      <TT
+CLASS="FILENAME"
+>pg_serial</TT
+>, <TT
+CLASS="FILENAME"
+>pg_notify</TT
+>, <TT
+CLASS="FILENAME"
+>pg_stat</TT
+>, <TT
+CLASS="FILENAME"
+>pg_snapshots</TT
+> 같은 내부 데이터 구조는 직접적으로 체크섬되지 않거나, 
+      전체 페이지 쓰기에 의해 보호되는 페이지가 아니다. 그러나, 이러한 데이터 구조가 지속적인 경우, 
+      WAL 레코드는 최근의 변경 사항이 충돌 시에 정확하게 리빌드되도록 하고, 이러한 WAL 레코드는 위에서 언급된 대로 보호된다.
+     </P
+></LI
+><LI
+><P
+>      <TT
+CLASS="FILENAME"
+>pg_twophase</TT
+>에서 개별 상태 파일은 CRC-32로 보호된다.
+     </P
+></LI
+><LI
+><P
+>      거대(large) SQL 쿼리에서 정렬, 구체화 및 중간 결과를 위해 사용되는 임시 데이터 파일은 현재 체크섬되지 않으며, 이러한 파일의 변경 내용에 대해 WAL 레코드가 기록되지 않는다.
+     </P
+></LI
+></UL
+><P>
+  </P
+><P
+>   <SPAN
+CLASS="PRODUCTNAME"
+>Agens SQL</SPAN
+>은 수정 가능한 메모리 에러를 보호하지 않으며, 산업 표준 Error Correcting Codes(ECC) 또는 더 나은 보호를 사용하는 RAM을 사용자가 활용할 것이라고 가정한다.
+  </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="wal.html"
+ACCESSKEY="P"
+>이전</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>처음으로</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="wal-intro.html"
+ACCESSKEY="N"
+>다음</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>안정성 및 Write-Ahead 로그</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="wal.html"
+ACCESSKEY="U"
+>위로</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Write-Ahead 로깅(<ACRONYM
+CLASS="ACRONYM"
+>WAL</ACRONYM
+>)</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

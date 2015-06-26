@@ -1,0 +1,371 @@
+<chapter id="skytools">
+    <title>Skytools</title>
+    <para>
+        <productname>Agens SQL</productname>에서 제공하는 <productname>PGQ</productname>는 <productname>Skytools</productname>에서 제공하는 여러 모듈 중 하나의 모듈이다. <productname>Skytools</productname>는 Skype에서 사용하는 replication과 failover를 위해 사용하는 패키지이다. <productname>Skytools</productname>는 <productname>PGQ</productname>라고 불리는 큐 매커니즘과 파이썬 스크립트 유틸리티 라이브러리뿐만 아니라, 설정 및 WAL 기반의 Standby 서버를 관리하기 위한 스크립트가 포함되어 있다.
+    </para>
+
+    <para>
+<productname>Agens SQL</productname>은 <productname>Skytools</productname>에서 제공하는 모듈 중에서 배치작업을 관리하고 수행하기 위해 <productname>PGQ</productname> 모듈을 사용한다. 또한 다른 활용 방안인 BASE (Basically Available, soft State, Eventually consistent)시스템을 위해 사용이 가능하다. <productname>PGQ</productname>뿐만 아니라 사용자들의 필요에 따라 다른 모듈들의 사용을 위해 <productname>Skytools</productname>에서 제공하는 모든 모듈을 담고있다. <productname>Agens SQL</productname>에서 제공하는 <productname>Skytools</productname>는 3.2 버전을 제공하고 있다. 이 매뉴얼 에서는 간단한 설명과 초기 시작 방법에 대해서 다룬다. 자세한 내용은 <ulink url="http://skytools.projects.pgfoundry.org/skytools-3.0/README.html"><productname>Skytools</productname> 공식 문서</ulink>을 참고하기 바란다.
+
+        <important>
+            <para>
+                <productname>Skytools</productname> 패키지를 사용하기 위해서는 Python <productname>PostgreSQL</productname> 데이터베이스 어댑터가 필요하다. CentOS 7 기준으로 다음 명령으로 설치할 수 있다.
+
+                <ProgramListing><prompt>localhost</prompt> $ <userinput><command>sudo yum install python-psycopg2.x86_64</command></userinput></ProgramListing>
+            </para>
+        </important>
+    </para>
+
+    <sect1 id="skytools-info">
+        <title><productname>Skytools</productname>란?</title>
+        <para>
+            이번 절에서는 <productname>Skytools</productname> 패키지에서 제공하고 있는 모듈들과 용어들을 설명한다. 용어들에 대해 간단히 설명하는 이유는 <productname>PGQ</productname>를 사용함에 있어서 기능들에 대해 쉽게 이해할 수 있도록하기 위해서이다.
+        </para>
+
+        <sect2 id="skytools-term">
+            <title><productname>PGQ</productname> 용어</title>
+
+            <para>
+                <productname>Skytools</productname>과 <productname>PGQ</productname>에서 사용하는 용어는 다음과 같다.
+            </para>
+
+            <para>
+                <variablelist>
+                    <varlistentry>
+                        <term><varname>Event</varname></term>
+
+                        <listitem>
+                            <para>
+                                Producer가 생성하는 데이터의 단위이다. <productname>PGQ</productname>에서 event는 큐에서 제공하는 테이블들 안의 하나의 레코드이다. <productname>PGQ</productname>는 각 event가 적어도 한번 확인 하는 것을 보장하고, 한번 이상 확인하는 것은 consumer에게 달려 있다.
+                            </para>
+                        </listitem>
+                    </varlistentry>
+
+                    <varlistentry>
+                        <term><varname>Producer</varname></term>
+
+                        <listitem>
+                            <para>
+                                Producer는 큐에 event를 넣을 수 있는 응용프로그램들이다. Producer는 <productname>PostgreSQL</productname>의 저장 함수를 동작 가능한 어떠한 언어들로든 쓸 수 있다.
+                            </para>
+                        </listitem>
+                    </varlistentry>
+
+                    <varlistentry>
+                        <term><varname>Consumer</varname></term>
+
+                        <listitem>
+                            <para>
+                                Consumer는 큐로 부터 event를 읽을 수 있는 응용프로그램이다.
+                            </para>
+                        </listitem>
+                    </varlistentry>
+
+                    <varlistentry>
+                        <term><varname>Ticker</varname></term>
+
+                        <listitem>
+                            <para>
+                                Ticker는 이벤트의 배치로 큐를 분리하고 시스템의 유지 보수를 처리하는 데몬이다.
+                            </para>
+                        </listitem>
+                    </varlistentry>
+                </variablelist>
+            </para>
+        </sect2>
+
+        <sect2 id="skytools-element">
+            <title><productname>Skytools</productname> 구성 요소</title>
+
+            <para>
+                <productname>Skytools</productname>의 구성 요소는 다음과 같다. 각 구성요소는 사용 목적에 따라 독립적으로 사용할 수도 있고, 연동할 수도 있다.
+            </para>
+
+            <para>
+                <variablelist>
+                    <varlistentry>
+                        <term><productname><varname>PGQ</varname></productname></term>
+
+                        <listitem>
+                            <para>
+                                <productname>PGQ</productname>는 PL/pgSQL, Python 그리고 C 코드로 되어 있는 큐 시스템이다. <productname>PGQ</productname>는 <productname>Slony-I</productname>의 snapshot-based의 이벤트 핸들링 아이디어에 기초를 두고 있다. <productname>PGQ</productname>는 효율적, transactional, 다중 노드를 지원하는 큐 시스템이다. <productname>PGQ</productname>는 작업 공유와 분배, failover와 교체(switchover), 큐와 consumer들을 포함한다. <productname>PGQ</productname>는 BASE (Basically Available, soft State, Eventually consistent)시스템을 위해 사용이 가능하다. <productname>PGQ</productname>는 Producers, Ticker 그리고 Consumers의 3 계층으로 나뉜다. <productname>PGQ</productname>의 역할은 다음과 같다.
+                            </para>
+
+                            <ItemizedList>
+                                <listitem>
+                                    <para>
+                                    데이터베이스에 여러 큐가 있을 수 있다.
+                                    </para>
+                                </listitem>
+
+                                <listitem>
+                                    <para>
+                                        모든 큐에 삽입 할 수있는 것보다 여러 producer가 있을 수 있다. 모든 큐에 삽입 할 수있는 여러 producer가 있을 수 있다. Producer들은 어느 큐에든지 삽입이 가능하다.
+                                    </para>
+                                </listitem>
+
+                                <listitem>
+                                    <para>
+                                    하나의 큐에 여러 consumer가 있을 수 있다.
+                                    </para>
+                                </listitem>
+
+                                <listitem>
+                                    <para>
+                                    consumer에 여러 subconsumer가 있을 수 있다.
+                                    </para>
+                                </listitem>
+                            </ItemizedList>
+                        </listitem>
+                    </varlistentry>
+
+                    <varlistentry>
+                        <term><productname><varname>Londiste</varname></productname></term>
+
+                        <listitem>
+                            <para>
+                                <productname>Londiste</productname>는 replication tool로, 이벤트 운송 수단으로 <productname>PGQ</productname>를 사용한다. <productname>Londiste</productname>는 <productname>PGQ</productname>의 Consumer로 사용된다. <productname>Londiste</productname>의 특징은 다음과 같다.
+                            </para>
+
+                            <ItemizedList>
+                                <listitem>
+                                    <para>
+                                    테이블 하나씩 replication set으로 추가가 가능하다.
+                                    </para>
+                                </listitem>
+
+                                <listitem>
+                                    <para>
+                                    테이블의 초기 사본은 다른 테이블의 이벤트의 재생을 차단하지 않는다.
+                                    </para>
+                                </listitem>
+
+                                <listitem>
+                                    <para>
+                                    양 테이블간에 비교가 가능하다.
+                                    </para>
+                                </listitem>
+                            </ItemizedList>
+                        </listitem>
+                    </varlistentry>
+
+                    <varlistentry>
+                        <term><productname><varname>walmgr</varname></productname></term>
+
+                        <listitem>
+                            <para>
+                                <productname>walmgr</productname>는 <productname>PostgreSQL</productname>의 WAL-based replication을 위한 관리 툴이다. <productname>walmgr</productname>는 스크립트로 WAL 아카이빙, 초기 백업, 동작중 WAL 아카이브와 복구가 가능하다.
+                            </para>
+                        </listitem>
+                    </varlistentry>
+                </variablelist>
+            </para>
+        </sect2>
+    </sect1>
+
+    <sect1 id="skytools-start">
+        <title>Quick Start</title>
+        <para>
+            이번 절에서는 <productname>PGQ</productname>의 Ticker 데몬을 구동하는 방법과 <productname>PGQ</productname>를 생성하는 방법에 대해서 다룬다.
+        </para>
+
+        <sect2 id="skytools-ticker">
+            <title>Ticker 데몬 구동</title>
+                <para>
+                    Consumer가 <productname>PGQ</productname>에 담긴 event를 사용하기 위해서는 <productname>PGQ</productname>의 Ticker 데몬이 동작하고 있어야 한다. Ticker는 <productname>Skytools</productname> 3.x 버전으로 업그레이드 되면서 <filename>pgqd</filename>으로 바뀌었다. Ticker 데몬을 동작하는 방법은 간단하다. 하지만 시스템 설정을 바꿔줄 필요가 있다. 
+                </para>
+
+                <para>
+                    Ticker 데몬의 명령어는 다음 명령어를 실행한 결과로 쉽게 확인 할 수 있다.
+                </para>
+
+                <para>
+                    <ProgramListing><prompt>localhost</prompt> $ <userinput><command>pgqd --help</command></userinput>
+<computeroutput>usage: pgq-ticker [switches] config.file
+Switches:
+  -v        Increase verbosity
+  -q        No output to console
+  -d        Daemonize
+  -h        Show help
+  -V        Show version
+ --ini      Show sample config file
+  -s        Stop - send SIGINT to running process
+  -k        Kill - send SIGTERM to running process
+  -r        Reload - send SIGHUP to running process</computeroutput></ProgramListing>
+                </para>
+
+                <para>
+                    데몬의 설정 파일 예시 또한 제공 되고 있다. 다음은 Ticker 데몬의 설정파일이다.
+                </para>
+
+                <para>
+                    <ProgramListing>[pgqd]
+job_name = pgqd_ticker
+db = dbname=postgres
+
+# where to log
+logfile = /home/postgres/9.4/pgsql/data/pg_log/pgqd_ticker.log
+
+# pidfile
+pidfile = /home/postgres/9.4/pgsql/data/pg_log/pgqd_ticker.pid
+
+## optional parameters ##
+
+# libpq connect string without dbname=
+#base_connstr =
+
+# startup db to query other databases
+#initial_database = template1
+
+# limit ticker to specific databases
+#database_list =
+
+# log into syslog
+#syslog = 1
+#syslog_ident = pgqd
+
+## optional timeouts ##
+
+# how often to check for new databases
+#check_period = 60
+
+# how often to flush retry queue
+#retry_period = 30
+
+# how often to do maintentance
+#maint_period = 120
+
+# how often to run ticker
+#ticker_period = 1</ProgramListing>
+                </para>
+
+                <para>
+                    <filename>pgqd.ini</filename>라는 설정 파일을 만들어서 Ticker 데몬을 실행 한 후 다음과 같은 명령어로 동작 되고 있는 것을 확인할 수 있다.
+                </para>
+
+                <para>
+                    <ProgramListing><prompt>localhost</prompt> $ <userinput><command>ps -ef | grep postgres</command></userinput>
+<computeroutput>postgres 25249     1  0 07:17 ?        00:00:00 pgqd -d ./pgqd.ini</computeroutput></ProgramListing>
+                </para>
+
+                <para>
+                    Ticker 데몬이 정상동작 한다면 <filename>pgqd_ticker.log</filename>에는 다음과 같이 표기 될 것이다.
+                </para>
+
+                <para>
+                    <ProgramListing>2015-06-24 08:34:55.710 25249 LOG postgres: pgq version ok: 3.2.6
+2015-06-24 08:35:24.185 25249 LOG {ticks: 30, maint: 1, retry: 0}
+2015-06-24 08:35:54.186 25249 LOG {ticks: 30, maint: 0, retry: 0}
+2015-06-24 08:36:24.187 25249 LOG {ticks: 30, maint: 0, retry: 0}
+2015-06-24 08:36:54.188 25249 LOG {ticks: 30, maint: 0, retry: 0}
+2015-06-24 08:37:24.188 25249 LOG {ticks: 30, maint: 1, retry: 0}
+2015-06-24 08:37:54.189 25249 LOG {ticks: 30, maint: 0, retry: 0}
+2015-06-24 08:38:24.189 25249 LOG {ticks: 30, maint: 0, retry: 0}</ProgramListing>
+                </para>
+
+                <sect3 id="skytools-err">
+                    <title>에러 해결</title>
+
+                    <para>
+                        <filename>log_filename.log</filename>파일을 열어 봤을 때 에러 문구가 다음과 같이 나온다면,
+
+                        <ProgramListing>2015-06-23 14:18:16.428 21515 LOG Starting pgqd 3.2.6
+2015-06-23 14:18:16.431 21517 LOG auto-detecting dbs ...
+2015-06-23 14:18:16.432 21517 ERROR connection error: PQconnectStart
+2015-06-23 14:18:16.432 21517 ERROR libpq: could not connect to server: No such file or directory
+                Is the server running locally and accepting
+                connections on Unix domain socket "/var/run/postgresql/.s.PGSQL.5456"?</ProgramListing>
+
+                    아래와 같이 해결을 해주어야 한다.
+                    </para>
+
+                    <para>
+                        <ProgramListing><prompt>localhost</prompt> $ <userinput><command>[sudo ]mkdir /var/run/postgresql/</command></userinput>
+<prompt>localhost</prompt> $ <userinput><command>[sudo ]chown postgres.postgres /var/run/postgresql/</command></userinput>
+<prompt>localhost</prompt> $ <userinput><command>[sudo ]ln -s /tmp/.s.PGSQL.5456 /var/run/postgresql/.s.PGSQL.5456</command></userinput></ProgramListing>
+                    </para>
+
+                    <para>
+                        Ticker를 다시 동작 시킨 후 로그 파일을 다시 확인하면 정상 동작하는 것을 확인 할 수 있다.
+                    </para>
+
+                    <tip>
+                        <para>
+                            해당 에러가 발생하는 이유는 Linux마다 <filename>.s.PGSQL.5456</filename>의 생성 위치가 다르기 때문이다.
+                        </para>
+                    </tip>
+                </sect3>
+            </sect2>
+
+            <sect2 id="skytools-make-queue">
+                <title><productname>PGQ</productname> 생성</title>
+
+                <para>
+                    <productname>PGQ</productname>는 extension 모듈이기 때문에 <command>CREATE EXTENSION</command> 명령을 통해 object을 로드 해주어야 한다. 다음의 간단한 과정을 통해 <productname>PGQ</productname> object를 로드하고 <productname>PGQ</productname>를 생성할 수 있다.
+                </para>
+
+                <orderedlist>
+                    <listitem>
+                        <para>
+                            <productname>PGQ</productname> extension 모듈 로드.
+                        </para>
+
+                        <para>
+                            <productname>PGQ</productname>은 <productname>PostgreSQL</productname>의 확장 모듈이기 때문에 <command>CREATE EXTENSION</command> 명령을 사용하여 <productname>PGQ</productname> 스키마를 로드해야한다. 실행 예제는 아래와 같다.
+                        </para>
+
+                        <para>
+                            <ProgramListing><prompt>postgres</prompt>=# <userinput><command>CREATE EXTENSION pgq;</command></userinput>
+<computeroutput>CREATE EXTENSION</computeroutput></ProgramListing>
+                        </para>
+                    </listitem>
+
+                    <listitem>
+                        <para>
+                            <productname>PGQ</productname> 큐 생성.
+                        </para>
+
+                        <para>
+                            <productname>PGQ</productname> 큐를 생성하기 위해서는 <command>SELECT</command> 명령어를 사용해야 한다. 실행 예제는 아래와 같다.
+                        </para>
+
+                        <para>
+                            <ProgramListing><prompt>postgres</prompt>=# <userinput><command>SELECT * FROM pgq.create_queue('my_first_queue');</command></userinput>
+<computeroutput> create_queue 
+--------------
+            1
+(1 row)</computeroutput></ProgramListing>
+                        </para>
+                    </listitem>
+
+                    <listitem>
+                        <para>
+                            <productname>PGQ</productname> 큐 생성확인.
+                        </para>
+
+                        <para>
+                            <productname>PGQ</productname>은 테이블을 생성하기 때문에 다음의 명령어로 확인이 가능하다.
+                        </para>
+
+                        <para>
+                            <ProgramListing><prompt>postgres</prompt>=# <userinput><command>\dt+ pgq.*;</command></userinput>
+<computeroutput>                           List of relations
+ Schema |      Name      | Type  |  Owner   |    Size    | Description 
+--------+----------------+-------+----------+------------+-------------
+ pgq    | consumer       | table | postgres | 8192 bytes | 
+ pgq    | event_1        | table | postgres | 8192 bytes | 
+ pgq    | event_1_0      | table | postgres | 8192 bytes | 
+ pgq    | event_1_1      | table | postgres | 8192 bytes | 
+ pgq    | event_1_2      | table | postgres | 8192 bytes | 
+ pgq    | event_template | table | postgres | 8192 bytes | 
+ pgq    | queue          | table | postgres | 16 kB      | 
+ pgq    | retry_queue    | table | postgres | 8192 bytes | 
+ pgq    | subscription   | table | postgres | 0 bytes    | 
+ pgq    | tick           | table | postgres | 48 kB      | 
+(10 rows)</computeroutput></ProgramListing>
+                        </para>
+                    </listitem>
+                </orderedlist>
+        </sect2>
+    </sect1>
+</chapter>

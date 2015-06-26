@@ -1,0 +1,55 @@
+<!--
+doc/src/sgml/ref/drop_user.sgml
+PostgreSQL documentation
+-->
+
+<refentry id="SQL-DROPUSER">
+ <refmeta>
+  <refentrytitle>DROP USER</refentrytitle>
+  <manvolnum>7</manvolnum>
+  <refmiscinfo>SQL - Language Statements</refmiscinfo>
+ </refmeta>
+
+ <refnamediv>
+  <refname>DROP USER</refname>
+  <refpurpose>데이터베이스 롤 삭제</refpurpose>
+ </refnamediv>
+
+ <indexterm zone="sql-dropuser">
+  <primary>DROP USER</primary>
+ </indexterm>
+
+ <refsynopsisdiv>
+<synopsis>
+DROP USER [ IF EXISTS ] <replaceable class="PARAMETER">이름</replaceable> [, ...]
+</synopsis>
+ </refsynopsisdiv>
+
+ <refsect1>
+  <title>설명</title>
+
+  <para>
+   <command>DROP USER</command> 명령은 
+   <xref linkend="sql-droprole"> 명령의 별칭이다.
+  </para>
+ </refsect1>
+
+ <refsect1>
+  <title>호환성</title>
+
+  <para>
+   <command>DROP USER</command> 구문은 <productname>PostgreSQL</productname>
+   확장 구문이다. 표준 SQL에서는 이 구문에 대해서, 
+   개별 데이터베이스 시스템 고유 정의로 구현하도록 남겨 놓았다.
+  </para>
+ </refsect1>
+
+ <refsect1>
+  <title>관련 항목</title>
+
+  <simplelist type="inline">
+   <member><xref linkend="sql-droprole"></member>
+  </simplelist>
+ </refsect1>
+
+</refentry>

@@ -1,0 +1,309 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>서버 셧다운</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REV="MADE"
+HREF="mailto:pgsql-docs@postgresql.org"><LINK
+REL="HOME"
+TITLE="Agens SQL 1.0 문서"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="서버 설정 및 운용"
+HREF="runtime.html"><LINK
+REL="PREVIOUS"
+TITLE="커널 리소스 관리"
+HREF="kernel-resources.html"><LINK
+REL="NEXT"
+TITLE="Agens SQL 클러스터 업그레이드"
+HREF="upgrading.html"><LINK
+REL="STYLESHEET"
+TYPE="text/css"
+HREF="stylesheet.css"><META
+HTTP-EQUIV="Content-Type"
+CONTENT="text/html; charset=UTF-8"><META
+name="viewport"
+content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width"><META
+NAME="creation"
+CONTENT="2015-06-26T04:43:18"></HEAD
+><BODY
+CLASS="SECT1"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="4"
+ALIGN="center"
+VALIGN="bottom"
+><A
+HREF="index.html"
+>Agens SQL 1.0 문서</A
+></TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="top"
+><A
+TITLE="커널 리소스 관리"
+HREF="kernel-resources.html"
+ACCESSKEY="P"
+>이전</A
+></TD
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="runtime.html"
+ACCESSKEY="U"
+>위로</A
+></TD
+><TD
+WIDTH="60%"
+ALIGN="center"
+VALIGN="bottom"
+>장 1. 서버 설정 및 운용</TD
+><TD
+WIDTH="20%"
+ALIGN="right"
+VALIGN="top"
+><A
+TITLE="Agens SQL 클러스터 업그레이드"
+HREF="upgrading.html"
+ACCESSKEY="N"
+>다음</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="SERVER-SHUTDOWN"
+>1.5. 서버 셧다운</A
+></H1
+><P
+>   데이터베이스 서버를 셧다운 하는 방법에는 몇 가지가 있다. 
+   사용자는 마스터 <TT
+CLASS="COMMAND"
+>postgres</TT
+> 프로세스에 서로 다른 신호를 전송하여 셧다운 유형을 제어할 수 있다.
+   <P
+></P
+></P><DIV
+CLASS="VARIABLELIST"
+><DL
+><DT
+><SPAN
+CLASS="SYSTEMITEM"
+>SIGTERM</SPAN
+></DT
+><DD
+><P
+>       이것은 <I
+CLASS="FIRSTTERM"
+>스마트 셧다운</I
+> 모드이다. 
+       <SPAN
+CLASS="SYSTEMITEM"
+>SIGTERM</SPAN
+>을 수신한 후, 서버는 새로운 연결을 허용하지 않지만, 기존 세션은 정상적인 종료를 허용한다. 
+       모든 세션이 종료된 후에만 셧다운된다. 서버가 온라인 백업 모드인 경우 온라인 백업 모드가 더 이상 작동하지 않을 때까지 조금 더 대기한다. 
+       백업 모드가 작동되는 중 새로운 연결은 슈퍼유저에게만 계속 허용된다(슈퍼유저가 온라인 백업 모드를 종료할 수 있게). 
+       서버가 복구 중인 상태에서 스마트 셧다운이 요청되면, 모든 정규 세션이 종료된 후에만 복구 및 스트리밍 리플리케이션이 중단된다.
+      </P
+></DD
+><DT
+><SPAN
+CLASS="SYSTEMITEM"
+>SIGINT</SPAN
+></DT
+><DD
+><P
+>       이것은 <I
+CLASS="FIRSTTERM"
+>빠른 셧다운</I
+> 모드이다.
+       서버는 새로운 연결을 허용하지 않고 모든 기존 서버 프로세스에 <SPAN
+CLASS="SYSTEMITEM"
+>SIGTERM</SPAN
+>을 전송하는데, 이로 인해 현재 트랜잭션이 중단되고 즉시 종료된다. 
+       그런 다음, 모든 서버 프로세스가 종료될 때까지 기다렸다가 최종적으로 셧다운된다. 
+       서버가 온라인 백업 모드인 경우에는 백업 모드가 종료된다.
+      </P
+></DD
+><DT
+><SPAN
+CLASS="SYSTEMITEM"
+>SIGQUIT</SPAN
+></DT
+><DD
+><P
+>이것은 <I
+CLASS="FIRSTTERM"
+>즉시 셧다운 모드</I
+>이다. 서버는 <SPAN
+CLASS="SYSTEMITEM"
+>SIGQUIT</SPAN
+>를 모든 자식 프로세스에 전송하고 자식 프로세스가 종료될 때까지 대기한다. 
+5초 이내에 종료되지 않는 프로세스에는 마스터 <TT
+CLASS="COMMAND"
+>postgres</TT
+> 프로세스가 <SPAN
+CLASS="SYSTEMITEM"
+>SIGKILL</SPAN
+>을 전송하여 더 이상 대기하지 않고 종료된다. 
+이것은 다음 시작 시 복구로 이어진다(WAL 로그 리플레이에 의해). 이것은 비상 시에만 권장한다.
+      </P
+></DD
+></DL
+></DIV
+><P>
+  </P
+><P
+>pg_ctl 프로그램은 이러한 서버 셧다운 신호를 전송하기 위한 편리한 인터페이스를 제공한다. 
+Windows가 아닌 시스템에서 <TT
+CLASS="COMMAND"
+>kill</TT
+>을 사용하여 직접 신호를 전송할 수도 있다. 
+<TT
+CLASS="COMMAND"
+>postgres</TT
+> 프로세스의 <ACRONYM
+CLASS="ACRONYM"
+>PID</ACRONYM
+>는 <TT
+CLASS="COMMAND"
+>ps</TT
+> 프로그램을 사용하여 찾거나 
+데이터 디렉토리 내 <TT
+CLASS="FILENAME"
+>postmaster.pid</TT
+> 파일에서 찾을 수 있다. 
+예를 들어, 빠른 셧다운을 하려면 아래와 같은 명령어로 가능하다.
+</P><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="PROMPT"
+>$</SAMP
+> <KBD
+CLASS="USERINPUT"
+>kill -INT `head -1 /usr/local/pgsql/data/postmaster.pid`</KBD
+></PRE
+><P>
+  </P
+><DIV
+CLASS="IMPORTANT"
+><BLOCKQUOTE
+CLASS="IMPORTANT"
+><P
+><B
+>중요: </B
+>서버 셧다운 시 <SPAN
+CLASS="SYSTEMITEM"
+>SIGKILL</SPAN
+>은 사용하지 않는 것이 최선이다. 
+이를 사용할 경우 서버가 공유 메모리와 세마포어를 해제하지 않아서, 새 서버를 시작하기 전에 수동으로 해제를 해야 할 수 있다. 
+또한 <SPAN
+CLASS="SYSTEMITEM"
+>SIGKILL</SPAN
+>은 종속 프로세스로 신호를 전달하지 않고 <TT
+CLASS="COMMAND"
+>postgres</TT
+>를 kill하므로 각 종속 프로세스를 직접 kill해야 한다.
+   </P
+></BLOCKQUOTE
+></DIV
+><P
+>한 세션을 종료하려면 <CODE
+CLASS="FUNCTION"
+>pg_terminate_backend()</CODE
+>를 사용하거나 세션의 자식 프로세스에 <SPAN
+CLASS="SYSTEMITEM"
+>SIGTERM</SPAN
+> 신호를 전송해야 한다.
+  </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="kernel-resources.html"
+ACCESSKEY="P"
+>이전</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>처음으로</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="upgrading.html"
+ACCESSKEY="N"
+>다음</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>커널 리소스 관리</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="runtime.html"
+ACCESSKEY="U"
+>위로</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><SPAN
+CLASS="PRODUCTNAME"
+>Agens SQL</SPAN
+> 클러스터 업그레이드</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

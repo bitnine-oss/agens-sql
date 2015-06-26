@@ -1,0 +1,333 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>데이터베이스 생성</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REV="MADE"
+HREF="mailto:pgsql-docs@postgresql.org"><LINK
+REL="HOME"
+TITLE="Agens SQL 1.0 문서"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="데이터베이스 관리"
+HREF="managing-databases.html"><LINK
+REL="PREVIOUS"
+TITLE="개요"
+HREF="manage-ag-overview.html"><LINK
+REL="NEXT"
+TITLE="템플릿 데이터베이스"
+HREF="manage-ag-templatedbs.html"><LINK
+REL="STYLESHEET"
+TYPE="text/css"
+HREF="stylesheet.css"><META
+HTTP-EQUIV="Content-Type"
+CONTENT="text/html; charset=UTF-8"><META
+name="viewport"
+content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width"><META
+NAME="creation"
+CONTENT="2015-06-26T04:43:18"></HEAD
+><BODY
+CLASS="SECT1"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="4"
+ALIGN="center"
+VALIGN="bottom"
+><A
+HREF="index.html"
+>Agens SQL 1.0 문서</A
+></TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="top"
+><A
+TITLE="개요"
+HREF="manage-ag-overview.html"
+ACCESSKEY="P"
+>이전</A
+></TD
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="managing-databases.html"
+ACCESSKEY="U"
+>위로</A
+></TD
+><TD
+WIDTH="60%"
+ALIGN="center"
+VALIGN="bottom"
+>장 5. 데이터베이스 관리</TD
+><TD
+WIDTH="20%"
+ALIGN="right"
+VALIGN="top"
+><A
+TITLE="템플릿 데이터베이스"
+HREF="manage-ag-templatedbs.html"
+ACCESSKEY="N"
+>다음</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="MANAGE-AG-CREATEDB"
+>5.2. 데이터베이스 생성</A
+></H1
+><P
+>   데이터베이스를 생성하려면 <SPAN
+CLASS="PRODUCTNAME"
+>Agens SQL</SPAN
+> 서버를 시작한 다음에 실행해야 한다(<A
+HREF="server-start.html"
+>1.3절</A
+> 참조).
+  </P
+><P
+>   데이터베이스는 SQL 명령 CREATE DATABASE으로 생성된다.
+</P><PRE
+CLASS="SYNOPSIS"
+>CREATE DATABASE <TT
+CLASS="REPLACEABLE"
+><I
+>name</I
+></TT
+>;</PRE
+><P>
+   여기서, <TT
+CLASS="REPLACEABLE"
+><I
+>name</I
+></TT
+>은 <ACRONYM
+CLASS="ACRONYM"
+>SQL</ACRONYM
+> 식별자에 대한 일반 규칙을 따른다. 현재 role은 자동으로 새 데이터베이스의 소유자가 된다. 
+   나중에 데이터베이스를 삭제하는 것은 데이터베이스 소유자의 권한이다(소유자가 달라도 데이터베이스의 모든 객체가 삭제됨).
+  </P
+><P
+>   데이터베이스 생성은 제한적이다. 권한 부여 방법은 <A
+HREF="role-attributes.html"
+>4.2절</A
+>을 참조 바란다.
+  </P
+><P
+>   CREATE DATABASE<TT
+CLASS="COMMAND"
+>CREATE DATABASE</TT
+> 명령을 실행하려면 데이터베이스 서버에 연결해야 하는데, 주어진 사이트에서 <SPAN
+CLASS="emphasis"
+><I
+CLASS="EMPHASIS"
+>첫</I
+></SPAN
+> 번째 데이터베이스를 어떻게 만들 것인가가 문제가 된다. 
+   첫 번째 데이터베이스는 데이터 저장소 영역을 초기화할 때 <TT
+CLASS="COMMAND"
+>initdb</TT
+> 명령으로 항상 생성된다. 
+   (<A
+HREF="creating-cluster.html"
+>1.2절</A
+> 참조.) 이 데이터베이스를 <TT
+CLASS="LITERAL"
+>postgres</TT
+>라고 한다. 
+   따라서 첫 번째 <SPAN
+CLASS="QUOTE"
+>"일반"</SPAN
+> 데이터베이스를 생성하기 위해 <TT
+CLASS="LITERAL"
+>postgres</TT
+>에 연결할 수 있다.
+  </P
+><P
+>   두 번째 데이터베이스 <TT
+CLASS="LITERAL"
+>template1</TT
+>도 데이터베이스 클러스터 초기화 중에 생성된다. 
+   클러스터 내에서 새 데이터베이스를 생성할 때마다 <TT
+CLASS="LITERAL"
+>template1</TT
+>이 복제된다. 
+   이것은 <TT
+CLASS="LITERAL"
+>template1</TT
+>에서 변경된 내용이 추후 생성된 데이터베이스로 전파된다는 것을 의미한다. 
+   따라서 새로 생성된 모든 데이터베이스로 전파되는 것을 원하지 않으면 <TT
+CLASS="LITERAL"
+>template1</TT
+>에서 객체 생성을 하지 말아야 한다. 
+   자세한 내용은 <A
+HREF="manage-ag-templatedbs.html"
+>5.3절</A
+>에 나와 있다.
+  </P
+><P
+>   <TT
+CLASS="COMMAND"
+>createdb</TT
+>는 편의상 새 데이터베이스를 생성하기 위해 쉘에서 실행할 수 있는 프로그램이다.
+
+</P><PRE
+CLASS="SYNOPSIS"
+>createdb <TT
+CLASS="REPLACEABLE"
+><I
+>dbname</I
+></TT
+></PRE
+><P>
+
+   <TT
+CLASS="COMMAND"
+>createdb</TT
+>는 마법이 아니다. 이것은 <TT
+CLASS="LITERAL"
+>postgres</TT
+> 데이터베이스에 연결하고 위에서 설명한 대로 정확하게 <TT
+CLASS="COMMAND"
+>CREATE DATABASE</TT
+> 명령을 실행한다. 
+   인자가 없는 <TT
+CLASS="COMMAND"
+>createdb</TT
+>는 현재 사용자 이름으로 데이터베이스를 생성한다.
+  </P
+><DIV
+CLASS="NOTE"
+><BLOCKQUOTE
+CLASS="NOTE"
+><P
+><B
+>참고: </B
+>    주어진 데이터베이스에 연결할 수 있는 사용자를 제한하는 방법에 대한 내용은 <A
+HREF="client-authentication.html"
+>3장</A
+>에 나온다.
+   </P
+></BLOCKQUOTE
+></DIV
+><P
+>   다른 사용자를 위한 데이터베이스를 생성하고, 그 사용자를 새 데이터베이스의 소유자로 만들면, 해당 사용자가 스스로 새 데이터베이스를 환경 설정 및 관리할 수 있다. 
+   이렇게 하려면 SQL 환경에서 다음 명령 중 하나를 사용해야 한다.
+</P><PRE
+CLASS="PROGRAMLISTING"
+>CREATE DATABASE <TT
+CLASS="REPLACEABLE"
+><I
+>dbname</I
+></TT
+> OWNER <TT
+CLASS="REPLACEABLE"
+><I
+>rolename</I
+></TT
+>;</PRE
+><P>
+   또는 쉘에서 다음을 사용해야 한다.
+</P><PRE
+CLASS="PROGRAMLISTING"
+>createdb -O <TT
+CLASS="REPLACEABLE"
+><I
+>rolename</I
+></TT
+> <TT
+CLASS="REPLACEABLE"
+><I
+>dbname</I
+></TT
+></PRE
+><P>
+   다른 사용자를 위한 데이터베이스는 수퍼유저만 생성할 수 있다(즉, 멤버가 아닌 role의 경우).
+  </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="manage-ag-overview.html"
+ACCESSKEY="P"
+>이전</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>처음으로</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="manage-ag-templatedbs.html"
+ACCESSKEY="N"
+>다음</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>개요</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="managing-databases.html"
+ACCESSKEY="U"
+>위로</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>템플릿 데이터베이스</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

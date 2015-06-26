@@ -1,0 +1,36 @@
+<chapter id="basicStructre">
+ <title>기본 구조</title>
+
+   <para>
+    Agens SQL은 오픈소스 DBMS인 PostgreSQL에 유용한 패키지들을 제공하는 제품이다. 따라서 Agens SQL을 올바르게 운용하기 위해서는 PostgreSQL의 기초적인 시스템 구조를 알아야 한다. 이번 장에서는 PostgreSQL의 각 부분들이 어떻게 상호작용하는가에 대해 간략히 설명한다.
+   </para>
+
+   <para>
+    데이터베이스 전문용어로, <productname>PostgreSQL</productname> 은 클라이언트/서버 모델을 사용하고 있다. 하나의 <productname>PostgreSQL</productname> 세션(작업)은 다음과 같은 프로세스들(프로그램들)의 상호 작동으로 구성된다:
+
+    <itemizedlist>
+     <listitem>
+      <para>
+       서버 프로세스, 이것은 데이터베이스 파일을 관리하고, 클라이언트 응용 프로그램들이 서버에 연결을 요청할 때, 그 요청들을 처리(수락하거나 거부하는 일)하고, 클라이언트들이 데이터베이스를 사용할 수 있도록 기반 작업들을 준비한다. 이 프로세스의 이름은 <filename>postgres</filename>이다.
+       <indexterm><primary>postgres</primary></indexterm>
+      </para>
+     </listitem>
+
+     <listitem>
+      <para>
+       클라이언트 프로세스, 이것은 데이터베이스를 사용하려는 사용자 측 응용 프로그램을 말한다. 클라이언트 응용 프로그램은 자연적으로 매우 다양한 형태를 띄고 있다. 어떤 것은 텍스트 기반의 프로그램이기도 하고, 어떤 것은 그래픽 응용 프로그램이기도 하고, 어떤 것은 웹서버를 통해서 웹페이지로 보여지기도 한다. 몇몇의 클라이언트 프로그램들은 이미
+       <productname>PostgreSQL</productname> 패키지 안에 포함되어서 배포되기도 한다. 이것들은 대부분 사용자들이 직접 개발한 것들이다.
+      </para>
+     </listitem>
+
+    </itemizedlist>
+   </para>
+
+   <para>
+   클라이언트/서버 환경의 프로그램들은 대부분 그렇듯이, <productname>PostgreSQL</productname>에서도 클라이언트와 서버가 서로 다른 호스트일 수 있다. 이런 경우에는 서로 간의 통신이 TCP/IP 네트워크 기반 아래서 이뤄진다. 이 부분은 아주 중요한 부분을 시사하고 있다. 클라이언트와 서버가 서로 다른 경우에는 클라이언트에서 접근하고자 하는 데이터베이스 파일에 대해서 직접적으로 접근할 수 없음을 의미한다. 즉, 클라이언트에서 접근 할 수 있는 파일은 그 클라이언트가 실행되고 있는 호스트의 파일이지 서버가 가동 중인 호스트의 파일이 아님을 알고 있어야한다.
+   </para>
+
+   <para>
+    <productname>PostgreSQL</productname> 서버는 사용자의 동시 접속을 위해서 각 접속에 대한 새로운 프로세스를 생성한다. 이 방법은 클라이언트와 새로 만들어진 서버 프로세스가 통신할 때, 원본 프로세스인 <filename>postgres</filename> 프로세스의 간섭 없이 이루어짐을 의미한다. 종합하면, <filename>postgres</filename> 프로세스는 서버 호스트에서 항상 실행되고 있으면서, 클라이언트의 접속 요청을 처리해서 새로운 하위 서버 프로세스를 만드는 역할을 한다.
+   </para>
+</chapter>

@@ -1,0 +1,211 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>잠금 보기</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REV="MADE"
+HREF="mailto:pgsql-docs@postgresql.org"><LINK
+REL="HOME"
+TITLE="Agens SQL 1.0 문서"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="데이터베이스 성능 모니터링"
+HREF="monitoring.html"><LINK
+REL="PREVIOUS"
+TITLE="통계 수집기"
+HREF="monitoring-stats.html"><LINK
+REL="NEXT"
+TITLE="Dynamic Tracing"
+HREF="dynamic-trace.html"><LINK
+REL="STYLESHEET"
+TYPE="text/css"
+HREF="stylesheet.css"><META
+HTTP-EQUIV="Content-Type"
+CONTENT="text/html; charset=UTF-8"><META
+name="viewport"
+content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width"><META
+NAME="creation"
+CONTENT="2015-06-26T04:43:18"></HEAD
+><BODY
+CLASS="SECT1"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="4"
+ALIGN="center"
+VALIGN="bottom"
+><A
+HREF="index.html"
+>Agens SQL 1.0 문서</A
+></TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="top"
+><A
+TITLE="통계 수집기"
+HREF="monitoring-stats.html"
+ACCESSKEY="P"
+>이전</A
+></TD
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="monitoring.html"
+ACCESSKEY="U"
+>위로</A
+></TD
+><TD
+WIDTH="60%"
+ALIGN="center"
+VALIGN="bottom"
+>장 11. 데이터베이스 성능 모니터링</TD
+><TD
+WIDTH="20%"
+ALIGN="right"
+VALIGN="top"
+><A
+TITLE="Dynamic Tracing"
+HREF="dynamic-trace.html"
+ACCESSKEY="N"
+>다음</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="MONITORING-LOCKS"
+>11.3. 잠금 보기</A
+></H1
+><P
+>   데이터베이스 운영 상태를 모니터링 하는 또 다른 도구는
+   <TT
+CLASS="STRUCTNAME"
+>pg_locks</TT
+> 시스템 뷰다.
+   이 테이블은 잠금 관리자가 현재 처리하고 있는 
+   여러 잠금들에 대한 정보를 제공한다.
+   이 테이블로 다음과 같은 정보들을 살펴 볼 수 있다:
+
+   <P
+></P
+></P><UL
+><LI
+><P
+>      모든 잠금 상황을 보거나 특정 데이터베이스에 속한 객체들의 잠금을 보거나
+      특정 객체와 관계된 잠금들 또는 <SPAN
+CLASS="PRODUCTNAME"
+>Agens SQL</SPAN
+> 특정
+      세션에 관계된 잠금들을 볼 수 있다.
+     </P
+></LI
+><LI
+><P
+>      현재 데이터베이스에서 어떤 세션이 잠금이 필요한데, 
+      다른 세션이 먼저 잠그고 있어 다른 세션들이 대기 상태로 있는지를 
+      조사할 수 있다.
+     </P
+></LI
+><LI
+><P
+>      잠금 경합 빈도를 살펴 전반적인 서버 성능을 조사할 수 있다.
+      또한 이런 경합이 데이터베이스 사용량 변화에 어떤 
+      영향을 주는지도 살펴 볼 수 있다.
+     </P
+></LI
+></UL
+><P>
+
+   잠금에 대한 설명은 <SPAN
+CLASS="PRODUCTNAME"
+>Agens SQL</SPAN
+>
+   동시성 제어에 대한 이해가 선행되어야 쉽게 읽을 수 있다.
+  </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="monitoring-stats.html"
+ACCESSKEY="P"
+>이전</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>처음으로</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="dynamic-trace.html"
+ACCESSKEY="N"
+>다음</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>통계 수집기</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="monitoring.html"
+ACCESSKEY="U"
+>위로</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Dynamic Tracing</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

@@ -1,0 +1,122 @@
+<!--
+doc/src/sgml/ref/drop_aggregate.sgml
+PostgreSQL documentation
+-->
+
+<refentry id="SQL-DROPAGGREGATE">
+ <refmeta>
+  <refentrytitle>DROP AGGREGATE</refentrytitle>
+  <manvolnum>7</manvolnum>
+  <refmiscinfo>SQL - Language Statements</refmiscinfo>
+ </refmeta>
+
+ <refnamediv>
+  <refname>DROP AGGREGATE</refname>
+  <refpurpose>집계 함수를 삭제한다</refpurpose>
+ </refnamediv>
+
+ <indexterm zone="sql-dropaggregate">
+  <primary>DROP AGGREGATE</primary>
+ </indexterm>
+
+ <refsynopsisdiv>
+<synopsis>
+DROP AGGREGATE [ IF EXISTS ] <replaceable class="PARAMETER">이름</replaceable> ( <replaceable class="PARAMETER">자료형</replaceable> [ , ... ] ) [ CASCADE | RESTRICT ]
+</synopsis>
+ </refsynopsisdiv>
+
+ <refsect1>
+  <title>설명</title>
+
+  <para>
+   <command>DROP AGGREGATE</command> 명령은 지정한 집계
+   함수를 삭제한다.  이 명령은 해당 집계 함수의 
+   소유주만 실행 할 수 있다.
+  </para>
+ </refsect1>
+
+ <refsect1>
+  <title>매개 변수</title>
+
+  <variablelist>
+
+   <varlistentry>
+    <term><literal>IF EXISTS</literal></term>
+    <listitem>
+     <para>
+          해당 집계 함수가 없더라도 오류를 내지 않고,  알림 메시지를 
+          보여준다.
+     </para>
+    </listitem>
+   </varlistentry>
+
+   <varlistentry>
+    <term><replaceable class="parameter">이름</replaceable></term>
+    <listitem>
+     <para>
+          삭제하려는 (스키마 이름을 포함 할 수도 있는) 집계 함수 이름
+     </para>
+    </listitem>
+   </varlistentry>
+
+   <varlistentry>
+    <term><replaceable class="parameter">자료형</replaceable></term>
+    <listitem>
+     <para>
+          해당 집계 함수에서 사용하는 입력 매개 변수의 자료형.  입력 
+          매개 밴수가 없는 집계 함수라면, 이 자리에 <literal>*</>
+          문자를 입력한다.
+     </para>
+    </listitem>
+   </varlistentry>
+
+   <varlistentry>
+    <term><literal>CASCADE</literal></term>
+    <listitem>
+     <para>
+          해당 집계 함수와 의존성 관계를 가진 모든 객체도 함께 삭제 한다.
+     </para>
+    </listitem>
+   </varlistentry>
+
+   <varlistentry>
+    <term><literal>RESTRICT</literal></term>
+    <listitem>
+     <para>
+          해당 집계 함수와 의존성 관계를 가지는 객체가 있다면, 
+          작업을 중지한다.  이 값이 기본값이다.
+     </para>
+    </listitem>
+   </varlistentry>
+  </variablelist>
+ </refsect1>
+
+ <refsect1>
+  <title>예제</title>
+
+  <para>
+   <type>integer</type> 자료형에 대한 <literal>myavg</literal>
+   집계 함수를 삭제 하려면:
+<programlisting>
+DROP AGGREGATE myavg(integer);
+</programlisting></para>
+ </refsect1>
+
+ <refsect1>
+  <title>호환성</title>
+
+  <para>
+   <command>DROP AGGREGATE</command> 구문은 표준 SQL에는 없다.
+  </para>
+ </refsect1>
+
+ <refsect1>
+  <title>관련 항목</title>
+
+  <simplelist type="inline">
+   <member><xref linkend="sql-alteraggregate"></member>
+   <member><xref linkend="sql-createaggregate"></member>
+  </simplelist>
+ </refsect1>
+
+</refentry>

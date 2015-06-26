@@ -1,0 +1,271 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>Windows에 이벤트 로그 등록</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REV="MADE"
+HREF="mailto:pgsql-docs@postgresql.org"><LINK
+REL="HOME"
+TITLE="Agens SQL 1.0 문서"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="서버 설정 및 운용"
+HREF="runtime.html"><LINK
+REL="PREVIOUS"
+TITLE="SSH 터널을 사용하여 TCP/IP 연결 보호"
+HREF="ssh-tunnels.html"><LINK
+REL="NEXT"
+TITLE="서버 환경 설정"
+HREF="runtime-config.html"><LINK
+REL="STYLESHEET"
+TYPE="text/css"
+HREF="stylesheet.css"><META
+HTTP-EQUIV="Content-Type"
+CONTENT="text/html; charset=UTF-8"><META
+name="viewport"
+content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width"><META
+NAME="creation"
+CONTENT="2015-06-26T04:43:18"></HEAD
+><BODY
+CLASS="SECT1"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="4"
+ALIGN="center"
+VALIGN="bottom"
+><A
+HREF="index.html"
+>Agens SQL 1.0 문서</A
+></TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="top"
+><A
+TITLE="SSH 터널을 사용하여 TCP/IP 연결 보호"
+HREF="ssh-tunnels.html"
+ACCESSKEY="P"
+>이전</A
+></TD
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="runtime.html"
+ACCESSKEY="U"
+>위로</A
+></TD
+><TD
+WIDTH="60%"
+ALIGN="center"
+VALIGN="bottom"
+>장 1. 서버 설정 및 운용</TD
+><TD
+WIDTH="20%"
+ALIGN="right"
+VALIGN="top"
+><A
+TITLE="서버 환경 설정"
+HREF="runtime-config.html"
+ACCESSKEY="N"
+>다음</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="EVENT-LOG-REGISTRATION"
+>1.11. <SPAN
+CLASS="SYSTEMITEM"
+>Windows</SPAN
+>에 <SPAN
+CLASS="APPLICATION"
+>이벤트 로그</SPAN
+> 등록</A
+></H1
+><P
+><SPAN
+CLASS="SYSTEMITEM"
+>Windows</SPAN
+> <SPAN
+CLASS="APPLICATION"
+>이벤트 로그</SPAN
+> 라이브러리를 운영 체제에 등록하려면 다음 명령을 실행해야 한다.
+</P><PRE
+CLASS="SCREEN"
+><KBD
+CLASS="USERINPUT"
+>regsvr32 <TT
+CLASS="REPLACEABLE"
+><I
+>pgsql_library_directory</I
+></TT
+>/pgevent.dll</KBD
+></PRE
+><P>
+이것은 <TT
+CLASS="LITERAL"
+>Agens SQL</TT
+>이라는 기본 이벤트 소스에 이벤트 뷰어가 사용하는 레지스트리 엔트리를 입력한다.
+  </P
+><P
+>이벤트 소스 이름을 다르게 지정하려면(<A
+HREF="runtime-config-logging.html#GUC-EVENT-SOURCE"
+>event_source</A
+> 참조), <TT
+CLASS="LITERAL"
+>/n</TT
+> 및 <TT
+CLASS="LITERAL"
+>/i</TT
+> 옵션을 사용해야 한다.
+</P><PRE
+CLASS="SCREEN"
+><KBD
+CLASS="USERINPUT"
+>regsvr32 /n /i:<TT
+CLASS="REPLACEABLE"
+><I
+>event_source_name</I
+></TT
+> <TT
+CLASS="REPLACEABLE"
+><I
+>pgsql_library_directory</I
+></TT
+>/pgevent.dll</KBD
+></PRE
+><P>
+  </P
+><P
+>운영 체제에서 <SPAN
+CLASS="APPLICATION"
+>이벤트 로그</SPAN
+> 라이브러리 등록을 취소하려면 아래 명령을 실행해야 한다.
+</P><PRE
+CLASS="SCREEN"
+><KBD
+CLASS="USERINPUT"
+>regsvr32 /u [/i:<TT
+CLASS="REPLACEABLE"
+><I
+>event_source_name</I
+></TT
+>] <TT
+CLASS="REPLACEABLE"
+><I
+>pgsql_library_directory</I
+></TT
+>/pgevent.dll</KBD
+></PRE
+><P>
+  </P
+><DIV
+CLASS="NOTE"
+><BLOCKQUOTE
+CLASS="NOTE"
+><P
+><B
+>참고: </B
+>데이터베이스 서버에서 이벤트 로깅을 활성화하려면 <A
+HREF="runtime-config-logging.html#GUC-LOG-DESTINATION"
+>log_destination</A
+>을 수정하여 <TT
+CLASS="FILENAME"
+>postgresql.conf</TT
+>에 <TT
+CLASS="LITERAL"
+>eventlog</TT
+>를 포함시켜야 한다.
+   </P
+></BLOCKQUOTE
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="ssh-tunnels.html"
+ACCESSKEY="P"
+>이전</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>처음으로</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="runtime-config.html"
+ACCESSKEY="N"
+>다음</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><SPAN
+CLASS="APPLICATION"
+>SSH</SPAN
+> 터널을 사용하여 TCP/IP 연결 보호</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="runtime.html"
+ACCESSKEY="U"
+>위로</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>서버 환경 설정</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

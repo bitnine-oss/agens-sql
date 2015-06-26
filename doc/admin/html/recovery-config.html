@@ -1,0 +1,224 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>복구 환경설정</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REV="MADE"
+HREF="mailto:pgsql-docs@postgresql.org"><LINK
+REL="HOME"
+TITLE="Agens SQL 1.0 문서"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Administrator"
+HREF="admin.html"><LINK
+REL="PREVIOUS"
+TITLE="상시 대기"
+HREF="hot-standby.html"><LINK
+REL="NEXT"
+TITLE="아카이브 복구 설정"
+HREF="archive-recovery-settings.html"><LINK
+REL="STYLESHEET"
+TYPE="text/css"
+HREF="stylesheet.css"><META
+HTTP-EQUIV="Content-Type"
+CONTENT="text/html; charset=UTF-8"><META
+name="viewport"
+content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width"><META
+NAME="creation"
+CONTENT="2015-06-26T04:43:18"></HEAD
+><BODY
+CLASS="CHAPTER"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="4"
+ALIGN="center"
+VALIGN="bottom"
+><A
+HREF="index.html"
+>Agens SQL 1.0 문서</A
+></TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="top"
+><A
+TITLE="상시 대기"
+HREF="hot-standby.html"
+ACCESSKEY="P"
+>이전</A
+></TD
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="admin.html"
+ACCESSKEY="U"
+>위로</A
+></TD
+><TD
+WIDTH="60%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="20%"
+ALIGN="right"
+VALIGN="top"
+><A
+TITLE="아카이브 복구 설정"
+HREF="archive-recovery-settings.html"
+ACCESSKEY="N"
+>다음</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="CHAPTER"
+><H1
+><A
+NAME="RECOVERY-CONFIG"
+></A
+>장 10. 복구 환경설정</H1
+><DIV
+CLASS="TOC"
+><DL
+><DT
+><B
+>차례</B
+></DT
+><DT
+>10.1. <A
+HREF="archive-recovery-settings.html"
+>아카이브 복구 설정</A
+></DT
+><DT
+>10.2. <A
+HREF="recovery-target-settings.html"
+>복구 시점 설정</A
+></DT
+><DT
+>10.3. <A
+HREF="standby-settings.html"
+>대기 서버 설정</A
+></DT
+></DL
+></DIV
+><P
+>    이 장에서는 <TT
+CLASS="FILENAME"
+>recovery.conf</TT
+>
+        파일의 설정 방법에 대해서 설명한다.
+        여기서 설명하는 모든 것은 복구 작업에서만 적용되는 부분이다.
+        모든 설정은 복구 작업이 진행 된 뒤에는 변경해도 반영되지 않는다. 
+        이 설정값들을 바꾸고 그것이 적용되길 원한다면, 다시 처음부터 복구 작업을 해야한다.
+   </P
+><P
+>     <TT
+CLASS="FILENAME"
+>recovery.conf</TT
+> 파일에서 사용하는 구문은 
+     <TT
+CLASS="LITERAL"
+>설정항목 = '설정값'</TT
+> 형태로 한 줄에 하나씩 나열된다. 
+         줄에 해시 기호(<TT
+CLASS="LITERAL"
+>#</TT
+>)가 있으면, 그 뒤부터는 
+         주석처리 된다.
+         설정값 안에 작은 따옴표가 필요하면,  작은 따옴표 두 개(<TT
+CLASS="LITERAL"
+>''</TT
+>)를 사용한다.
+   </P
+><P
+>    미리 제공되는 샘플 파일은 데이터베이스 서버가 설치된 디렉토리
+        안에 있는 <TT
+CLASS="FILENAME"
+>share/recovery.conf.sample</TT
+> 파일이다.
+   </P
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="hot-standby.html"
+ACCESSKEY="P"
+>이전</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>처음으로</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="archive-recovery-settings.html"
+ACCESSKEY="N"
+>다음</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>상시 대기</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="admin.html"
+ACCESSKEY="U"
+>위로</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>아카이브 복구 설정</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

@@ -1,0 +1,99 @@
+<!--
+doc/src/sgml/ref/drop_database.sgml
+PostgreSQL documentation
+-->
+
+<refentry id="SQL-DROPDATABASE">
+ <refmeta>
+  <refentrytitle>DROP DATABASE</refentrytitle>
+  <manvolnum>7</manvolnum>
+  <refmiscinfo>SQL - Language Statements</refmiscinfo>
+ </refmeta>
+
+ <refnamediv>
+  <refname>DROP DATABASE</refname>
+  <refpurpose>데이터베이스 삭제</refpurpose>
+ </refnamediv>
+
+ <indexterm zone="sql-dropdatabase">
+  <primary>DROP DATABASE</primary>
+ </indexterm>
+
+ <refsynopsisdiv>
+<synopsis>
+DROP DATABASE [ IF EXISTS ] <replaceable class="PARAMETER">이름</replaceable>
+</synopsis>
+ </refsynopsisdiv>
+
+ <refsect1>
+  <title>설명</title>
+
+  <para>
+   <command>DROP DATABASE</command> 명령은 지정한 데이터베이스를 삭제한다.  이 
+   작업은 전역 카탈로그 정보에서 해당 데이터베이스 정보를 삭제하고, 
+   그 데이터베이스의 물리적 디렉토리도 모두 삭제한다.  이 작업은
+   데이터페이스 소유주만 실행할 수 있다.  또한 해당 데이터베이스로 접속한 
+   사용자가 한 명이라도 있으면 삭제 할 수 없다.  (<literal>postgres</literal>나
+   다른 데이터베이스로 접속한 뒤 이 명령을 사용해야 한다.)
+  </para>
+
+  <para>
+   <command>DROP DATABASE</command> 명령은 한 번 실행되면 복구가 불가능하다. 손 떨리게 명령을 내릴 것!
+  </para>
+ </refsect1>
+
+ <refsect1>
+  <title>매개 변수</title>
+
+  <variablelist>
+   <varlistentry>
+    <term><literal>IF EXISTS</literal></term>
+    <listitem>
+     <para>
+          해당 데이터베이스가 없는 경우에도 오류로 처리하지 않고자 할 때 사용하다.  해당
+          데이터베이스가 없다는 알림만 보여준다.
+     </para>
+    </listitem>
+   </varlistentry>
+
+   <varlistentry>
+    <term><replaceable class="PARAMETER">이름</replaceable></term>
+    <listitem>
+     <para>
+      삭제 하려는 데이터베이스 이름
+     </para>
+    </listitem>
+   </varlistentry>
+  </variablelist>
+ </refsect1>
+
+ <refsect1>
+  <title>참고</title>
+
+   <para>
+    <command>DROP DATABASE</> 명령은 트랜잭션 안에서는 사용할 수 없다.
+   </para>
+
+  <para>
+   이 명령은 해당 데이터베이스로 접속된 세션이 있는 경우에는 
+   정상적으로 실행되지 않는다.  그래서, 좀 더 편하게 이 명령을 수행할 수 
+   있도록  <xref linkend="app-dropdb"> 프로그램을 제공하고 있다.
+  </para>
+ </refsect1>
+
+ <refsect1>
+  <title>호환성</title>
+
+  <para>
+   <command>DROP DATABASE</command> 구문은 표준 SQL에는 없다.
+  </para>
+ </refsect1>
+
+ <refsect1>
+  <title>관련 항목</title>
+
+  <simplelist type="inline">
+   <member><xref linkend="sql-createdatabase"></member>
+  </simplelist>
+ </refsect1>
+</refentry>

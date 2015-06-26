@@ -1,0 +1,214 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>인증 문제</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REV="MADE"
+HREF="mailto:pgsql-docs@postgresql.org"><LINK
+REL="HOME"
+TITLE="Agens SQL 1.0 문서"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="클라이언트 인증"
+HREF="client-authentication.html"><LINK
+REL="PREVIOUS"
+TITLE="인증 방법"
+HREF="auth-methods.html"><LINK
+REL="NEXT"
+TITLE="데이터베이스 role"
+HREF="user-manag.html"><LINK
+REL="STYLESHEET"
+TYPE="text/css"
+HREF="stylesheet.css"><META
+HTTP-EQUIV="Content-Type"
+CONTENT="text/html; charset=UTF-8"><META
+name="viewport"
+content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width"><META
+NAME="creation"
+CONTENT="2015-06-26T04:43:18"></HEAD
+><BODY
+CLASS="SECT1"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="4"
+ALIGN="center"
+VALIGN="bottom"
+><A
+HREF="index.html"
+>Agens SQL 1.0 문서</A
+></TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="top"
+><A
+TITLE="인증 방법"
+HREF="auth-methods.html"
+ACCESSKEY="P"
+>이전</A
+></TD
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="client-authentication.html"
+ACCESSKEY="U"
+>위로</A
+></TD
+><TD
+WIDTH="60%"
+ALIGN="center"
+VALIGN="bottom"
+>장 3. 클라이언트 인증</TD
+><TD
+WIDTH="20%"
+ALIGN="right"
+VALIGN="top"
+><A
+TITLE="데이터베이스 role"
+HREF="user-manag.html"
+ACCESSKEY="N"
+>다음</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="CLIENT-AUTHENTICATION-PROBLEMS"
+>3.4. 인증 문제</A
+></H1
+><P
+>인증 실패 및 관련 문제는 일반적으로 다음과 같은 에러 메시지를 통해 드러난다.
+ </P
+><P
+></P><PRE
+CLASS="PROGRAMLISTING"
+>FATAL:no pg_hba.conf entry for host "123.123.123.123", user "andym", database "testdb"</PRE
+><P>
+이것은 사용자와 연결할 수 없다는 뜻이다. 메시지에 나타난 대로, 서버는 <TT
+CLASS="FILENAME"
+>pg_hba.conf</TT
+> 환경 설정 파일에서 일치하는 항목을 찾기 못해서 연결 요청을 거부했다.
+ </P
+><P
+></P><PRE
+CLASS="PROGRAMLISTING"
+>FATAL:password authentication failed for user "andym"</PRE
+><P>
+이 메시지는 사용자가 서버에 접촉했으며, 사용자와의 연결은 가능하지만 <TT
+CLASS="FILENAME"
+>pg_hba.conf</TT
+> 파일에 지정된 인증 방법을 통과해야 함을 의미한다. 
+사용자가 입력한 패스워드를 검사하거나, 이러한 인증 유형에 문제가 있는 경우에 사용자의 Kerberos 또는 ident 소프트웨어를 검사해야 한다.
+ </P
+><P
+></P><PRE
+CLASS="PROGRAMLISTING"
+>FATAL:user "andym" does not exist</PRE
+><P>
+표시된 데이터베이스 사용자 이름을 찾지 못했다.
+ </P
+><P
+></P><PRE
+CLASS="PROGRAMLISTING"
+>FATAL:database "testdb" does not exist</PRE
+><P>
+연결하려는 데이터베이스가 존재하지 않는다. 데이터베이스 이름을 지정하지 않으면 데이터베이스 사용자 이름을 데이터베이스 이름으로 간주한다.
+ </P
+><DIV
+CLASS="TIP"
+><BLOCKQUOTE
+CLASS="TIP"
+><P
+><B
+>작은 정보: </B
+>서버 로그에 클라이언트에 보고된 것보다 더 자세한 인증 실패 정보가 나와 있다. 실패 이유가 명확하지 않은 경우 서버 로그를 확인해야 한다.
+ </P
+></BLOCKQUOTE
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="auth-methods.html"
+ACCESSKEY="P"
+>이전</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>처음으로</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="user-manag.html"
+ACCESSKEY="N"
+>다음</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>인증 방법</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="client-authentication.html"
+ACCESSKEY="U"
+>위로</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>데이터베이스 role</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>

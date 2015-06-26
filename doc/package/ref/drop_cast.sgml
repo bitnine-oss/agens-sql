@@ -1,0 +1,113 @@
+<!-- doc/src/sgml/ref/drop_cast.sgml -->
+
+<refentry id="SQL-DROPCAST">
+ <refmeta>
+  <refentrytitle>DROP CAST</refentrytitle>
+  <manvolnum>7</manvolnum>
+  <refmiscinfo>SQL - Language Statements</refmiscinfo>
+ </refmeta>
+
+ <refnamediv>
+  <refname>DROP CAST</refname>
+  <refpurpose>자료형 변환 규칙을 삭제한다</refpurpose>
+ </refnamediv>
+
+ <indexterm zone="sql-dropcast">
+  <primary>DROP CAST</primary>
+ </indexterm>
+
+ <refsynopsisdiv>
+<synopsis>
+DROP CAST [ IF EXISTS ] (<replaceable>원본자료형</replaceable> AS <replaceable>변환자료형</replaceable>) [ CASCADE | RESTRICT ]
+</synopsis>
+ </refsynopsisdiv>
+
+ <refsect1 id="sql-dropcast-description">
+  <title>설명</title>
+
+  <para>
+   <command>DROP CAST</command> 명령은 지정한 자료형변환 규칙을 삭제한다.
+  </para>
+
+  <para>
+   이 명령은 원본자료형이나, 변환자료형의 소유주만 사용할 수 있다.  이 명령의
+   사용권한은 자료형변환 규칙을 만들 수 있는 권한이 있어야한다.
+  </para>
+ </refsect1>
+
+ <refsect1>
+  <title>매개 변수</title>
+
+   <variablelist>
+
+   <varlistentry>
+    <term><literal>IF EXISTS</literal></term>
+    <listitem>
+     <para>
+          해당 변환 규칙이 없어도 오류를 내지 않고, 알림 메시지만 보여준다.
+     </para>
+    </listitem>
+   </varlistentry>
+
+    <varlistentry>
+     <term><replaceable>원본자료형</replaceable></term>
+
+     <listitem>
+      <para>
+       변환 규칙의 원본 자료형
+      </para>
+     </listitem>
+    </varlistentry>
+
+    <varlistentry>
+     <term><replaceable>변환자료형</replaceable></term>
+
+     <listitem>
+      <para>
+           원본자료형이 변환될 변환 자료형
+      </para>
+     </listitem>
+    </varlistentry>
+
+    <varlistentry>
+     <term><literal>CASCADE</literal></term>
+     <term><literal>RESTRICT</literal></term>
+
+     <listitem>
+      <para>
+           이 두 옵션은 아무런 효과가 없다. (자료형 변환 규칙은 
+           의존성 관계가 없다)
+      </para>
+     </listitem>
+    </varlistentry>
+   </variablelist>
+ </refsect1>
+
+ <refsect1 id="sql-dropcast-examples">
+  <title>예제</title>
+
+  <para>
+   <type>text</type> 자료형을 <type>int</type> 자료형으로 
+   바꾸는 변환 규칙을 삭제하려면:
+<programlisting>
+DROP CAST (text AS int);
+</programlisting></para>
+ </refsect1>
+
+ <refsect1 id="sql-dropcast-compat">
+  <title>호환성</title>
+
+  <para>
+   <command>DROP CAST</command> 명령은 표준 SQL 구문과 같다.
+  </para>
+ </refsect1>
+
+ <refsect1>
+  <title>관련 항목</title>
+
+  <simplelist type="inline">
+   <member><xref linkend="sql-createcast"></member>
+  </simplelist>
+ </refsect1>
+
+</refentry>

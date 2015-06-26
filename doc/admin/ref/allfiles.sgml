@@ -1,0 +1,8 @@
+<!--
+doc/src/sgml/ref/allfiles.sgml
+PostgreSQL documentation
+Complete list of usable sgml source files in this directory.
+-->
+
+<!ENTITY linux              SYSTEM "linux.sgml">
+

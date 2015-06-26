@@ -1,0 +1,42 @@
+<!-- doc/src/sgml/filelist.sgml -->
+
+<!ENTITY postgres    SYSTEM "postgres.sgml">
+
+<!-- package -->
+<!ENTITY pgHintPlan    SYSTEM "pgHintPlan.sgml">
+<!ENTITY pgbouncer    SYSTEM "pgbouncer.sgml">
+<!ENTITY plproxy    SYSTEM "plproxy.sgml">
+<!ENTITY powa    SYSTEM "powa.sgml">
+<!ENTITY slonyI    SYSTEM "slonyI.sgml">
+<!ENTITY skytools    SYSTEM "skytools.sgml">
+<!ENTITY pgpoolII    SYSTEM "pgpoolII.sgml">
+<!ENTITY postGis    SYSTEM "postGis.sgml">
+<!ENTITY pgpool-II-config       SYSTEM "pgpool-II-config.sgml">
+<!ENTITY pgpool-II-quick       SYSTEM "pgpool-II-quick.sgml">
+<!ENTITY PostGIS-config       SYSTEM "PostGIS-config.sgml">
+<!ENTITY PostGIS-quick       SYSTEM "PostGIS-quick.sgml">
+
+
+<!-- reference pages -->
+<!ENTITY % allfiles   SYSTEM "ref/allfiles.sgml">
+%allfiles;
+
+<!--
+ Some parts of the documentation are also source for some plain-text
+ files used during installation.  To selectively ignore or include
+ some parts (e.g., external xref's) when generating these files we use
+ these parameter entities.  See also standalone-install.sgml.
+ -->
+<!ENTITY % standalone-ignore  "INCLUDE">
+<!ENTITY % standalone-include "IGNORE">
+
+<!--
+ By default, no index is included.  Use -i include-index on the command line
+ to include it.
+ -->
+<!ENTITY % include-index "IGNORE">
+
+<!--
+ Create empty index element for processing by XSLT stylesheet.
+ -->
+<!ENTITY % include-xslt-index "IGNORE">

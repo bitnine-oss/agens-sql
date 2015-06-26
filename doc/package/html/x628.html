@@ -1,0 +1,320 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<HTML
+><HEAD
+><TITLE
+>Slony-I 구동 예제 (2)</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
+REV="MADE"
+HREF="mailto:pgsql-docs@postgresql.org"><LINK
+REL="HOME"
+TITLE="Agens SQL 1.0 문서"
+HREF="index.html"><LINK
+REL="UP"
+TITLE="Slony-I"
+HREF="slonyi.html"><LINK
+REL="PREVIOUS"
+TITLE="Slony-I 구동 예제 (1)"
+HREF="x548.html"><LINK
+REL="NEXT"
+TITLE="PostGIS"
+HREF="postgis.html"><LINK
+REL="STYLESHEET"
+TYPE="text/css"
+HREF="stylesheet.css"><META
+HTTP-EQUIV="Content-Type"
+CONTENT="text/html; charset=UTF-8"><META
+name="viewport"
+content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width"><META
+NAME="creation"
+CONTENT="2015-06-24T07:42:48"></HEAD
+><BODY
+CLASS="SECT1"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="4"
+ALIGN="center"
+VALIGN="bottom"
+><A
+HREF="index.html"
+>Agens SQL 1.0 문서</A
+></TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="top"
+><A
+TITLE="Slony-I 구동 예제 (1)"
+HREF="x548.html"
+ACCESSKEY="P"
+>이전</A
+></TD
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="slonyi.html"
+ACCESSKEY="U"
+>위로</A
+></TD
+><TD
+WIDTH="60%"
+ALIGN="center"
+VALIGN="bottom"
+>장 5. Slony-I</TD
+><TD
+WIDTH="20%"
+ALIGN="right"
+VALIGN="top"
+><A
+TITLE="PostGIS"
+HREF="postgis.html"
+ACCESSKEY="N"
+>다음</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="SECT1"
+><H1
+CLASS="SECT1"
+><A
+NAME="AEN628"
+>5.3. <SPAN
+CLASS="PRODUCTNAME"
+>Slony-I</SPAN
+> 구동 예제 (2)</A
+></H1
+><FONT
+COLOR="RED"
+>테이블 스키마 변경</FONT
+><P
+>            이번 절에서는 <SPAN
+CLASS="PRODUCTNAME"
+>Slony-I</SPAN
+>가 동작하고 있는 상태에서 master 노드와 slave 노드의 테이블 스키마를 변경 하는 예제를 보이겠다. 이번 절의 예제는 <SPAN
+CLASS="PRODUCTNAME"
+>Slony-I</SPAN
+> 예제 1이 동작 하고 있는 상태에서 동작 하게된다.
+        </P
+><P
+></P
+><OL
+TYPE="1"
+><LI
+><P
+>해당 스크립트에 실행 권한을 주고 실행 시킨다.
+                </P
+><P
+>                    </P><PRE
+CLASS="PROGRAMLISTING"
+>#!/bin/sh
+
+slonik &#60;&#60;_EOF_
+    # ----
+    # This defines which namespace the replication system uses
+    # ----
+    cluster name = $CLUSTERNAME;
+
+    # ----
+    # Admin conninfo's are used by the slonik program to connect
+    # to the node databases.  So these are the PQconnectdb arguments
+    # that connect from the administrators workstation (where
+    # slonik is executed).
+    # ----
+    node 1 admin conninfo = 'dbname=$MASTERDBNAME host=$MASTERHOST user=$REPLICATIONUSER';
+    node 2 admin conninfo = 'dbname=$SLAVEDBNAME host=$SLAVEHOST user=$REPLICATIONUSER';
+
+    # ----
+    # Node 2 subscribes set 1
+    # ----
+    subscribe set ( id = 1, provider = 1, receiver = 2, forward = no);
+_EOF_</PRE
+><P>
+                </P
+></LI
+><LI
+><P
+>slonik 설정 프로세서를 동작 시키기 위해 다음 스크립트를 작성 한다.
+                </P
+><P
+>                    </P><PRE
+CLASS="PROGRAMLISTING"
+><SAMP
+CLASS="PROMPT"
+>localhost</SAMP
+> $ <KBD
+CLASS="USERINPUT"
+><TT
+CLASS="COMMAND"
+>[sudo]chmod a+x ./<TT
+CLASS="FILENAME"
+>table_schema_change.sh</TT
+></TT
+></KBD
+>
+<SAMP
+CLASS="PROMPT"
+>localhost</SAMP
+> $ <KBD
+CLASS="USERINPUT"
+><TT
+CLASS="COMMAND"
+>./<TT
+CLASS="FILENAME"
+>table_schema_change.sh</TT
+></TT
+></KBD
+></PRE
+><P>
+                </P
+></LI
+><LI
+><P
+>테이블 변경이 제대로 되었는지 확인 하기 위해 SQL 명령을 확인 해 본다.
+                </P
+><P
+>                    </P><PRE
+CLASS="PROGRAMLISTING"
+><SAMP
+CLASS="PROMPT"
+>pgbench</SAMP
+>=# <KBD
+CLASS="USERINPUT"
+><TT
+CLASS="COMMAND"
+>select * from pgbench_tellers;</TT
+></KBD
+>
+ tid | bid | tbalance | filler | date 
+-----+-----+----------+--------+------
+   1 |   1 |        0 |        | 
+   2 |   1 |        0 |        | 
+   3 |   1 |        0 |        | 
+   4 |   1 |        0 |        | 
+   5 |   1 |        0 |        | 
+   6 |   1 |        0 |        | 
+   7 |   1 |        0 |        | 
+   8 |   1 |        0 |        | 
+   9 |   1 |        0 |        | 
+  10 |   1 |        0 |        | 
+(10 rows)</PRE
+><P>
+                </P
+><P
+>                    위와 같이 Master 노드의 테이블이 변경된 것을 확인 할 수 있다. Slave 노드에서도 동일한 SQL 명령을 확인해 보면 다음과 같이 변경된 것을 확인 할 수 있다.
+                </P
+><P
+>                    </P><PRE
+CLASS="PROGRAMLISTING"
+><SAMP
+CLASS="PROMPT"
+>pgbenchslave</SAMP
+>=# <KBD
+CLASS="USERINPUT"
+><TT
+CLASS="COMMAND"
+>select * from pgbench_tellers;</TT
+></KBD
+>
+ tid | bid | tbalance | filler | date 
+-----+-----+----------+--------+------
+   1 |   1 |        0 |        | 
+   2 |   1 |        0 |        | 
+   3 |   1 |        0 |        | 
+   4 |   1 |        0 |        | 
+   5 |   1 |        0 |        | 
+   6 |   1 |        0 |        | 
+   7 |   1 |        0 |        | 
+   8 |   1 |        0 |        | 
+   9 |   1 |        0 |        | 
+  10 |   1 |        0 |        | 
+(10 rows)</PRE
+><P>
+                </P
+></LI
+></OL
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="x548.html"
+ACCESSKEY="P"
+>이전</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="index.html"
+ACCESSKEY="H"
+>처음으로</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="postgis.html"
+ACCESSKEY="N"
+>다음</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><SPAN
+CLASS="PRODUCTNAME"
+>Slony-I</SPAN
+> 구동 예제 (1)</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="slonyi.html"
+ACCESSKEY="U"
+>위로</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>PostGIS</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>
