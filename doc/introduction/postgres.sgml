@@ -146,7 +146,7 @@ GIS System(<productname>PostGIS</>) 등이 있다.
  </para>
 <figure>
 <title><productname>Agens SQL</> 구성 요소</title>
-<graphic fileref="html/images/agens-sql.png">
+<graphic fileref="images/agens-sql.png">
 </figure>
 </sect1>
 
