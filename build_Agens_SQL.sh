@@ -1,7 +1,7 @@
 #!/bin/bash
 # This is a script file to build agens-sql project which has a installer.
 
-Agens_sql_version="Agens_SQL_V1.0.0_Enterprise_Edition"
+Agens_SQL_version="Agens_SQL_V1.0.0"
 AGENS_TEMP_DIR=`pwd`/agens_temp
 
 if [ -d "$AGENS_TEMP_DIR" ]; then
@@ -99,6 +99,7 @@ if [ ! -d "./distributions" ]; then
 	mkdir distributions
 fi
 
-./izpack/bin/compile res/installer/install.xml -b ./ -o distributions/"$Agens_sql_version".jar -k standard
+./izpack/bin/compile res/installer/install_enterprise.xml -b ./ -o distributions/"$Agens_SQL_version"_Enterprise_Edition.jar -k standard
+./izpack/bin/compile res/installer/install_standard.xml -b ./ -o distributions/"$Agens_SQL_version"_Standard_Edition.jar -k standard
 
 
