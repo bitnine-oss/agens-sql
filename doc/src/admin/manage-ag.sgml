@@ -132,7 +132,7 @@ createdb -O <replaceable>rolename</> <replaceable>dbname</>
   <para>
    <literal>template0</><indexterm><primary>template0</></>이라는 2차 표준 시스템 데이터베이스가 있다. 
    이 데이터베이스에는 <literal>template1</>의 초기 내용과 동일한 데이터가 포함되어 있다. 
-   즉, <productname>Agens SQL</productname> 버전에 의해 사전 정의된 표준 객체만 포함되어 있다. 
+   즉, <productname>PostgreSQL</productname> 버전에 의해 사전 정의된 표준 객체만 포함되어 있다. 
    데이터베이스 클러스터를 초기화한 후에는 <literal>template0</>을 절대 변경하면 안 된다. 
    <literal>template1</> 대신 <literal>template0</>을 복사하도록 <command>CREATE DATABASE</>를 실행하면 <literal>template1</>에서 사이트-로컬 추가가 없는 <quote>처녀</quote> 사용자 데이터베이스를 생성할 수 있다. 
    이것은 <literal>pg_dump</> 덤프를 복원할 때 특히 유용하다. 
@@ -356,7 +356,7 @@ SELECT spcname FROM pg_tablespace;
   <para>
    디렉토리 <filename>$PGDATA/pg_tblspc</>에는 클러스터에 저장된 비 내장 테이블스페이스 각각을 가리키는 심볼릭 링크가 포함되어 있다. 
    권장 사항은 아니지만, 이 링크를 재정의하여 테이블스페이스의 레이아웃을 조정할 수도 있다. 
-   이 작업은 어떤 경우에서든 서버 실행 중에 해야 한다. Agens SQL 9.1 이전 버전에서는 <structname>pg_tablespace</> 카탈로그를 새 위치로 업그레이드해야 한다. 
+   이 작업은 어떤 경우에서든 서버 실행 중에 해야 한다. PostgreSQL 9.1 이전 버전에서는 <structname>pg_tablespace</> 카탈로그를 새 위치로 업그레이드해야 한다. 
    (그렇게 하지 않으면 <literal>pg_dump</>가 계속해서 이전 테이블스페이스 위치를 출력한다.)
   </para>
 

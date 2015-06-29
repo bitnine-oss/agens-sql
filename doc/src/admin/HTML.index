@@ -1,0 +1,3150 @@
+INDEXTERM agens-user.html
+INDEXPOINT agens-user.html#AEN20
+TITLE Agens SQL 사용자 계정
+significance NORMAL
+PRIMARY agens 사용자
+/INDEXTERM
+INDEXTERM creating-cluster.html
+INDEXPOINT creating-cluster.html#AEN31
+TITLE 데이터베이스 클러스터 생성
+significance NORMAL
+PRIMARY 데이터베이스 클러스터
+/INDEXTERM
+INDEXTERM creating-cluster.html
+INDEXPOINT creating-cluster.html#AEN33
+TITLE 데이터베이스 클러스터 생성
+significance NORMAL
+PRIMARY 데이터 영역
+SEE 데이터베이스 클러스터
+/INDEXTERM
+INDEXTERM creating-cluster.html
+INDEXPOINT creating-cluster.html#AEN49
+TITLE 데이터베이스 클러스터 생성
+significance NORMAL
+PRIMARY initdb
+/INDEXTERM
+INDEXTERM creating-cluster.html
+INDEXPOINT creating-cluster.html#AEN60
+TITLE 데이터베이스 클러스터 생성
+significance NORMAL
+PRIMARY PGDATA
+/INDEXTERM
+INDEXTERM creating-cluster.html
+INDEXPOINT creating-cluster.html#AEN64
+TITLE 데이터베이스 클러스터 생성
+significance NORMAL
+PRIMARY pg_ctl
+/INDEXTERM
+INDEXTERM creating-cluster.html
+INDEXPOINT creating-cluster.html#AEN95
+TITLE 데이터베이스 클러스터 생성
+significance NORMAL
+PRIMARY 패스워드
+SECONDARY 슈퍼유저의
+/INDEXTERM
+INDEXTERM creating-cluster.html
+INDEXPOINT creating-cluster.html#AEN108
+TITLE 데이터베이스 클러스터 생성
+significance NORMAL
+PRIMARY locale
+/INDEXTERM
+INDEXTERM creating-cluster.html#CREATING-CLUSTER-NFS
+INDEXPOINT creating-cluster.html#AEN119
+TITLE 네트워크 파일 시스템
+significance NORMAL
+ZONE creating-cluster.html#CREATING-CLUSTER-NFS
+TITLE 네트워크 파일 시스템
+PRIMARY 네트워크 파일 시스템
+/INDEXTERM
+INDEXTERM creating-cluster.html#CREATING-CLUSTER-NFS
+INDEXPOINT creating-cluster.html#AEN121
+TITLE 네트워크 파일 시스템
+significance NORMAL
+PRIMARY NFS
+SEE 네트워크 파일 시스템
+/INDEXTERM
+INDEXTERM creating-cluster.html#CREATING-CLUSTER-NFS
+INDEXPOINT creating-cluster.html#AEN125
+TITLE 네트워크 파일 시스템
+significance NORMAL
+PRIMARY Network Attached Storage (NAS)
+SEE 네트워크 파일 시스템
+/INDEXTERM
+INDEXTERM server-start.html
+INDEXPOINT server-start.html#AEN148
+TITLE 데이터베이스 서버 시작
+significance NORMAL
+PRIMARY agens
+/INDEXTERM
+INDEXTERM server-start.html
+INDEXPOINT server-start.html#AEN169
+TITLE 데이터베이스 서버 시작
+significance NORMAL
+PRIMARY pg_ctl
+/INDEXTERM
+INDEXTERM server-start.html
+INDEXPOINT server-start.html#AEN176
+TITLE 데이터베이스 서버 시작
+significance NORMAL
+PRIMARY 부팅
+SECONDARY 시 데이터베이스 서버 시작
+/INDEXTERM
+INDEXTERM server-start.html
+INDEXPOINT server-start.html#AEN197
+TITLE 데이터베이스 서버 시작
+significance NORMAL
+PRIMARY FreeBSD
+SECONDARY 시작 스크립트
+/INDEXTERM
+INDEXTERM server-start.html
+INDEXPOINT server-start.html#AEN204
+TITLE 데이터베이스 서버 시작
+significance NORMAL
+PRIMARY OpenBSD
+SECONDARY 시작 스크립트
+/INDEXTERM
+INDEXTERM server-start.html
+INDEXPOINT server-start.html#AEN211
+TITLE 데이터베이스 서버 시작
+significance NORMAL
+PRIMARY Linux
+SECONDARY 시작 스크립트
+/INDEXTERM
+INDEXTERM server-start.html
+INDEXPOINT server-start.html#AEN224
+TITLE 데이터베이스 서버 시작
+significance NORMAL
+PRIMARY NetBSD
+SECONDARY 시작 스크립트
+/INDEXTERM
+INDEXTERM server-start.html
+INDEXPOINT server-start.html#AEN231
+TITLE 데이터베이스 서버 시작
+significance NORMAL
+PRIMARY Solaris
+SECONDARY 시작 스크립트
+/INDEXTERM
+INDEXTERM kernel-resources.html#SYSVIPC
+INDEXPOINT kernel-resources.html#AEN289
+TITLE 공유 메모리 및 세마포어
+significance NORMAL
+ZONE kernel-resources.html#SYSVIPC
+TITLE 공유 메모리 및 세마포어
+PRIMARY 공유 메모리
+/INDEXTERM
+INDEXTERM kernel-resources.html#SYSVIPC
+INDEXPOINT kernel-resources.html#AEN291
+TITLE 공유 메모리 및 세마포어
+significance NORMAL
+ZONE kernel-resources.html#SYSVIPC
+TITLE 공유 메모리 및 세마포어
+PRIMARY 세마포어
+/INDEXTERM
+INDEXTERM kernel-resources.html#SYSVIPC
+INDEXPOINT kernel-resources.html#AEN415
+TITLE 공유 메모리 및 세마포어
+significance NORMAL
+PRIMARY AIX
+SECONDARY IPC 환경 설정
+/INDEXTERM
+INDEXTERM kernel-resources.html#SYSVIPC
+INDEXPOINT kernel-resources.html#AEN430
+TITLE 공유 메모리 및 세마포어
+significance NORMAL
+PRIMARY FreeBSD
+SECONDARY IPC 환경 설정
+/INDEXTERM
+INDEXTERM kernel-resources.html#SYSVIPC
+INDEXPOINT kernel-resources.html#AEN464
+TITLE 공유 메모리 및 세마포어
+significance NORMAL
+PRIMARY NetBSD
+SECONDARY IPC 설정
+/INDEXTERM
+INDEXTERM kernel-resources.html#SYSVIPC
+INDEXPOINT kernel-resources.html#AEN486
+TITLE 공유 메모리 및 세마포어
+significance NORMAL
+PRIMARY OpenBSD
+SECONDARY IPC 설정
+/INDEXTERM
+INDEXTERM kernel-resources.html#SYSVIPC
+INDEXPOINT kernel-resources.html#AEN501
+TITLE 공유 메모리 및 세마포어
+significance NORMAL
+PRIMARY HP-UX
+SECONDARY IPC 설정
+/INDEXTERM
+INDEXTERM kernel-resources.html#SYSVIPC
+INDEXPOINT kernel-resources.html#AEN519
+TITLE 공유 메모리 및 세마포어
+significance NORMAL
+PRIMARY 리눅스
+SECONDARY IPC 설정
+/INDEXTERM
+INDEXTERM kernel-resources.html#SYSVIPC
+INDEXPOINT kernel-resources.html#AEN546
+TITLE 공유 메모리 및 세마포어
+significance NORMAL
+PRIMARY OS X
+SECONDARY IPC 설정
+/INDEXTERM
+INDEXTERM kernel-resources.html#SYSVIPC
+INDEXPOINT kernel-resources.html#AEN573
+TITLE 공유 메모리 및 세마포어
+significance NORMAL
+PRIMARY SCO 오픈서버
+SECONDARY IPC 환경 설정
+/INDEXTERM
+INDEXTERM kernel-resources.html#SYSVIPC
+INDEXPOINT kernel-resources.html#AEN590
+TITLE 공유 메모리 및 세마포어
+significance NORMAL
+PRIMARY Solaris
+SECONDARY IPC 설정
+/INDEXTERM
+INDEXTERM kernel-resources.html#SYSVIPC
+INDEXPOINT kernel-resources.html#AEN628
+TITLE 공유 메모리 및 세마포어
+significance NORMAL
+PRIMARY UnixWare
+SECONDARY IPC 설정
+/INDEXTERM
+INDEXTERM server-shutdown.html
+INDEXPOINT server-shutdown.html#AEN762
+TITLE 서버 셧다운
+significance NORMAL
+ZONE server-shutdown.html
+TITLE 서버 셧다운
+PRIMARY 셧다운
+/INDEXTERM
+INDEXTERM server-shutdown.html
+INDEXPOINT server-shutdown.html#AEN770
+TITLE 서버 셧다운
+significance NORMAL
+PRIMARY SIGTERM
+/INDEXTERM
+INDEXTERM server-shutdown.html
+INDEXPOINT server-shutdown.html#AEN779
+TITLE 서버 셧다운
+significance NORMAL
+PRIMARY SIGINT
+/INDEXTERM
+INDEXTERM server-shutdown.html
+INDEXPOINT server-shutdown.html#AEN788
+TITLE 서버 셧다운
+significance NORMAL
+PRIMARY SIGQUIT
+/INDEXTERM
+INDEXTERM upgrading.html
+INDEXPOINT upgrading.html#AEN816
+TITLE Agens SQL 클러스터 업그레이드
+significance NORMAL
+ZONE upgrading.html
+TITLE Agens SQL 클러스터 업그레이드
+PRIMARY 업그레이드
+/INDEXTERM
+INDEXTERM upgrading.html
+INDEXPOINT upgrading.html#AEN818
+TITLE Agens SQL 클러스터 업그레이드
+significance NORMAL
+ZONE upgrading.html
+TITLE Agens SQL 클러스터 업그레이드
+PRIMARY 버전
+SECONDARY 호환성
+/INDEXTERM
+INDEXTERM upgrading.html#UPGRADING-VIA-PGDUMPALL
+INDEXPOINT upgrading.html#AEN877
+TITLE pg_dumpall을 통한 데이터 업그레이드
+significance NORMAL
+PRIMARY pg_dumpall
+SECONDARY 업그레이드 시 사용
+/INDEXTERM
+INDEXTERM preventing-server-spoofing.html
+INDEXPOINT preventing-server-spoofing.html#AEN943
+TITLE 서버 스푸핑 방지
+significance NORMAL
+ZONE preventing-server-spoofing.html
+TITLE 서버 스푸핑 방지
+PRIMARY 서버 스푸핑
+/INDEXTERM
+INDEXTERM encryption-options.html
+INDEXPOINT encryption-options.html#AEN961
+TITLE 암호화 옵션
+significance NORMAL
+ZONE encryption-options.html
+TITLE 암호화 옵션
+PRIMARY 암호화
+/INDEXTERM
+INDEXTERM ssl-tcp.html
+INDEXPOINT ssl-tcp.html#AEN1005
+TITLE SSL을 사용한 TCP/IP 연결 보호
+significance NORMAL
+ZONE ssl-tcp.html
+TITLE SSL을 사용한 TCP/IP 연결 보호
+PRIMARY SSL
+/INDEXTERM
+INDEXTERM ssh-tunnels.html
+INDEXPOINT ssh-tunnels.html#AEN1138
+TITLE SSH 터널을 사용하여 TCP/IP 연결 보호
+significance NORMAL
+ZONE ssh-tunnels.html
+TITLE SSH 터널을 사용하여 TCP/IP 연결 보호
+PRIMARY ssh
+/INDEXTERM
+INDEXTERM event-log-registration.html
+INDEXPOINT event-log-registration.html#AEN1175
+TITLE Windows에 이벤트 로그 등록
+significance NORMAL
+ZONE event-log-registration.html
+TITLE Windows에 이벤트 로그 등록
+PRIMARY 이벤트 로그
+SECONDARY 이벤트 로그
+/INDEXTERM
+INDEXTERM runtime-config.html
+INDEXPOINT runtime-config.html#AEN1206
+TITLE 서버 환경 설정
+significance NORMAL
+PRIMARY 환경 설정
+SECONDARY 서버
+/INDEXTERM
+INDEXTERM config-setting.html#CONFIG-SETTING-CONFIGURATION-FILE
+INDEXPOINT config-setting.html#AEN1266
+TITLE 환경 설정 파일을 통한 매개변수 인터랙션
+significance NORMAL
+PRIMARY postgresql.conf
+/INDEXTERM
+INDEXTERM config-setting.html#CONFIG-SETTING-CONFIGURATION-FILE
+INDEXPOINT config-setting.html#AEN1272
+TITLE 환경 설정 파일을 통한 매개변수 인터랙션
+significance NORMAL
+PRIMARY SIGHUP
+/INDEXTERM
+INDEXTERM config-setting.html#CONFIG-SETTING-CONFIGURATION-FILE
+INDEXPOINT config-setting.html#AEN1283
+TITLE 환경 설정 파일을 통한 매개변수 인터랙션
+significance NORMAL
+PRIMARY postgresql.auto.conf
+/INDEXTERM
+INDEXTERM config-setting.html#CONFIG-INCLUDES
+INDEXPOINT config-setting.html#AEN1350
+TITLE 환경 설정 파일 내용 관리
+significance NORMAL
+PRIMARY include
+SECONDARY 환경 설정 파일
+/INDEXTERM
+INDEXTERM config-setting.html#CONFIG-INCLUDES
+INDEXPOINT config-setting.html#AEN1358
+TITLE 환경 설정 파일 내용 관리
+significance NORMAL
+PRIMARY include_if_exists
+SECONDARY 환경 설정 파일 내
+/INDEXTERM
+INDEXTERM config-setting.html#CONFIG-INCLUDES
+INDEXPOINT config-setting.html#AEN1367
+TITLE 환경 설정 파일 내용 관리
+significance NORMAL
+PRIMARY include_dir
+SECONDARY 환경 설정 파일 내
+/INDEXTERM
+INDEXTERM runtime-config-file-locations.html
+INDEXPOINT runtime-config-file-locations.html#AEN1404
+TITLE 파일 위치
+significance NORMAL
+PRIMARY data_directory 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-file-locations.html
+INDEXPOINT runtime-config-file-locations.html#AEN1413
+TITLE 파일 위치
+significance NORMAL
+PRIMARY config_file환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-file-locations.html
+INDEXPOINT runtime-config-file-locations.html#AEN1424
+TITLE 파일 위치
+significance NORMAL
+PRIMARY hba_file환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-file-locations.html
+INDEXPOINT runtime-config-file-locations.html#AEN1434
+TITLE 파일 위치
+significance NORMAL
+PRIMARY ident_file환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-file-locations.html
+INDEXPOINT runtime-config-file-locations.html#AEN1445
+TITLE 파일 위치
+significance NORMAL
+PRIMARY external_pid_file환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-connection.html#RUNTIME-CONFIG-CONNECTION-SETTINGS
+INDEXPOINT runtime-config-connection.html#AEN1482
+TITLE 연결 설정
+significance NORMAL
+PRIMARY listen_addresses 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-connection.html#RUNTIME-CONFIG-CONNECTION-SETTINGS
+INDEXPOINT runtime-config-connection.html#AEN1498
+TITLE 연결 설정
+significance NORMAL
+PRIMARY 포트 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-connection.html#RUNTIME-CONFIG-CONNECTION-SETTINGS
+INDEXPOINT runtime-config-connection.html#AEN1507
+TITLE 연결 설정
+significance NORMAL
+PRIMARY max_connections 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-connection.html#RUNTIME-CONFIG-CONNECTION-SETTINGS
+INDEXPOINT runtime-config-connection.html#AEN1518
+TITLE 연결 설정
+significance NORMAL
+PRIMARY superuser_reserved_connections 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-connection.html#RUNTIME-CONFIG-CONNECTION-SETTINGS
+INDEXPOINT runtime-config-connection.html#AEN1534
+TITLE 연결 설정
+significance NORMAL
+PRIMARY unix_socket_directories 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-connection.html#RUNTIME-CONFIG-CONNECTION-SETTINGS
+INDEXPOINT runtime-config-connection.html#AEN1552
+TITLE 연결 설정
+significance NORMAL
+PRIMARY unix_socket_group 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-connection.html#RUNTIME-CONFIG-CONNECTION-SETTINGS
+INDEXPOINT runtime-config-connection.html#AEN1563
+TITLE 연결 설정
+significance NORMAL
+PRIMARY unix_socket_permissions 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-connection.html#RUNTIME-CONFIG-CONNECTION-SETTINGS
+INDEXPOINT runtime-config-connection.html#AEN1585
+TITLE 연결 설정
+significance NORMAL
+PRIMARY bonjour 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-connection.html#RUNTIME-CONFIG-CONNECTION-SETTINGS
+INDEXPOINT runtime-config-connection.html#AEN1595
+TITLE 연결 설정
+significance NORMAL
+PRIMARY bonjour_name 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-connection.html#RUNTIME-CONFIG-CONNECTION-SETTINGS
+INDEXPOINT runtime-config-connection.html#AEN1607
+TITLE 연결 설정
+significance NORMAL
+PRIMARY tcp_keepalives_idle 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-connection.html#RUNTIME-CONFIG-CONNECTION-SETTINGS
+INDEXPOINT runtime-config-connection.html#AEN1620
+TITLE 연결 설정
+significance NORMAL
+PRIMARY tcp_keepalives_interval 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-connection.html#RUNTIME-CONFIG-CONNECTION-SETTINGS
+INDEXPOINT runtime-config-connection.html#AEN1632
+TITLE 연결 설정
+significance NORMAL
+PRIMARY tcp_keepalives_count 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-connection.html#RUNTIME-CONFIG-CONNECTION-SECURITY
+INDEXPOINT runtime-config-connection.html#AEN1647
+TITLE 보안 및 인증
+significance NORMAL
+PRIMARY timeout
+SECONDARY 클라이언트 인증
+/INDEXTERM
+INDEXTERM runtime-config-connection.html#RUNTIME-CONFIG-CONNECTION-SECURITY
+INDEXPOINT runtime-config-connection.html#AEN1650
+TITLE 보안 및 인증
+significance NORMAL
+PRIMARY 클라이언트 인증
+SECONDARY timeout during
+/INDEXTERM
+INDEXTERM runtime-config-connection.html#RUNTIME-CONFIG-CONNECTION-SECURITY
+INDEXPOINT runtime-config-connection.html#AEN1653
+TITLE 보안 및 인증
+significance NORMAL
+PRIMARY authentication_timeout 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-connection.html#RUNTIME-CONFIG-CONNECTION-SECURITY
+INDEXPOINT runtime-config-connection.html#AEN1664
+TITLE 보안 및 인증
+significance NORMAL
+PRIMARY ssl 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-connection.html#RUNTIME-CONFIG-CONNECTION-SECURITY
+INDEXPOINT runtime-config-connection.html#AEN1677
+TITLE 보안 및 인증
+significance NORMAL
+PRIMARY ssl_ca_file 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-connection.html#RUNTIME-CONFIG-CONNECTION-SECURITY
+INDEXPOINT runtime-config-connection.html#AEN1687
+TITLE 보안 및 인증
+significance NORMAL
+PRIMARY ssl_cert_file 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-connection.html#RUNTIME-CONFIG-CONNECTION-SECURITY
+INDEXPOINT runtime-config-connection.html#AEN1697
+TITLE 보안 및 인증
+significance NORMAL
+PRIMARY ssl_crl_file 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-connection.html#RUNTIME-CONFIG-CONNECTION-SECURITY
+INDEXPOINT runtime-config-connection.html#AEN1707
+TITLE 보안 및 인증
+significance NORMAL
+PRIMARY ssl_key_file 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-connection.html#RUNTIME-CONFIG-CONNECTION-SECURITY
+INDEXPOINT runtime-config-connection.html#AEN1717
+TITLE 보안 및 인증
+significance NORMAL
+PRIMARY ssl_renegotiation_limit 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-connection.html#RUNTIME-CONFIG-CONNECTION-SECURITY
+INDEXPOINT runtime-config-connection.html#AEN1730
+TITLE 보안 및 인증
+significance NORMAL
+PRIMARY ssl_ciphers 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-connection.html#RUNTIME-CONFIG-CONNECTION-SECURITY
+INDEXPOINT runtime-config-connection.html#AEN1775
+TITLE 보안 및 인증
+significance NORMAL
+PRIMARY ssl_prefer_server_ciphers 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-connection.html#RUNTIME-CONFIG-CONNECTION-SECURITY
+INDEXPOINT runtime-config-connection.html#AEN1786
+TITLE 보안 및 인증
+significance NORMAL
+PRIMARY ssl_ecdh_curve 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-connection.html#RUNTIME-CONFIG-CONNECTION-SECURITY
+INDEXPOINT runtime-config-connection.html#AEN1804
+TITLE 보안 및 인증
+significance NORMAL
+PRIMARY password_encryption 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-connection.html#RUNTIME-CONFIG-CONNECTION-SECURITY
+INDEXPOINT runtime-config-connection.html#AEN1816
+TITLE 보안 및 인증
+significance NORMAL
+PRIMARY krb_server_keyfile 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-connection.html#RUNTIME-CONFIG-CONNECTION-SECURITY
+INDEXPOINT runtime-config-connection.html#AEN1827
+TITLE 보안 및 인증
+significance NORMAL
+PRIMARY krb_caseins_users 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-connection.html#RUNTIME-CONFIG-CONNECTION-SECURITY
+INDEXPOINT runtime-config-connection.html#AEN1838
+TITLE 보안 및 인증
+significance NORMAL
+PRIMARY db_user_namespace 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-resource.html#RUNTIME-CONFIG-RESOURCE-MEMORY
+INDEXPOINT runtime-config-resource.html#AEN1869
+TITLE Memory
+significance NORMAL
+PRIMARY shared_buffers 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-resource.html#RUNTIME-CONFIG-RESOURCE-MEMORY
+INDEXPOINT runtime-config-resource.html#AEN1891
+TITLE Memory
+significance NORMAL
+PRIMARY huge_pages 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-resource.html#RUNTIME-CONFIG-RESOURCE-MEMORY
+INDEXPOINT runtime-config-resource.html#AEN1912
+TITLE Memory
+significance NORMAL
+PRIMARY temp_buffers 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-resource.html#RUNTIME-CONFIG-RESOURCE-MEMORY
+INDEXPOINT runtime-config-resource.html#AEN1926
+TITLE Memory
+significance NORMAL
+PRIMARY max_prepared_transactions 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-resource.html#RUNTIME-CONFIG-RESOURCE-MEMORY
+INDEXPOINT runtime-config-resource.html#AEN1940
+TITLE Memory
+significance NORMAL
+PRIMARY work_mem 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-resource.html#RUNTIME-CONFIG-RESOURCE-MEMORY
+INDEXPOINT runtime-config-resource.html#AEN1954
+TITLE Memory
+significance NORMAL
+PRIMARY maintenance_work_mem 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-resource.html#RUNTIME-CONFIG-RESOURCE-MEMORY
+INDEXPOINT runtime-config-resource.html#AEN1971
+TITLE Memory
+significance NORMAL
+PRIMARY autovacuum_work_mem 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-resource.html#RUNTIME-CONFIG-RESOURCE-MEMORY
+INDEXPOINT runtime-config-resource.html#AEN1982
+TITLE Memory
+significance NORMAL
+PRIMARY max_stack_depth 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-resource.html#RUNTIME-CONFIG-RESOURCE-MEMORY
+INDEXPOINT runtime-config-resource.html#AEN1996
+TITLE Memory
+significance NORMAL
+PRIMARY dynamic_shared_memory_type 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-resource.html#RUNTIME-CONFIG-RESOURCE-DISK
+INDEXPOINT runtime-config-resource.html#AEN2017
+TITLE 디스크
+significance NORMAL
+PRIMARY temp_file_limit 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-resource.html#RUNTIME-CONFIG-RESOURCE-KERNEL
+INDEXPOINT runtime-config-resource.html#AEN2033
+TITLE 커널 리소스 사용량
+significance NORMAL
+PRIMARY max_files_per_process 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-resource.html#RUNTIME-CONFIG-RESOURCE-VACUUM-COST
+INDEXPOINT runtime-config-resource.html#AEN2055
+TITLE 비용기반 Vacuum 지연
+significance NORMAL
+PRIMARY vacuum_cost_delay 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-resource.html#RUNTIME-CONFIG-RESOURCE-VACUUM-COST
+INDEXPOINT runtime-config-resource.html#AEN2067
+TITLE 비용기반 Vacuum 지연
+significance NORMAL
+PRIMARY vacuum_cost_page_hit 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-resource.html#RUNTIME-CONFIG-RESOURCE-VACUUM-COST
+INDEXPOINT runtime-config-resource.html#AEN2076
+TITLE 비용기반 Vacuum 지연
+significance NORMAL
+PRIMARY vacuum_cost_page_miss 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-resource.html#RUNTIME-CONFIG-RESOURCE-VACUUM-COST
+INDEXPOINT runtime-config-resource.html#AEN2085
+TITLE 비용기반 Vacuum 지연
+significance NORMAL
+PRIMARY vacuum_cost_page_dirty 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-resource.html#RUNTIME-CONFIG-RESOURCE-VACUUM-COST
+INDEXPOINT runtime-config-resource.html#AEN2094
+TITLE 비용기반 Vacuum 지연
+significance NORMAL
+PRIMARY vacuum_cost_limit 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-resource.html#RUNTIME-CONFIG-RESOURCE-BACKGROUND-WRITER
+INDEXPOINT runtime-config-resource.html#AEN2115
+TITLE 백그라운드 Writer
+significance NORMAL
+PRIMARY bgwriter_delay 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-resource.html#RUNTIME-CONFIG-RESOURCE-BACKGROUND-WRITER
+INDEXPOINT runtime-config-resource.html#AEN2129
+TITLE 백그라운드 Writer
+significance NORMAL
+PRIMARY bgwriter_lru_maxpages 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-resource.html#RUNTIME-CONFIG-RESOURCE-BACKGROUND-WRITER
+INDEXPOINT runtime-config-resource.html#AEN2139
+TITLE 백그라운드 Writer
+significance NORMAL
+PRIMARY bgwriter_lru_multiplier 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-resource.html#RUNTIME-CONFIG-RESOURCE-ASYNC-BEHAVIOR
+INDEXPOINT runtime-config-resource.html#AEN2158
+TITLE 비동기 동작
+significance NORMAL
+PRIMARY effective_io_concurrency 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-resource.html#RUNTIME-CONFIG-RESOURCE-ASYNC-BEHAVIOR
+INDEXPOINT runtime-config-resource.html#AEN2173
+TITLE 비동기 동작
+significance NORMAL
+PRIMARY max_worker_processes 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-wal.html#RUNTIME-CONFIG-WAL-SETTINGS
+INDEXPOINT runtime-config-wal.html#AEN2190
+TITLE 설정
+significance NORMAL
+PRIMARY wal_level 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-wal.html#RUNTIME-CONFIG-WAL-SETTINGS
+INDEXPOINT runtime-config-wal.html#AEN2232
+TITLE 설정
+significance NORMAL
+PRIMARY fsync 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-wal.html#RUNTIME-CONFIG-WAL-SETTINGS
+INDEXPOINT runtime-config-wal.html#AEN2261
+TITLE 설정
+significance NORMAL
+PRIMARY synchronous_commit 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-wal.html#RUNTIME-CONFIG-WAL-SETTINGS
+INDEXPOINT runtime-config-wal.html#AEN2295
+TITLE 설정
+significance NORMAL
+PRIMARY wal_sync_method 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-wal.html#RUNTIME-CONFIG-WAL-SETTINGS
+INDEXPOINT runtime-config-wal.html#AEN2334
+TITLE 설정
+significance NORMAL
+PRIMARY full_page_writes 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-wal.html#RUNTIME-CONFIG-WAL-SETTINGS
+INDEXPOINT runtime-config-wal.html#AEN2351
+TITLE 설정
+significance NORMAL
+PRIMARY wal_log_hints 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-wal.html#RUNTIME-CONFIG-WAL-SETTINGS
+INDEXPOINT runtime-config-wal.html#AEN2365
+TITLE 설정
+significance NORMAL
+PRIMARY wal_buffers 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-wal.html#RUNTIME-CONFIG-WAL-SETTINGS
+INDEXPOINT runtime-config-wal.html#AEN2380
+TITLE 설정
+significance NORMAL
+PRIMARY wal_writer_delay 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-wal.html#RUNTIME-CONFIG-WAL-SETTINGS
+INDEXPOINT runtime-config-wal.html#AEN2393
+TITLE 설정
+significance NORMAL
+PRIMARY commit_delay 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-wal.html#RUNTIME-CONFIG-WAL-SETTINGS
+INDEXPOINT runtime-config-wal.html#AEN2411
+TITLE 설정
+significance NORMAL
+PRIMARY commit_siblings 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-wal.html#RUNTIME-CONFIG-WAL-CHECKPOINTS
+INDEXPOINT runtime-config-wal.html#AEN2424
+TITLE  체크포인트
+significance NORMAL
+PRIMARY checkpoint_segments 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-wal.html#RUNTIME-CONFIG-WAL-CHECKPOINTS
+INDEXPOINT runtime-config-wal.html#AEN2434
+TITLE  체크포인트
+significance NORMAL
+PRIMARY checkpoint_timeout 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-wal.html#RUNTIME-CONFIG-WAL-CHECKPOINTS
+INDEXPOINT runtime-config-wal.html#AEN2445
+TITLE  체크포인트
+significance NORMAL
+PRIMARY checkpoint_completion_target 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-wal.html#RUNTIME-CONFIG-WAL-CHECKPOINTS
+INDEXPOINT runtime-config-wal.html#AEN2455
+TITLE  체크포인트
+significance NORMAL
+PRIMARY checkpoint_warning 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-wal.html#RUNTIME-CONFIG-WAL-ARCHIVING
+INDEXPOINT runtime-config-wal.html#AEN2472
+TITLE Archiving
+significance NORMAL
+PRIMARY archive_mode 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-wal.html#RUNTIME-CONFIG-WAL-ARCHIVING
+INDEXPOINT runtime-config-wal.html#AEN2489
+TITLE Archiving
+significance NORMAL
+PRIMARY archive_command 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-wal.html#RUNTIME-CONFIG-WAL-ARCHIVING
+INDEXPOINT runtime-config-wal.html#AEN2511
+TITLE Archiving
+significance NORMAL
+PRIMARY archive_timeout 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-replication.html#RUNTIME-CONFIG-REPLICATION-SENDER
+INDEXPOINT runtime-config-replication.html#AEN2536
+TITLE 전송 서버(들)
+significance NORMAL
+PRIMARY max_wal_senders 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-replication.html#RUNTIME-CONFIG-REPLICATION-SENDER
+INDEXPOINT runtime-config-replication.html#AEN2548
+TITLE 전송 서버(들)
+significance NORMAL
+PRIMARY max_replication_slots 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-replication.html#RUNTIME-CONFIG-REPLICATION-SENDER
+INDEXPOINT runtime-config-replication.html#AEN2560
+TITLE 전송 서버(들)
+significance NORMAL
+PRIMARY wal_keep_segments 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-replication.html#RUNTIME-CONFIG-REPLICATION-SENDER
+INDEXPOINT runtime-config-replication.html#AEN2575
+TITLE 전송 서버(들)
+significance NORMAL
+PRIMARY wal_sender_timeout 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-replication.html#RUNTIME-CONFIG-REPLICATION-MASTER
+INDEXPOINT runtime-config-replication.html#AEN2591
+TITLE 마스터 서버
+significance NORMAL
+PRIMARY synchronous_standby_names 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-replication.html#RUNTIME-CONFIG-REPLICATION-MASTER
+INDEXPOINT runtime-config-replication.html#AEN2617
+TITLE 마스터 서버
+significance NORMAL
+PRIMARY vacuum_defer_cleanup_age 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-replication.html#RUNTIME-CONFIG-REPLICATION-STANDBY
+INDEXPOINT runtime-config-replication.html#AEN2636
+TITLE 대기 서버
+significance NORMAL
+PRIMARY hot_standby 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-replication.html#RUNTIME-CONFIG-REPLICATION-STANDBY
+INDEXPOINT runtime-config-replication.html#AEN2647
+TITLE 대기 서버
+significance NORMAL
+PRIMARY max_standby_archive_delay 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-replication.html#RUNTIME-CONFIG-REPLICATION-STANDBY
+INDEXPOINT runtime-config-replication.html#AEN2661
+TITLE 대기 서버
+significance NORMAL
+PRIMARY max_standby_streaming_delay 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-replication.html#RUNTIME-CONFIG-REPLICATION-STANDBY
+INDEXPOINT runtime-config-replication.html#AEN2675
+TITLE 대기 서버
+significance NORMAL
+PRIMARY wal_receiver_status_interval 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-replication.html#RUNTIME-CONFIG-REPLICATION-STANDBY
+INDEXPOINT runtime-config-replication.html#AEN2687
+TITLE 대기 서버
+significance NORMAL
+PRIMARY hot_standby_feedback 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-replication.html#RUNTIME-CONFIG-REPLICATION-STANDBY
+INDEXPOINT runtime-config-replication.html#AEN2700
+TITLE 대기 서버
+significance NORMAL
+PRIMARY wal_receiver_timeout 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-query.html#RUNTIME-CONFIG-QUERY-ENABLE
+INDEXPOINT runtime-config-query.html#AEN2720
+TITLE 플래너 방법 환경 설정
+significance NORMAL
+PRIMARY bitmap scan
+/INDEXTERM
+INDEXTERM runtime-config-query.html#RUNTIME-CONFIG-QUERY-ENABLE
+INDEXPOINT runtime-config-query.html#AEN2722
+TITLE 플래너 방법 환경 설정
+significance NORMAL
+PRIMARY enable_bitmapscan 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-query.html#RUNTIME-CONFIG-QUERY-ENABLE
+INDEXPOINT runtime-config-query.html#AEN2732
+TITLE 플래너 방법 환경 설정
+significance NORMAL
+PRIMARY enable_hashagg 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-query.html#RUNTIME-CONFIG-QUERY-ENABLE
+INDEXPOINT runtime-config-query.html#AEN2742
+TITLE 플래너 방법 환경 설정
+significance NORMAL
+PRIMARY enable_hashjoin 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-query.html#RUNTIME-CONFIG-QUERY-ENABLE
+INDEXPOINT runtime-config-query.html#AEN2752
+TITLE 플래너 방법 환경 설정
+significance NORMAL
+PRIMARY index scan
+/INDEXTERM
+INDEXTERM runtime-config-query.html#RUNTIME-CONFIG-QUERY-ENABLE
+INDEXPOINT runtime-config-query.html#AEN2754
+TITLE 플래너 방법 환경 설정
+significance NORMAL
+PRIMARY enable_indexscan 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-query.html#RUNTIME-CONFIG-QUERY-ENABLE
+INDEXPOINT runtime-config-query.html#AEN2764
+TITLE 플래너 방법 환경 설정
+significance NORMAL
+PRIMARY index-only scan
+/INDEXTERM
+INDEXTERM runtime-config-query.html#RUNTIME-CONFIG-QUERY-ENABLE
+INDEXPOINT runtime-config-query.html#AEN2766
+TITLE 플래너 방법 환경 설정
+significance NORMAL
+PRIMARY enable_indexonlyscan 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-query.html#RUNTIME-CONFIG-QUERY-ENABLE
+INDEXPOINT runtime-config-query.html#AEN2776
+TITLE 플래너 방법 환경 설정
+significance NORMAL
+PRIMARY enable_material 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-query.html#RUNTIME-CONFIG-QUERY-ENABLE
+INDEXPOINT runtime-config-query.html#AEN2786
+TITLE 플래너 방법 환경 설정
+significance NORMAL
+PRIMARY enable_mergejoin 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-query.html#RUNTIME-CONFIG-QUERY-ENABLE
+INDEXPOINT runtime-config-query.html#AEN2796
+TITLE 플래너 방법 환경 설정
+significance NORMAL
+PRIMARY enable_nestloop 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-query.html#RUNTIME-CONFIG-QUERY-ENABLE
+INDEXPOINT runtime-config-query.html#AEN2806
+TITLE 플래너 방법 환경 설정
+significance NORMAL
+PRIMARY sequential scan
+/INDEXTERM
+INDEXTERM runtime-config-query.html#RUNTIME-CONFIG-QUERY-ENABLE
+INDEXPOINT runtime-config-query.html#AEN2808
+TITLE 플래너 방법 환경 설정
+significance NORMAL
+PRIMARY enable_seqscan 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-query.html#RUNTIME-CONFIG-QUERY-ENABLE
+INDEXPOINT runtime-config-query.html#AEN2818
+TITLE 플래너 방법 환경 설정
+significance NORMAL
+PRIMARY enable_sort 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-query.html#RUNTIME-CONFIG-QUERY-ENABLE
+INDEXPOINT runtime-config-query.html#AEN2828
+TITLE 플래너 방법 환경 설정
+significance NORMAL
+PRIMARY enable_tidscan 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-query.html#RUNTIME-CONFIG-QUERY-CONSTANTS
+INDEXPOINT runtime-config-query.html#AEN2848
+TITLE 플래너 비용 상수
+significance NORMAL
+PRIMARY seq_page_cost 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-query.html#RUNTIME-CONFIG-QUERY-CONSTANTS
+INDEXPOINT runtime-config-query.html#AEN2857
+TITLE 플래너 비용 상수
+significance NORMAL
+PRIMARY random_page_cost 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-query.html#RUNTIME-CONFIG-QUERY-CONSTANTS
+INDEXPOINT runtime-config-query.html#AEN2874
+TITLE 플래너 비용 상수
+significance NORMAL
+PRIMARY cpu_tuple_cost 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-query.html#RUNTIME-CONFIG-QUERY-CONSTANTS
+INDEXPOINT runtime-config-query.html#AEN2883
+TITLE 플래너 비용 상수
+significance NORMAL
+PRIMARY cpu_index_tuple_cost 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-query.html#RUNTIME-CONFIG-QUERY-CONSTANTS
+INDEXPOINT runtime-config-query.html#AEN2892
+TITLE 플래너 비용 상수
+significance NORMAL
+PRIMARY cpu_operator_cost 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-query.html#RUNTIME-CONFIG-QUERY-CONSTANTS
+INDEXPOINT runtime-config-query.html#AEN2901
+TITLE 플래너 비용 상수
+significance NORMAL
+PRIMARY effective_cache_size 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-query.html#RUNTIME-CONFIG-QUERY-GEQO
+INDEXPOINT runtime-config-query.html#AEN2918
+TITLE 제네틱 쿼리 옵티마이저
+significance NORMAL
+PRIMARY 제네틱 쿼리 최적화
+/INDEXTERM
+INDEXTERM runtime-config-query.html#RUNTIME-CONFIG-QUERY-GEQO
+INDEXPOINT runtime-config-query.html#AEN2920
+TITLE 제네틱 쿼리 옵티마이저
+significance NORMAL
+PRIMARY GEQO
+SEE 제네틱 쿼리 최적화
+/INDEXTERM
+INDEXTERM runtime-config-query.html#RUNTIME-CONFIG-QUERY-GEQO
+INDEXPOINT runtime-config-query.html#AEN2923
+TITLE 제네틱 쿼리 옵티마이저
+significance NORMAL
+PRIMARY geqo 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-query.html#RUNTIME-CONFIG-QUERY-GEQO
+INDEXPOINT runtime-config-query.html#AEN2933
+TITLE 제네틱 쿼리 옵티마이저
+significance NORMAL
+PRIMARY geqo_threshold 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-query.html#RUNTIME-CONFIG-QUERY-GEQO
+INDEXPOINT runtime-config-query.html#AEN2945
+TITLE 제네틱 쿼리 옵티마이저
+significance NORMAL
+PRIMARY geqo_effort 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-query.html#RUNTIME-CONFIG-QUERY-GEQO
+INDEXPOINT runtime-config-query.html#AEN2956
+TITLE 제네틱 쿼리 옵티마이저
+significance NORMAL
+PRIMARY geqo_pool_size 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-query.html#RUNTIME-CONFIG-QUERY-GEQO
+INDEXPOINT runtime-config-query.html#AEN2966
+TITLE 제네틱 쿼리 옵티마이저
+significance NORMAL
+PRIMARY geqo_generations 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-query.html#RUNTIME-CONFIG-QUERY-GEQO
+INDEXPOINT runtime-config-query.html#AEN2976
+TITLE 제네틱 쿼리 옵티마이저
+significance NORMAL
+PRIMARY geqo_selection_bias 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-query.html#RUNTIME-CONFIG-QUERY-GEQO
+INDEXPOINT runtime-config-query.html#AEN2985
+TITLE 제네틱 쿼리 옵티마이저
+significance NORMAL
+PRIMARY geqo_seed 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-query.html#RUNTIME-CONFIG-QUERY-OTHER
+INDEXPOINT runtime-config-query.html#AEN2997
+TITLE Other Planner Options
+significance NORMAL
+PRIMARY default_statistics_target 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-query.html#RUNTIME-CONFIG-QUERY-OTHER
+INDEXPOINT runtime-config-query.html#AEN3008
+TITLE Other Planner Options
+significance NORMAL
+PRIMARY 제약 조건 배제
+/INDEXTERM
+INDEXTERM runtime-config-query.html#RUNTIME-CONFIG-QUERY-OTHER
+INDEXPOINT runtime-config-query.html#AEN3010
+TITLE Other Planner Options
+significance NORMAL
+PRIMARY constraint_exclusion 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-query.html#RUNTIME-CONFIG-QUERY-OTHER
+INDEXPOINT runtime-config-query.html#AEN3031
+TITLE Other Planner Options
+significance NORMAL
+PRIMARY cursor_tuple_fraction 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-query.html#RUNTIME-CONFIG-QUERY-OTHER
+INDEXPOINT runtime-config-query.html#AEN3041
+TITLE Other Planner Options
+significance NORMAL
+PRIMARY from_collapse_limit 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-query.html#RUNTIME-CONFIG-QUERY-OTHER
+INDEXPOINT runtime-config-query.html#AEN3054
+TITLE Other Planner Options
+significance NORMAL
+PRIMARY join_collapse_limit 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-logging.html
+INDEXPOINT runtime-config-logging.html#AEN3070
+TITLE 에러 리포팅 및 로깅
+significance NORMAL
+ZONE runtime-config-logging.html
+TITLE 에러 리포팅 및 로깅
+PRIMARY 서버 로그
+/INDEXTERM
+INDEXTERM runtime-config-logging.html#RUNTIME-CONFIG-LOGGING-WHERE
+INDEXPOINT runtime-config-logging.html#AEN3074
+TITLE Where To 로그
+significance NORMAL
+ZONE runtime-config-logging.html#RUNTIME-CONFIG-LOGGING-WHERE
+TITLE Where To 로그
+PRIMARY where to 로그
+/INDEXTERM
+INDEXTERM runtime-config-logging.html#RUNTIME-CONFIG-LOGGING-WHERE
+INDEXPOINT runtime-config-logging.html#AEN3081
+TITLE Where To 로그
+significance NORMAL
+PRIMARY log_destination 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-logging.html#RUNTIME-CONFIG-LOGGING-WHERE
+INDEXPOINT runtime-config-logging.html#AEN3120
+TITLE Where To 로그
+significance NORMAL
+PRIMARY logging_collector 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-logging.html#RUNTIME-CONFIG-LOGGING-WHERE
+INDEXPOINT runtime-config-logging.html#AEN3141
+TITLE Where To 로그
+significance NORMAL
+PRIMARY log_directory 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-logging.html#RUNTIME-CONFIG-LOGGING-WHERE
+INDEXPOINT runtime-config-logging.html#AEN3153
+TITLE Where To 로그
+significance NORMAL
+PRIMARY log_filename 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-logging.html#RUNTIME-CONFIG-LOGGING-WHERE
+INDEXPOINT runtime-config-logging.html#AEN3181
+TITLE Where To 로그
+significance NORMAL
+PRIMARY log_file_mode 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-logging.html#RUNTIME-CONFIG-LOGGING-WHERE
+INDEXPOINT runtime-config-logging.html#AEN3200
+TITLE Where To 로그
+significance NORMAL
+PRIMARY log_rotation_age 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-logging.html#RUNTIME-CONFIG-LOGGING-WHERE
+INDEXPOINT runtime-config-logging.html#AEN3211
+TITLE Where To 로그
+significance NORMAL
+PRIMARY log_rotation_size 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-logging.html#RUNTIME-CONFIG-LOGGING-WHERE
+INDEXPOINT runtime-config-logging.html#AEN3222
+TITLE Where To 로그
+significance NORMAL
+PRIMARY log_truncate_on_rotation 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-logging.html#RUNTIME-CONFIG-LOGGING-WHERE
+INDEXPOINT runtime-config-logging.html#AEN3256
+TITLE Where To 로그
+significance NORMAL
+PRIMARY syslog_facility 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-logging.html#RUNTIME-CONFIG-LOGGING-WHERE
+INDEXPOINT runtime-config-logging.html#AEN3277
+TITLE Where To 로그
+significance NORMAL
+PRIMARY syslog_ident 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-logging.html#RUNTIME-CONFIG-LOGGING-WHERE
+INDEXPOINT runtime-config-logging.html#AEN3291
+TITLE Where To 로그
+significance NORMAL
+PRIMARY event_source 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-logging.html#RUNTIME-CONFIG-LOGGING-WHEN
+INDEXPOINT runtime-config-logging.html#AEN3307
+TITLE When To 로그
+significance NORMAL
+PRIMARY client_min_messages 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-logging.html#RUNTIME-CONFIG-LOGGING-WHEN
+INDEXPOINT runtime-config-logging.html#AEN3330
+TITLE When To 로그
+significance NORMAL
+PRIMARY log_min_messages 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-logging.html#RUNTIME-CONFIG-LOGGING-WHEN
+INDEXPOINT runtime-config-logging.html#AEN3354
+TITLE When To 로그
+significance NORMAL
+PRIMARY log_min_error_statement 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-logging.html#RUNTIME-CONFIG-LOGGING-WHEN
+INDEXPOINT runtime-config-logging.html#AEN3377
+TITLE When To 로그
+significance NORMAL
+PRIMARY log_min_duration_statement 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-logging.html#RUNTIME-CONFIG-LOGGING-WHAT
+INDEXPOINT runtime-config-logging.html#AEN3480
+TITLE What To 로그
+significance NORMAL
+PRIMARY application_name 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-logging.html#RUNTIME-CONFIG-LOGGING-WHAT
+INDEXPOINT runtime-config-logging.html#AEN3495
+TITLE What To 로그
+significance NORMAL
+PRIMARY debug_print_parse 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-logging.html#RUNTIME-CONFIG-LOGGING-WHAT
+INDEXPOINT runtime-config-logging.html#AEN3501
+TITLE What To 로그
+significance NORMAL
+PRIMARY debug_print_rewritten 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-logging.html#RUNTIME-CONFIG-LOGGING-WHAT
+INDEXPOINT runtime-config-logging.html#AEN3507
+TITLE What To 로그
+significance NORMAL
+PRIMARY debug_print_plan 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-logging.html#RUNTIME-CONFIG-LOGGING-WHAT
+INDEXPOINT runtime-config-logging.html#AEN3519
+TITLE What To 로그
+significance NORMAL
+PRIMARY debug_pretty_print 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-logging.html#RUNTIME-CONFIG-LOGGING-WHAT
+INDEXPOINT runtime-config-logging.html#AEN3533
+TITLE What To 로그
+significance NORMAL
+PRIMARY log_checkpoints 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-logging.html#RUNTIME-CONFIG-LOGGING-WHAT
+INDEXPOINT runtime-config-logging.html#AEN3543
+TITLE What To 로그
+significance NORMAL
+PRIMARY log_connections 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-logging.html#RUNTIME-CONFIG-LOGGING-WHAT
+INDEXPOINT runtime-config-logging.html#AEN3556
+TITLE What To 로그
+significance NORMAL
+PRIMARY log_disconnections 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-logging.html#RUNTIME-CONFIG-LOGGING-WHAT
+INDEXPOINT runtime-config-logging.html#AEN3566
+TITLE What To 로그
+significance NORMAL
+PRIMARY log_duration 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-logging.html#RUNTIME-CONFIG-LOGGING-WHAT
+INDEXPOINT runtime-config-logging.html#AEN3584
+TITLE What To 로그
+significance NORMAL
+PRIMARY log_error_verbosity 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-logging.html#RUNTIME-CONFIG-LOGGING-WHAT
+INDEXPOINT runtime-config-logging.html#AEN3603
+TITLE What To 로그
+significance NORMAL
+PRIMARY log_hostname 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-logging.html#RUNTIME-CONFIG-LOGGING-WHAT
+INDEXPOINT runtime-config-logging.html#AEN3613
+TITLE What To 로그
+significance NORMAL
+PRIMARY log_line_prefix 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-logging.html#RUNTIME-CONFIG-LOGGING-WHAT
+INDEXPOINT runtime-config-logging.html#AEN3731
+TITLE What To 로그
+significance NORMAL
+PRIMARY log_lock_waits 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-logging.html#RUNTIME-CONFIG-LOGGING-WHAT
+INDEXPOINT runtime-config-logging.html#AEN3742
+TITLE What To 로그
+significance NORMAL
+PRIMARY log_statement 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-logging.html#RUNTIME-CONFIG-LOGGING-WHAT
+INDEXPOINT runtime-config-logging.html#AEN3776
+TITLE What To 로그
+significance NORMAL
+PRIMARY log_temp_files 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-logging.html#RUNTIME-CONFIG-LOGGING-WHAT
+INDEXPOINT runtime-config-logging.html#AEN3785
+TITLE What To 로그
+significance NORMAL
+PRIMARY log_timezone 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-statistics.html#RUNTIME-CONFIG-STATISTICS-COLLECTOR
+INDEXPOINT runtime-config-statistics.html#AEN3838
+TITLE 쿼리 및 인덱스 통계 콜렉터
+significance NORMAL
+PRIMARY track_activities 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-statistics.html#RUNTIME-CONFIG-STATISTICS-COLLECTOR
+INDEXPOINT runtime-config-statistics.html#AEN3847
+TITLE 쿼리 및 인덱스 통계 콜렉터
+significance NORMAL
+PRIMARY track_activity_query_size 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-statistics.html#RUNTIME-CONFIG-STATISTICS-COLLECTOR
+INDEXPOINT runtime-config-statistics.html#AEN3858
+TITLE 쿼리 및 인덱스 통계 콜렉터
+significance NORMAL
+PRIMARY track_counts 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-statistics.html#RUNTIME-CONFIG-STATISTICS-COLLECTOR
+INDEXPOINT runtime-config-statistics.html#AEN3867
+TITLE 쿼리 및 인덱스 통계 콜렉터
+significance NORMAL
+PRIMARY track_io_timing 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-statistics.html#RUNTIME-CONFIG-STATISTICS-COLLECTOR
+INDEXPOINT runtime-config-statistics.html#AEN3877
+TITLE 쿼리 및 인덱스 통계 콜렉터
+significance NORMAL
+PRIMARY track_functions 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-statistics.html#RUNTIME-CONFIG-STATISTICS-COLLECTOR
+INDEXPOINT runtime-config-statistics.html#AEN3892
+TITLE 쿼리 및 인덱스 통계 콜렉터
+significance NORMAL
+PRIMARY update_process_title 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-statistics.html#RUNTIME-CONFIG-STATISTICS-COLLECTOR
+INDEXPOINT runtime-config-statistics.html#AEN3903
+TITLE 쿼리 및 인덱스 통계 콜렉터
+significance NORMAL
+PRIMARY stats_temp_directory 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-statistics.html#RUNTIME-CONFIG-STATISTICS-MONITOR
+INDEXPOINT runtime-config-statistics.html#AEN3917
+TITLE 통계 모니터링
+significance NORMAL
+PRIMARY log_statement_stats 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-statistics.html#RUNTIME-CONFIG-STATISTICS-MONITOR
+INDEXPOINT runtime-config-statistics.html#AEN3923
+TITLE 통계 모니터링
+significance NORMAL
+PRIMARY log_parser_stats 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-statistics.html#RUNTIME-CONFIG-STATISTICS-MONITOR
+INDEXPOINT runtime-config-statistics.html#AEN3929
+TITLE 통계 모니터링
+significance NORMAL
+PRIMARY log_planner_stats 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-statistics.html#RUNTIME-CONFIG-STATISTICS-MONITOR
+INDEXPOINT runtime-config-statistics.html#AEN3935
+TITLE 통계 모니터링
+significance NORMAL
+PRIMARY log_executor_stats 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-autovacuum.html
+INDEXPOINT runtime-config-autovacuum.html#AEN3945
+TITLE 자동 Vacuuming
+significance NORMAL
+PRIMARY autovacuum
+SECONDARY 환경 설정 매개변수s
+/INDEXTERM
+INDEXTERM runtime-config-autovacuum.html
+INDEXPOINT runtime-config-autovacuum.html#AEN3956
+TITLE 자동 Vacuuming
+significance NORMAL
+PRIMARY autovacuum 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-autovacuum.html
+INDEXPOINT runtime-config-autovacuum.html#AEN3969
+TITLE 자동 Vacuuming
+significance NORMAL
+PRIMARY log_autovacuum_min_duration 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-autovacuum.html
+INDEXPOINT runtime-config-autovacuum.html#AEN3981
+TITLE 자동 Vacuuming
+significance NORMAL
+PRIMARY autovacuum_max_workers 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-autovacuum.html
+INDEXPOINT runtime-config-autovacuum.html#AEN3990
+TITLE 자동 Vacuuming
+significance NORMAL
+PRIMARY autovacuum_naptime 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-autovacuum.html
+INDEXPOINT runtime-config-autovacuum.html#AEN4003
+TITLE 자동 Vacuuming
+significance NORMAL
+PRIMARY autovacuum_vacuum_threshold 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-autovacuum.html
+INDEXPOINT runtime-config-autovacuum.html#AEN4014
+TITLE 자동 Vacuuming
+significance NORMAL
+PRIMARY autovacuum_analyze_threshold 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-autovacuum.html
+INDEXPOINT runtime-config-autovacuum.html#AEN4025
+TITLE 자동 Vacuuming
+significance NORMAL
+PRIMARY autovacuum_vacuum_scale_factor 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-autovacuum.html
+INDEXPOINT runtime-config-autovacuum.html#AEN4037
+TITLE 자동 Vacuuming
+significance NORMAL
+PRIMARY autovacuum_analyze_scale_factor 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-autovacuum.html
+INDEXPOINT runtime-config-autovacuum.html#AEN4049
+TITLE 자동 Vacuuming
+significance NORMAL
+PRIMARY autovacuum_freeze_max_age 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-autovacuum.html
+INDEXPOINT runtime-config-autovacuum.html#AEN4064
+TITLE 자동 Vacuuming
+significance NORMAL
+PRIMARY autovacuum_multixact_freeze_max_age 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-autovacuum.html
+INDEXPOINT runtime-config-autovacuum.html#AEN4080
+TITLE 자동 Vacuuming
+significance NORMAL
+PRIMARY autovacuum_vacuum_cost_delay 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-autovacuum.html
+INDEXPOINT runtime-config-autovacuum.html#AEN4092
+TITLE 자동 Vacuuming
+significance NORMAL
+PRIMARY autovacuum_vacuum_cost_limit 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-client.html#RUNTIME-CONFIG-CLIENT-STATEMENT
+INDEXPOINT runtime-config-client.html#AEN4109
+TITLE 문 동작
+significance NORMAL
+PRIMARY search_path 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-client.html#RUNTIME-CONFIG-CLIENT-STATEMENT
+INDEXPOINT runtime-config-client.html#AEN4112
+TITLE 문 동작
+significance NORMAL
+PRIMARY path
+SECONDARY for schemas
+/INDEXTERM
+INDEXTERM runtime-config-client.html#RUNTIME-CONFIG-CLIENT-STATEMENT
+INDEXPOINT runtime-config-client.html#AEN4133
+TITLE 문 동작
+significance NORMAL
+PRIMARY pg_temp
+/INDEXTERM
+INDEXTERM runtime-config-client.html#RUNTIME-CONFIG-CLIENT-STATEMENT
+INDEXPOINT runtime-config-client.html#AEN4151
+TITLE 문 동작
+significance NORMAL
+PRIMARY default_tablespace 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-client.html#RUNTIME-CONFIG-CLIENT-STATEMENT
+INDEXPOINT runtime-config-client.html#AEN4154
+TITLE 문 동작
+significance NORMAL
+PRIMARY tablespace
+SECONDARY default
+/INDEXTERM
+INDEXTERM runtime-config-client.html#RUNTIME-CONFIG-CLIENT-STATEMENT
+INDEXPOINT runtime-config-client.html#AEN4172
+TITLE 문 동작
+significance NORMAL
+PRIMARY temp_tablespaces 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-client.html#RUNTIME-CONFIG-CLIENT-STATEMENT
+INDEXPOINT runtime-config-client.html#AEN4175
+TITLE 문 동작
+significance NORMAL
+PRIMARY 테이블스페이스
+SECONDARY 임시
+/INDEXTERM
+INDEXTERM runtime-config-client.html#RUNTIME-CONFIG-CLIENT-STATEMENT
+INDEXPOINT runtime-config-client.html#AEN4196
+TITLE 문 동작
+significance NORMAL
+PRIMARY check_function_bodies 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-client.html#RUNTIME-CONFIG-CLIENT-STATEMENT
+INDEXPOINT runtime-config-client.html#AEN4208
+TITLE 문 동작
+significance NORMAL
+PRIMARY transaction isolation level
+SECONDARY setting default
+/INDEXTERM
+INDEXTERM runtime-config-client.html#RUNTIME-CONFIG-CLIENT-STATEMENT
+INDEXPOINT runtime-config-client.html#AEN4211
+TITLE 문 동작
+significance NORMAL
+PRIMARY default_transaction_isolation 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-client.html#RUNTIME-CONFIG-CLIENT-STATEMENT
+INDEXPOINT runtime-config-client.html#AEN4225
+TITLE 문 동작
+significance NORMAL
+PRIMARY 읽기 전용 트랜잭션
+SECONDARY 기본값 설정
+/INDEXTERM
+INDEXTERM runtime-config-client.html#RUNTIME-CONFIG-CLIENT-STATEMENT
+INDEXPOINT runtime-config-client.html#AEN4228
+TITLE 문 동작
+significance NORMAL
+PRIMARY default_transaction_read_only 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-client.html#RUNTIME-CONFIG-CLIENT-STATEMENT
+INDEXPOINT runtime-config-client.html#AEN4238
+TITLE 문 동작
+significance NORMAL
+PRIMARY 유예 가능한 트랜잭션
+SECONDARY 기본값 설정
+/INDEXTERM
+INDEXTERM runtime-config-client.html#RUNTIME-CONFIG-CLIENT-STATEMENT
+INDEXPOINT runtime-config-client.html#AEN4241
+TITLE 문 동작
+significance NORMAL
+PRIMARY default_transaction_deferrable 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-client.html#RUNTIME-CONFIG-CLIENT-STATEMENT
+INDEXPOINT runtime-config-client.html#AEN4254
+TITLE 문 동작
+significance NORMAL
+PRIMARY session_replication_role 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-client.html#RUNTIME-CONFIG-CLIENT-STATEMENT
+INDEXPOINT runtime-config-client.html#AEN4266
+TITLE 문 동작
+significance NORMAL
+PRIMARY statement_timeout 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-client.html#RUNTIME-CONFIG-CLIENT-STATEMENT
+INDEXPOINT runtime-config-client.html#AEN4280
+TITLE 문 동작
+significance NORMAL
+PRIMARY lock_timeout 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-client.html#RUNTIME-CONFIG-CLIENT-STATEMENT
+INDEXPOINT runtime-config-client.html#AEN4301
+TITLE 문 동작
+significance NORMAL
+PRIMARY vacuum_freeze_table_age 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-client.html#RUNTIME-CONFIG-CLIENT-STATEMENT
+INDEXPOINT runtime-config-client.html#AEN4317
+TITLE 문 동작
+significance NORMAL
+PRIMARY vacuum_freeze_min_age 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-client.html#RUNTIME-CONFIG-CLIENT-STATEMENT
+INDEXPOINT runtime-config-client.html#AEN4330
+TITLE 문 동작
+significance NORMAL
+PRIMARY vacuum_multixact_freeze_table_age 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-client.html#RUNTIME-CONFIG-CLIENT-STATEMENT
+INDEXPOINT runtime-config-client.html#AEN4346
+TITLE 문 동작
+significance NORMAL
+PRIMARY vacuum_multixact_freeze_min_age 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-client.html#RUNTIME-CONFIG-CLIENT-STATEMENT
+INDEXPOINT runtime-config-client.html#AEN4359
+TITLE 문 동작
+significance NORMAL
+PRIMARY bytea_output 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-client.html#RUNTIME-CONFIG-CLIENT-STATEMENT
+INDEXPOINT runtime-config-client.html#AEN4372
+TITLE 문 동작
+significance NORMAL
+PRIMARY xmlbinary 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-client.html#RUNTIME-CONFIG-CLIENT-STATEMENT
+INDEXPOINT runtime-config-client.html#AEN4388
+TITLE 문 동작
+significance NORMAL
+PRIMARY xmloption 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-client.html#RUNTIME-CONFIG-CLIENT-STATEMENT
+INDEXPOINT runtime-config-client.html#AEN4391
+TITLE 문 동작
+significance NORMAL
+PRIMARY SET XML OPTION
+/INDEXTERM
+INDEXTERM runtime-config-client.html#RUNTIME-CONFIG-CLIENT-STATEMENT
+INDEXPOINT runtime-config-client.html#AEN4394
+TITLE 문 동작
+significance NORMAL
+PRIMARY XML option
+/INDEXTERM
+INDEXTERM runtime-config-client.html#RUNTIME-CONFIG-CLIENT-FORMAT
+INDEXPOINT runtime-config-client.html#AEN4412
+TITLE 로케일(locale) 및 형식 지정
+significance NORMAL
+PRIMARY DateStyle 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-client.html#RUNTIME-CONFIG-CLIENT-FORMAT
+INDEXPOINT runtime-config-client.html#AEN4438
+TITLE 로케일(locale) 및 형식 지정
+significance NORMAL
+PRIMARY IntervalStyle 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-client.html#RUNTIME-CONFIG-CLIENT-FORMAT
+INDEXPOINT runtime-config-client.html#AEN4461
+TITLE 로케일(locale) 및 형식 지정
+significance NORMAL
+PRIMARY 타임존 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-client.html#RUNTIME-CONFIG-CLIENT-FORMAT
+INDEXPOINT runtime-config-client.html#AEN4464
+TITLE 로케일(locale) 및 형식 지정
+significance NORMAL
+PRIMARY 타임존
+/INDEXTERM
+INDEXTERM runtime-config-client.html#RUNTIME-CONFIG-CLIENT-FORMAT
+INDEXPOINT runtime-config-client.html#AEN4475
+TITLE 로케일(locale) 및 형식 지정
+significance NORMAL
+PRIMARY timezone_abbreviations 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-client.html#RUNTIME-CONFIG-CLIENT-FORMAT
+INDEXPOINT runtime-config-client.html#AEN4478
+TITLE 로케일(locale) 및 형식 지정
+significance NORMAL
+PRIMARY 타임존 이름
+/INDEXTERM
+INDEXTERM runtime-config-client.html#RUNTIME-CONFIG-CLIENT-FORMAT
+INDEXPOINT runtime-config-client.html#AEN4489
+TITLE 로케일(locale) 및 형식 지정
+significance NORMAL
+PRIMARY 중요 숫자
+/INDEXTERM
+INDEXTERM runtime-config-client.html#RUNTIME-CONFIG-CLIENT-FORMAT
+INDEXPOINT runtime-config-client.html#AEN4491
+TITLE 로케일(locale) 및 형식 지정
+significance NORMAL
+PRIMARY floating-point
+SECONDARY 디스플레이
+/INDEXTERM
+INDEXTERM runtime-config-client.html#RUNTIME-CONFIG-CLIENT-FORMAT
+INDEXPOINT runtime-config-client.html#AEN4494
+TITLE 로케일(locale) 및 형식 지정
+significance NORMAL
+PRIMARY extra_float_digits 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-client.html#RUNTIME-CONFIG-CLIENT-FORMAT
+INDEXPOINT runtime-config-client.html#AEN4507
+TITLE 로케일(locale) 및 형식 지정
+significance NORMAL
+PRIMARY client_encoding 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-client.html#RUNTIME-CONFIG-CLIENT-FORMAT
+INDEXPOINT runtime-config-client.html#AEN4510
+TITLE 로케일(locale) 및 형식 지정
+significance NORMAL
+PRIMARY character set
+/INDEXTERM
+INDEXTERM runtime-config-client.html#RUNTIME-CONFIG-CLIENT-FORMAT
+INDEXPOINT runtime-config-client.html#AEN4520
+TITLE 로케일(locale) 및 형식 지정
+significance NORMAL
+PRIMARY lc_messages 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-client.html#RUNTIME-CONFIG-CLIENT-FORMAT
+INDEXPOINT runtime-config-client.html#AEN4532
+TITLE 로케일(locale) 및 형식 지정
+significance NORMAL
+PRIMARY lc_monetary 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-client.html#RUNTIME-CONFIG-CLIENT-FORMAT
+INDEXPOINT runtime-config-client.html#AEN4543
+TITLE 로케일(locale) 및 형식 지정
+significance NORMAL
+PRIMARY lc_numeric 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-client.html#RUNTIME-CONFIG-CLIENT-FORMAT
+INDEXPOINT runtime-config-client.html#AEN4554
+TITLE 로케일(locale) 및 형식 지정
+significance NORMAL
+PRIMARY lc_time 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-client.html#RUNTIME-CONFIG-CLIENT-FORMAT
+INDEXPOINT runtime-config-client.html#AEN4565
+TITLE 로케일(locale) 및 형식 지정
+significance NORMAL
+PRIMARY default_text_search_config 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-client.html#RUNTIME-CONFIG-CLIENT-PRELOAD
+INDEXPOINT runtime-config-client.html#AEN4600
+TITLE 공유 라이브러리 사전 로드
+significance NORMAL
+PRIMARY local_preload_libraries 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-client.html#RUNTIME-CONFIG-CLIENT-PRELOAD
+INDEXPOINT runtime-config-client.html#AEN4603
+TITLE 공유 라이브러리 사전 로드
+significance NORMAL
+PRIMARY $libdir/plugins
+/INDEXTERM
+INDEXTERM runtime-config-client.html#RUNTIME-CONFIG-CLIENT-PRELOAD
+INDEXPOINT runtime-config-client.html#AEN4621
+TITLE 공유 라이브러리 사전 로드
+significance NORMAL
+PRIMARY session_preload_libraries 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-client.html#RUNTIME-CONFIG-CLIENT-PRELOAD
+INDEXPOINT runtime-config-client.html#AEN4635
+TITLE 공유 라이브러리 사전 로드
+significance NORMAL
+PRIMARY shared_preload_libraries 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-client.html#RUNTIME-CONFIG-CLIENT-OTHER
+INDEXPOINT runtime-config-client.html#AEN4653
+TITLE 그 외 기본값
+significance NORMAL
+PRIMARY dynamic_library_path 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-client.html#RUNTIME-CONFIG-CLIENT-OTHER
+INDEXPOINT runtime-config-client.html#AEN4656
+TITLE 그 외 기본값
+significance NORMAL
+PRIMARY dynamic loading
+/INDEXTERM
+INDEXTERM runtime-config-client.html#RUNTIME-CONFIG-CLIENT-OTHER
+INDEXPOINT runtime-config-client.html#AEN4678
+TITLE 그 외 기본값
+significance NORMAL
+PRIMARY gin_fuzzy_search_limit 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-locks.html
+INDEXPOINT runtime-config-locks.html#AEN4690
+TITLE 잠금(lock) 관리
+significance NORMAL
+PRIMARY 데드록
+SECONDARY timeout during
+/INDEXTERM
+INDEXTERM runtime-config-locks.html
+INDEXPOINT runtime-config-locks.html#AEN4693
+TITLE 잠금(lock) 관리
+significance NORMAL
+PRIMARY timeout
+SECONDARY 데드록
+/INDEXTERM
+INDEXTERM runtime-config-locks.html
+INDEXPOINT runtime-config-locks.html#AEN4696
+TITLE 잠금(lock) 관리
+significance NORMAL
+PRIMARY deadlock_timeout 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-locks.html
+INDEXPOINT runtime-config-locks.html#AEN4709
+TITLE 잠금(lock) 관리
+significance NORMAL
+PRIMARY max_locks_per_transaction 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-locks.html
+INDEXPOINT runtime-config-locks.html#AEN4723
+TITLE 잠금(lock) 관리
+significance NORMAL
+PRIMARY max_pred_locks_per_transaction 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-compatible.html#RUNTIME-CONFIG-COMPATIBLE-VERSION
+INDEXPOINT runtime-config-compatible.html#AEN4741
+TITLE 이전 Agens SQL 버전
+significance NORMAL
+PRIMARY array_nulls 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-compatible.html#RUNTIME-CONFIG-COMPATIBLE-VERSION
+INDEXPOINT runtime-config-compatible.html#AEN4758
+TITLE 이전 Agens SQL 버전
+significance NORMAL
+PRIMARY strings
+SECONDARY backslash quotes
+/INDEXTERM
+INDEXTERM runtime-config-compatible.html#RUNTIME-CONFIG-COMPATIBLE-VERSION
+INDEXPOINT runtime-config-compatible.html#AEN4761
+TITLE 이전 Agens SQL 버전
+significance NORMAL
+PRIMARY backslash_quote 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-compatible.html#RUNTIME-CONFIG-COMPATIBLE-VERSION
+INDEXPOINT runtime-config-compatible.html#AEN4787
+TITLE 이전 Agens SQL 버전
+significance NORMAL
+PRIMARY default_with_oids 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-compatible.html#RUNTIME-CONFIG-COMPATIBLE-VERSION
+INDEXPOINT runtime-config-compatible.html#AEN4805
+TITLE 이전 Agens SQL 버전
+significance NORMAL
+PRIMARY strings
+SECONDARY escape warning
+/INDEXTERM
+INDEXTERM runtime-config-compatible.html#RUNTIME-CONFIG-COMPATIBLE-VERSION
+INDEXPOINT runtime-config-compatible.html#AEN4808
+TITLE 이전 Agens SQL 버전
+significance NORMAL
+PRIMARY escape_string_warning 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-compatible.html#RUNTIME-CONFIG-COMPATIBLE-VERSION
+INDEXPOINT runtime-config-compatible.html#AEN4823
+TITLE 이전 Agens SQL 버전
+significance NORMAL
+PRIMARY lo_compat_privileges 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-compatible.html#RUNTIME-CONFIG-COMPATIBLE-VERSION
+INDEXPOINT runtime-config-compatible.html#AEN4839
+TITLE 이전 Agens SQL 버전
+significance NORMAL
+PRIMARY quote_all_identifiers 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-compatible.html#RUNTIME-CONFIG-COMPATIBLE-VERSION
+INDEXPOINT runtime-config-compatible.html#AEN4851
+TITLE 이전 Agens SQL 버전
+significance NORMAL
+PRIMARY sql_inheritance 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-compatible.html#RUNTIME-CONFIG-COMPATIBLE-VERSION
+INDEXPOINT runtime-config-compatible.html#AEN4854
+TITLE 이전 Agens SQL 버전
+significance NORMAL
+PRIMARY inheritance
+/INDEXTERM
+INDEXTERM runtime-config-compatible.html#RUNTIME-CONFIG-COMPATIBLE-VERSION
+INDEXPOINT runtime-config-compatible.html#AEN4871
+TITLE 이전 Agens SQL 버전
+significance NORMAL
+PRIMARY strings
+SECONDARY standard conforming
+/INDEXTERM
+INDEXTERM runtime-config-compatible.html#RUNTIME-CONFIG-COMPATIBLE-VERSION
+INDEXPOINT runtime-config-compatible.html#AEN4874
+TITLE 이전 Agens SQL 버전
+significance NORMAL
+PRIMARY standard_conforming_strings 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-compatible.html#RUNTIME-CONFIG-COMPATIBLE-VERSION
+INDEXPOINT runtime-config-compatible.html#AEN4888
+TITLE 이전 Agens SQL 버전
+significance NORMAL
+PRIMARY synchronize_seqscans 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-compatible.html#RUNTIME-CONFIG-COMPATIBLE-CLIENTS
+INDEXPOINT runtime-config-compatible.html#AEN4904
+TITLE 플랫폼 및 클라이언트 호환성
+significance NORMAL
+PRIMARY IS NULL
+/INDEXTERM
+INDEXTERM runtime-config-compatible.html#RUNTIME-CONFIG-COMPATIBLE-CLIENTS
+INDEXPOINT runtime-config-compatible.html#AEN4906
+TITLE 플랫폼 및 클라이언트 호환성
+significance NORMAL
+PRIMARY transform_null_equals 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-error-handling.html
+INDEXPOINT runtime-config-error-handling.html#AEN4937
+TITLE 에러 처리
+significance NORMAL
+PRIMARY exit_on_error 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-error-handling.html
+INDEXPOINT runtime-config-error-handling.html#AEN4946
+TITLE 에러 처리
+significance NORMAL
+PRIMARY restart_after_crash 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-preset.html
+INDEXPOINT runtime-config-preset.html#AEN4965
+TITLE 프리셋 옵션
+significance NORMAL
+PRIMARY block_size 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-preset.html
+INDEXPOINT runtime-config-preset.html#AEN4978
+TITLE 프리셋 옵션
+significance NORMAL
+PRIMARY data_checksums 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-preset.html
+INDEXPOINT runtime-config-preset.html#AEN4987
+TITLE 프리셋 옵션
+significance NORMAL
+PRIMARY integer_datetimes 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-preset.html
+INDEXPOINT runtime-config-preset.html#AEN5000
+TITLE 프리셋 옵션
+significance NORMAL
+PRIMARY lc_collate 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-preset.html
+INDEXPOINT runtime-config-preset.html#AEN5010
+TITLE 프리셋 옵션
+significance NORMAL
+PRIMARY lc_ctype 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-preset.html
+INDEXPOINT runtime-config-preset.html#AEN5021
+TITLE 프리셋 옵션
+significance NORMAL
+PRIMARY max_function_args 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-preset.html
+INDEXPOINT runtime-config-preset.html#AEN5031
+TITLE 프리셋 옵션
+significance NORMAL
+PRIMARY max_identifier_length 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-preset.html
+INDEXPOINT runtime-config-preset.html#AEN5043
+TITLE 프리셋 옵션
+significance NORMAL
+PRIMARY max_index_keys 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-preset.html
+INDEXPOINT runtime-config-preset.html#AEN5053
+TITLE 프리셋 옵션
+significance NORMAL
+PRIMARY segment_size 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-preset.html
+INDEXPOINT runtime-config-preset.html#AEN5065
+TITLE 프리셋 옵션
+significance NORMAL
+PRIMARY server_encoding 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-preset.html
+INDEXPOINT runtime-config-preset.html#AEN5068
+TITLE 프리셋 옵션
+significance NORMAL
+PRIMARY character set
+/INDEXTERM
+INDEXTERM runtime-config-preset.html
+INDEXPOINT runtime-config-preset.html#AEN5077
+TITLE 프리셋 옵션
+significance NORMAL
+PRIMARY server_version 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-preset.html
+INDEXPOINT runtime-config-preset.html#AEN5087
+TITLE 프리셋 옵션
+significance NORMAL
+PRIMARY server_version_num 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-preset.html
+INDEXPOINT runtime-config-preset.html#AEN5097
+TITLE 프리셋 옵션
+significance NORMAL
+PRIMARY wal_block_size 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-preset.html
+INDEXPOINT runtime-config-preset.html#AEN5107
+TITLE 프리셋 옵션
+significance NORMAL
+PRIMARY wal_segment_size 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-developer.html
+INDEXPOINT runtime-config-developer.html#AEN5133
+TITLE 개발자 옵션
+significance NORMAL
+PRIMARY allow_system_table_mods 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-developer.html
+INDEXPOINT runtime-config-developer.html#AEN5143
+TITLE 개발자 옵션
+significance NORMAL
+PRIMARY debug_assertions 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-developer.html
+INDEXPOINT runtime-config-developer.html#AEN5159
+TITLE 개발자 옵션
+significance NORMAL
+PRIMARY ignore_system_indexes 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-developer.html
+INDEXPOINT runtime-config-developer.html#AEN5168
+TITLE 개발자 옵션
+significance NORMAL
+PRIMARY post_auth_delay 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-developer.html
+INDEXPOINT runtime-config-developer.html#AEN5177
+TITLE 개발자 옵션
+significance NORMAL
+PRIMARY pre_auth_delay 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-developer.html
+INDEXPOINT runtime-config-developer.html#AEN5187
+TITLE 개발자 옵션
+significance NORMAL
+PRIMARY trace_notify 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-developer.html
+INDEXPOINT runtime-config-developer.html#AEN5201
+TITLE 개발자 옵션
+significance NORMAL
+PRIMARY trace_recovery_messages 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-developer.html
+INDEXPOINT runtime-config-developer.html#AEN5221
+TITLE 개발자 옵션
+significance NORMAL
+PRIMARY trace_sort 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-developer.html
+INDEXPOINT runtime-config-developer.html#AEN5233
+TITLE 개발자 옵션
+significance NORMAL
+PRIMARY trace_locks 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-developer.html
+INDEXPOINT runtime-config-developer.html#AEN5247
+TITLE 개발자 옵션
+significance NORMAL
+PRIMARY trace_lwlocks 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-developer.html
+INDEXPOINT runtime-config-developer.html#AEN5259
+TITLE 개발자 옵션
+significance NORMAL
+PRIMARY trace_userlocks 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-developer.html
+INDEXPOINT runtime-config-developer.html#AEN5272
+TITLE 개발자 옵션
+significance NORMAL
+PRIMARY trace_lock_oidmin 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-developer.html
+INDEXPOINT runtime-config-developer.html#AEN5284
+TITLE 개발자 옵션
+significance NORMAL
+PRIMARY trace_lock_table 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-developer.html
+INDEXPOINT runtime-config-developer.html#AEN5296
+TITLE 개발자 옵션
+significance NORMAL
+PRIMARY debug_deadlocks 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-developer.html
+INDEXPOINT runtime-config-developer.html#AEN5308
+TITLE 개발자 옵션
+significance NORMAL
+PRIMARY log_btree_build_stats 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-developer.html
+INDEXPOINT runtime-config-developer.html#AEN5320
+TITLE 개발자 옵션
+significance NORMAL
+PRIMARY wal_debug 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-developer.html
+INDEXPOINT runtime-config-developer.html#AEN5331
+TITLE 개발자 옵션
+significance NORMAL
+PRIMARY ignore_checksum_failure 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM runtime-config-developer.html
+INDEXPOINT runtime-config-developer.html#AEN5345
+TITLE 개발자 옵션
+significance NORMAL
+PRIMARY zero_damaged_pages 환경 설정 매개변수
+/INDEXTERM
+INDEXTERM client-authentication.html
+INDEXPOINT client-authentication.html#AEN5494
+TITLE 클라이언트 인증
+significance NORMAL
+ZONE client-authentication.html
+TITLE 클라이언트 인증
+PRIMARY 클라이언트 인증
+/INDEXTERM
+INDEXTERM auth-pg-hba-conf.html
+INDEXPOINT auth-pg-hba-conf.html#AEN5516
+TITLE The pg_hba.conf 파일
+significance NORMAL
+ZONE auth-pg-hba-conf.html
+TITLE The pg_hba.conf 파일
+PRIMARY pg_hba.conf
+/INDEXTERM
+INDEXTERM auth-pg-hba-conf.html
+INDEXPOINT auth-pg-hba-conf.html#AEN5797
+TITLE The pg_hba.conf 파일
+significance NORMAL
+PRIMARY SIGHUP
+/INDEXTERM
+INDEXTERM auth-username-maps.html
+INDEXPOINT auth-username-maps.html#AEN5816
+TITLE 사용자 이름 맵
+significance NORMAL
+ZONE auth-username-maps.html
+TITLE 사용자 이름 맵
+PRIMARY 사용자 이름 맵
+/INDEXTERM
+INDEXTERM auth-username-maps.html
+INDEXPOINT auth-username-maps.html#AEN5825
+TITLE 사용자 이름 맵
+significance NORMAL
+PRIMARY pg_ident.conf
+/INDEXTERM
+INDEXTERM auth-username-maps.html
+INDEXPOINT auth-username-maps.html#AEN5853
+TITLE 사용자 이름 맵
+significance NORMAL
+PRIMARY SIGHUP
+/INDEXTERM
+INDEXTERM auth-methods.html#AUTH-PASSWORD
+INDEXPOINT auth-methods.html#AEN5908
+TITLE 패스워드 인증
+significance NORMAL
+PRIMARY MD5
+/INDEXTERM
+INDEXTERM auth-methods.html#AUTH-PASSWORD
+INDEXPOINT auth-methods.html#AEN5910
+TITLE 패스워드 인증
+significance NORMAL
+PRIMARY 패스워드
+SECONDARY 인증
+/INDEXTERM
+INDEXTERM auth-methods.html#GSSAPI-AUTH
+INDEXPOINT auth-methods.html#AEN5929
+TITLE GSSAPI 인증
+significance NORMAL
+ZONE auth-methods.html#GSSAPI-AUTH
+TITLE GSSAPI 인증
+PRIMARY GSSAPI
+/INDEXTERM
+INDEXTERM auth-methods.html#SSPI-AUTH
+INDEXPOINT auth-methods.html#AEN6002
+TITLE SSPI 인증
+significance NORMAL
+ZONE auth-methods.html#SSPI-AUTH
+TITLE SSPI 인증
+PRIMARY SSPI
+/INDEXTERM
+INDEXTERM auth-methods.html#AUTH-IDENT
+INDEXPOINT auth-methods.html#AEN6041
+TITLE Ident 인증
+significance NORMAL
+PRIMARY ident
+/INDEXTERM
+INDEXTERM auth-methods.html#AUTH-PEER
+INDEXPOINT auth-methods.html#AEN6074
+TITLE 피어(peer) 인증
+significance NORMAL
+PRIMARY 피어
+/INDEXTERM
+INDEXTERM auth-methods.html#AUTH-LDAP
+INDEXPOINT auth-methods.html#AEN6096
+TITLE LDAP 인증
+significance NORMAL
+ZONE auth-methods.html#AUTH-LDAP
+TITLE LDAP 인증
+PRIMARY LDAP
+/INDEXTERM
+INDEXTERM auth-methods.html#AUTH-RADIUS
+INDEXPOINT auth-methods.html#AEN6204
+TITLE RADIUS 인증
+significance NORMAL
+ZONE auth-methods.html#AUTH-RADIUS
+TITLE RADIUS 인증
+PRIMARY RADIUS
+/INDEXTERM
+INDEXTERM auth-methods.html#AUTH-CERT
+INDEXPOINT auth-methods.html#AEN6246
+TITLE 인증서 인증
+significance NORMAL
+ZONE auth-methods.html#AUTH-CERT
+TITLE 인증서 인증
+PRIMARY 인증서
+/INDEXTERM
+INDEXTERM auth-methods.html#AUTH-PAM
+INDEXPOINT auth-methods.html#AEN6261
+TITLE PAM 인증
+significance NORMAL
+ZONE auth-methods.html#AUTH-PAM
+TITLE PAM 인증
+PRIMARY PAM
+/INDEXTERM
+INDEXTERM database-roles.html
+INDEXPOINT database-roles.html#AEN6307
+TITLE 데이터베이스 role
+significance NORMAL
+ZONE database-roles.html
+TITLE 데이터베이스 role
+PRIMARY role
+/INDEXTERM
+INDEXTERM database-roles.html
+INDEXPOINT database-roles.html#AEN6309
+TITLE 데이터베이스 role
+significance NORMAL
+ZONE database-roles.html
+TITLE 데이터베이스 role
+PRIMARY 사용자
+/INDEXTERM
+INDEXTERM database-roles.html
+INDEXPOINT database-roles.html#AEN6311
+TITLE 데이터베이스 role
+significance NORMAL
+PRIMARY CREATE ROLE
+/INDEXTERM
+INDEXTERM database-roles.html
+INDEXPOINT database-roles.html#AEN6313
+TITLE 데이터베이스 role
+significance NORMAL
+PRIMARY DROP ROLE
+/INDEXTERM
+INDEXTERM database-roles.html
+INDEXPOINT database-roles.html#AEN6322
+TITLE 데이터베이스 role
+significance NORMAL
+PRIMARY createuser
+/INDEXTERM
+INDEXTERM database-roles.html
+INDEXPOINT database-roles.html#AEN6324
+TITLE 데이터베이스 role
+significance NORMAL
+PRIMARY dropuser
+/INDEXTERM
+INDEXTERM role-attributes.html
+INDEXPOINT role-attributes.html#AEN6351
+TITLE role 속성
+significance NORMAL
+PRIMARY 로그인 권한
+/INDEXTERM
+INDEXTERM role-attributes.html
+INDEXPOINT role-attributes.html#AEN6366
+TITLE role 속성
+significance NORMAL
+PRIMARY 수퍼유저
+/INDEXTERM
+INDEXTERM role-attributes.html
+INDEXPOINT role-attributes.html#AEN6374
+TITLE role 속성
+significance NORMAL
+PRIMARY 데이터베이스
+SECONDARY 생성 권한
+/INDEXTERM
+INDEXTERM role-attributes.html
+INDEXPOINT role-attributes.html#AEN6383
+TITLE role 속성
+significance NORMAL
+PRIMARY role
+SECONDARY 생성 권한
+/INDEXTERM
+INDEXTERM role-attributes.html
+INDEXPOINT role-attributes.html#AEN6394
+TITLE role 속성
+significance NORMAL
+PRIMARY role
+SECONDARY 복제 초기화 권한
+/INDEXTERM
+INDEXTERM role-attributes.html
+INDEXPOINT role-attributes.html#AEN6404
+TITLE role 속성
+significance NORMAL
+PRIMARY 패스워드
+/INDEXTERM
+INDEXTERM role-attributes.html
+INDEXPOINT role-attributes.html#AEN6414
+TITLE role 속성
+significance NORMAL
+PRIMARY ALTER ROLE
+/INDEXTERM
+INDEXTERM role-membership.html
+INDEXPOINT role-membership.html#AEN6430
+TITLE role 멤버십
+significance NORMAL
+ZONE role-membership.html
+TITLE role 멤버십
+PRIMARY role
+SECONDARY 멤버십 in
+/INDEXTERM
+INDEXTERM managing-databases.html
+INDEXPOINT managing-databases.html#AEN6503
+TITLE 데이터베이스 관리
+significance NORMAL
+ZONE managing-databases.html
+TITLE 데이터베이스 관리
+PRIMARY 데이터베이스
+/INDEXTERM
+INDEXTERM manage-ag-overview.html
+INDEXPOINT manage-ag-overview.html#AEN6511
+TITLE 개요
+significance NORMAL
+ZONE manage-ag-overview.html
+TITLE 개요
+PRIMARY 스키마
+/INDEXTERM
+INDEXTERM manage-ag-createdb.html
+INDEXPOINT manage-ag-createdb.html#AEN6533
+TITLE 데이터베이스 생성
+significance NORMAL
+PRIMARY CREATE DATABASE
+/INDEXTERM
+INDEXTERM manage-ag-createdb.html
+INDEXPOINT manage-ag-createdb.html#AEN6551
+TITLE 데이터베이스 생성
+significance NORMAL
+PRIMARY postgres
+/INDEXTERM
+INDEXTERM manage-ag-createdb.html
+INDEXPOINT manage-ag-createdb.html#AEN6557
+TITLE 데이터베이스 생성
+significance NORMAL
+PRIMARY template1
+/INDEXTERM
+INDEXTERM manage-ag-createdb.html
+INDEXPOINT manage-ag-createdb.html#AEN6565
+TITLE 데이터베이스 생성
+significance NORMAL
+PRIMARY createdb
+/INDEXTERM
+INDEXTERM manage-ag-templatedbs.html
+INDEXPOINT manage-ag-templatedbs.html#AEN6588
+TITLE 템플릿 데이터베이스
+significance NORMAL
+PRIMARY template1
+/INDEXTERM
+INDEXTERM manage-ag-templatedbs.html
+INDEXPOINT manage-ag-templatedbs.html#AEN6596
+TITLE 템플릿 데이터베이스
+significance NORMAL
+PRIMARY template0
+/INDEXTERM
+INDEXTERM manage-ag-templatedbs.html
+INDEXPOINT manage-ag-templatedbs.html#AEN6628
+TITLE 템플릿 데이터베이스
+significance NORMAL
+PRIMARY pg_database
+/INDEXTERM
+INDEXTERM manage-ag-dropdb.html
+INDEXPOINT manage-ag-dropdb.html#AEN6671
+TITLE 데이터베이스 소멸
+significance NORMAL
+PRIMARY DROP DATABASE
+/INDEXTERM
+INDEXTERM manage-ag-dropdb.html
+INDEXPOINT manage-ag-dropdb.html#AEN6680
+TITLE 데이터베이스 소멸
+significance NORMAL
+PRIMARY dropdb
+/INDEXTERM
+INDEXTERM manage-ag-tablespaces.html
+INDEXPOINT manage-ag-tablespaces.html#AEN6687
+TITLE Tablespaces
+significance NORMAL
+ZONE manage-ag-tablespaces.html
+TITLE Tablespaces
+PRIMARY 테이블스페이스
+/INDEXTERM
+INDEXTERM manage-ag-tablespaces.html
+INDEXPOINT manage-ag-tablespaces.html#AEN6698
+TITLE Tablespaces
+significance NORMAL
+PRIMARY CREATE TABLESPACE
+/INDEXTERM
+INDEXTERM locale.html
+INDEXPOINT locale.html#AEN6756
+TITLE 로케일(Locale) 지원
+significance NORMAL
+ZONE locale.html
+TITLE 로케일(Locale) 지원
+PRIMARY 로케일
+/INDEXTERM
+INDEXTERM locale.html#AEN6839
+INDEXPOINT locale.html#AEN6846
+TITLE 동작
+significance NORMAL
+PRIMARY ORDER BY
+SECONDARY 및 로케일
+/INDEXTERM
+INDEXTERM locale.html#AEN6839
+INDEXPOINT locale.html#AEN6854
+TITLE 동작
+significance NORMAL
+PRIMARY upper
+SECONDARY 및 로케일
+/INDEXTERM
+INDEXTERM locale.html#AEN6839
+INDEXPOINT locale.html#AEN6857
+TITLE 동작
+significance NORMAL
+PRIMARY lower
+SECONDARY 및 로케일
+/INDEXTERM
+INDEXTERM locale.html#AEN6839
+INDEXPOINT locale.html#AEN6864
+TITLE 동작
+significance NORMAL
+PRIMARY LIKE
+SECONDARY 및 로케일
+/INDEXTERM
+INDEXTERM locale.html#AEN6839
+INDEXPOINT locale.html#AEN6867
+TITLE 동작
+significance NORMAL
+PRIMARY 정규식 표현
+SECONDARY 및 로케일
+/INDEXTERM
+INDEXTERM locale.html#AEN6839
+INDEXPOINT locale.html#AEN6873
+TITLE 동작
+significance NORMAL
+PRIMARY to_char
+SECONDARY 및 로케일
+/INDEXTERM
+INDEXTERM collation.html
+INDEXPOINT collation.html#AEN6908
+TITLE 콜레이션 지원
+significance NORMAL
+ZONE collation.html
+TITLE 콜레이션 지원
+PRIMARY 콜레이션
+/INDEXTERM
+INDEXTERM multibyte.html
+INDEXPOINT multibyte.html#AEN7014
+TITLE 문자 집합 지원
+significance NORMAL
+ZONE multibyte.html
+TITLE 문자 집합 지원
+PRIMARY 문자 집합
+/INDEXTERM
+INDEXTERM maintenance.html
+INDEXPOINT maintenance.html#AEN7827
+TITLE 정기적인 데이터베이스 관리 작업들
+significance NORMAL
+ZONE maintenance.html
+TITLE 정기적인 데이터베이스 관리 작업들
+PRIMARY 관리
+/INDEXTERM
+INDEXTERM maintenance.html
+INDEXPOINT maintenance.html#AEN7829
+TITLE 정기적인 데이터베이스 관리 작업들
+significance NORMAL
+ZONE maintenance.html
+TITLE 정기적인 데이터베이스 관리 작업들
+PRIMARY 정기 관리
+/INDEXTERM
+INDEXTERM routine-vacuuming.html
+INDEXPOINT routine-vacuuming.html#AEN7852
+TITLE 정기적인 Vacuum 작업
+significance NORMAL
+ZONE routine-vacuuming.html
+TITLE 정기적인 Vacuum 작업
+PRIMARY vacuum
+/INDEXTERM
+INDEXTERM routine-vacuuming.html#VACUUM-FOR-SPACE-RECOVERY
+INDEXPOINT routine-vacuuming.html#AEN7898
+TITLE 디스크 여유 공간 확보
+significance NORMAL
+ZONE routine-vacuuming.html#VACUUM-FOR-SPACE-RECOVERY
+TITLE 디스크 여유 공간 확보
+PRIMARY 디스크 여유 공간
+/INDEXTERM
+INDEXTERM routine-vacuuming.html#VACUUM-FOR-STATISTICS
+INDEXPOINT routine-vacuuming.html#AEN7932
+TITLE 실행계획 통계 정보 갱신
+significance NORMAL
+ZONE routine-vacuuming.html#VACUUM-FOR-STATISTICS
+TITLE 실행계획 통계 정보 갱신
+PRIMARY 통계 정보
+SECONDARY 쿼리 실행계획기
+/INDEXTERM
+INDEXTERM routine-vacuuming.html#VACUUM-FOR-STATISTICS
+INDEXPOINT routine-vacuuming.html#AEN7935
+TITLE 실행계획 통계 정보 갱신
+significance NORMAL
+ZONE routine-vacuuming.html#VACUUM-FOR-STATISTICS
+TITLE 실행계획 통계 정보 갱신
+PRIMARY ANALYZE
+/INDEXTERM
+INDEXTERM routine-vacuuming.html#VACUUM-FOR-WRAPAROUND
+INDEXPOINT routine-vacuuming.html#AEN7964
+TITLE 트랜잭션 ID 겹침 오류 방지
+significance NORMAL
+ZONE routine-vacuuming.html#VACUUM-FOR-WRAPAROUND
+TITLE 트랜잭션 ID 겹침 오류 방지
+PRIMARY 트랜잭션 ID
+SECONDARY 겹침
+/INDEXTERM
+INDEXTERM routine-vacuuming.html#VACUUM-FOR-WRAPAROUND
+INDEXPOINT routine-vacuuming.html#AEN7967
+TITLE 트랜잭션 ID 겹침 오류 방지
+significance NORMAL
+PRIMARY 겹침
+SECONDARY 트랜잭션 ID
+/INDEXTERM
+INDEXTERM routine-vacuuming.html#VACUUM-FOR-MULTIXACT-WRAPAROUND
+INDEXPOINT routine-vacuuming.html#AEN8061
+TITLE 다중 트랜잭션과 겹침
+significance NORMAL
+PRIMARY MultiXactId
+/INDEXTERM
+INDEXTERM routine-vacuuming.html#VACUUM-FOR-MULTIXACT-WRAPAROUND
+INDEXPOINT routine-vacuuming.html#AEN8063
+TITLE 다중 트랜잭션과 겹침
+significance NORMAL
+PRIMARY 겹침
+SECONDARY 다중 트랜잭션
+/INDEXTERM
+INDEXTERM routine-vacuuming.html#AUTOVACUUM
+INDEXPOINT routine-vacuuming.html#AEN8079
+TITLE Autovacuum 데몬
+significance NORMAL
+PRIMARY autovacuum
+SECONDARY 일반 정보
+/INDEXTERM
+INDEXTERM routine-reindex.html
+INDEXPOINT routine-reindex.html#AEN8130
+TITLE 정기적인 인덱스 다시 만들기
+significance NORMAL
+ZONE routine-reindex.html
+TITLE 정기적인 인덱스 다시 만들기
+PRIMARY reindex
+/INDEXTERM
+INDEXTERM logfile-maintenance.html
+INDEXPOINT logfile-maintenance.html#AEN8140
+TITLE 로그 파일 관리
+significance NORMAL
+ZONE logfile-maintenance.html
+TITLE 로그 파일 관리
+PRIMARY 서버 로그
+SECONDARY 로그 파일 관리
+/INDEXTERM
+INDEXTERM backup.html
+INDEXPOINT backup.html#AEN8187
+TITLE 백업과 복원
+significance NORMAL
+ZONE backup.html
+TITLE 백업과 복원
+PRIMARY 백업
+/INDEXTERM
+INDEXTERM continuous-archiving.html
+INDEXPOINT continuous-archiving.html#AEN8397
+TITLE 아카이브 모드 백업(Continuous Archiving)과, 특정시점 복구(Point-in-Time Recovery, PITR)
+significance NORMAL
+ZONE backup.html
+TITLE 백업과 복원
+PRIMARY 아카이브 모드 백업
+/INDEXTERM
+INDEXTERM continuous-archiving.html
+INDEXPOINT continuous-archiving.html#AEN8399
+TITLE 아카이브 모드 백업(Continuous Archiving)과, 특정시점 복구(Point-in-Time Recovery, PITR)
+significance NORMAL
+ZONE backup.html
+TITLE 백업과 복원
+PRIMARY Continuous Archiving
+/INDEXTERM
+INDEXTERM continuous-archiving.html
+INDEXPOINT continuous-archiving.html#AEN8401
+TITLE 아카이브 모드 백업(Continuous Archiving)과, 특정시점 복구(Point-in-Time Recovery, PITR)
+significance NORMAL
+ZONE backup.html
+TITLE 백업과 복원
+PRIMARY 특정시점 복구
+/INDEXTERM
+INDEXTERM continuous-archiving.html
+INDEXPOINT continuous-archiving.html#AEN8403
+TITLE 아카이브 모드 백업(Continuous Archiving)과, 특정시점 복구(Point-in-Time Recovery, PITR)
+significance NORMAL
+ZONE backup.html
+TITLE 백업과 복원
+PRIMARY Point-in-Time Recovery
+/INDEXTERM
+INDEXTERM continuous-archiving.html
+INDEXPOINT continuous-archiving.html#AEN8405
+TITLE 아카이브 모드 백업(Continuous Archiving)과, 특정시점 복구(Point-in-Time Recovery, PITR)
+significance NORMAL
+ZONE backup.html
+TITLE 백업과 복원
+PRIMARY PITR
+/INDEXTERM
+INDEXTERM continuous-archiving.html#BACKUP-TIMELINES
+INDEXPOINT continuous-archiving.html#AEN8663
+TITLE 타임라인
+significance NORMAL
+ZONE backup.html
+TITLE 백업과 복원
+PRIMARY 타임라인
+/INDEXTERM
+INDEXTERM high-availability.html
+INDEXPOINT high-availability.html#AEN8747
+TITLE 고가용성, 부하 분산, 복제
+significance NORMAL
+PRIMARY high availability
+/INDEXTERM
+INDEXTERM high-availability.html
+INDEXPOINT high-availability.html#AEN8749
+TITLE 고가용성, 부하 분산, 복제
+significance NORMAL
+PRIMARY failover
+/INDEXTERM
+INDEXTERM high-availability.html
+INDEXPOINT high-availability.html#AEN8751
+TITLE 고가용성, 부하 분산, 복제
+significance NORMAL
+PRIMARY replication
+/INDEXTERM
+INDEXTERM high-availability.html
+INDEXPOINT high-availability.html#AEN8753
+TITLE 고가용성, 부하 분산, 복제
+significance NORMAL
+PRIMARY load balancing
+/INDEXTERM
+INDEXTERM high-availability.html
+INDEXPOINT high-availability.html#AEN8755
+TITLE 고가용성, 부하 분산, 복제
+significance NORMAL
+PRIMARY clustering
+/INDEXTERM
+INDEXTERM high-availability.html
+INDEXPOINT high-availability.html#AEN8757
+TITLE 고가용성, 부하 분산, 복제
+significance NORMAL
+PRIMARY data partitioning
+/INDEXTERM
+INDEXTERM high-availability.html
+INDEXPOINT high-availability.html#AEN8759
+TITLE 고가용성, 부하 분산, 복제
+significance NORMAL
+PRIMARY 고가용성
+/INDEXTERM
+INDEXTERM high-availability.html
+INDEXPOINT high-availability.html#AEN8761
+TITLE 고가용성, 부하 분산, 복제
+significance NORMAL
+PRIMARY 장애처리
+/INDEXTERM
+INDEXTERM high-availability.html
+INDEXPOINT high-availability.html#AEN8763
+TITLE 고가용성, 부하 분산, 복제
+significance NORMAL
+PRIMARY 리플리케이션
+/INDEXTERM
+INDEXTERM high-availability.html
+INDEXPOINT high-availability.html#AEN8765
+TITLE 고가용성, 부하 분산, 복제
+significance NORMAL
+PRIMARY 로드 밸런싱
+/INDEXTERM
+INDEXTERM high-availability.html
+INDEXPOINT high-availability.html#AEN8767
+TITLE 고가용성, 부하 분산, 복제
+significance NORMAL
+PRIMARY 부하 분산
+/INDEXTERM
+INDEXTERM high-availability.html
+INDEXPOINT high-availability.html#AEN8769
+TITLE 고가용성, 부하 분산, 복제
+significance NORMAL
+PRIMARY 클러스터링
+/INDEXTERM
+INDEXTERM high-availability.html
+INDEXPOINT high-availability.html#AEN8771
+TITLE 고가용성, 부하 분산, 복제
+significance NORMAL
+PRIMARY 복제
+/INDEXTERM
+INDEXTERM warm-standby.html
+INDEXPOINT warm-standby.html#AEN8975
+TITLE 로그 전달(Log-Shipping) 대기 서버
+significance NORMAL
+ZONE high-availability.html
+TITLE 고가용성, 부하 분산, 복제
+PRIMARY warm standby
+/INDEXTERM
+INDEXTERM warm-standby.html
+INDEXPOINT warm-standby.html#AEN8977
+TITLE 로그 전달(Log-Shipping) 대기 서버
+significance NORMAL
+ZONE high-availability.html
+TITLE 고가용성, 부하 분산, 복제
+PRIMARY PITR standby
+/INDEXTERM
+INDEXTERM warm-standby.html
+INDEXPOINT warm-standby.html#AEN8979
+TITLE 로그 전달(Log-Shipping) 대기 서버
+significance NORMAL
+ZONE high-availability.html
+TITLE 고가용성, 부하 분산, 복제
+PRIMARY standby server
+/INDEXTERM
+INDEXTERM warm-standby.html
+INDEXPOINT warm-standby.html#AEN8981
+TITLE 로그 전달(Log-Shipping) 대기 서버
+significance NORMAL
+ZONE high-availability.html
+TITLE 고가용성, 부하 분산, 복제
+PRIMARY log shipping
+/INDEXTERM
+INDEXTERM warm-standby.html
+INDEXPOINT warm-standby.html#AEN8983
+TITLE 로그 전달(Log-Shipping) 대기 서버
+significance NORMAL
+ZONE high-availability.html
+TITLE 고가용성, 부하 분산, 복제
+PRIMARY witness server
+/INDEXTERM
+INDEXTERM warm-standby.html
+INDEXPOINT warm-standby.html#AEN8985
+TITLE 로그 전달(Log-Shipping) 대기 서버
+significance NORMAL
+ZONE high-availability.html
+TITLE 고가용성, 부하 분산, 복제
+PRIMARY STONITH
+/INDEXTERM
+INDEXTERM warm-standby.html#STREAMING-REPLICATION
+INDEXPOINT warm-standby.html#AEN9041
+TITLE 스트리밍 복제
+significance NORMAL
+ZONE high-availability.html
+TITLE 고가용성, 부하 분산, 복제
+PRIMARY 스트리밍 복제
+/INDEXTERM
+INDEXTERM warm-standby.html#STREAMING-REPLICATION-SLOTS
+INDEXPOINT warm-standby.html#AEN9098
+TITLE 리플리케이션 슬롯
+significance NORMAL
+PRIMARY 리플리케이션 슬롯
+SECONDARY 스트리밍 리플리케이션
+/INDEXTERM
+INDEXTERM warm-standby.html#CASCADING-REPLICATION
+INDEXPOINT warm-standby.html#AEN9121
+TITLE 순차적 복제
+significance NORMAL
+ZONE high-availability.html
+TITLE 고가용성, 부하 분산, 복제
+PRIMARY Cascading Replication
+/INDEXTERM
+INDEXTERM warm-standby.html#CASCADING-REPLICATION
+INDEXPOINT warm-standby.html#AEN9123
+TITLE 순차적 복제
+significance NORMAL
+ZONE high-availability.html
+TITLE 고가용성, 부하 분산, 복제
+PRIMARY 순차적 복제
+/INDEXTERM
+INDEXTERM warm-standby.html#SYNCHRONOUS-REPLICATION
+INDEXPOINT warm-standby.html#AEN9139
+TITLE 동기식 복제
+significance NORMAL
+ZONE high-availability.html
+TITLE 고가용성, 부하 분산, 복제
+PRIMARY 동기식 복제
+/INDEXTERM
+INDEXTERM warm-standby.html#SYNCHRONOUS-REPLICATION
+INDEXPOINT warm-standby.html#AEN9141
+TITLE 동기식 복제
+significance NORMAL
+ZONE high-availability.html
+TITLE 고가용성, 부하 분산, 복제
+PRIMARY Synchronous Replication
+/INDEXTERM
+INDEXTERM hot-standby.html
+INDEXPOINT hot-standby.html#AEN9262
+TITLE 상시 대기
+significance NORMAL
+ZONE high-availability.html
+TITLE 고가용성, 부하 분산, 복제
+PRIMARY Hot Standby
+/INDEXTERM
+INDEXTERM hot-standby.html
+INDEXPOINT hot-standby.html#AEN9264
+TITLE 상시 대기
+significance NORMAL
+ZONE high-availability.html
+TITLE 고가용성, 부하 분산, 복제
+PRIMARY 상시 대기
+/INDEXTERM
+INDEXTERM recovery-config.html
+INDEXPOINT recovery-config.html#AEN9557
+TITLE 복구 환경설정
+significance NORMAL
+PRIMARY 환경설정
+SECONDARY 복구
+TERTIARY 대기 서버 (standby server)
+/INDEXTERM
+INDEXTERM recovery-config.html
+INDEXPOINT recovery-config.html#AEN9563
+TITLE 복구 환경설정
+significance NORMAL
+PRIMARY recovery.conf
+/INDEXTERM
+INDEXTERM archive-recovery-settings.html
+INDEXPOINT archive-recovery-settings.html#AEN9579
+TITLE 아카이브 복구 설정
+significance NORMAL
+PRIMARY restore_command 복구 매개변수
+/INDEXTERM
+INDEXTERM archive-recovery-settings.html
+INDEXPOINT archive-recovery-settings.html#AEN9597
+TITLE 아카이브 복구 설정
+significance NORMAL
+PRIMARY archive_cleanup_command 복구 매개변수
+/INDEXTERM
+INDEXTERM archive-recovery-settings.html
+INDEXPOINT archive-recovery-settings.html#AEN9613
+TITLE 아카이브 복구 설정
+significance NORMAL
+PRIMARY recovery_end_command 복구 매개변수
+/INDEXTERM
+INDEXTERM recovery-target-settings.html
+INDEXPOINT recovery-target-settings.html#AEN9627
+TITLE 복구 시점 설정
+significance NORMAL
+PRIMARY recovery_target recovery parameter
+/INDEXTERM
+INDEXTERM recovery-target-settings.html
+INDEXPOINT recovery-target-settings.html#AEN9638
+TITLE 복구 시점 설정
+significance NORMAL
+PRIMARY recovery_target_name 복구 매개변수
+/INDEXTERM
+INDEXTERM recovery-target-settings.html
+INDEXPOINT recovery-target-settings.html#AEN9649
+TITLE 복구 시점 설정
+significance NORMAL
+PRIMARY recovery_target_time 복구 매개변수
+/INDEXTERM
+INDEXTERM recovery-target-settings.html
+INDEXPOINT recovery-target-settings.html#AEN9659
+TITLE 복구 시점 설정
+significance NORMAL
+PRIMARY recovery_target_xid 복구 매개변수
+/INDEXTERM
+INDEXTERM recovery-target-settings.html
+INDEXPOINT recovery-target-settings.html#AEN9669
+TITLE 복구 시점 설정
+significance NORMAL
+PRIMARY recovery_target_inclusive 복구 매개변수
+/INDEXTERM
+INDEXTERM recovery-target-settings.html
+INDEXPOINT recovery-target-settings.html#AEN9680
+TITLE 복구 시점 설정
+significance NORMAL
+PRIMARY recovery_target_timeline 복구 매개변수
+/INDEXTERM
+INDEXTERM recovery-target-settings.html
+INDEXPOINT recovery-target-settings.html#AEN9690
+TITLE 복구 시점 설정
+significance NORMAL
+PRIMARY pause_at_recovery_target 복구 매개변수
+/INDEXTERM
+INDEXTERM standby-settings.html
+INDEXPOINT standby-settings.html#AEN9705
+TITLE 대기 서버 설정
+significance NORMAL
+PRIMARY standby_mode 복구 매개변수
+/INDEXTERM
+INDEXTERM standby-settings.html
+INDEXPOINT standby-settings.html#AEN9718
+TITLE 대기 서버 설정
+significance NORMAL
+PRIMARY primary_conninfo 복구 매개변수
+/INDEXTERM
+INDEXTERM standby-settings.html
+INDEXPOINT standby-settings.html#AEN9738
+TITLE 대기 서버 설정
+significance NORMAL
+PRIMARY trigger_file 복구 매개변수
+/INDEXTERM
+INDEXTERM standby-settings.html
+INDEXPOINT standby-settings.html#AEN9750
+TITLE 대기 서버 설정
+significance NORMAL
+PRIMARY recovery_min_apply_delay recovery parameter
+/INDEXTERM
+INDEXTERM monitoring.html
+INDEXPOINT monitoring.html#AEN9763
+TITLE 데이터베이스 성능 모니터링
+significance NORMAL
+ZONE monitoring.html
+TITLE 데이터베이스 성능 모니터링
+PRIMARY 모니터링
+SECONDARY 데이터베이스 서버
+/INDEXTERM
+INDEXTERM monitoring.html
+INDEXPOINT monitoring.html#AEN9766
+TITLE 데이터베이스 성능 모니터링
+significance NORMAL
+ZONE monitoring.html
+TITLE 데이터베이스 성능 모니터링
+PRIMARY 데이터베이스 활동
+SECONDARY 모니터링
+/INDEXTERM
+INDEXTERM monitoring-ps.html
+INDEXPOINT monitoring-ps.html#AEN9779
+TITLE 표준 유닉스 도구들
+significance NORMAL
+ZONE monitoring-ps.html
+TITLE 표준 유닉스 도구들
+PRIMARY ps
+SECONDARY 프로세스 살펴 보기
+/INDEXTERM
+INDEXTERM monitoring-stats.html
+INDEXPOINT monitoring-stats.html#AEN9809
+TITLE 통계 수집기
+significance NORMAL
+ZONE monitoring-stats.html
+TITLE 통계 수집기
+PRIMARY 통계
+/INDEXTERM
+INDEXTERM monitoring-stats.html#MONITORING-STATS-VIEWS
+INDEXPOINT monitoring-stats.html#AEN9856
+TITLE 수집된 통계 정보 보기
+significance NORMAL
+PRIMARY pg_stat_activity
+/INDEXTERM
+INDEXTERM monitoring-stats.html#MONITORING-STATS-VIEWS
+INDEXPOINT monitoring-stats.html#AEN9862
+TITLE 수집된 통계 정보 보기
+significance NORMAL
+PRIMARY pg_stat_archiver
+/INDEXTERM
+INDEXTERM monitoring-stats.html#MONITORING-STATS-VIEWS
+INDEXPOINT monitoring-stats.html#AEN9868
+TITLE 수집된 통계 정보 보기
+significance NORMAL
+PRIMARY pg_stat_bgwriter
+/INDEXTERM
+INDEXTERM monitoring-stats.html#MONITORING-STATS-VIEWS
+INDEXPOINT monitoring-stats.html#AEN9874
+TITLE 수집된 통계 정보 보기
+significance NORMAL
+PRIMARY pg_stat_database
+/INDEXTERM
+INDEXTERM monitoring-stats.html#MONITORING-STATS-VIEWS
+INDEXPOINT monitoring-stats.html#AEN9880
+TITLE 수집된 통계 정보 보기
+significance NORMAL
+PRIMARY pg_stat_all_tables
+/INDEXTERM
+INDEXTERM monitoring-stats.html#MONITORING-STATS-VIEWS
+INDEXPOINT monitoring-stats.html#AEN9886
+TITLE 수집된 통계 정보 보기
+significance NORMAL
+PRIMARY pg_stat_sys_tables
+/INDEXTERM
+INDEXTERM monitoring-stats.html#MONITORING-STATS-VIEWS
+INDEXPOINT monitoring-stats.html#AEN9893
+TITLE 수집된 통계 정보 보기
+significance NORMAL
+PRIMARY pg_stat_user_tables
+/INDEXTERM
+INDEXTERM monitoring-stats.html#MONITORING-STATS-VIEWS
+INDEXPOINT monitoring-stats.html#AEN9900
+TITLE 수집된 통계 정보 보기
+significance NORMAL
+PRIMARY pg_stat_xact_all_tables
+/INDEXTERM
+INDEXTERM monitoring-stats.html#MONITORING-STATS-VIEWS
+INDEXPOINT monitoring-stats.html#AEN9909
+TITLE 수집된 통계 정보 보기
+significance NORMAL
+PRIMARY pg_stat_xact_sys_tables
+/INDEXTERM
+INDEXTERM monitoring-stats.html#MONITORING-STATS-VIEWS
+INDEXPOINT monitoring-stats.html#AEN9916
+TITLE 수집된 통계 정보 보기
+significance NORMAL
+PRIMARY pg_stat_xact_user_tables
+/INDEXTERM
+INDEXTERM monitoring-stats.html#MONITORING-STATS-VIEWS
+INDEXPOINT monitoring-stats.html#AEN9923
+TITLE 수집된 통계 정보 보기
+significance NORMAL
+PRIMARY pg_stat_all_indexes
+/INDEXTERM
+INDEXTERM monitoring-stats.html#MONITORING-STATS-VIEWS
+INDEXPOINT monitoring-stats.html#AEN9929
+TITLE 수집된 통계 정보 보기
+significance NORMAL
+PRIMARY pg_stat_sys_indexes
+/INDEXTERM
+INDEXTERM monitoring-stats.html#MONITORING-STATS-VIEWS
+INDEXPOINT monitoring-stats.html#AEN9936
+TITLE 수집된 통계 정보 보기
+significance NORMAL
+PRIMARY pg_stat_user_indexes
+/INDEXTERM
+INDEXTERM monitoring-stats.html#MONITORING-STATS-VIEWS
+INDEXPOINT monitoring-stats.html#AEN9943
+TITLE 수집된 통계 정보 보기
+significance NORMAL
+PRIMARY pg_statio_all_tables
+/INDEXTERM
+INDEXTERM monitoring-stats.html#MONITORING-STATS-VIEWS
+INDEXPOINT monitoring-stats.html#AEN9949
+TITLE 수집된 통계 정보 보기
+significance NORMAL
+PRIMARY pg_statio_sys_tables
+/INDEXTERM
+INDEXTERM monitoring-stats.html#MONITORING-STATS-VIEWS
+INDEXPOINT monitoring-stats.html#AEN9956
+TITLE 수집된 통계 정보 보기
+significance NORMAL
+PRIMARY pg_statio_user_tables
+/INDEXTERM
+INDEXTERM monitoring-stats.html#MONITORING-STATS-VIEWS
+INDEXPOINT monitoring-stats.html#AEN9963
+TITLE 수집된 통계 정보 보기
+significance NORMAL
+PRIMARY pg_statio_all_indexes
+/INDEXTERM
+INDEXTERM monitoring-stats.html#MONITORING-STATS-VIEWS
+INDEXPOINT monitoring-stats.html#AEN9969
+TITLE 수집된 통계 정보 보기
+significance NORMAL
+PRIMARY pg_statio_sys_indexes
+/INDEXTERM
+INDEXTERM monitoring-stats.html#MONITORING-STATS-VIEWS
+INDEXPOINT monitoring-stats.html#AEN9976
+TITLE 수집된 통계 정보 보기
+significance NORMAL
+PRIMARY pg_statio_user_indexes
+/INDEXTERM
+INDEXTERM monitoring-stats.html#MONITORING-STATS-VIEWS
+INDEXPOINT monitoring-stats.html#AEN9983
+TITLE 수집된 통계 정보 보기
+significance NORMAL
+PRIMARY pg_statio_all_sequences
+/INDEXTERM
+INDEXTERM monitoring-stats.html#MONITORING-STATS-VIEWS
+INDEXPOINT monitoring-stats.html#AEN9989
+TITLE 수집된 통계 정보 보기
+significance NORMAL
+PRIMARY pg_statio_sys_sequences
+/INDEXTERM
+INDEXTERM monitoring-stats.html#MONITORING-STATS-VIEWS
+INDEXPOINT monitoring-stats.html#AEN9996
+TITLE 수집된 통계 정보 보기
+significance NORMAL
+PRIMARY pg_statio_user_sequences
+/INDEXTERM
+INDEXTERM monitoring-stats.html#MONITORING-STATS-VIEWS
+INDEXPOINT monitoring-stats.html#AEN10003
+TITLE 수집된 통계 정보 보기
+significance NORMAL
+PRIMARY pg_stat_user_functions
+/INDEXTERM
+INDEXTERM monitoring-stats.html#MONITORING-STATS-VIEWS
+INDEXPOINT monitoring-stats.html#AEN10009
+TITLE 수집된 통계 정보 보기
+significance NORMAL
+PRIMARY pg_stat_xact_user_functions
+/INDEXTERM
+INDEXTERM monitoring-stats.html#MONITORING-STATS-VIEWS
+INDEXPOINT monitoring-stats.html#AEN10018
+TITLE 수집된 통계 정보 보기
+significance NORMAL
+PRIMARY pg_stat_replication
+/INDEXTERM
+INDEXTERM monitoring-stats.html#MONITORING-STATS-VIEWS
+INDEXPOINT monitoring-stats.html#AEN10024
+TITLE 수집된 통계 정보 보기
+significance NORMAL
+PRIMARY pg_stat_database_conflicts
+/INDEXTERM
+INDEXTERM monitoring-stats.html#MONITORING-STATS-FUNCTIONS
+INDEXPOINT monitoring-stats.html#AEN11064
+TITLE 통계 함수들
+significance NORMAL
+PRIMARY pg_stat_get_activity
+/INDEXTERM
+INDEXTERM monitoring-stats.html#MONITORING-STATS-FUNCTIONS
+INDEXPOINT monitoring-stats.html#AEN11075
+TITLE 통계 함수들
+significance NORMAL
+PRIMARY pg_stat_clear_snapshot
+/INDEXTERM
+INDEXTERM monitoring-stats.html#MONITORING-STATS-FUNCTIONS
+INDEXPOINT monitoring-stats.html#AEN11084
+TITLE 통계 함수들
+significance NORMAL
+PRIMARY pg_stat_reset
+/INDEXTERM
+INDEXTERM monitoring-stats.html#MONITORING-STATS-FUNCTIONS
+INDEXPOINT monitoring-stats.html#AEN11093
+TITLE 통계 함수들
+significance NORMAL
+PRIMARY pg_stat_reset_shared
+/INDEXTERM
+INDEXTERM monitoring-stats.html#MONITORING-STATS-FUNCTIONS
+INDEXPOINT monitoring-stats.html#AEN11104
+TITLE 통계 함수들
+significance NORMAL
+PRIMARY pg_stat_reset_single_table_counters
+/INDEXTERM
+INDEXTERM monitoring-stats.html#MONITORING-STATS-FUNCTIONS
+INDEXPOINT monitoring-stats.html#AEN11113
+TITLE 통계 함수들
+significance NORMAL
+PRIMARY pg_stat_reset_single_function_counters
+/INDEXTERM
+INDEXTERM monitoring-locks.html
+INDEXPOINT monitoring-locks.html#AEN11212
+TITLE 잠금 보기
+significance NORMAL
+ZONE monitoring-locks.html
+TITLE 잠금 보기
+PRIMARY 잠금
+SECONDARY 모니터링
+/INDEXTERM
+INDEXTERM dynamic-trace.html
+INDEXPOINT dynamic-trace.html#AEN11228
+TITLE Dynamic Tracing
+significance NORMAL
+ZONE dynamic-trace.html
+TITLE Dynamic Tracing
+PRIMARY DTrace
+/INDEXTERM
+INDEXTERM disk-usage.html
+INDEXPOINT disk-usage.html#AEN11576
+TITLE 디스크 사용량 결정
+significance NORMAL
+ZONE disk-usage.html
+TITLE 디스크 사용량 결정
+PRIMARY 디스크 사용량
+/INDEXTERM
+INDEXTERM wal-intro.html
+INDEXPOINT wal-intro.html#AEN11703
+TITLE Write-Ahead 로깅(WAL)
+significance NORMAL
+ZONE wal.html
+TITLE 안정성 및 Write-Ahead 로그
+PRIMARY WAL
+/INDEXTERM
+INDEXTERM wal-intro.html
+INDEXPOINT wal-intro.html#AEN11705
+TITLE Write-Ahead 로깅(WAL)
+significance NORMAL
+PRIMARY 트랜잭션 로그
+SEE WAL
+/INDEXTERM
+INDEXTERM wal-async-commit.html
+INDEXPOINT wal-async-commit.html#AEN11725
+TITLE 비동기 커밋
+significance NORMAL
+PRIMARY 비동기 커밋
+/INDEXTERM
+INDEXTERM wal-async-commit.html
+INDEXPOINT wal-async-commit.html#AEN11727
+TITLE 비동기 커밋
+significance NORMAL
+PRIMARY 비동기 커밋
+/INDEXTERM
+INDEXTERM wal-configuration.html
+INDEXPOINT wal-configuration.html#AEN11768
+TITLE WAL 환경 설정
+significance NORMAL
+PRIMARY 체크포인트
+/INDEXTERM
+INDEXTERM wal-configuration.html
+INDEXPOINT wal-configuration.html#AEN11798
+TITLE WAL 환경 설정
+significance NORMAL
+PRIMARY 재시작포인트
+/INDEXTERM
+INDEXTERM wal-internals.html
+INDEXPOINT wal-internals.html#AEN11864
+TITLE WAL 인터널
+significance NORMAL
+PRIMARY disk drive
+/INDEXTERM

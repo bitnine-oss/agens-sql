@@ -12,7 +12,7 @@
 
  <para>
   role의 개념은 <quote>사용자</quote> 및 <quote>그룹</quote>의 개념을 포함한다. 
-  <productname>Agens SQL</productname> 8.1 이전 버전에서 사용자와 그룹은 별개의 엔티티였지만 이제는 role만 있다. 
+  <productname>PostgreSQL</productname> 8.1 이전 버전에서 사용자와 그룹은 별개의 엔티티였지만 이제는 role만 있다. 
   모든 role은 사용자, 그룹 또는 양쪽 모두로 작용할 수 있다.
  </para>
 

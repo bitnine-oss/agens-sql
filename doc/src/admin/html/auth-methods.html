@@ -28,7 +28,7 @@ CONTENT="text/html; charset=UTF-8"><META
 name="viewport"
 content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width"><META
 NAME="creation"
-CONTENT="2015-06-26T04:43:18"></HEAD
+CONTENT="2015-06-29T09:12:38"></HEAD
 ><BODY
 CLASS="SECT1"
 ><DIV
@@ -114,7 +114,8 @@ CLASS="LITERAL"
 > 인증이 지정된 경우 <SPAN
 CLASS="PRODUCTNAME"
 >Agens SQL</SPAN
->는 지정한 데이터베이스 사용자 이름을 사용하여 서버에 연결 가능한 모든 이가 데이터베이스 액세스에 대한 인증을 받는 것으로 간주한다(수퍼유저 이름 포함). 
+>는 지정한 데이터베이스 사용자 이름을 사용하여 
+서버에 연결 가능한 모든 이가 데이터베이스 액세스에 대한 인증을 받는 것으로 간주한다(수퍼유저 이름 포함). 
 물론, <TT
 CLASS="LITERAL"
 >database</TT
@@ -128,14 +129,16 @@ CLASS="LITERAL"
 ><TT
 CLASS="LITERAL"
 >trust</TT
-> 인증은 단일 사용자 워크스테이션에 대한 로컬 연결 시 적절하며, 매우 편리하다. 다중 사용자 머신에서는 일반적으로 적절하지 <SPAN
+> 인증은 단일 사용자 워크스테이션에 대한 로컬 연결 시 적절하며, 매우 편리하다. 다중 사용자 머신에서는 일반적으로 적절하지 
+<SPAN
 CLASS="emphasis"
 ><I
 CLASS="EMPHASIS"
 >않다</I
 ></SPAN
 >. 
-그러나, 파일 시스템 권한을 사용하여 서버의 Unix 도메인 소켓 파일에 대한 액세스를 제한하는 경우 다중 사용자 머신에서도 <TT
+그러나, 파일 시스템 권한을 사용하여 서버의 Unix 도메인 소켓 파일에 대한 액세스를 제한하는 경우 다중 사용자 머신에서도 
+<TT
 CLASS="LITERAL"
 >trust</TT
 >를 사용 가능할 수 있다. 
@@ -145,7 +148,8 @@ CLASS="VARNAME"
 >(및 가능하면 <TT
 CLASS="VARNAME"
 >unix_socket_group</TT
->) 환경 설정 매개 변수를 <A
+>) 환경 설정 매개 변수를 
+<A
 HREF="runtime-config-connection.html"
 >2.3절</A
 >에서 설명한 대로 설정해야 한다. 
@@ -162,7 +166,8 @@ CLASS="LITERAL"
 > 줄을 <TT
 CLASS="FILENAME"
 >pg_hba.conf</TT
->에서 삭제하거나, 비 <TT
+>에서 삭제하거나, 
+비 <TT
 CLASS="LITERAL"
 >trust</TT
 > 방법으로 변경해야 한다.
@@ -177,7 +182,8 @@ CLASS="LITERAL"
 >를 지정하는 <TT
 CLASS="FILENAME"
 >pg_hba.conf</TT
->에서 서버와 연결이 허용된 모든 머신의 모든 사용자를 신뢰하는 경우에만 TCP/IP 연결에 적합하다.
+>에서 서버와 연결이 허용된 모든 머신의 모든 사용자를 
+신뢰하는 경우에만 TCP/IP 연결에 적합하다.
 <SPAN
 CLASS="SYSTEMITEM"
 >localhost</SPAN
@@ -202,7 +208,8 @@ CLASS="LITERAL"
 > 및 <TT
 CLASS="LITERAL"
 >password</TT
->이다. 패스워드가 전송될 때 각각 MD5 해시 및 일반 텍스트로 전송되는 점을 제외하고 두 방법은 유사하게 작동된다.
+>이다. 패스워드가 전송될 때 각각 MD5 해시 및 일반 텍스트로 전송되는 점을 
+제외하고 두 방법은 유사하게 작동된다.
  </P
 ><P
 >패스워드 <SPAN
@@ -214,7 +221,8 @@ CLASS="LITERAL"
 >가 바람직하다. 일반 <TT
 CLASS="LITERAL"
 >password</TT
->는 가능하면 피해야 한다. 대신, <TT
+>는 가능하면 피해야 한다. 
+대신, <TT
 CLASS="LITERAL"
 >md5</TT
 >는 db_user_namespace<A
@@ -230,11 +238,13 @@ CLASS="LITERAL"
 ><SPAN
 CLASS="PRODUCTNAME"
 >Agens SQL</SPAN
-> 데이터베이스 패스워드는 운영 체제 사용자 패스워드와 구분된다. 각 데이터베이스 사용자에 대한 패스워드는 <TT
+> 데이터베이스 패스워드는 운영 체제 사용자 패스워드와 구분된다. 
+각 데이터베이스 사용자에 대한 패스워드는 <TT
 CLASS="LITERAL"
 >pg_authid</TT
 > 시스템 카탈로그에 저장된다. 
-패스워드는 SQL 명령 CREATE USER 및 ALTER ROLE으로 관리할 수 있으며, 예를 들면 <KBD
+패스워드는 SQL 명령 CREATE USER 및 ALTER ROLE으로 관리할 수 있으며, 
+예를 들면 <KBD
 CLASS="USERINPUT"
 >CREATE USER foo WITH PASSWORD 'secret'</KBD
 >와 같다. 
@@ -283,7 +293,8 @@ CLASS="PRODUCTNAME"
 >가 <SPAN
 CLASS="PRODUCTNAME"
 >Kerberos</SPAN
->를 사용하는 경우 <TT
+>를 사용하는 경우 
+<TT
 CLASS="LITERAL"
 ><TT
 CLASS="REPLACEABLE"
@@ -305,7 +316,8 @@ CLASS="REPLACEABLE"
 Agens SQL 서버가 서버에서 사용되는 키탭에 포함된 보안 규칙을 수용하지만, <TT
 CLASS="LITERAL"
 >krbsrvname</TT
-> 연결 매개 변수를 사용하여 클라이언트에서 연결을 할 때 올바른 보안 규칙 상세 정보를 지정할 때 특별히 주의해야 한다. 
+> 연결 매개 변수를 사용하여 
+클라이언트에서 연결을 할 때 올바른 보안 규칙 상세 정보를 지정할 때 특별히 주의해야 한다. 
 설치 기본값은 빌드 시에 <TT
 CLASS="LITERAL"
 >./configure --with-krb-srvnam=</TT
@@ -314,11 +326,13 @@ CLASS="REPLACEABLE"
 ><I
 >whatever</I
 ></TT
->를 사용하여 기본값 <TT
+>를 사용하여 기본값 
+<TT
 CLASS="LITERAL"
 >postgres</TT
 >에서 변경 가능하다. 
-대부분의 환경에서 이 매개 변수는 절대 변경할 필요가 없다. 일부 Kerberos 구현은 서비스 이름이 대문자여야 하는 Microsoft Active Directory처럼 서로 다른 서비스 이름을 요구할 수도 있다(<TT
+대부분의 환경에서 이 매개 변수는 절대 변경할 필요가 없다. 일부 Kerberos 구현은 서비스 이름이 대문자여야 하는 
+Microsoft Active Directory처럼 서로 다른 서비스 이름을 요구할 수도 있다(<TT
 CLASS="LITERAL"
 >POSTGRES</TT
 >).
@@ -348,7 +362,8 @@ CLASS="PRODUCTNAME"
 영역 간 인증(cross-realm authentication)을 활성화하고 영역(realm)을 검증해야 하는 경우 <TT
 CLASS="LITERAL"
 >krb_realm</TT
-> 매개 변수를 사용하거나 <TT
+> 매개 변수를 사용하거나 
+<TT
 CLASS="LITERAL"
 >include_realm</TT
 >을 활성화하고 사용자 이름 맵핑을 사용하여 영역(realm)을 검사해야 한다.
@@ -357,7 +372,8 @@ CLASS="LITERAL"
 >사용자는 서버 키탭 파일을 <SPAN
 CLASS="PRODUCTNAME"
 >Agens SQL</SPAN
-> 서버 계정으로 판독 가능한지(기본적으로 판독만 가능한지) 확인해야 한다. S키 파일의 위치는 krb_server_keyfile 환경 설정 매개 변수에 의해 지정된다. 
+> 서버 계정으로 판독 가능한지(기본적으로 판독만 가능한지) 확인해야 한다. 
+S키 파일의 위치는 krb_server_keyfile 환경 설정 매개 변수에 의해 지정된다. 
 기본값은 <TT
 CLASS="FILENAME"
 >/usr/local/pgsql/etc/krb5.keytab</TT
@@ -596,7 +612,8 @@ NAME="AUTH-IDENT"
 >3.3.5. Ident 인증</A
 ></H2
 ><P
->ident 인증 방법은 클라이언트의 운영 체제 사용자 이름을 ident 서버로부터 획득하고, 허용된 데이터베이스 사용자 이름으로 사용함으로써 작동된다(선택적 사용자 이름 맵핑 사용). 이것은 TCP/IP 연결에서만 지원된다.
+>ident 인증 방법은 클라이언트의 운영 체제 사용자 이름을 ident 서버로부터 획득하고, 
+허용된 데이터베이스 사용자 이름으로 사용함으로써 작동된다(선택적 사용자 이름 맵핑 사용). 이것은 TCP/IP 연결에서만 지원된다.
  </P
 ><DIV
 CLASS="NOTE"
@@ -677,7 +694,7 @@ CLASS="REPLACEABLE"
 따라서 인증 방법은 각 클라이언트 머신이 엄격하게 제어되고, 데이터베이스 및 시스템 관리자의 협력이 긴밀하게 이뤄지는 폐쇄된 네트워크의 경우에만 적합하다. 즉, 사용자는 ident 서버가 실행되는 머신을 신뢰해야 한다. 
 다음 경고에 유의해야 한다.
 <A
-NAME="AEN6063"
+NAME="AEN6065"
 ></A
 ><TABLE
 BORDER="0"
@@ -914,7 +931,8 @@ CLASS="LITERAL"
 ></DT
 ><DD
 ><P
->1로 설정하면 TLS 암호화를 사용하여 Agens SQL과 LDAP 서버가 연결된다. 이것은 LDAP 서버로의 트래픽만 암호화한다. 클라이언트에 대한 연결은 SSL을 사용하지 않는 한 암호화되지 않은 상태가 지속된다.
+>1로 설정하면 TLS 암호화를 사용하여 Agens SQL과 LDAP 서버가 연결된다. 이것은 LDAP 서버로의 트래픽만 암호화한다. 
+클라이언트에 대한 연결은 SSL을 사용하지 않는 한 암호화되지 않은 상태가 지속된다.
  </P
 ></DD
 ></DL
@@ -1104,7 +1122,11 @@ CLASS="PROGRAMLISTING"
 데이터베이스 사용자 <TT
 CLASS="LITERAL"
 >someuser</TT
->로 데이터베이스 서버에 연결이 요청된 경우 Agens SQL은 익명으로(<TT
+>로 데이터베이스 서버에 연결이 요청된 경우 
+<SPAN
+CLASS="PRODUCTNAME"
+>Agens SQL</SPAN
+>은 익명으로(<TT
 CLASS="LITERAL"
 >ldapbinddn</TT
 >가 지정되지 않았으므로) 
@@ -1112,7 +1134,8 @@ LDAP 서버에 바인딩을 시도하고 지정된 베이스 DN 아래에서 <TT
 CLASS="LITERAL"
 >(uid=someuser)</TT
 >에 대한 검색을 수행한다. 
-항목이 발견되면 발견된 정보와 클라이언트가 제공한 패스워드를 사용하여 바인딩을 시도한다. 해당 제2차 연결이 성공하면 데이터베이스 액세스가 허용된다.
+항목이 발견되면 발견된 정보와 클라이언트가 제공한 패스워드를 사용하여 바인딩을 시도한다. 
+해당 제2차 연결이 성공하면 데이터베이스 액세스가 허용된다.
  </P
 ><P
 >URL로 작성한 동일한 검색+바인딩 구성은 다음과 같다.
@@ -1129,7 +1152,8 @@ CLASS="TIP"
 ><P
 ><B
 >작은 정보: </B
-> LDAP는 주로 쉼표와 공백을 사용하여 DN의 서로 다른 부분을 구분하므로 예시에 표시된 대로 LDAP 옵션을 구성할 때 매개 변수를 큰따옴표로 둘러싸야 하는 경우가 있다.</P
+> LDAP는 주로 쉼표와 공백을 사용하여 DN의 서로 다른 부분을 구분하므로 
+ 예시에 표시된 대로 LDAP 옵션을 구성할 때 매개 변수를 큰따옴표로 둘러싸야 하는 경우가 있다.</P
 ></BLOCKQUOTE
 ></DIV
 ></DIV
@@ -1159,11 +1183,13 @@ CLASS="LITERAL"
 > 및 <TT
 CLASS="LITERAL"
 >password</TT
->(암호화됨), <TT
+>(암호화됨), 
+<TT
 CLASS="LITERAL"
 >NAS Identifier</TT
 >에 대한 매개 변수가 포함된다. 
-요청은 서버와 공유되는 시크릿을 사용하여 암호화된다. RADIUS 서버는 <TT
+요청은 서버와 공유되는 시크릿을 사용하여 암호화된다. 
+RADIUS 서버는 <TT
 CLASS="LITERAL"
 >Access Accept</TT
 > 또는 <TT
@@ -1194,7 +1220,8 @@ CLASS="LITERAL"
 ></DT
 ><DD
 ><P
-> 보안을 유지하면서 RADIUS 서버와 통신할 때 사용되는 공유 시크릿. 이것은 Agens SQL 및 RADIUS 서버에서 값이 정확하게 동일해야 한다. 최소 16자의 string이 권장된다. 이 매개 변수는 필수이다.
+> 보안을 유지하면서 RADIUS 서버와 통신할 때 사용되는 공유 시크릿. 이것은 Agens SQL 및 RADIUS 서버에서 값이 정확하게 동일해야 한다. 
+ 최소 16자의 string이 권장된다. 이 매개 변수는 필수이다.
  </P><DIV
 CLASS="NOTE"
 ><BLOCKQUOTE
@@ -1258,11 +1285,14 @@ NAME="AUTH-CERT"
 >3.3.9. 인증서 인증</A
 ></H2
 ><P
->이 인증 방법은 SSL 클라이언트 인증서를 사용하여 인증을 수행한다. 따라서 SSL 연결에서만 사용 가능하다. 이 인증 방법을 사용하는 경우 서버는 클라이언트가 유효한 인증서를 제공할 것을 요구한다. 패스워드 프롬프트는 클라이언트로 전송되지 않는다. 
+>이 인증 방법은 SSL 클라이언트 인증서를 사용하여 인증을 수행한다. 
+따라서 SSL 연결에서만 사용 가능하다. 이 인증 방법을 사용하는 경우 서버는 클라이언트가 유효한 인증서를 제공할 것을 요구한다. 
+패스워드 프롬프트는 클라이언트로 전송되지 않는다. 
 인증서의 <TT
 CLASS="LITERAL"
 >cn</TT
->(공통 이름) 속성은 요청된 데이터베이스 사용자 이름과 비교되며, 일치하는 경우 로그인이 허용된다. 사용자 이름 맵핑을 사용하여 <TT
+>(공통 이름) 속성은 요청된 데이터베이스 사용자 이름과 비교되며, 일치하는 경우 로그인이 허용된다. 
+사용자 이름 맵핑을 사용하여 <TT
 CLASS="LITERAL"
 >cn</TT
 >을 데이터베이스 사용자 이름과 다르게 할 수 있다.
@@ -1304,11 +1334,13 @@ NAME="AUTH-PAM"
 >이 인증 방법은 인증 메커니즘으로 PAM(Pluggable Authentication Modules)을 사용할 때 외에는 <TT
 CLASS="LITERAL"
 >password</TT
->와 유사하게 작동된다. 기본 PAM 서비스 이름은 <TT
+>와 유사하게 작동된다. 
+기본 PAM 서비스 이름은 <TT
 CLASS="LITERAL"
 >postgresql</TT
 >이다. PAM은 사용자 이름/패스워드 쌍을 검증할 때에만 사용된다. 
-따라서 PAM을 인증에 사용하기 전에 사용자가 데이터베이스에 존재해야 한다. PAM에 대한 자세한 내용은 <A
+따라서 PAM을 인증에 사용하기 전에 사용자가 데이터베이스에 존재해야 한다. 
+PAM에 대한 자세한 내용은 <A
 HREF="http://www.kernel.org/pub/linux/libs/pam/"
 TARGET="_top"
 ><SPAN
@@ -1348,7 +1380,12 @@ CLASS="NOTE"
 > PAM이 <TT
 CLASS="FILENAME"
 >/etc/shadow</TT
->를 읽도록 설정된 경우 Agens SQL 서버는 root가 아닌 다른 사용자로 시작되므로 인증이 실패한다. 단, PAM이 LDAP 또는 다른 인증 방법을 사용하도록 설정된 경우 실행되지 않는다.</P
+>를 읽도록 설정된 경우 <SPAN
+CLASS="PRODUCTNAME"
+>Agens SQL</SPAN
+> 서버는 root가 아닌 다른 사용자로 시작되므로 
+ 인증이 실패한다. 
+ 단, PAM이 LDAP 또는 다른 인증 방법을 사용하도록 설정된 경우 실행되지 않는다.</P
 ></BLOCKQUOTE
 ></DIV
 ></DIV

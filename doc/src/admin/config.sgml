@@ -1497,11 +1497,11 @@ VACUUM 및 ANAYLYZE 명령 실행 시 다양한 I/O 명령을 수행하는 데 �
  </term>
  <listitem>
 <para>
- 각 라운드에 쓰기 된 더티 버퍼의 수는 최근 라운드 중에 서버 프로세스가 필요로 했던 새 버퍼 수를 근거로 한다. 
- 최근 평균 요구량은 다음 라운드에서 필요한 버퍼 추정치에 도달하도록 <varname>bgwriter_lru_multiplier</>를 곱한다. 
- 깨끗하고 재사용 가능한 버퍼 수가 지정된 개수가 될 때까지 더티 버퍼는 쓰여진다. 
- (그렇더라도 라운드당 <varname>bgwriter_lru_maxpages</> 이상의 버퍼는 쓰여지지 않는다.) 
- 따라서, 1.0 설정은 정확히 필요한 버퍼 수를 기록하는 <quote>just in time</> 정책을 나타낸다. 
+ 각 작업에 쓰기 된 더티 버퍼의 개수는 최근 작업들 수행 중에 서버 프로세스가 필요 했던 새 버퍼의 개수이다.
+ 최근 평균 요구량에 <varname>bgwriter_lru_multiplier</>를 곱하면 다음 작업에서 필요한 버퍼 추정치에 가깝다.
+ 깨끗하고 재사용 가능한 버퍼 수가 충분히 남아 있을 때까지 더티 버퍼는 쓰여진다. 
+ (그렇더라도 작업당 <varname>bgwriter_lru_maxpages</> 이상의 버퍼는 쓰여지지 않는다.) 
+ 따라서, 1.0을 설정하면 정확히 필요한 버퍼 수를 기록하는 <quote>just in time</> 정책을 나타낸다. 
  더 큰 값을 설정하면 수요 급증에 대비할 수 있는 반면, 
  더 작은 값은 쓰기를 서버 프로세스가 처리하도록 일부러 미처리 상태로 방치한다. 기본값은 2.0이다. 
  이 매개변수는 <filename>postgresql.conf</> 파일 또는 서버 커맨드 라인에서만 설정 가능하다.
@@ -1512,7 +1512,7 @@ VACUUM 및 ANAYLYZE 명령 실행 시 다양한 I/O 명령을 수행하는 데 �
 
  <para>
 <varname>bgwriter_lru_maxpages</varname> 및 <varname>bgwriter_lru_multiplier</varname> 값을 더 작게 설정하면 
-백그라운드 writer로 인한 I/O 로드는 줄어들지만, 서버 프로세스가 자체적으로 쓰기를 실행해야 하므로 쿼리 인터랙션이 지연될 가능성이 높다.
+백그라운드 writer로 인한 I/O 로드는 줄어들지만, 서버 프로세스가 자체적으로 쓰기를 실행해야 하므로 쿼리 수행 지연될 가능성이 높다.
  </para>
 </sect2>
 
@@ -1563,7 +1563,7 @@ VACUUM 및 ANAYLYZE 명령 실행 시 다양한 I/O 명령을 수행하는 데 �
  </term>
  <listitem>
 <para>
- 시스템이 지원할 수 있는 백그라운드 프로세스의 최대 수를 설정한다. 이 매개변수는 서버 시작 시에만 설정 가능하다.
+ 시스템이 지원할 수 있는 백그라운드 프로세스의 최대 수를 설정한다. 이 매개변수는 서버 시작 시 설정된다.
 </para>
 
 <para>
@@ -1579,7 +1579,7 @@ VACUUM 및 ANAYLYZE 명령 실행 시 다양한 I/O 명령을 수행하는 데 �
 <title>Write Ahead 로그</title>
 
  <para>
-이 설정의 조정에 대한 자세한 내용은 <xref linkend="wal-configuration">을 참조 바란다.
+이 설정에 대한 자세한 내용은 <xref linkend="wal-configuration">을 참조 바란다.
  </para>
 
 <sect2 id="runtime-config-wal-settings">
@@ -1651,11 +1651,11 @@ WAL로부터 논리적 변경 세트를 사용하는 데 필요한 정보가 로
  </para>
 
  <para>
-<varname>fsync</varname>를 해제하는 안전한 방법은 
-데이터베이스를 폐기 및 재생성한 후의 데이터 일괄 처리하거나, 
-빈번하게 재생성되고 장애처리(failover)용으로 사용되지 않는 읽기 전용 데이터베이스 클론인 경우에 데이터베이스를 사용하면서
-백업 파일로부터 새 데이터베이스 클러스터를 초기 로딩하는 것이다.
-고성능 하드웨어 단독으로는 <varname>fsync</varname>를 해제하는 합당한 이유가 될 수 없다.
+<varname>fsync</varname>를 해제하는 안전한 방법 중 백업 파일로부터 새 데이터베이스 클러스터를 초기 로딩하여  
+폐기하고 재생성할 데이터베이스의 데이터를 일괄 처리하거나, 
+자주 재생성되고 장애처리(failover)용으로 사용되지 않는 읽기 전용 데이터베이스를 복제하는 데
+ 이 데이터베이스 클러스터를 사용하는 방법이 있다.
+고성능 하드웨어만을 위해 <varname>fsync</varname>를 해제하는 것은 바람직하지 않다.
  </para>
 
  <para>
@@ -1666,11 +1666,13 @@ WAL로부터 논리적 변경 세트를 사용하는 데 필요한 정보가 로
  </para>
 
  <para>
-여러 가지 상황에서 중요하지 않은 트랜잭션에 대해 <xref linkend="guc-synchronous-commit">를 해제하면 데이터 충돌 위험 없이 <varname>fsync</varname>를 해제함으로써 잠재적인 성능상 장점을 다수 얻을 수 있다.
+여러 가지 상황에서 중요하지 않은 트랜잭션에 대해 <xref linkend="guc-synchronous-commit">를 해제하면 
+데이터 충돌 위험 없이 <varname>fsync</varname>를 해제함으로써 잠재적인 성능상 장점을 얻을 수 있다.
  </para>
 
  <para>
-<varname>fsync</varname>는 <filename>postgresql.conf</> 파일 또는 서버 커맨드 라인에서만 설정할 수 있다. 이 매개변수를 해제할 경우 <xref linkend="guc-full-page-writes">의 해제도 고려해야 한다.
+<varname>fsync</varname>는 <filename>postgresql.conf</> 파일 또는 서버 커맨드 라인에서만 설정할 수 있다. 
+이 매개변수를 해제할 경우 <xref linkend="guc-full-page-writes">의 해제도 고려해야 한다.
  </para>
 </listitem>
  </varlistentry>
@@ -1685,26 +1687,38 @@ WAL로부터 논리적 변경 세트를 사용하는 데 필요한 정보가 로
  <para>
 명령이 <quote>success</> 표시를 클라이언트에 리턴하기 전에 WAL 레코드가 디스크에 기록될 때까지 트랜잭션 커밋이 기다릴지 여부를 지정한다. 
 유효 값은 <literal>on</> 및 
-<literal>remote_write</>, <literal>local</>, <literal>off</>이다. 기본값 및 안전 설정은 <literal>on</>이다. <literal>off</>인 경우 success표시가 클라이언트에 전달되는 시간과 서버 충돌 없이 트랜잭션이 정말로 안전하다는 것이 보장되는 시간 사이에 지연이 생길 수 있다. 
-(최대 지연은 <xref linkend="guc-wal-writer-delay">의 3배이다.) <xref linkend="guc-fsync">와 달리, 이 매개변수를 <literal>off</>로 설정하면 데이터베이스 불일치 위험이 발생하지 않는다. 
-운영 체제 또는 데이터베이스 충돌은 이른바 최근에 커밋된 트랜잭션이 일부 분실되는 결과가 발생하지만 데이터베이스 상태는 해당 트랜잭션이 깔끔하게 중단된 것과 같다. 
-따라서, 트랜잭션 영속성에 대해 정확한 확실성보다는 성능이 더 중요한 경우에 <varname>synchronous_commit</>를 해제하는 것이 유용한 대안일 수 있다. 자세한 내용은 <xref linkend="wal-async-commit">을 참조 바란다.
+<literal>remote_write</>, <literal>local</>, <literal>off</>이다. 
+기본값 및 안전 설정은 <literal>on</>이다. 
+<literal>off</>인 경우 success표시가 클라이언트에 전달되는 시간과 서버 충돌 없이 트랜잭션이 정말로 안전하다는 것이 보장되는 시간 사이에 
+지연이 생길 수 있다. 
+(최대 지연은 <xref linkend="guc-wal-writer-delay">의 3배이다.) 
+<xref linkend="guc-fsync">와 달리, 이 매개변수를 <literal>off</>로 설정하면 데이터베이스 불일치 위험이 발생하지 않는다. 
+운영 체제 또는 데이터베이스 충돌은 이른바 최근에 커밋된 트랜잭션이 일부 분실되는 결과가 발생하지만 
+데이터베이스 상태는 해당 트랜잭션이 깔끔하게 중단된 것과 같다. 
+따라서, 트랜잭션 영속성에 대해 정확한 확실성보다는 성능이 더 중요한 경우에 <varname>synchronous_commit</>를 해제하는 것이 
+유용한 대안일 수 있다. 자세한 내용은 <xref linkend="wal-async-commit">을 참조 바란다.
  </para>
  <para>
-<xref linkend="guc-synchronous-standby-names">가 설정되면, 트랜잭션의 WAL 레코드가 대기 서버로 복제될 때까지 트랜잭션 커밋이 기다릴지의 여부를 이 매개변수로도 제어한다. 
+<xref linkend="guc-synchronous-standby-names">가 설정되면, 트랜잭션의 WAL 레코드가 대기 서버로 복제될 때까지 트랜잭션 커밋이 
+기다릴지의 여부를 이 매개변수로도 제어한다. 
 <literal>on</>으로 설정되면, 트랜잭션의 커밋 레코드를 수신했고 디스크에 쓰기 되었다는 응답이 현재의 동기 대기 서버로부터 올 때까지 커밋이 대기한다. 
 이것은 운영 서버 및 대기 서버 양쪽에서 데이터베이스 저장소의 손상이 없는 경우에 트랜잭션이 분실되지 않았음을 보장한다. 
-<literal>remote_write</>로 설정되면, 트랜잭션의 커밋 레코드를 수신했고 대기 서버의 운영 체제에 쓰기 되었지만, 대기 서버의 안정된 저장소에 데이터가 도착했는지는 확실하지 않다는 응답이 현재의 동기 대기 서버로부터 올 때까지 커밋이 대기한다. 
-데이터 보존을 위해서는 <productname>Agens SQL</>의 대기 서버 인스턴스가 충돌한 경우에도 이 설정으로 충분하지만 대기 서버가 운영 체제 수준에서 충돌이 발생한 경우는 그렇지 않다.
+<literal>remote_write</>로 설정되면, 트랜잭션의 커밋 레코드를 수신했고 대기 서버의 운영 체제에 쓰기 되었지만, 
+대기 서버의 안정된 저장소에 데이터가 도착했는지는 확실하지 않다는 응답이 현재의 동기 대기 서버로부터 올 때까지 커밋이 대기한다. 
+데이터 보존을 위해서는 <productname>Agens SQL</>의 대기 서버 인스턴스가 충돌한 경우에도 이 설정으로 충분하지만 
+대기 서버가 운영 체제 수준에서 충돌이 발생한 경우는 그렇지 않다.
  </para>
  <para>
-동기 복제를 사용 중인 경우 일반적으로 디스크에 로컬로 쓰기 되도록 기다리거나, WAL 레코드의 복제를 기다리거나, 트랜잭션이 비동기적으로 커밋되게 하는 것이 합리적이다. 
-그러나, <literal>local</> 설정은 디스크에 로컬로 쓰기 되도록 기다리지만 동기 복제는 기다리지 않는 트랜잭션에 사용할 수 있다. 
-<varname>synchronous_standby_names</>를 설정하지 않으면 <literal>on</> 및 <literal>remote_write</>, <literal>local</> 설정 모두 동일한 동기화 레벨을 제공하며 트랜잭션 커밋은 로컬로 디스크에 쓰기만을 기다린다.
+동기 복제를 사용 중인 경우 일반적으로 로컬에서 디스크로 쓰기 되도록 기다리거나, WAL 레코드의 복제를 기다리거나, 
+트랜잭션이 비동기적으로 커밋되게 하는 것이 합리적이다. 
+그러나, <literal>local</> 설정은 로컬에서 디스크로 써지는 것은 기다리지만 동기 복제는 기다리지 않는 트랜잭션에 사용할 수 있다. 
+<varname>synchronous_standby_names</>를 설정하지 않으면 <literal>on</> 및 <literal>remote_write</>, <literal>local</> 설정 
+모두 동일한 동기화 레벨을 제공하며 트랜잭션 커밋은 로컬에서 디스크로 쓰기만을 기다린다.
  </para>
  <para>
-이 매개변수는 언제든 변경할 수 있다. 모든 트랜잭션의 동작은 사실상 커밋되었을 때의 설정에 따라 결정된다. 따라서 일부 트랜잭션 커밋은 동기적으로, 그 외에는 비동기적으로 만드는 것이 가능하고 유용하다. 
-예를 들면, 기본값이 반대인 경우 다중 문 트랜잭션 커밋 하나를 비동기적으로 만들려면 트랜잭션 내에서 <command>SET
+이 매개변수는 언제든 변경할 수 있다. 모든 트랜잭션의 동작은 사실상 커밋되었을 때의 설정에 따라 결정된다. 
+따라서 일부 트랜잭션 커밋은 동기적으로, 그 외에는 비동기적으로 만드는 것이 가능하고 유용하다. 
+예를 들면, 기본값이 반대인 경우 구문이 여러 개인 트랜잭션 커밋 하나를 비동기적으로 만들려면 트랜잭션 내에서 <command>SET
 LOCAL synchronous_commit TO OFF</>를 실행해야 한다.
  </para>
 </listitem>
@@ -1718,7 +1732,8 @@ LOCAL synchronous_commit TO OFF</>를 실행해야 한다.
 </term>
 <listitem>
  <para>
-디스크에 WAL을 강제로 업데이트할 때 사용되는 메서드. <varname>fsync</varname>가 off인 경우 WAL 파일을 일절 강제로 업데이트하지 않기 때문에 이 설정은 무관하다. 가능한 값은 다음과 같다.
+디스크에 WAL을 강제로 업데이트할 때 사용되는 메서드. 
+<varname>fsync</varname>가 off인 경우 WAL 파일을 일절 강제로 업데이트하지 않기 때문에 이 설정은 무관하다. 가능한 값은 다음과 같다.
  </para>
  <itemizedlist>
 <listitem>
@@ -1738,7 +1753,7 @@ LOCAL synchronous_commit TO OFF</>를 실행해야 한다.
 </listitem>
 <listitem>
 <para>
- <literal>fsync_writethrough</> (커밋마다 <function>fsync()</> 호출, 모든 디스크 쓰기 캐시에서 write-through 강제)
+ <literal>fsync_writethrough</> (커밋마다 <function>fsync()</> 호출, 모든 디스크 쓰기 캐시에서 write-through 강제로 수행)
 </para>
 </listitem>
 <listitem>
@@ -1752,7 +1767,8 @@ LOCAL synchronous_commit TO OFF</>를 실행해야 한다.
 기본값은 플랫폼에서 지원되는 위의 목록에서 첫 번째 메서드이다. 
 단, Linux에서는 <literal>fdatasync</>가 기본값이다. 기본값이 반드시 이상적인 것은 아니다. 
 충돌로부터 안전한 환경 설정을 만들거나 성능을 최적화하려면 값을 변경하거나 시스템 환경 설정의 다른 측면을 변경하는 것이 필요할 수도 있다. 
-이러한 측면은 <xref linkend="wal-reliability">에서 다룬다. 이 매개변수는 <filename>postgresql.conf</> 파일 또는 서버 커맨드 라인에서만 설정 가능하다.
+이러한 측면은 <xref linkend="wal-reliability">에서 다룬다. 
+이 매개변수는 <filename>postgresql.conf</> 파일 또는 서버 커맨드 라인에서만 설정 가능하다.
  </para>
 </listitem>
  </varlistentry>
@@ -1765,25 +1781,31 @@ LOCAL synchronous_commit TO OFF</>를 실행해야 한다.
 </term>
 <listitem>
  <para>
-이 매개변수가 on이면, <productname>Agens SQL</> 서버는 checkpoint 이후의 각 디스크 페이지를 처음 수정하는 도중에 해당 페이지의 전체 내용을 WAL에 기록한다. 
-이것은, 운영 체제 충돌 시 진행 중인 페이지 쓰기가 부분적으로만 완료되어 디스크 상의 페이지에 옛날 데이터와 새 데이터가 공존할 수 있기 때문에 필요하다. 
+이 매개변수가 on이면, <productname>Agens SQL</> 서버는 체크포인트 이후의 각 디스크 페이지를 처음 수정하는 도중에 
+해당 페이지의 전체 내용을 WAL에 기록한다. 
+이것은, 운영 체제 충돌 시 진행 중인 페이지 쓰기가 부분적으로만 완료되어 디스크 상의 페이지에 옛날 데이터와 새 데이터가 공존할 수 있기 때문에 
+필요하다. 
 일반적으로 WAL에 저장되는 행 수준(row-level) 변경 데이터는 충돌 후 복구 중에 그러한 페이지를 완전히 복구하는 데 충분하지 않다. 
 전체 페이지 이미지를 저장하면 페이지의 올바른 복구가 보장되지만 WAL에 기록해야 하는 데이터량의 증가를 감수해야 한다. 
-(WAL 리플레이는 항상 checkpoint에서 시작되므로 checkpoint 이후의 페이지별 첫 번째 변경 중에 해도 충분하다. 
-그러므로 전체 페이지 쓰기 비용을 줄이는 한 가지 방법은 checkpoint 간격 매개변수를 늘리는 것이다.)
+(WAL 리플레이는 항상 체크포인트에서 시작되므로 체크포인트 이후의 페이지별 첫 번째 변경 중에 해도 충분하다. 
+그러므로 전체 페이지 쓰기 비용을 줄이는 한 가지 방법은 체크포인트 간격 매개변수를 늘리는 것이다.)
  </para>
 
  <para>
-이 매개변수를 해제하면 정상적인 운영 속도가 빨라지지만 시스템 장애 발생 시 손상된 데이터가 복구 불가능하게 되거나 데이터 손상이 드러나지 않을 수 있다. 
-이러한 위험은 규모는 작지만 <varname>fsync</varname>을 해제했을 때와 유사하며, 해당 매개변수에 대해 권장되는 것과 환경이 동일할 때만 해제해야 한다.
+이 매개변수를 해제하면 정상적인 운영 속도가 빨라지지만 시스템 장애 발생 시 손상된 데이터가 복구 불가능하게 되거나 
+데이터 손상이 드러나지 않을 수 있다. 
+이러한 위험은 규모는 작지만 <varname>fsync</varname>을 해제했을 때와 유사하며, 
+fsync에 권장되는 것과 환경이 동일할 때만 해제해야 한다.
  </para>
 
  <para>
-이 매개변수를 해제하는 것은 point-in-time recovery(PITR)용 WAL 아카이빙의 사용에는 영향을 미치지 않는다(<xref linkend="continuous-archiving"> 참조).
+이 매개변수를 해제하는 것은 point-in-time recovery(PITR)용 WAL 아카이빙의 사용에는 영향을 미치지 않는다
+(<xref linkend="continuous-archiving"> 참조).
  </para>
 
  <para>
-이 매개변수는 <filename>postgresql.conf</> 파일 또는 서버 커맨드 라인에서만 설정 가능하다. 기본값은 <literal>on</>이다.
+이 매개변수는 <filename>postgresql.conf</> 파일 또는 서버 커맨드 라인에서만 설정 가능하다. 
+기본값은 <literal>on</>이다.
  </para>
 </listitem>
  </varlistentry>
@@ -1796,7 +1818,8 @@ LOCAL synchronous_commit TO OFF</>를 실행해야 한다.
 </term>
 <listitem>
  <para>
-이 매개변수가 <literal>on</>이면, <productname>Agens SQL</> 서버는 checkpoint 이후의 각 디스크 페이지를 처음 수정하는 도중에, 소위 힌트 비트(hint bits)의 중요하지 않은 수정에 대해서도 해당 페이지의 전체 내용을 WAL에 기록한다.
+이 매개변수가 <literal>on</>이면, <productname>Agens SQL</> 서버는 체크포인트 이후의 각 디스크 페이지를 처음 수정하는 도중에는
+소위 힌트 비트(hint bits)의 중요하지 않은 수정도 포함하여 해당 페이지의 전체 내용을 WAL에 기록한다.
  </para>
 
  <para>
@@ -1805,7 +1828,7 @@ LOCAL synchronous_commit TO OFF</>를 실행해야 한다.
  </para>
 
  <para>
-이 매개변수는 서버 시작 시에만 설정 가능하다. 기본값은 <literal>off</>이다.
+이 매개변수는 서버 시작 시 설정된다. 기본값은 <literal>off</>이다.
  </para>
 </listitem>
  </varlistentry>
@@ -1818,15 +1841,18 @@ LOCAL synchronous_commit TO OFF</>를 실행해야 한다.
 </term>
 <listitem>
  <para>
-WAL 데이터에 사용되고 아직 디스크에 기록되지 않은 공유 메모리의 합계. 기본 설정 -1은 <xref linkend="guc-shared-buffers">의 1/32번째(약 3%)와 동일하게 선택한다. 
-<literal>64kB</literal> 이상, WAL 세그먼트 1개 크기 이하여야 하며, 일반적으로 <literal>16MB</literal>이다. 이 값은 자동 선택이 너무 크거나 작은 경우에 직접 선택할 수 있으며, <literal>32kB</literal> 미만의 양의 값은 <literal>32kB</literal>로 처리된다. 
-이 매개변수는 서버 시작 시에만 설정 가능하다.
+WAL 데이터에 사용되고 아직 디스크에 기록되지 않은 공유 메모리의 합계. 
+기본 설정 -1은 <xref linkend="guc-shared-buffers">의 1/32번째(약 3%)와 동일한 크기로써 
+<literal>64kB</literal> 이상, WAL 세그먼트 1개 크기 이하이고, 일반적으로 <literal>16MB</literal>이다. 
+자동 설정이 너무 크거나 작은 경우에 직접 선택할 수 있으며, 
+<literal>32kB</literal> 미만은 <literal>32kB</literal>로 처리된다. 
+이 매개변수는 서버 시작 시 설정 된다.
  </para>
 
  <para>
 WAL 버퍼의 내용은 모든 트랜잭션 커밋마다 디스크에 쓰기 되므로 극단적으로 큰 값은 별다른 장점이 없을 가능성이 높다. 
 그러나, 이 값을 최소한 몇 메가바이트로 설정하면 여러 클라이언트가 한꺼번에 커밋함으로써 busy한 서버의 쓰기 성능이 개선된다. 
-기본 설정 -1에 의해 선택된 자동 튜닝은 대부분의 경우 합당한 결과를 주어야 한다.
+기본 설정 -1인 자동 튜닝은 대부분 합리적인 결과를 만든다.
  </para>
 
 </listitem>
@@ -1840,8 +1866,12 @@ WAL 버퍼의 내용은 모든 트랜잭션 커밋마다 디스크에 쓰기 되
 </term>
 <listitem>
  <para>
-WAL writer의 작업 라운드 사이의 지연을 지정한다. 각 라운드에서 writer는 WAL을 디스크에 기록한다. 그런 다음, <varname>wal_writer_delay</>밀리초 동안 슬립한 다음, 반복한다. 
-기본값은 200밀리초이다(<literal>200ms</>). 다수의 시스템에서 슬립 지연의 효율적인 설정은 10밀리초이다. <varname>wal_writer_delay</>를 10의 배수가 아닌 다른 값으로 설정하면 10의 배수로 값을 올림하여 설정한 것과 결과가 동일하다. 
+WAL writer의 작업 간 지연을 정한다. 
+각 작업 시 writer는 WAL을 디스크에 기록한다. 
+그런 다음, <varname>wal_writer_delay</> 밀리초 동안 슬립한 다음, 반복한다. 
+기본값은 200밀리초이다(<literal>200ms</>). 
+다수의 시스템에서 효율적인 슬립 지연 설정은 10밀리초이다. 
+<varname>wal_writer_delay</>를 10의 배수가 아닌 다른 값으로 설정하면 10의 배수로 값을 올림하여 설정한 것과 결과가 동일하다. 
 이 매개변수는 <filename>postgresql.conf</> 파일 또는 서버 커맨드 라인에서만 설정 가능하다.
  </para>
 </listitem>
@@ -1855,14 +1885,21 @@ WAL writer의 작업 라운드 사이의 지연을 지정한다. 각 라운드�
 </term>
 <listitem>
  <para>
-<varname>commit_delay</varname>는 WAL 쓰기를 초기화하기 전에 측정된 시간 지연을 마이크로초 단위로 추가한다. 
-이것은 시스템 로드가 충분히 커서 주어진 간격 내에 트랜잭션을 추가로 커밋할 준비가 된 경우 단일 WAL 쓰기를 통해 대량의 트랜잭션이 커밋되게 함으로써 그룹 커밋 처리량을 개선할 수 있다. 
-그러나 이것은 WAL 쓰기별로 대기 시간을 최대 <varname>commit_delay</varname> 마이크로초까지 늘리기도 한다. 커밋할 준비가 된 트랜잭션이 없을 경우 지연은 낭비되는 시간이므로 최소한 <varname>commit_siblings</varname>인 경우만 지연이 수행된다. 
-쓰기가 곧 시작되는 경우 다른 트랜잭션이 작동된다. 또한 <varname>fsync</varname>가 비활성화되면 지연이 수행되지 않는다. 기본 <varname>commit_delay</>는 0이다(지연 없음). 수퍼유저만 이 설정을 변경할 수 있다.
+<varname>commit_delay</varname>는 WAL 플러쉬(flush)를 초기화하기 전에 측정된 시간 지연을 마이크로초 단위로 추가한다. 
+이것은 시스템 로드가 충분히 커서 주어진 간격 내에 트랜잭션을 추가로 커밋할 준비가 된 경우 
+단일 WAL 플러쉬를 통해 대량의 트랜잭션이 커밋되게 함으로써 그룹 커밋 처리량을 개선할 수 있다. 
+그러나 이것은 WAL 플러쉬별로 대기 시간을 최대 <varname>commit_delay</varname> 마이크로초까지 늘리기도 한다. 
+커밋할 준비가 된 트랜잭션이 없을 경우 지연은 낭비되는 시간이므로 쓰기가 곧 시작되는 경우 최소한 <varname>commit_siblings</varname>만큼의 다른
+트랜잭션이 수행될 때 지연이 수행된다. 
+또한 <varname>fsync</varname>가 비활성화되면 지연이 수행되지 않는다. 
+기본 <varname>commit_delay</>는 0이다(지연 없음). 
+수퍼유저만 이 설정을 변경할 수 있다.
  </para>
  <para>
-9.3 이전의 <productname>Agens SQL</> 릴리스에서 <varname>commit_delay</varname>는 동작이 다르고 효과도 떨어진다. 이것은 모든 WAL 쓰기가 아닌 커밋에만 영향을 주었고 WAL 쓰기가 곧 완료된 경우에도 환경 설정된 지연 시간 동안 대기했다. 
-<productname>Agens SQL</> 9.3 초반에, 쓸 준비가 된 첫 번째 프로세스는 환경 설정된 시간 간격을 기다리고, 후속 프로세스는 선행 프로세스의 쓰기 연산이 끝날 때까지 대기한다.
+9.3 이전의 <productname>PostgreSQL</> 버전에서 <varname>commit_delay</varname>는 동작이 다르고 효과도 떨어진다. 
+이것은 모든 WAL 플러쉬가 아닌 커밋에만 영향을 주었고 WAL 플러쉬가 곧 완료된 경우에도 환경 설정된 지연 시간 동안 대기했다. 
+<productname>PostgreSQL</> 9.3 초반에, 쓸 준비가 된 첫 번째 프로세스는 환경 설정된 시간 간격을 기다리고, 
+추후 프로세스는 선행 프로세스의 쓰기 연산이 끝날 때까지 대기한다.
  </para>
 </listitem>
  </varlistentry>
@@ -1875,7 +1912,9 @@ WAL writer의 작업 라운드 사이의 지연을 지정한다. 각 라운드�
 </term>
 <listitem>
  <para>
-<varname>commit_delay</> 지연을 수행하기 전에 필요한 동시 개방 트랜잭션의 최소 수. 값이 크면, 지연 간격 중에 커밋 준비가 된 다른 트랜잭션이 최소한 하나 이상일 확률이 높다. 기본값은 5개 트랜잭션이다.
+<varname>commit_delay</> 지연을 수행하기 전에 필요한 동시 개방 트랜잭션의 최소 수. 
+값이 크면, 지연 간격 중에 커밋 준비가 된 다른 트랜잭션이 최소한 하나 이상일 확률이 높다. 
+기본값은 5개 트랜잭션이다.
  </para>
 </listitem>
  </varlistentry>
@@ -1883,7 +1922,7 @@ WAL writer의 작업 라운드 사이의 지연을 지정한다. 각 라운드�
  </variablelist>
  </sect2>
  <sect2 id="runtime-config-wal-checkpoints">
- <title>Checkpoints</title>
+ <title> 체크포인트</title>
 
 <variablelist>
  <varlistentry id="guc-checkpoint-segments" xreflabel="checkpoint_segments">
@@ -1894,7 +1933,8 @@ WAL writer의 작업 라운드 사이의 지연을 지정한다. 각 라운드�
 </term>
 <listitem>
  <para>
-자동 WAL checkpoints 간 로그 파일 세그먼트의 최대 수(각 세그먼트는 일반적으로 16메가바이트). 기본값은 3개 세그먼트이다. 이 매개변수를 늘리면 충돌 복구에 필요한 시간을 늘릴 수 있다. 
+자동 WAL 체크포인트들 간 로그 파일 세그먼트의 최대 수(각 세그먼트는 일반적으로 16메가바이트). 
+기본값은 3개 세그먼트이다. 이 매개변수를 늘리면 충돌 복구에 필요한 시간을 늘릴 수 있다. 
 이 매개변수는 <filename>postgresql.conf</> 파일 또는 서버 커맨드 라인에서만 설정 가능하다.
  </para>
 </listitem>
@@ -1908,7 +1948,8 @@ WAL writer의 작업 라운드 사이의 지연을 지정한다. 각 라운드�
 </term>
 <listitem>
  <para>
-자동 WAL checkpoints 간의 최대 시간. 초 단위. 기본값은 5분이다(<literal>5min</>). 이 매개변수를 늘리면 충돌 복구에 필요한 시간을 늘릴 수 있다. 
+자동 WAL 체크포인트들 간의 최대 시간. 초 단위. 기본값은 5분이다(<literal>5min</>). 
+이 매개변수를 늘리면 충돌 복구에 필요한 시간을 늘릴 수 있다. 
 이 매개변수는 <filename>postgresql.conf</> 파일 또는 서버 커맨드 라인에서만 설정 가능하다.
  </para>
 </listitem>
@@ -1922,7 +1963,8 @@ WAL writer의 작업 라운드 사이의 지연을 지정한다. 각 라운드�
 </term>
 <listitem>
  <para>
-checkpoints 간 총 시간 분할로써, checkpoints 완료 목표를 지정한다. 기본값은 0.5이다. 이 매개변수는 <filename>postgresql.conf</> 파일 또는 서버 커맨드 라인에서만 설정 가능하다.
+ 체크포인트들 간 총 시간 분할로써, 체크포인트들 완료 목표를 지정한다. 기본값은 0.5이다. 
+ 이 매개변수는 <filename>postgresql.conf</> 파일 또는 서버 커맨드 라인에서만 설정 가능하다.
  </para>
 </listitem>
  </varlistentry>
@@ -1935,8 +1977,11 @@ checkpoints 간 총 시간 분할로써, checkpoints 완료 목표를 지정한�
 </term>
 <listitem>
  <para>
-checkpoint 세그먼트 파일을 채움으로써 checkpoints가 여기에 지정된 초 수보다 근접해서 발생한 경우 서버 로그에 메시지를 기록한다(<varname>checkpoint_segments</>를 증가시키는 것이 권장됨). 
-기본값은 30초이다(<literal>30s</>). 0은 경고를 비활성화한다. <varname>checkpoint_timeout</varname>가 <varname>checkpoint_warning</varname> 미만이면 경고가 발생하지 않는다. 이 매개변수는 <filename>postgresql.conf</> 파일 또는 서버 커맨드 라인에서만 설정 가능하다.
+ 체크포인트 세그먼트 파일을 채우는 체크포인트들이 여기에 지정된 초 수보다 빨리 발생한 경우 서버 로그에 메시지를 기록한다
+ (<varname>checkpoint_segments</>를 증가시키는 것이 권장됨). 
+기본값은 30초이다(<literal>30s</>). 0은 경고를 비활성화한다. 
+<varname>checkpoint_timeout</varname>가 <varname>checkpoint_warning</varname> 미만이면 경고가 발생하지 않는다. 
+이 매개변수는 <filename>postgresql.conf</> 파일 또는 서버 커맨드 라인에서만 설정 가능하다.
  </para>
 </listitem>
  </varlistentry>
@@ -1955,9 +2000,12 @@ checkpoint 세그먼트 파일을 채움으로써 checkpoints가 여기에 지�
 </term>
 <listitem>
  <para>
-<varname>archive_mode</>을 사용하는 것으로 설정하면 완료된 WAL 세그먼트가 <xref linkend="guc-archive-command"> 설정에 의해 아카이브 저장소로 전달된다. 
-<varname>archive_mode</> 및 <varname>archive_command</>는 별개의 변수이므로 아카이빙 모드를 해지하지 않고도 <varname>archive_command</>를 변경할 수 있다. 
-이 매개변수는 서버 시작 시에만 설정 가능하다. <varname>wal_level</>이 <literal>minimal</>로 설정된 경우 <varname>archive_mode</>를 사용으로 설정할 수 없다.
+<varname>archive_mode</>을 사용하는 것으로 설정하면 완료된 WAL 세그먼트가 <xref linkend="guc-archive-command"> 설정에 의해 
+아카이브 저장소로 전달된다. 
+<varname>archive_mode</> 및 <varname>archive_command</>는 별개의 변수이므로 아카이빙 모드를 해지하지 않고도 
+<varname>archive_command</>를 변경할 수 있다. 
+이 매개변수는 서버 시작 시 설정된다. 
+<varname>wal_level</>이 <literal>minimal</>로 설정된 경우 <varname>archive_mode</>를 사용으로 설정할 수 없다.
  </para>
 </listitem>
  </varlistentry>
@@ -1970,14 +2018,21 @@ checkpoint 세그먼트 파일을 채움으로써 checkpoints가 여기에 지�
 </term>
 <listitem>
  <para>
-완료된 WAL 파일 세그먼트를 아카이브하기 위해 실행하는 로컬 쉘 명령. string에서 <literal>%p</>는 아카이브할 파일의 경로명으로 대체되고 <literal>%f</>는 파일명으로만 대체된다. 
-(경로명은 서버(예: 클러스터의 데이터 디렉토리)의 작업 디렉토리에 상대적이다.) <literal>%</> 문자를 명령에 포함하려면 <literal>%%</>를 사용해야 한다. 성공한 경우에만 명령이 0 종료(zero exit) 상태를 리턴하는 것이 중요하다. 
+완료된 WAL 파일 세그먼트를 아카이브하기 위해 실행하는 로컬 쉘 명령. 
+string에서 <literal>%p</>는 아카이브할 파일의 경로명으로 대체되고 <literal>%f</>는 파일명으로만 대체된다. 
+(경로명은 서버(예: 클러스터의 데이터 디렉토리)의 작업 디렉토리에 상대적이다.) 
+<literal>%</> 문자를 명령에 포함하려면 <literal>%%</>를 사용해야 한다. 
+성공한 경우에만 명령이 0 종료(zero exit) 상태를 리턴하는 것이 중요하다. 
 자세한 내용은 <xref linkend="backup-archiving-wal">을 참조 바란다.
  </para>
  <para>
-이 매개변수는 <filename>postgresql.conf</> 파일 또는 서버 커맨드 라인에서만 설정 가능하다. <varname>archive_mode</>가 서버 시작 시에 활성화되지 않은 경우 무시된다. 
-<varname>archive_mode</>가 사용으로 설정된 상태에서 <varname>archive_command</>의 string이 비어 있는 경우(기본값) WAL 아카이빙이 일시적으로 비활성화되지만 서버는 명령이 곧 제시될 것이라는 기대를 갖고 WAL 세그먼트 파일을 계속 누적한다. 
-<varname>archive_command</>가 true만 리턴하는 명령으로 설정하면(예: <literal>/bin/true</>)(Windows에서 <literal>REM</>), 아카이빙이 효율적으로 비활성화되지만, 아카이브 복구에 필요한 WAL 파일의 체인이 끊어지므로 특이한 환경에서만 사용되어야 한다.
+이 매개변수는 <filename>postgresql.conf</> 파일 또는 서버 커맨드 라인에서만 설정 가능하다. 
+<varname>archive_mode</>가 서버 시작 시에 활성화되지 않은 경우 무시된다. 
+<varname>archive_mode</>가 사용으로 설정된 상태에서 <varname>archive_command</>의 string이 비어 있는 경우(기본값) 
+WAL 아카이빙이 일시적으로 비활성화되지만 서버는 명령이 곧 제시될 것이라는 기대를 갖고 WAL 세그먼트 파일을 계속 누적한다. 
+<varname>archive_command</>가 true만 리턴하는 명령으로 설정하면
+예를 들어 <literal>/bin/true</> 같은 경우(Windows에서는 <literal>REM</>), 아카이빙이 효율적으로 비활성화되지만, 
+아카이브 복구에 필요한 WAL 파일의 체인이 끊어지므로 특이한 환경에서만 사용되어야 한다.
  </para>
 </listitem>
  </varlistentry>
@@ -1990,12 +2045,19 @@ checkpoint 세그먼트 파일을 채움으로써 checkpoints가 여기에 지�
 </term>
 <listitem>
  <para>
-<xref linkend="guc-archive-command">는 완료된 WAL 세그먼트를 호출만 한다. 그러므로, 서버에서는 WAL 트래픽이 발생되지 않아서(따라서 여유 시간이 있음) 트랜잭션의 완료 및 아카이브 저장소에서 안전한 기록 사이에 긴 지연이 발생할 수 있다. 
-데이터가 아카이브되지 않은 채로 방치되지 않게 하기 위해 서버가 새 WAL 세그먼트 파일로 주기적으로 전환되도록 <varname>archive_timeout</>을 설정할 수 있다. 
-이 매개변수가 0보다 큰 경우 마지막 세그먼트 파일로 전환한 이후로 여기서 지정된 초 시간을 경과할 때마다, 그리고 단일 checkpoint를 비롯한 데이터베이스 작업이 있을 때마다 서버는 새 세그먼트 파일로 전환한다. 
-(<varname>checkpoint_timeout</>을 늘리면 유휴 시스템에서 불필요한 checkpoints가 줄어든다.) 강제 전환 때문에 일찌감치 폐쇄된 아카이브된 파일의 길이는 완전한 전체 파일과 동일하다는 점에 유의해야 한다. 
-따라서, <varname>archive_timeout</>를 매우 짧게 하는 것은 아카이브 저장소를 부풀게 하므로 현명하지 못하다. <varname>archive_timeout</>을 1분 정도로 설정하는 것이 일반적으로 합당하다. 
-데이터를 마스터 서버로 빠르게 복사하려면 아카이빙 대신 streaming replication의 사용을 고려해야 한다. 이 매개변수는 <filename>postgresql.conf</> 파일 또는 서버 커맨드 라인에서만 설정 가능하다.
+<xref linkend="guc-archive-command">는 완료된 WAL 세그먼트를 호출만 한다. 
+그러므로, 서버에서는 WAL 트래픽이 발생되지 않아서(WAL 트래픽 발생 시 여유시간이 있거나) 
+트랜잭션의 완료 되는 시간과 아카이브 저장소에서 안전하게 기록 되는 사이에 긴 지연이 발생할 수 있다. 
+데이터가 아카이브되지 않은 채로 방치되지 않게 하기 위해 서버가 새 WAL 세그먼트 파일로 주기적으로 전환되도록 
+<varname>archive_timeout</>을 설정할 수 있다. 
+이 매개변수가 0보다 큰 경우 마지막 세그먼트 파일로 전환한 이후로 여기서 지정된 초 시간을 경과할 때마다, 
+그리고 단일 체크포인트들을 비롯한 데이터베이스 작업이 있을 때마다 서버는 새 세그먼트 파일로 전환한다. 
+(<varname>checkpoint_timeout</>을 늘리면 유휴 시스템에서 불필요한 체크포인트들이 줄어든다.) 
+강제 전환 때문에 일찌감치 종료된 아카이브된 파일의 길이도 전체 파일 길이와 동일하다는 점에 유의해야 한다. 
+따라서, <varname>archive_timeout</>를 매우 짧게 하는 것은 아카이브 저장소를 부풀게 하므로 현명하지 못하다. 
+<varname>archive_timeout</>을 1분 정도로 설정하는 것이 일반적으로 합당하다. 
+데이터를 마스터 서버로 빠르게 복사하려면 아카이빙 대신 스트리밍 복제를 사용해야 한다.
+이 매개변수는 <filename>postgresql.conf</> 파일 또는 서버 커맨드 라인에서만 설정 가능하다.
  </para>
 </listitem>
  </varlistentry>
@@ -2009,16 +2071,20 @@ checkpoint 세그먼트 파일을 채움으로써 checkpoints가 여기에 지�
 <title>복제</title>
 
 <para>
- 이 설정은 내장 <firstterm>streaming replication</> 기능의 동작을 제어한다(<xref linkend="streaming-replication"> 참조). 서버는 마스터 서버거나 대기 서버다. 
- 마스터 서버는 데이터를 전송할 수 있고, 대기 서버는 언제나 복제된 데이터의 수신자이다. cascading replication(<xref linkend="cascading-replication"> 참조)을 사용하는 경우 대기 서버는 수신자 겸 전송자일 수 있다. 
- 매개변수는 주로 전송 및 대기 서버에 대한 것이며, 일부 매개변수는 마스터 서버에서만 의미가 있다. 클러스터 간에 설정은 필요 시 별 문제 없이 다르게 할 수 있다.
+ 이 설정은 내장 <firstterm>스트리밍 복제</> 기능의 동작을 제어한다(<xref linkend="streaming-replication"> 참조). 
+ 서버는 마스터 서버거나 대기 서버다. 
+ 마스터 서버는 데이터를 전송할 수 있고, 대기 서버는 언제나 복제된 데이터의 수신자이다. 
+ 케스케이드형 복제(<xref linkend="cascading-replication"> 참조)을 사용하는 경우 대기 서버는 수신자 겸 전송자일 수 있다. 
+ 매개변수는 주로 전송 및 대기 서버에 대한 것이며, 일부 매개변수는 마스터 서버에서만 의미가 있다. 
+ 클러스터 간에 설정은 필요 시 별 문제 없이 다르게 할 수 있다.
 </para>
 
 <sect2 id="runtime-config-replication-sender">
  <title>전송 서버(들)</title>
 
  <para>
-이 매개변수는 복제 데이터를 하나 이상의 대기 서버로 전송하는 서버에 설정할 수 있다. 마스터는 항상 전송 서버 이므로 이 매개변수를 언제나 마스터에 설정해야 한다. 
+이 매개변수는 복제 데이터를 하나 이상의 대기 서버로 전송하는 서버에 설정할 수 있다. 
+마스터는 항상 전송 서버 이므로 이 매개변수를 언제나 마스터에 설정해야 한다. 
 이 매개변수의 역할 및 의미는 대기 서버가 마스터로 된 이후에 변경되지 않는다.
  </para>
 
@@ -2031,10 +2097,13 @@ checkpoint 세그먼트 파일을 채움으로써 checkpoints가 여기에 지�
  </term>
  <listitem>
  <para>
-대기 서버 또는 스트리밍 베이스 백업 클라이언트로부터의 동시 연결 최대 수를 지정한다(예: 동시에 실행 중인 WAL 전송자 프로세스의 최대 수). 
-기본값은, 복제를 비활성화하는 0이다. WAL 전송자 프로세스는 총 연결 수에 포함되므로 매개변수를 <xref linkend="guc-max-connections">보다 큰 값으로 설정할 수 없다. 
-스트리밍 클라이언트의 연결이 갑작스럽게 끊어지면 타임아웃이 될 때까지 고아 연결 슬롯이 생기므로, 예상되는 클라이언트의 최대 수보다 이 매개변수를 약간 더 크게 설정하여 연결이 끊어진 클라이언트가 즉시 재연결될 수 있도록 해야 한다. 
-이 매개변수는 서버 시작 시에만 설정 가능하다. 대기 서버로부터의 연결이 가능하도록 <varname>wal_level</>은 <literal>archive</>와 같거나 크게 설정해야 한다.
+대기 서버 또는 스트리밍 기반 백업 클라이언트로부터의 동시 연결 최대 수를 지정한다(예: 동시에 실행 중인 WAL 전송자 프로세스의 최대 수). 
+기본값은, 복제를 비활성화하는 0이다. 
+WAL 전송자 프로세스는 총 연결 수에 포함되므로 매개변수를 <xref linkend="guc-max-connections">보다 큰 값으로 설정할 수 없다. 
+스트리밍 클라이언트의 연결이 갑작스럽게 끊어지면 타임아웃이 될 때까지 고아 연결 슬롯이 생기므로, 
+예상되는 클라이언트의 최대 수보다 이 매개변수를 약간 더 크게 설정하여 연결이 끊어진 클라이언트가 즉시 재연결될 수 있도록 해야 한다. 
+이 매개변수는 서버 시작 시 설정된다.
+대기 서버로부터의 연결이 가능하도록 <varname>wal_level</>은 <literal>archive</>와 같거나 크게 설정해야 한다.
  </para>
  </listitem>
 </varlistentry>
@@ -2047,8 +2116,10 @@ checkpoint 세그먼트 파일을 채움으로써 checkpoints가 여기에 지�
  </term>
  <listitem>
 <para>
- 서버가 지원할 수 있는 복제 슬롯의 최대 수를 지정한다(<xref linkend="streaming-replication-slots"> 참조). 기본값은 0이다. 이 매개변수는 서버 시작 시에만 설정 가능하다. 
- 복제 슬롯의 사용이 가능하도록 <varname>wal_level</varname>은 <literal>archive</literal>와 같거나 크게 설정해야 한다. 현재 존재하는 복제 슬롯 수보다 작은 값으로 설정하면 서버가 시작되지 않는다.
+ 서버가 지원할 수 있는 복제 슬롯의 최대 수를 지정한다(<xref linkend="streaming-replication-slots"> 참조). 
+ 기본값은 0이다. 이 매개변수는 서버 시작 시 설정 된다.
+ 복제 슬롯의 사용이 가능하도록 <varname>wal_level</varname>은 <literal>archive</literal>와 같거나 크게 설정해야 한다. 
+ 현재 존재하는 복제 슬롯 수보다 작은 값으로 설정하면 서버가 시작되지 않는다.
 </para>
  </listitem>
 </varlistentry>
@@ -2061,14 +2132,20 @@ checkpoint 세그먼트 파일을 채움으로써 checkpoints가 여기에 지�
  </term>
  <listitem>
  <para>
-대기 서버가 streaming replication을 위해 과거 로그 파일을 가져와야 하는 경우 <filename>pg_xlog</> 디렉토리에 저장되는 과거 로그 파일 세그먼트의 최소 수를 지정한다. 
-각 세그먼트는 보통 16메가바이트이다. 전송 서버에 연결된 대기 서버가 <varname>wal_keep_segments</> 세그먼트에 휠씬 못 미치면 전송 서버는 대기 서버에 의해 필요한 만큼 WAL 세그먼트를 삭제하고, 이때 복제 연결이 중단된다. 
-다운스트림 연결도 결과적으로 실패한다. (단, 대기 서버는 WAL 아카이빙이 사용 중인 경우 아카이브에서 세그먼트를 가져와서 복구할 수 있다.)
+대기 서버가 스트리밍 복제를 위해 과거 로그 파일을 가져와야 하는 경우 <filename>pg_xlog</> 디렉토리에 저장되는 
+과거 로그 파일 세그먼트의 최소 수를 지정한다. 
+각 세그먼트는 보통 16메가바이트이다. 
+전송 서버에 연결된 대기 서버가 <varname>wal_keep_segments</> 세그먼트에 휠씬 못 미치면 
+전송 서버는 대기 서버에서 아직 필요한 WAL 세그먼트를 삭제할 수도 있는데, 그러면 복제 연결이 중단된다. 
+다운스트림 연결도 결과적으로 실패한다. 
+(단, 대기 서버는 WAL 아카이빙 사용 중인 경우 아카이브에서 세그먼트를 가져와서 복구할 수 있다.)
  </para>
 
  <para>
-이것은, <filename>pg_xlog</>에 저장되는 최소 세그먼트 수만 지정한다. 시스템은 WAL 아카이브용으로 또는 checkpoint에서 복구용으로 세그먼트를 좀 더 보유해야 할 수 있다. 
-<varname>wal_keep_segments</>가 0(기본값)인 경우 시스템은 대기 서버를 위한 추가 세그먼트를 유지하지 않으므로, 대기 서버에서 사용 가능한 예전 WAL 세그먼트의 수는 이전 checkpoint의 위치 및 WAL 아카이빙의 상태 함수이다. 
+이것은, <filename>pg_xlog</>에 저장되는 최소 세그먼트 수만 지정한다. 
+시스템은 WAL 아카이브용으로 또는 체크포인트에서 복구용으로 세그먼트를 좀 더 보유해야 할 수 있다. 
+<varname>wal_keep_segments</>가 0(기본값)인 경우 시스템은 대기 서버를 위한 추가 세그먼트를 유지하지 않으므로, 
+대기 서버에서 사용 가능한 예전 WAL 세그먼트의 수는 이전 체크포인트의 위치 및 WAL 아카이빙의 상태 함수이다. 
 이 매개변수는 <filename>postgresql.conf</> 파일 또는 서버 커맨드 라인에서만 설정 가능하다.
  </para>
  </listitem>
@@ -2082,8 +2159,11 @@ checkpoint 세그먼트 파일을 채움으로써 checkpoints가 여기에 지�
 </term>
 <listitem>
  <para>
-지정된 밀리초 이상 작동되지 않은 복제 연결이 중단된다. 이것은 전송 서버가 대기 서버 충돌 또는 네트워크 중단을 검출할 때 유용하다. 0 값은 시스템 타임아웃 메커니즘을 비활성화한다. 
-이 매개변수는 <filename>postgresql.conf</> 파일 또는 서버 커맨드 라인에서만 설정 가능하다. 기본값은 60초이다.
+지정된 밀리초 이상 작동되지 않은 복제 연결은 중단된다. 
+이것은 전송 서버가 대기 서버 충돌 또는 네트워크 중단을 검출할 때 유용하다. 
+0 값은 시스템 타임아웃 메커니즘을 비활성화한다. 
+이 매개변수는 <filename>postgresql.conf</> 파일 또는 서버 커맨드 라인에서만 설정 가능하다. 
+기본값은 60초이다.
  </para>
 </listitem>
  </varlistentry>
@@ -2096,8 +2176,9 @@ checkpoint 세그먼트 파일을 채움으로써 checkpoints가 여기에 지�
 
  <para>
 이 매개변수는 복제 데이터를 하나 이상의 대기 서버로 전송하는 마스터/운영 서버에 설정할 수 있다. 
-이 매개변수 외에, <xref linkend="guc-wal-level">은 마스터 서버에 적절하게 설정되어야 하고 옵션으로 WAL 아카이빙도 활성화될 수 있다(<xref linkend="runtime-config-wal-archiving"> 참조). 
-사용자가 대기 서버가 마스터가 될 가능성에 대비하여 이 매개변수를 설정하고 싶어 하더라도 대기 서버의 이 매개변수 값은 아무 상관이 없다.
+이 매개변수 외에, <xref linkend="guc-wal-level">은 마스터 서버에 적절하게 설정되어야 하고 옵션으로 WAL 아카이빙도 활성화될 수 있다
+(<xref linkend="runtime-config-wal-archiving"> 참조). 
+사용자가 대기 서버가 마스터가 될 가능성에 대비하여 이 매개변수를 설정하면 안 된다. 마스터 서버와 아무 상관이 없기 때문이다.
  </para>
 
 <variablelist>
@@ -2110,20 +2191,26 @@ checkpoint 세그먼트 파일을 채움으로써 checkpoints가 여기에 지�
 </term>
 <listitem>
  <para>
-<xref linkend="synchronous-replication">에 설명된 대로 <firstterm>동기 복제</>를 지원할 수 있는 대기 서버 이름을 쉼표로 구분된 목록으로 지정한다. 작동 중인 동기 대기 서버는 한 번에 많아야 하나이다. 
+<xref linkend="synchronous-replication">에 설명된 대로 <firstterm>동기 복제</>를 지원할 수 있는 대기 서버 이름을 쉼표로 구분된 목록으로 지정한다. 
+작동 중인 동기 대기 서버는 한 번에 많아야 하나이다. 
 커밋 대기 중인 트랜잭션은 이 대기 서버가 데이터 수신을 확인한 후에 진행이 허용된다. 
-동기 대기 서버는 이 목록 중에서 현재 연결되어 있고 실시간으로 데이터를 스트리밍하는 첫 번째 대기 서버다(<link linkend="monitoring-stats-views-table">
-<literal>pg_stat_replication</></link> 뷰에서 <literal>streaming</literal> 상태로 표시됨). 
-이 목록에서 나중에 나타난 다른 대기 서버는 잠재적 동기 대기 서버를 나타낸다. 현재 동기 대기 서버가 어떤 이유로든 연결이 끊어진 경우 우선 순위가 그 다음으로 높은 대기 서버로 즉시 대체된다.
+동기 대기 서버는 이 목록 중에서 현재 연결되어 있고 실시간으로 데이터를 스트리밍하는 첫 번째 대기 서버다
+(<link linkend="monitoring-stats-views-table"><literal>pg_stat_replication</></link> 뷰에서 <literal>streaming</literal> 상태로 표시됨). 
+이 목록에서 나중에 나타난 다른 대기 서버는 잠재적 동기 대기 서버를 나타낸다. 
+현재 동기 대기 서버가 어떤 이유로든 연결이 끊어진 경우 우선 순위가 그 다음으로 높은 대기 서버로 즉시 대체된다.
 대기 서버 이름을 2개 이상 지정하면 매우 높은 고가용성을 달성할 수 있다.
  </para>
  <para>
-대기 서버의 WAL 수신자의 <varname>primary_conninfo</>에 설정된 대로 이런 용도의 대기 서버 이름은 대기 서버의 <varname>application_name</> 설정이다. 고유성을 적용하는 메커니즘은 없다. 
-복제의 경우, 일치하는 대기 서버 중 하나는 정확히 어떤 것인지 가늠하기 어렵지만 동기 대기 서버가 되도록 선택된다. 특수 항목 <literal>*</>는 <literal>walreceiver</>의 기본 애플리케이션 이름을 비롯한 모든 <varname>application_name</>과 일치한다.
+대기 서버의 WAL 수신자의 <varname>primary_conninfo</>에 설정된 대로 대기 서버 이름의 용도는 대기 서버의 <varname>application_name</>을 설정하기 
+위함이다. 이름의 고유성을 검사하는 메커니즘은 없다. 
+복제의 경우, 일치하는 대기 서버 중 하나는 정확히 어떤 것인지 가늠하기 어렵지만 동기 대기 서버가 되도록 선택된다. 
+특수 항목 <literal>*</>는 <literal>walreceiver</>의 기본 애플리케이션 이름을 비롯한 모든 <varname>application_name</>과 일치한다.
  </para>
  <para>
-동기 대기 서버 이름이 여기서 지정되지 않으면 동기 복제는 활성화되지 않고 트랜잭션 커밋은 복제를 기다리지 않는다. 이것은 기본 환경 설정이다. 
-동기 복제가 활성화되더라도 개별 트랜잭션은 <xref linkend="guc-synchronous-commit"> 매개변수를 <literal>local</> 또는 <literal>off</>로 설정함으로써 복제를 기다리지 않도록 환경 설정할 수 있다.
+동기 대기 서버 이름이 여기서 지정되지 않으면 동기 복제는 활성화되지 않고 트랜잭션 커밋은 복제를 기다리지 않는다. 
+이것은 기본 환경 설정이다. 
+동기 복제가 활성화되더라도 개별 트랜잭션은 <xref linkend="guc-synchronous-commit"> 매개변수를 <literal>local</> 또는 
+<literal>off</>로 설정함으로써 복제를 기다리지 않도록 환경 설정할 수 있다.
  </para>
  <para>
 이 매개변수는 <filename>postgresql.conf</> 파일 또는 서버 커맨드 라인에서만 설정 가능하다.
@@ -2139,15 +2226,16 @@ checkpoint 세그먼트 파일을 채움으로써 checkpoints가 여기에 지�
 </term>
 <listitem>
  <para>
-<command>VACUUM</> 및 <acronym>HOT</> 업데이트가 데드 로우(dead row) 버전의 클린업을 연기하기 되는 트랜잭션 수를 지정한다. 기본값은 0개 트랜잭션이다. 
+<command>VACUUM</> 및 <acronym>HOT</> 업데이트가 데드 로우(dead row) 버전 클린업을 연기하는 트랜잭션 수를 지정한다. 
+기본값은 0개 트랜잭션이다. 
 이것은 데드 로우(dead row) 버전이 열린 트랜잭션에서 더 이상 보이지 않는 즉시, 가능한 한 빨리 제거될 수 있다는 것을 의미한다. 
 사용자는 <xref linkend="hot-standby">에 설명된 대로 핫 스탠바이가 지원하는 운영 서버에서 이 값을 0이 아닌 다른 값으로 설정하고 싶을 수도 있다. 
-이것은 행의 조기 클린업에 의한 충돌 없이 대기 서버에서 쿼리가 완료되는 시간적 여유를 허용한다. 
-그러나, 운영 서버에서 발생한 쓰기 트랜잭션 수에 관해서 값이 평가되므로, 대기 서버 쿼리에 대해 얼마만큼의 유예 시간이 가능한지를 예측하기는 어렵다. 
+이것은 조기 클린업에 의한 충돌 없이 대기 서버에서 쿼리가 완료되는 시간적 여유를 허용한다. 
+그러나, 운영 서버에서 발생한 쓰기 트랜잭션 수로 값을 정하므로, 대기 서버 쿼리에 대해 얼마만큼의 유예 시간이 가능한지를 예측하기는 어렵다. 
 이 매개변수는 <filename>postgresql.conf</> 파일 또는 서버 커맨드 라인에서만 설정 가능하다.
  </para>
  <para>
-대체 서버로서 대기 서버의 <varname>hot_standby_feedback</>을 이 매개변수의 사용으로 설정하는 것도 고려해야 한다.
+대체 서버로서 대기 서버의 <varname>hot_standby_feedback</>을 이 매개변수 대신 설정하는 것도 고려해야 한다.
  </para>
 </listitem>
  </varlistentry>
@@ -2172,7 +2260,8 @@ checkpoint 세그먼트 파일을 채움으로써 checkpoints가 여기에 지�
 </term>
 <listitem>
  <para>
-<xref linkend="hot-standby">에 설명된 대로 복구 중에 사용자가 쿼리를 연결하고 실행할 수 있는지를 지정한다. 기본값은 <literal>off</literal>이다. 이 매개변수는 서버 시작 시에만 설정 가능하다. 
+<xref linkend="hot-standby">에 설명된 대로 복구 중에 사용자가 쿼리를 연결하고 실행할 수 있는지를 지정한다. 
+기본값은 <literal>off</literal>이다. 이 매개변수는 서버 시작 시 설정 된다. 
 복구 중 또는 대기 서버 모드에서만 효과가 있다.
  </para>
 </listitem>
@@ -2186,13 +2275,16 @@ checkpoint 세그먼트 파일을 채움으로써 checkpoints가 여기에 지�
 </term>
 <listitem>
  <para>
-핫 스탠바이가 작동 중이면 <xref linkend="hot-standby-conflict">에서 설명된 대로 이 매개변수는 적용 직전의 WAL 항목과 충돌하는 대기 서버 쿼리를 취소하기 전에 대기 서버가 기다려야 하는 시간을 결정한다. 
+핫 스탠바이가 작동 중이면 <xref linkend="hot-standby-conflict">에서 설명된 대로 
+이 매개변수는 적용 직전의 WAL 항목과 충돌하는 대기 서버 쿼리를 취소하기 전에 대기 서버가 기다려야 하는 시간을 결정한다. 
 WAL 데이터를 WAL 아카이브에서 읽어오는 경우(따라서 현재가 아닌 경우) <varname>max_standby_archive_delay</>가 적용된다. 기본값은 30초이다. 
-지정되지 않으면 단위는 밀리초이다. -1 값은 쿼리 충돌이 완료될 때까지 대기 서버가 무한정 대기하도록 허용한다. 이 매개변수는 <filename>postgresql.conf</> 파일 또는 서버 커맨드 라인에서만 설정 가능하다.
+지정되지 않으면 단위는 밀리초이다. -1 값은 쿼리 충돌이 완료될 때까지 대기 서버가 무한정 대기하도록 허용한다. 
+이 매개변수는 <filename>postgresql.conf</> 파일 또는 서버 커맨드 라인에서만 설정 가능하다.
  </para>
  <para>
-취소 전 쿼리를 실행할 수 있는 시간 길이와 <varname>max_standby_archive_delay</>는 동일하지 않는 점에 유의해야 한다. 오히려 이것은 WAL 세그먼트의 데이터를 적용하는 것이 허용된 최대 총 시간이다. 
-따라서 WAL 세그먼트 초반에 어떤 쿼리 때문에 상당한 지연이 발생한 경우 후속 충돌 쿼리는 유예 시간이 훨씬 짧아진다.
+취소 전 쿼리를 실행할 수 있는 최대 시간과 <varname>max_standby_archive_delay</>는 동일하지 않다는 것을 유의해야 한다. 
+이것은 WAL 세그먼트의 데이터를 적용하는 데 허용된 최대 시간의 총합이다.
+따라서 WAL 세그먼트 초반에 어떤 쿼리 때문에 상당한 지연이 발생한 경우 추후 충돌되는 쿼리는 유예 시간이 훨씬 짧아진다.
  </para>
 </listitem>
  </varlistentry>
@@ -2205,13 +2297,16 @@ WAL 데이터를 WAL 아카이브에서 읽어오는 경우(따라서 현재가 
 </term>
 <listitem>
  <para>
-핫 스탠바이가 작동 중이면 <xref linkend="hot-standby-conflict">에서 설명된 대로 이 매개변수는 적용 직전의 WAL 항목과 충돌하는 대기 서버 쿼리를 취소하기 전에 대기 서버가 기다려야 하는 시간을 결정한다. 
-WAL 데이터를 스트리밍 복제를 통해 수신하는 경우 <varname>max_standby_streaming_delay</>가 적용된다. 기본값은 30초이다. 지정되지 않으면 단위는 밀리초이다. -1 값은 쿼리 충돌이 완료될 때까지 대기 서버가 무한정 대기하도록 허용한다. 
+핫 스탠바이가 작동 중이면 <xref linkend="hot-standby-conflict">에서 설명된 대로 
+이 매개변수는 적용 직전의 WAL 항목과 충돌하는 대기 서버 쿼리를 취소하기 전에 대기 서버가 기다려야 하는 시간을 결정한다. 
+WAL 데이터를 스트리밍 복제를 통해 수신하는 경우 <varname>max_standby_streaming_delay</>가 적용된다. 기본값은 30초이다. 
+지정되지 않으면 단위는 밀리초이다. -1 값은 쿼리 충돌이 완료될 때까지 대기 서버가 무한정 대기하도록 허용한다. 
 이 매개변수는 <filename>postgresql.conf</> 파일 또는 서버 커맨드 라인에서만 설정 가능하다.
  </para>
  <para>
-취소 전 쿼리를 실행할 수 있는 시간 길이와 <varname>max_standby_streaming_delay</>는 동일하지 않은 점에 유의해야 한다. 오히려 이것은 운영 서버로부터 수신했던 WAL데이터를 적용하는 것이 허용된 최대 총 시간이다. 
-따라서 어떤 쿼리 때문에 상당한 지연이 발생한 경우 후속 충돌 쿼리는 대기 서버가 다시 따라잡을 때까지 유예 시간이 훨씬 짧아진다.
+취소 전 쿼리를 실행할 수 있는 최대 시간과 <varname>max_standby_streaming_delay</>는 동일하지 않은 것을 유의하라.
+이것은 운영 서버로부터 수신했던 WAL데이터를 적용하는 것이 허용된 최대 시간의 총합이다.
+따라서 어떤 쿼리 때문에 상당한 지연이 발생한 경우 추후 충돌되는 쿼리는 대기 서버가 다시 따라잡을 때까지 유예 시간이 훨씬 짧아진다.
  </para>
 </listitem>
  </varlistentry>
@@ -2224,11 +2319,14 @@ WAL 데이터를 스트리밍 복제를 통해 수신하는 경우 <varname>max_
 </term>
 <listitem>
 <para>
- 대기 서버의 WAL 수신자 프로세스가 복제 프로세스에 대한 정보를 운영 서버 또는 업스트림 스탠바이로 전송하는 최소 빈도를 지정한다. 이것은 <link linkend="monitoring-stats-views-table">
- <literal>pg_stat_replication</></link> 뷰를 사용하여 볼 수 있다. 
- 대기 서버는 작성된 마지막 트랜잭션 로그 위치, 디스크에 기록한 마지막 위치 및 적용된 마지막 위치를 알려 준다. 이 매개변수의 값은 리포트 지점간 초 단위의 최대 간격이다. 
- 업데이트는 쓰기 또는 플러시(flush) 위치가 변경될 때마다 전송되거나 최소한 이 매개변수가 지정한 빈도로 전송된다. 따라서 적용 위치는 실제 위치보다 약간 뒤처질 수 있다. 
- 이 매개변수를 0으로 설정하면 상태 업데이트가 완전히 비활성화된다. 이 매개변수는 <filename>postgresql.conf</> 파일 또는 서버 커맨드 라인에서만 설정 가능하다. 기본값은 10초이다.
+ 대기 서버의 WAL 수신자 프로세스가 복제 프로세스에 대한 정보를 운영 서버 또는 업스트림 스탠바이로 전송하는 최소 빈도를 지정한다. 
+ 이것은 <link linkend="monitoring-stats-views-table"><literal>pg_stat_replication</></link> 뷰를 사용하여 볼 수 있다. 
+ 대기 서버는 작성된 마지막 트랜잭션 로그 위치 및 디스크에 기록한 마지막 위치, 적용된 마지막 위치를 알려 준다. 
+ 이 매개변수의 값은 리포트 지점간 초 단위의 최대 간격이다. 
+ 업데이트는 쓰기 또는 플러시(flush) 위치가 변경될 때마다 전송되거나 최소한 이 매개변수가 지정한 빈도로 전송된다. 
+ 따라서 적용 위치는 실제 위치보다 약간 뒤쳐질 수 있다. 
+ 이 매개변수를 0으로 설정하면 상태 업데이트가 완전히 비활성화된다. 
+ 이 매개변수는 <filename>postgresql.conf</> 파일 또는 서버 커맨드 라인에서만 설정 가능하다. 기본값은 10초이다.
 </para>
 </listitem>
  </varlistentry>
@@ -2242,11 +2340,14 @@ WAL 데이터를 스트리밍 복제를 통해 수신하는 경우 <varname>max_
 <listitem>
  <para>
 핫 스탠바이가 대기 서버에서 현재 실행 중인 쿼리에 대해 운영 서버 또는 업스트림 스탠바이로 피드백을 전송할 것인지를 지정한다. 
-이 매개변수는 클린업 레코드에 의해 야기된 쿼리 취소를 없애는 데 사용할 수 있지만 일부 작업 부하의 경우 운영 서버에서 데이터베이스 팽창을 초래할 수 있다. 
-피드백 메시지는 <varname>wal_receiver_status_interval</>당 한 번 이상 전송되지 않는다. 기본값은 <literal>off</literal>이다. 이 매개변수는 <filename>postgresql.conf</> 파일 또는 서버 커맨드 라인에서만 설정 가능하다.
+이 매개변수는 클린업 레코드에 의해 야기된 쿼리 취소를 없애는 데 사용할 수 있지만 일부 작업 부하의 경우 
+운영 서버에서 데이터베이스 팽창을 초래할 수 있다. 
+피드백 메시지는 <varname>wal_receiver_status_interval</>당 한 번 이상 전송되지 않는다. 기본값은 <literal>off</literal>이다. 
+이 매개변수는 <filename>postgresql.conf</> 파일 또는 서버 커맨드 라인에서만 설정 가능하다.
  </para>
  <para>
-케스케이드형 복제를 사용 중인 경우 운영 서버에 도달할 때까지 피드백이 상류로 전달된다. 상류 전달 외에, 대기 서버는 수신하는 피드백을 다른 용도로 사용하지 않는다.
+케스케이드형 복제를 사용 중인 경우 운영 서버에 도달할 때까지 피드백이 상류로 전달된다. 
+상류 전달 외에, 대기 서버는 수신하는 피드백을 다른 용도로 사용하지 않는다.
  </para>
 </listitem>
  </varlistentry>
@@ -2259,8 +2360,9 @@ WAL 데이터를 스트리밍 복제를 통해 수신하는 경우 <varname>max_
 </term>
 <listitem>
  <para>
-지정된 밀리초 이상 작동되지 않은 복제 연결이 중단된다. 이것은 대기 서버가 프라이머리 노드 충돌 또는 네트워크 중단을 검출할 때 유용하다. 
-0 값은 시스템 타임아웃 메커니즘을 비활성화한다. 이 매개변수는 <filename>postgresql.conf</> 파일 또는 서버 커맨드 라인에서만 설정 가능하다. 기본값은 60초이다.
+지정된 밀리초 이상 작동되지 않은 복제 연결이 중단된다. 이것은 대기 서버가 운영 서버 충돌 또는 네트워크 중단을 검출할 때 유용하다. 
+0 값은 시스템 타임아웃 메커니즘을 비활성화한다. 
+이 매개변수는 <filename>postgresql.conf</> 파일 또는 서버 커맨드 라인에서만 설정 가능하다. 기본값은 60초이다.
  </para>
 </listitem>
  </varlistentry>
@@ -2277,9 +2379,10 @@ WAL 데이터를 스트리밍 복제를 통해 수신하는 경우 <varname>max_
 
 <para>
  이 환경 설정 매개변수는 쿼리 옵티마이저에 의해 선택된 쿼리 플랜에 영향을 주는 대략적인 방법을 제공한다. 
- 특정 쿼리에 대한 옵티마이저에 의해 선택된 기본 플랜이 최적이 아닌 경우 <emphasis>임시</> 솔루션이 이 환경 설정 매개변수 중 하나를 사용하여 옵티마이저가 다른 플랜을 선택하게 강제할 수 있다. 
- 옵티마이저가 선택한 플랜의 수준을 개선하는 더 나은 방법은 플래너 비용 상수를 조절하고(<xref linkend="runtime-config-query-constants"> 참조), ANALYZE를 수동으로 실행하고, <xref
- linkend="guc-default-statistics-target"> 환경 설정 매개변수 늘리고, <command>ALTER TABLE SET
+ 특정 쿼리에 대한 옵티마이저에 의해 선택된 기본 플랜이 최적이 아닌 경우 <emphasis>임시</> 솔루션이 
+ 이 환경 설정 매개변수 중 하나를 사용하여 옵티마이저가 다른 플랜을 선택하게 강제할 수 있다. 
+ 옵티마이저가 선택한 플랜의 수준을 개선하는 더 나은 방법은 플래너 비용 상수를 조절하고(<xref linkend="runtime-config-query-constants"> 참조), 
+ ANALYZE를 수동으로 실행하고, <xref linkend="guc-default-statistics-target"> 환경 설정 매개변수 늘리고, <command>ALTER TABLE SET
  STATISTICS</command>를 사용하여 특정 칼럼에 대해 수집된 통계량을 늘리는 것이다.
 </para>
 
@@ -2366,7 +2469,9 @@ WAL 데이터를 스트리밍 복제를 통해 수신하는 경우 <varname>max_
 </term>
 <listitem>
  <para>
-쿼리 플래너의 materialization의 사용을 활성화 또는 비활성화한다. materialization을 완전히 억제하는 것은 어렵지만 이 변수를 해제하면 정확도가 요구되는 경우 외에는 플래너의 materialize 노드 삽입이 방지된다. 기본값은 <literal>on</>이다.
+쿼리 플래너의 materialization의 사용을 활성화 또는 비활성화한다. 
+materialization을 완전히 억제하는 것은 어렵지만 이 변수를 해제하면 정확도가 요구되는 경우 외에는 
+플래너의 materialize 노드 삽입이 방지된다. 기본값은 <literal>on</>이다.
  </para>
 </listitem>
  </varlistentry>
@@ -2393,7 +2498,8 @@ WAL 데이터를 스트리밍 복제를 통해 수신하는 경우 <varname>max_
 <listitem>
  <para>
 쿼리 플래너의 nested-loop join plans 사용을 활성화 또는 비활성화한다. 
-nested-loop joins를 완전히 억제하는 것은 어렵지만 이 변수를 해제하면 사용 가능한 다른 방법이 있는 경우 플래너가 하나를 사용하는 것이 방지된다. 기본값은 <literal>on</>이다.
+nested-loop joins를 완전히 억제하는 것은 어렵지만 이 변수를 해제하면 사용 가능한 다른 방법이 있는 경우 플래너가 하나를 사용하는 것이 방지된다. 
+기본값은 <literal>on</>이다.
  </para>
 </listitem>
  </varlistentry>
@@ -2410,7 +2516,8 @@ nested-loop joins를 완전히 억제하는 것은 어렵지만 이 변수를 �
 <listitem>
  <para>
 쿼리 플래너의 sequential scan plan types 사용을 활성화 또는 비활성화한다. 
-sequential scans를 완전히 억제하는 것은 어렵지만 이 변수를 해제하면 사용 가능한 다른 방법이 있는 경우 플래너가 하나를 사용하는 것이 방지된다. 기본값은 <literal>on</>이다.
+sequential scans를 완전히 억제하는 것은 어렵지만 이 변수를 해제하면 사용 가능한 다른 방법이 있는 경우 플래너가 하나를 사용하는 것이 방지된다. 
+기본값은 <literal>on</>이다.
  </para>
 </listitem>
  </varlistentry>
@@ -2424,7 +2531,8 @@ sequential scans를 완전히 억제하는 것은 어렵지만 이 변수를 해
 <listitem>
  <para>
 쿼리 플래너의 explicit sort steps 사용을 활성화 또는 비활성화한다. 
-explicit sorts를 완전히 억제하는 것은 어렵지만 이 변수를 해제하면 사용 가능한 다른 방법이 있는 경우 플래너가 하나를 사용하는 것이 방지된다. 기본값은 <literal>on</>이다.
+explicit sorts를 완전히 억제하는 것은 어렵지만 이 변수를 해제하면 사용 가능한 다른 방법이 있는 경우 플래너가 하나를 사용하는 것이 방지된다. 
+기본값은 <literal>on</>이다.
  </para>
 </listitem>
  </varlistentry>
@@ -2448,14 +2556,18 @@ explicit sorts를 완전히 억제하는 것은 어렵지만 이 변수를 해�
  <title>플래너 비용 상수</title>
 
 <para>
- 이 절에서 설명하는 <firstterm>cost</> 변수는 임의의 규모로 계산된다. 동일한 계수로 상향 또는 하향되는 상대적인 값만 플래너의 선택으로 바뀌지 않는다. 기본적으로, 이러한 비용 변수는 순차적 페이지 가져오기 비용을 근거로 한다. 
- 즉, <varname>seq_page_cost</>는 인습적으로 <literal>1.0</>으로 설정되며, 다른 비용 변수는 그것을 기준으로 설정된다. 그러나 사용자가 원한다면 특정 머신에서 밀리초 단위의 실제 실행 시간 같이 다른 스케일을 사용할 수도 있다.
+ 이 절에서 설명하는 <firstterm>cost</> 변수는 임의의 규모로 계산된다. 
+ 상대적인 값만 관련 있기 때문에, 동일한 계수로 상향 또는 하향되면 쿼리 플랜은 바뀌지 않는다.
+ 기본적으로, 이러한 비용 변수는 순차적 페이지를 가져오는 비용을 근거로 한다. 
+ <varname>seq_page_cost</>는 인습적으로 <literal>1.0</>으로 설정되어 있으므로 다른 비용 변수는 이를 기준으로 설정된다. 
+ 그러나 사용자가 원한다면 특정 머신에서 실제 실행되는 밀리초 단위의 시간처럼 다른 비용을 사용할 수도 있다.
 </para>
 
  <note>
 <para>
- 아쉽게도 비용 변수에 대한 이상적인 값을 결정하는 제대로 정의된(well-defined) 방법은 없다. 특정한 설치가 수신하는 전체 쿼리 믹스에 대한 평균으로 처리하는 것이 최선이다. 
- 이것은 몇 가지 경험에 비추어 값을 변경하는 것은 매우 위험할 수 있음을 의미한다.
+ 아쉽게도 비용 변수에 대한 이상적인 값을 결정하는 데 적당한 방법은 없다. 
+ 특정한 설치가 수신하는 전체 쿼리 믹스에 대한 평균으로 처리하는 것이 최선이다. 
+ 몇 가지 경험에 비추어서, 이 값을 변경하는 것은 매우 위험할 수 있다.
 </para>
  </note>
 
@@ -2469,8 +2581,8 @@ explicit sorts를 완전히 억제하는 것은 어렵지만 이 변수를 해�
 </term>
 <listitem>
  <para>
-플래너가 예상한, 순차 가져오기 시리즈의 일부분인 디스크 페이지 가져오기 비용을 설정한다. 기본값은 1.0이다. 
-이 값은 동일한 이름의 테이블스페이스 매개변수 설정에 의해 특수한 테이블스페이스의 테이블과 인덱스를 오버라이드할 수 있다.
+플래너가 예상하는 순차 가져오기 방법의 일부인 디스크 페이지 가져오기 비용을 설정한다. 기본값은 1.0이다. 
+이 값은 동일한 이름의 테이블스페이스 매개변수 설정이 특수한 테이블스페이스의 테이블과 인덱스를 오버라이드할 수 있다.
  </para>
 </listitem>
  </varlistentry>
@@ -2499,14 +2611,17 @@ explicit sorts를 완전히 억제하는 것은 어렵지만 이 변수를 해�
  </para>
 
  <para>
-사용자의 작업 부하에서 90%의 캐시율이 잘못된 가정인 경우 random_page_cost를 늘려서 랜덤 저장소 읽기의 실제 비용이 반영되도록 할 수 있다. 그에 따라, 총 서버 메모리보다 데이터베이스가 작아서 데이터가 완전히 캐시되는 경우 random_page_cost를 줄이는 것이 적절할 수 있다. 반도체 드라이브 같이 랜덤 읽기 비용이 시퀀스에 비해 상대적으로 낮은 저장소는 더 낮은 random_page_cost 값으로 모델링이 더 잘 될 수도 있다.
+사용자의 작업 부하에서 90%의 캐시율이 잘못된 가정인 경우 random_page_cost를 늘려서 랜덤 저장소 읽기의 실제 비용이 반영되도록 할 수 있다. 
+그에 따라, 총 서버 메모리보다 데이터베이스가 작아서 데이터가 완전히 캐시되는 경우 random_page_cost를 줄이는 것이 적절할 수 있다. 
+반도체 드라이브 같이 랜덤 읽기 비용이 시퀀스에 비해 상대적으로 낮은 저장소는 더 낮은 random_page_cost 값으로 모델링이 더 잘 될 수도 있다.
  </para>
 
  <tip>
 <para>
  <varname>random_page_cost</>를 <varname>seq_page_cost</> 미만으로 설정하는 것이 시스템에서 허용되더라도 실제로는 그렇게 하는 것이 합리적이지 않다. 
- 단, 데이터베이스 전체가 RAM에 캐치되는 경우에는 시퀀스 밖 페이지를 손대는 것에 대한 패널티가 없으므로 동일하게 설정하는 것은 괜찮다. 
- 또한 과도하게 캐시되는 데이터베이스에서 RAM에 이미 있는 페이지를 가져오는 비용이 일반적인 상태의 것보다 훨씬 적으므로 사용자는 CPU 매개변수에 비례하여 양쪽 값을 줄여야 한다. 
+ 단, 데이터베이스 전체가 RAM에 캐싱되는 경우에는 시퀀스 밖 페이지를 건드리는 비용이 없으므로 동일하게 설정하는 것은 괜찮다. 
+ 또한 과도하게 캐시되는 데이터베이스에서 RAM에 이미 있는 페이지를 가져오는 비용이 일반적인 상태의 것보다 훨씬 적으므로 사용자는 
+ CPU 매개변수에 비례하여 양쪽 값을 줄여야 한다. 
 </para>
  </tip>
 </listitem>
@@ -2520,7 +2635,7 @@ explicit sorts를 완전히 억제하는 것은 어렵지만 이 변수를 해�
 </term>
 <listitem>
  <para>
-플래너가 예상한 쿼리 도중 각 행의 처리 비용을 설정한다. 기본값은 0.01이다.
+플래너가 예상한 쿼리 도중 각 로우의 처리 비용을 설정한다. 기본값은 0.01이다.
  </para>
 </listitem>
  </varlistentry>
@@ -2559,12 +2674,14 @@ explicit sorts를 완전히 억제하는 것은 어렵지만 이 변수를 해�
 </term>
 <listitem>
  <para>
-단일 쿼리에 사용할 수 있는 디스크 캐시의 효율적인 크기에 대한 플래너의 가정을 설정한다. 이것은 인덱스를 사용하는 비용 추정에 반영된다. 
+플래너가 추정할 단일 쿼리에 사용할 수 있는 디스크 캐시의 효율적인 크기를 설정한다. 이것은 인덱스를 사용하는 비용에 반영된다. 
 값이 클수록 인덱스 스캔이 사용될 가능성이 높다. 값이 작을수록 순차 스캔이 사용될 가능성이 높다. 
-이 매개변수를 설정하는 경우 <productname>Agens SQL</productname>의 공유 버퍼와, <productname>Agens SQL</productname> 데이터 파일에 사용되는 커널의 디스크 캐시 부분을 모두 고려해야 한다. 
+이 매개변수를 설정하는 경우 <productname>Agens SQL</productname>의 공유 버퍼와, <productname>Agens SQL</productname> 데이터 파일에 
+사용되는 커널의 디스크 캐시 부분을 모두 고려해야 한다. 
 또한 사용 가능한 공간을 공유해야 하므로 서로 다른 테이블에 대해 예상되는 동시 쿼리 수도 고려해야 한다. 
-이 매개변수는 <productname>Agens SQL</productname>에 의해 할당된 공유 메모리 크기에는 효과가 없으며, 커널 디스크 캐시도 예약하지 않는다. 
-추정용으로만 사용된다. 또한 시스템은 디스크 캐시에 쿼리 간 데이터가 잔류할 것이라고 가정하지 않는다. 기본값은 4기가바이트이다(<literal>4GB</>).
+이 매개변수는 <productname>Agens SQL</productname>에 의해 할당된 공유 메모리 크기에는 효과가 없으며, 커널 디스크 캐시도 보존하지 않는다. 
+추정용으로만 사용된다. 또한 시스템은 디스크 캐시에 쿼리 간에 데이터가 남아 있을 것이라고 가정하지 않는다. 
+기본값은 4기가바이트이다(<literal>4GB</>).
  </para>
 </listitem>
  </varlistentry>
@@ -2573,10 +2690,10 @@ explicit sorts를 완전히 억제하는 것은 어렵지만 이 변수를 해�
 
 </sect2>
  <sect2 id="runtime-config-query-geqo">
- <title>제네릭 쿼리 옵티마이저</title>
+ <title>제네틱 쿼리 옵티마이저</title>
 
  <para>
-제네릭 쿼리 옵티마이저(GEQO)는 휴리스틱 검색을 사용하는 쿼리 플래닝을 하는 알고리즘이다. 
+제네틱 쿼리 옵티마이저(GEQO)는 휴리스틱 검색을 사용하는 쿼리 플래닝을 하는 알고리즘이다. 
 이것은 검색 비용이 많이 드는 일반 알고리즘보다 적은 플랜 생성 비용으로, 복잡한 쿼리(다수의 관계 조인)의 플래닝 시간을 줄인다. 
  </para>
 
@@ -2585,11 +2702,11 @@ explicit sorts를 완전히 억제하는 것은 어렵지만 이 변수를 해�
  <varlistentry id="guc-geqo" xreflabel="geqo">
 <term><varname>geqo</varname> (<type>boolean</type>)
 <indexterm>
- <primary>genetic query optimization</primary>
+ <primary>제네틱 쿼리 최적화</primary>
 </indexterm>
 <indexterm>
  <primary>GEQO</primary>
- <see>genetic query optimization</see>
+ <see>제네틱 쿼리 최적화</see>
 </indexterm>
 <indexterm>
  <primary><varname>geqo</> 환경 설정 매개변수</primary>
@@ -2598,7 +2715,8 @@ explicit sorts를 완전히 억제하는 것은 어렵지만 이 변수를 해�
 <listitem>
  <para>
 전체 쿼리 최적화를 활성화 또는 비활성화한다. 기본값은 on이다. 
-보통은 운영 중 해제하지 않는 것이 최선이며 <varname>geqo_threshold</varname> 변수는 좀 더 세분화된 GEQO 제어를 제공한다.
+보통은 운영 중 해제하지 않는 것이 최선이며 
+<varname>geqo_threshold</varname> 변수는 좀 더 세분화된 GEQO 제어를 제공한다.
  </para>
 </listitem>
  </varlistentry>
@@ -2611,8 +2729,10 @@ explicit sorts를 완전히 억제하는 것은 어렵지만 이 변수를 해�
 </term>
 <listitem>
  <para>
-최소한 <literal>FROM</> 항목에 관련된 수만큼 쿼리를 플랜하는 전체 쿼리 최적화을 사용한다. (<literal>FULL OUTER JOIN</> 구문은 하나의 <literal>FROM</> 항목으로 계산된다.) 기본값은 12이다. 
-단순 쿼리의 경우는 일반적으로 정규, 소모성 검색 플래너를 사용하는 것이 낫지만, 테이블이 다수 있는 쿼리의 경우 소모성 검색은 너무 오래 걸리며, 차선의 플랜을 실행하는 것보다 더 오래 걸릴 수도 있다. 
+최소한 <literal>FROM</> 항목에 관련된 수만큼 쿼리를 플랜하는 전체 쿼리 최적화를 사용한다. 
+(<literal>FULL OUTER JOIN</> 구문은 하나의 <literal>FROM</> 항목으로 계산된다.) 기본값은 12이다. 
+단순 쿼리의 경우는 일반적으로 정규, 소모성 검색 플래너를 사용하는 것이 낫지만, 테이블이 다수 있는 쿼리의 경우 소모성 검색은 너무 오래 걸리며, 
+차선의 플랜을 실행하는 것보다 더 오래 걸릴 수도 있다. 
 따라서 쿼리 크기에 대한 임계값은 GEQO 사용 관리에 편리한 방법이다.
  </para>
 </listitem>
@@ -2631,7 +2751,8 @@ GEQO에서 플래닝 시간과 쿼리 플랜의 수준 간 트레이드 오프�
  </para>
 
  <para>
-<varname>geqo_effort</varname>가 직접 아는 일은 실제로 없다. GEQO 동작에 영향을 미치는 다른 변수에 대한 기본 값을 계산하는 데에만 이용된다(아래에 설명). 
+<varname>geqo_effort</varname>가 직접 하는 일은 실제로 없다. 
+GEQO 동작에 영향을 미치는 다른 변수에 대한 기본 값을 계산하는 데에만 이용된다(아래에 설명). 
 원한다면 그 대신 다른 매개변수를 직접 설정할 수 있다.
  </para>
 </listitem>
@@ -2646,7 +2767,8 @@ GEQO에서 플래닝 시간과 쿼리 플랜의 수준 간 트레이드 오프�
 <listitem>
  <para>
 GEQO에서 사용되는 풀 크기를 제어한다. 풀 크기는 제네틱 채우기(genetic population)에서의 개체 수를 뜻한다. 
-이것은 최소 2 이상의 유용한 값이어야 하며, 일반적으로 100 ~ 1000이다. 0으로 설정되면(기본 설정) 적정값이 <varname>geqo_effort</varname> 및 쿼리의 테이블 수에 따라 선택된다.
+이것은 최소 2 이상의 유용한 값이어야 하며, 일반적으로 100 ~ 1000이다. 
+0으로 설정되면(기본 설정) 적정값이 <varname>geqo_effort</varname> 및 쿼리의 테이블 수에 따라 선택된다.
  </para>
 </listitem>
  </varlistentry>
@@ -2659,7 +2781,8 @@ GEQO에서 사용되는 풀 크기를 제어한다. 풀 크기는 제네틱 채�
 </term>
 <listitem>
  <para>
-알고리즘 반복 숫자이자, GEQO에서 사용되는 생성 수를 제어한다. 이것은 최소 1 이상이어야 하며, 유용한 값은 풀 크기와 동일한 범위 내이다. 
+알고리즘 반복 숫자이자, GEQO에서 사용되는 생성 수를 제어한다. 
+이것은 최소 1 이상이어야 하며, 유용한 값은 풀 크기와 동일한 범위 내이다. 
 0으로 설정되면(기본 설정) 적정값이 <varname>geqo_pool_size</varname>에 따라 선택된다.
  </para>
 </listitem>
@@ -2673,7 +2796,9 @@ GEQO에서 사용되는 풀 크기를 제어한다. 풀 크기는 제네틱 채�
 </term>
 <listitem>
  <para>
-GEQO에 의해 사용된 selection bias를 제어한다. selection bias는 채우기 내부의 선택적 압력이다. 값은 1.50 ~ 2.00일 수 있으며, 후자가 기본값이다.
+GEQO가 사용하는 선택편의(selection bias)를 제어한다. 
+선택편의는 표본에 편파적으로 영향을 미치는 정도를 말한다.
+값은 1.50 ~ 2.00일 수 있으며, 후자가 기본값이다.
  </para>
 </listitem>
  </varlistentry>
@@ -2717,7 +2842,7 @@ SET STATISTICS</>를 통해 설정된 칼럼 특정 타겟 없이, 테이블 칼
  <varlistentry id="guc-constraint-exclusion" xreflabel="constraint_exclusion">
 <term><varname>constraint_exclusion</varname> (<type>enum</type>)
 <indexterm>
- <primary>constraint exclusion</primary>
+ <primary>제약 조건 배제</primary>
 </indexterm>
 <indexterm>
  <primary><varname>constraint_exclusion</> 환경 설정 매개변수</primary>
@@ -2731,8 +2856,9 @@ SET STATISTICS</>를 통해 설정된 칼럼 특정 타겟 없이, 테이블 칼
 </para>
 
  <para>
-이 매개변수가 이것을 특정 테이블에 대해 허용하면 플래너가 쿼리 조건을 테이블의 <literal>CHECK</> 제약 조건과 비교하고 제약 조건에 위배되는 테이블을 검색하는 것은 생략한다. 
-예를 들면:
+이 매개변수가 이것을 특정 테이블에 대해 허용하면 플래너가 쿼리 조건을 테이블의 <literal>CHECK</> 제약 조건과 비교하고 
+제약 조건에 위배되는 테이블을 검색하는 것은 생략한다. 
+예를 들면,
 
 <programlisting>
 CREATE TABLE parent(key integer, ...);
@@ -2746,7 +2872,8 @@ SELECT * FROM parent WHERE key = 2400;
  </para>
 
  <para>
-현재, 제약 조건 배제는 테이블 파티션에 주로 사용되는 경우에만 기본값으로 활성화된다. 모든 테이블에 대해 활성화되며, 간단한 쿼리에도 눈에 띄게 플래닝 오버헤드가 가중되어 간단한 쿼리의 장점이 상쇄된다. 
+현재, 제약 조건 배제는 테이블 파티션에 주로 사용되는 경우에만 기본값으로 활성화된다. 
+모든 테이블에 대해 활성화되며, 간단한 쿼리에도 눈에 띄게 플래닝 오버헤드가 가중되어 간단한 쿼리의 장점이 상쇄된다. 
 파티션된 테이블이 없을 경우 전적으로 해제하는 것이 좋다.
  </para>
 
@@ -2762,8 +2889,10 @@ SELECT * FROM parent WHERE key = 2400;
 <listitem>
  <para>
 검색할 커서 행의 분할에 대한 플래너의 추정치를 설정한다. 기본값은 0.1이다. 
-값이 작을수록 플래너가 커서에 대해 <quote>fast start</> 플랜을 사용하도록 유도되고, 그러면 전체 행을 가져오느라 시간이 오래 걸리는 와중에 처음 몇 개의 행만 빠르게 검색된다. 
-값이 클수록 총 예상 시간이 중요해진다. 최대 설정 1.0에서는 커서가 정확히 일반 쿼리처럼 플랜되어 총 예상 시간만 고려되고, 첫 번째 행을 얼마나 빨리 가져오는지는 고려하지 않는다.
+값이 작을수록 플래너가 커서에 대해 <quote>fast start</> 플랜을 사용하도록 유도되고, 
+그러면 전체 행을 가져오느라 시간이 오래 걸리는 와중에 처음 몇 개의 행만 빠르게 검색된다. 
+값이 클수록 총 예상 시간이 중요해진다. 
+최대 설정 1.0에서는 커서가 정확히 일반 쿼리처럼 플랜되어 총 예상 시간만 고려되고, 첫 번째 행을 얼마나 빨리 가져오는지는 고려하지 않는다.
  </para>
 </listitem>
  </varlistentry>
@@ -2776,12 +2905,14 @@ SELECT * FROM parent WHERE key = 2400;
 </term>
 <listitem>
  <para>
-결과로 나온 <literal>FROM</literal> 목록에 이 숫자만큼의 항목이 없을 경우 플래너가 하위 쿼리를 상위 쿼리에 병합한다. 값이 작을수록 플래닝 시간은 짧아지지만 하위 쿼리 플랜이 나올 수 있다. 
+결과로 나온 <literal>FROM</literal> 목록에 이 숫자만큼의 항목이 없을 경우 플래너가 하위 쿼리를 상위 쿼리에 병합한다. 
+값이 작을수록 플래닝 시간은 짧아지지만 비효율적인 쿼리 플랜이 나올 수 있다. 
 기본값은 8이다. 
  </para>
 
  <para>
-이 값을 <xref linkend="guc-geqo-threshold"> 이상으로 설정하면 GEQO 플래너의 사용이 트리거되어 결과적으로 최적화되지 않은 플랜이 된다. <xref linkend="runtime-config-query-geqo">을 참조 바란다.
+이 값을 <xref linkend="guc-geqo-threshold"> 이상으로 설정하면 GEQO 플래너의 사용이 트리거되어 결과적으로 최적화되지 않은 플랜이 된다. 
+<xref linkend="runtime-config-query-geqo">을 참조 바란다.
  </para>
 </listitem>
  </varlistentry>
@@ -2794,12 +2925,16 @@ SELECT * FROM parent WHERE key = 2400;
 </term>
 <listitem>
  <para>
-결과 목록이 이 항목에 미치지 못할 경우 플래너는 명시적 <literal>JOIN</> 구문(<literal>FULL JOIN</> 제외)을 <literal>FROM</> 항목으로 재작성한다. 값이 작을수록 플래닝 시간은 짧아지지만 하위 쿼리 플랜이 나올 수 있다.
+결과 목록이 이 항목에 미치지 못할 경우 플래너는 명시적 <literal>JOIN</> 구문(<literal>FULL JOIN</> 제외)을 <literal>FROM</> 항목으로 재작성한다. 
+값이 작을수록 플래닝 시간은 짧아지지만 비효율적인 쿼리 플랜이 나올 수 있다.
  </para>
 
  <para>
-기본적으로 이 변수는 <varname>from_collapse_limit</varname>와 동일하게 설정되며, 대부분의 사용에 적합하다. 1로 설정하면 명시적 <literal>JOIN</>의 재정렬이 방지된다. 따라서 이 쿼리에서 지정된 명시적 조인 순서는 관계가 조인되는 실제 순서가 된다. 
-쿼리 플래너가 항상 최적의 조인 순서를 선택하는 것은 아니므로 고급 사용자는 이 변수를 임시로 1로 선택한 다음, 원하는 조인 순서를 명시적으로 지정할 수 있다. 
+기본적으로 이 변수는 <varname>from_collapse_limit</varname>와 동일하게 설정되며, 대부분의 사용에 적합하다. 
+1로 설정하면 명시적 <literal>JOIN</>의 재정렬이 방지된다. 
+따라서 이 쿼리에서 지정된 명시적 조인 순서는 관계가 조인되는 실제 순서가 된다. 
+쿼리 플래너가 항상 최적의 조인 순서를 선택하는 것은 아니므로 고급 사용자는 이 변수를 임시로 1로 선택한 다음, 
+원하는 조인 순서를 명시적으로 지정할 수 있다. 
  </para>
 
  <para>
@@ -2817,7 +2952,7 @@ SELECT * FROM parent WHERE key = 2400;
 <title>에러 리포팅 및 로깅</title>
 
 <indexterm zone="runtime-config-logging">
- <primary>server 로그</primary>
+ <primary>서버 로그</primary>
 </indexterm>
 
 <sect2 id="runtime-config-logging-where">
@@ -2840,19 +2975,23 @@ SELECT * FROM parent WHERE key = 2400;
 <productname>Agens SQL</productname>은 <systemitem>stderr</systemitem> 및 <systemitem>csvlog</systemitem>, 
 <systemitem>syslog</systemitem>를 비롯한 서버 메시지를 로깅하는 몇 가지 메서드를 지원한다. 
 Windows의 경우, <systemitem>eventlog</systemitem>로 지원한다. 원하는 로그 대상 목록을 쉼표로 구분하여 이 매개변수를 설정한다. 
-기본값은 <systemitem>stderr</systemitem>로만 로깅하는 것이다. 이 매개변수는 <filename>postgresql.conf</> 파일 또는 서버 커맨드 라인에서만 설정 가능하다.
+기본값은 <systemitem>stderr</systemitem>로만 로깅하는 것이다. 
+이 매개변수는 <filename>postgresql.conf</> 파일 또는 서버 커맨드 라인에서만 설정 가능하다.
  </para>
  <para>
-<systemitem>csvlog</>가 <varname>log_destination</>에 포함된 경우 로그 항목은 프로그램으로 로그를 로딩하기 편리한 <quote>comma separated value</>(CSV) 형식으로 출력된다. 
+<systemitem>csvlog</>가 <varname>log_destination</>에 포함된 경우 로그 항목은 프로그램으로 로그를 로딩하기 편리한 
+<quote>컴마로 구분된 값</>(CSV) 형식으로 출력된다. 
 자세한 내용은 <xref linkend="runtime-config-logging-csvlog">을 참조 바란다. 
 CSV 형식 로그 출력을 사용으로 설정하려면 <xref linkend="guc-logging-collector">를 사용으로 설정해야 한다.
  </para>
 
  <note>
 <para>
- 대부분의 Unix 시스템에서 <varname>log_destination</> 옵션의 <application>syslog</application>를 사용하려면 <systemitem>syslog</systemitem> 데몬의 환경 설정을 변경해야 한다. 
+ 대부분의 Unix 시스템에서 <varname>log_destination</> 옵션의 <application>syslog</application>를 사용하려면 
+ <systemitem>syslog</systemitem> 데몬의 환경 설정을 변경해야 한다. 
  <productname>Agens SQL</productname>은 <application>syslog</application> 기능 <literal>LOCAL0</> ~ <literal>LOCAL7</>(<xref
- linkend="guc-syslog-facility"> 참조)로 로깅할 수 있지만 대부분의 플랫폼에서 기본값 <application>syslog</application> 환경 설정은 모든 해당 메시지를 취소한다. 
+ linkend="guc-syslog-facility"> 참조)로 로깅할 수 있지만 대부분의 플랫폼에서 기본값 <application>syslog</application> 환경 설정은 
+ 모든 해당 메시지를 취소한다. 
  이것이 작동되게 하려면 다음과 같은 문장을,
 <programlisting>
 local0.*/var/log/postgresql
@@ -2860,7 +2999,8 @@ local0.*/var/log/postgresql
  <application>syslog</application> 데몬의 환경 설정 파일에 추가해야 할 수 있다.
 </para>
 <para>
- Windows에서 <varname>log_destination</>의 <literal>eventlog</literal> 옵션을 사용하는 경우 이벤트 소스와 라이브러리를 운영 체제에 등록해서 Windows 이벤트 뷰어가 이벤트 로그 메시지를 명확하게 표시하도록 해야 한다. 
+ Windows에서 <varname>log_destination</>의 <literal>eventlog</literal> 옵션을 사용하는 경우 이벤트 소스와 라이브러리를 운영 체제에 등록해서 
+ Windows 이벤트 뷰어가 이벤트 로그 메시지를 명확하게 표시하도록 해야 한다. 
  자세한 내용은 <xref linkend="event-log-registration">을 참조 바란다.
 </para>
  </note>
@@ -2875,23 +3015,29 @@ local0.*/var/log/postgresql
 </term>
 <listitem>
  <para>
- 이 매개변수는 <systemitem>stderr</>로 전송된 로그 메시지를 캡처하여 로그 파일로 리다이렉트하는 <firstterm>logging collector</> 백그라운드 프로세스를 활성화한다. 
+ 이 매개변수는 <systemitem>stderr</>로 전송된 로그 메시지를 캡처하여 로그 파일로 리다이렉트하는 <firstterm>logging collector</> 
+ 백그라운드 프로세스를 활성화한다. 
  일부 메시지 유형은 <application>syslog</> 출력에 나타나지 않을 수 있으므로 <application>syslog</>에 로깅하는 것보다 이 방법은 대체로 유용하다. 
- (공통된 예시 중 한 가지는 동적 링커 실패 메시지이고, 또 다른 예시는 <varname>archive_command</> 같은 스크립트에서 생성된 에러 메시지이다.) 이 매개변수는 서버 시작 시에만 설정 가능하다.
+ (공통된 예시 중 한 가지는 동적 링커 실패 메시지이고, 또 다른 예시는 <varname>archive_command</> 같은 스크립트에서 생성된 에러 메시지이다.) 
+ 이 매개변수는 서버 시작 시 설정 된다.
  </para>
 
  <note>
 <para>
- logging collector를 사용하지 않고 <systemitem>stderr</>에 로깅하는 것이 가능하다. 서버의 <systemitem>stderr</>가 다이렉트된 곳이면 어디든 로그 메시지가 출력된다. 
+ logging collector를 사용하지 않고 <systemitem>stderr</>에 로깅하는 것이 가능하다. 
+ 서버의 <systemitem>stderr</>가 다이렉트된 곳이면 어디든 로그 메시지가 출력된다. 
  그러나, 해당 메서드는 로그 파일을 로테이션하는 편리한 방법을 제공하지 않으므로 로그 양이 적을 때만 적당하다. 
- 또한 logging collector를 사용하지 않는 일부 플랫폼은 복수 프로세스가 동일한 로그 파일에 동시에 쓰기 때문에 서로가 덮어쓰기 되므로 결과적으로 로그 출력이 왜곡되거나 분실된다.
+ 또한 logging collector를 사용하지 않는 일부 플랫폼은 여러 프로세스가 동일한 로그 파일에 동시에 쓰기 때문에 
+ 서로가 덮어쓰기 되므로 결과적으로 로그 출력이 왜곡되거나 분실된다.
 </para>
  </note>
 
  <note>
 <para>
-logging collector는 메시지 분실을 방지하는 용도로 고안되었다. 이것은 부하가 매우 심한 경우에, 컬렉터가 뒤처졌을 경우 서버 프로세스가 추가 로그 메시지의 전송을 시도하면서 차단이 일어날 수 있다. 
-반대로, 기록할 수 없을 때는 <application>syslog</>가 메시지를 드롭하는데, 이것은 이러한 상황에서 일부 메시지를 로깅하는 데는 실패했지만 시스템의 나머지는 블로킹하지 않음을 의미한다.
+logging collector는 메시지 분실을 방지하는 용도로 고안되었다. 
+이것은 부하가 매우 심한 경우에, 컬렉터가 뒤쳐졌을 경우 서버 프로세스가 추가 로그 메시지의 전송을 시도하면서 차단이 일어날 수 있다. 
+반대로, 기록할 수 없을 때는 <application>syslog</>가 메시지를 드롭하는데, 
+이것은 이러한 상황에서 일부 메시지를 로깅하는 데는 실패했지만 시스템의 나머지는 블로킹하지 않음을 의미한다.
 </para>
  </note>
 
@@ -2906,8 +3052,10 @@ logging collector는 메시지 분실을 방지하는 용도로 고안되었다.
 </term>
 <listitem>
  <para>
-<varname>logging_collector</>를 사용으로 설정하면 이 매개변수는 로그 파일이 생성되는 디렉토리를 결정한다. 절대 경로 또는 클러스터 데이터 디렉토리에 대한 상대 경로로 설정할 수 있다. 
-이 매개변수는 <filename>postgresql.conf</> 파일 또는 서버 커맨드 라인에서만 설정 가능하다. 기본값은 <literal>pg_log</literal>이다.
+<varname>logging_collector</>를 사용으로 설정하면 이 매개변수는 로그 파일이 생성되는 디렉토리를 결정한다. 
+절대 경로 또는 클러스터 데이터 디렉토리에 대한 상대 경로로 설정할 수 있다. 
+이 매개변수는 <filename>postgresql.conf</> 파일 또는 서버 커맨드 라인에서만 설정 가능하다. 
+기본값은 <literal>pg_log</literal>이다.
  </para>
 </listitem>
  </varlistentry>
@@ -2921,17 +3069,23 @@ logging collector는 메시지 분실을 방지하는 용도로 고안되었다.
 <listitem>
  <para>
 <varname>logging_collector</varname>를 사용으로 설정하면 이 매개변수는 생성된 로그 파일의 파일 이름을 설정한다. 
-값은 <function>strftime</function> 패턴으로 처리되므로, <literal>%</literal> 이스케이프를 사용하여 시간에 따라 바뀌는 파일 이름을 지정할 수 있다. (시간대 의존적 <literal>%</literal> 이스케이프가 있을 경우 <xref linkend="guc-log-timezone">에서 지정된 시간대로 계산된다.) 
+값은 <function>strftime</function> 패턴으로 처리되므로, <literal>%</literal> 이스케이프를 사용하여 시간에 따라 바뀌는 파일 이름을 지정할 수 있다. 
+(시간대에 의존적인 <literal>%</literal> 이스케이프가 있을 경우 <xref linkend="guc-log-timezone">에서 지정된 시간대로 계산된다.) 
 지원되는 <literal>%</literal> 이스케이프는 Open Group의 <ulink
 url="http://pubs.opengroup.org/onlinepubs/009695399/functions/strftime.html">strftime
-</ulink> 규격에 등재된 것과 유사하다. 시스템의 <systemitem>strftime</systemitem>이 직접 사용되지는 않으므로 플랫폼 특정(비표준) 확장자가 효력이 없다. 기본값은 <literal>postgresql-%Y-%m-%d_%H%M%S.log</literal>이다.
+</ulink> 규격에 등재된 것과 유사하다. 
+시스템의 <systemitem>strftime</systemitem>이 직접 사용되지는 않으므로 플랫폼 특정(비표준) 확장자가 효력이 없다. 
+기본값은 <literal>postgresql-%Y-%m-%d_%H%M%S.log</literal>이다.
  </para>
  <para>
 이스케이프 없이 파일 이름을 지정하면 로그 로테이션 유틸리티를 사용하여 결국에는 전체 파일이 채워지는 것을 방지하는 계획을 세워야 한다. 
-8.4 이전 릴리스에서, <literal>%</literal> 이스케이프가 사용되지 않으면 <productname>Agens SQL</productname>은 새 로그 파일 생성 시간 epoch를 추가했었는데, 이 기능은 사라졌다. 
+8.4 이전 버전에서, <literal>%</literal> 이스케이프가 사용되지 않으면 
+<productname>Agens SQL</productname>은 새 로그 파일 생성 시간 epoch를 추가했었는데, 이 기능은 사라졌다. 
  </para>
  <para>
-<varname>log_destination</>에서 CSV 형식 출력을 사용으로 설정한 경우 타임스탬프 로그 파일 이름 뒤에 <literal>.csv</>가 추가되어 CSV 형식 출력 파일 이름이 만들어진다. (<varname>log_filename</>이 <literal>.log</>로 끝나는 경우 접미사가 대신 사용된다.)
+<varname>log_destination</>에서 CSV 형식 출력을 사용으로 설정한 경우 타임스탬프 로그 파일 이름 뒤에 
+<literal>.csv</>가 추가되어 CSV 형식 출력 파일 이름이 만들어진다. 
+(<varname>log_filename</>이 <literal>.log</>로 끝나는 경우 접미사가 대신 사용된다.)
  </para>
  <para>
 이 매개변수는 <filename>postgresql.conf</> 파일 또는 서버 커맨드 라인에서만 설정 가능하다.
@@ -2947,11 +3101,14 @@ url="http://pubs.opengroup.org/onlinepubs/009695399/functions/strftime.html">str
 </term>
 <listitem>
  <para>
-Unix 시스템에서, 이 매개변수는 <varname>logging_collector</varname>가 사용으로 설정된 경우 로그 파일에 대한 권한을 설정한다. (Microsoft Windows에서 이 매개변수는 무시된다.) 
-매개변수 값은, <function>chmod</function> 및 <function>umask</function> 시스템 쉘에서 수용되는 형식으로 지정된 숫자 형식이어야 한다. (관례적인 8진수 형식을 사용하려면 <literal>0</literal>(영)으로 시작되는 숫자여야 한다.)
+Unix 시스템에서, 이 매개변수는 <varname>logging_collector</varname>가 사용으로 설정된 경우 로그 파일에 대한 권한을 설정한다. 
+(Microsoft Windows에서 이 매개변수는 무시된다.) 
+매개변수 값은, <function>chmod</function> 및 <function>umask</function> 시스템 쉘에서 수용되는 형식으로 지정된 숫자 형식이어야 한다. 
+(관례적인 8진수 형식을 사용하려면 <literal>0</literal>(영)으로 시작되는 숫자여야 한다.)
  </para>
  <para>
-기본 권한은, 서버 소유자만 로그 파일을 읽거나 쓸 수 있는 <literal>0600</>이다. 일반적으로 유용한 다른 설정은, 소유자 그룹의 멤버가 파일을 읽을 수 있는 <literal>0640</>이다. 
+기본 권한은, 서버 소유자만 로그 파일을 읽거나 쓸 수 있는 <literal>0600</>이다. 일반적으로 유용한 다른 설정은, 
+소유자 그룹의 멤버가 파일을 읽을 수 있는 <literal>0640</>이다. 
 그러나, 해당 설정을 사용하려면 클러스터 데이터 디렉토리 바깥에서도 파일을 저장하도록 <xref linkend="guc-log-directory">를 변경해야 한다. 
 로그 파일에 중요한 데이터가 포함되어 있을 수도 있으므로 어떤 경우든 로그 파일을 누구나 읽을 수 있게 하는 것은 현명하지 못하다.
  </para>
@@ -2969,8 +3126,10 @@ Unix 시스템에서, 이 매개변수는 <varname>logging_collector</varname>�
 </term>
 <listitem>
  <para>
-<varname>logging_collector</varname>를 사용으로 설정하면 이 매개변수는 개별 로그 파일의 최대 수명을 결정한다. 여기서 지정된 분 시간이 경과된 후 새로운 로그 파일이 생성된다. 
-시간을 기준으로 새 로그 파일을 생성하지 않으려면 0으로 설정한다. 이 매개변수는 <filename>postgresql.conf</> 파일 또는 서버 커맨드 라인에서만 설정 가능하다.
+<varname>logging_collector</varname>를 사용으로 설정하면 이 매개변수는 개별 로그 파일의 최대 수명을 결정한다. 
+여기서 지정된 분 시간이 경과된 후 새로운 로그 파일이 생성된다. 
+시간을 기준으로 새 로그 파일을 생성하지 않으려면 0으로 설정한다. 
+이 매개변수는 <filename>postgresql.conf</> 파일 또는 서버 커맨드 라인에서만 설정 가능하다.
  </para>
 </listitem>
  </varlistentry>
@@ -2983,8 +3142,10 @@ Unix 시스템에서, 이 매개변수는 <varname>logging_collector</varname>�
 </term>
 <listitem>
  <para>
-<varname>logging_collector</varname>를 사용으로 설정하면 이 매개변수는 개별 로그 파일의 최대 크기를 결정한다. 여기서 지정된 킬로바이트가 로그 파일에 방출된 후 새로운 로그 파일이 생성된다. 
-크기를 기준으로 새 로그 파일을 생성하지 않으려면 0으로 설정한다. 이 매개변수는 <filename>postgresql.conf</> 파일 또는 서버 커맨드 라인에서만 설정 가능하다.
+<varname>logging_collector</varname>를 사용으로 설정하면 이 매개변수는 개별 로그 파일의 최대 크기를 결정한다. 
+여기서 지정된 킬로바이트가 로그 파일에 방출된 후 새로운 로그 파일이 생성된다. 
+크기를 기준으로 새 로그 파일을 생성하지 않으려면 0으로 설정한다. 
+이 매개변수는 <filename>postgresql.conf</> 파일 또는 서버 커맨드 라인에서만 설정 가능하다.
  </para>
 </listitem>
  </varlistentry>
@@ -2997,18 +3158,27 @@ Unix 시스템에서, 이 매개변수는 <varname>logging_collector</varname>�
 </term>
 <listitem>
  <para>
-<varname>logging_collector</varname>가 사용으로 설정된 경우 이 매개변수에 의해 <productname>Agens SQL</productname>가 이름이 동일한 기존 로그 파일에 추가하는 것이 아니라 파일을 비운다(덮어쓰기). 
-단, 비우기는 서버 시작 시 또는 크기 기준 로테이션이 아니라 시간 기준 로테이션에 의해 새 파일이 열린 경우에만 실행된다. off인 경우에는 모든 경우에 기존 파일이 추가된다. 
-예를 들면, <literal>postgresql-%H.log</literal> 같은 <varname>log_filename</varname>과 함께 이 설정을 사용하면 24시간마다 로그 파일을 생성하고 주기적으로 덮어쓰기 된다. 
+<varname>logging_collector</varname>가 사용으로 설정된 경우 이 매개변수에 의해 
+<productname>Agens SQL</productname>가 이름이 동일한 기존 로그 파일에 추가하는 것이 아니라 파일을 비운다(덮어쓰기). 
+단, 비우기는 서버 시작 시 또는 크기 기준 로테이션이 아니라 시간 기준 로테이션에 의해 새 파일이 열린 경우에만 실행된다. 
+off인 경우에는 모든 경우에 기존 파일이 추가된다. 
+예를 들면, <literal>postgresql-%H.log</literal> 같은 <varname>log_filename</varname>과 함께 이 설정을 사용하면 24시간마다 
+로그 파일을 생성하고 주기적으로 덮어쓰기 된다. 
 이 매개변수는 <filename>postgresql.conf</> 파일 또는 서버 커맨드 라인에서만 설정 가능하다.
  </para>
  <para>
-예: 7일간 로그를 유지하고, 1일 1로그 파일의 이름을 <literal>server_log.Mon</literal>, <literal>server_log.Tue</literal> 등으로 명명하고, 마지막 주의 로그를 이 주의 로그로 자동 덮어쓰기 하려면 <varname>log_filename</varname>은 <literal>server_log.%a</literal>로 설정하고, 
-<varname>log_truncate_on_rotation</varname>은 <literal>on</literal>으로 설정하고, <varname>log_rotation_age</varname>는 <literal>1440</literal>으로 설정해야 한다.
+예: 7일간 로그를 유지하고, 1일 1로그 파일의 이름을 <literal>server_log.Mon</literal>, <literal>server_log.Tue</literal> 등으로 명명하고, 
+마지막 주의 로그를 이 주의 로그로 자동 덮어쓰기 하려면 <varname>log_filename</varname>은 <literal>server_log.%a</literal>로 설정하고, 
+<varname>log_truncate_on_rotation</varname>은 <literal>on</literal>으로 설정하고, <varname>log_rotation_age</varname>는 
+<literal>1440</literal>으로 설정해야 한다.
  </para>
  <para>
-예: 24시간 로그를 유지하고, 1시간당 1개 로그 파일을 생성하되, 로그 파일 크기가 1GB를 초과하면 곧장 로테이션되게 하려면 <varname>log_filename</varname>은 <literal>server_log.%H%M</literal>으로 설정하고, <varname>log_truncate_on_rotation</varname>은 <literal>on</literal>으로 설정하고, 
-<varname>log_rotation_age</varname>는 <literal>60</literal>으로 설정하고, <varname>log_rotation_size</varname>는 <literal>1000000</literal>으로 설정해야 한다. <varname>log_filename</varname> 파일에서 <literal>%M</>을 포함하면 크기 구동 로테이션으로 시간의 초기 파일 이름과는 다른 파일 이름이 선택되도록 할 수 있다.
+예: 24시간 로그를 유지하고, 1시간당 1개 로그 파일을 생성하되, 로그 파일 크기가 1GB를 초과하면 곧장 로테이션되게 하려면 
+<varname>log_filename</varname>은 <literal>server_log.%H%M</literal>으로 설정하고, <varname>log_truncate_on_rotation</varname>은 
+<literal>on</literal>으로 설정하고, <varname>log_rotation_age</varname>는 <literal>60</literal>으로 설정하고, 
+<varname>log_rotation_size</varname>는 <literal>1000000</literal>으로 설정해야 한다. 
+<varname>log_filename</varname> 파일에서 <literal>%M</>을 포함하면 크기 구동 로테이션으로 
+시간의 초기 파일 이름과는 다른 파일 이름이 선택되도록 할 수 있다.
  </para>
 </listitem>
  </varlistentry>
@@ -3024,7 +3194,8 @@ Unix 시스템에서, 이 매개변수는 <varname>logging_collector</varname>�
 <application>syslog</>에 로깅하도록 설정된 경우 이 매개변수는 사용할 <application>syslog</application> <quote>facility</quote>를 결정한다.
 <literal>LOCAL2</>, <literal>LOCAL3</>, <literal>LOCAL4</>,
 <literal>LOCAL5</>, <literal>LOCAL6</>, <literal>LOCAL7</> 중에서 선택할 수 있으며, 기본값은 <literal>LOCAL0</>이다. 
-시스템의 <application>syslog</application> 데몬에 관한 문서를 참조하기 바란다. 이 매개변수는 <filename>postgresql.conf</> 파일 또는 서버 커맨드 라인에서만 설정 가능하다.
+시스템의 <application>syslog</application> 데몬에 관한 문서를 참조하기 바란다. 
+이 매개변수는 <filename>postgresql.conf</> 파일 또는 서버 커맨드 라인에서만 설정 가능하다.
  </para>
 </listitem>
  </varlistentry>
@@ -3037,7 +3208,8 @@ Unix 시스템에서, 이 매개변수는 <varname>logging_collector</varname>�
 </term>
  <listitem>
 <para>
- <application>syslog</>에 로깅하도록 설정된 경우 이 매개변수는 <application>syslog</application> 로그에서 <productname>Agens SQL</productname> 메시지를 식별하기 위해 사용되는 프로그램 이름을 결정한다. 기본값은 <literal>postgres</literal>이다. 
+ <application>syslog</>에 로깅하도록 설정된 경우 이 매개변수는 <application>syslog</application> 로그에서 
+ <productname>Agens SQL</productname> 메시지를 식별하기 위해 사용되는 프로그램 이름을 결정한다. 기본값은 <literal>postgres</literal>이다. 
  이 매개변수는 <filename>postgresql.conf</> 파일 또는 서버 커맨드 라인에서만 설정 가능하다.
 </para>
  </listitem>
@@ -3051,7 +3223,9 @@ Unix 시스템에서, 이 매개변수는 <varname>logging_collector</varname>�
 </term>
 <listitem>
  <para>
-<application>event log</>에 로깅하도록 설정된 경우 이 매개변수는 syslog 로그에서 <productname>Agens SQL</productname> 메시지를 식별하기 위해 사용되는 프로그램 이름을 결정한다. 기본값은 <literal>Agens SQL</literal>이다. 
+<application>event log</>에 로깅하도록 설정된 경우 이 매개변수는 syslog 로그에서 
+<productname>Agens SQL</productname> 메시지를 식별하기 위해 사용되는 프로그램 이름을 결정한다. 
+기본값은 <literal>Agens SQL</literal>이다. 
 이 매개변수는 <filename>postgresql.conf</> 파일 또는 서버 커맨드 라인에서만 설정 가능하다.
  </para>
 </listitem>
@@ -3076,8 +3250,9 @@ Unix 시스템에서, 이 매개변수는 <varname>logging_collector</varname>�
 <literal>DEBUG4</>, <literal>DEBUG3</>, <literal>DEBUG2</>, 
 <literal>DEBUG1</>, <literal>LOG</>, <literal>NOTICE</>, 
 <literal>WARNING</>, <literal>ERROR</>, <literal>FATAL</>, 
-<literal>PANIC</>이다. 각 레벨에는 후속되는 모든 레벨이 포함된다. 
-후속 레벨일수록 메시지가 적게 전송된다. 기본값은 <literal>NOTICE</>이다. <literal>LOG</>는 여기서 <varname>log_min_messages</>와는 다른 랭크를 갖는다.
+<literal>PANIC</>이다. 각 레벨에는 이전 레벨들을 모두 포함한다.
+레벨이 뒤로 갈수록 메시지가 로그에 적게 전송된다. 기본값은 <literal>NOTICE</>이다. 
+여기서 <literal>LOG</> 순위는 <varname>log_min_messages</>에서의 순위와 다르다.
  </para>
 </listitem>
  </varlistentry>
@@ -3094,8 +3269,10 @@ Unix 시스템에서, 이 매개변수는 <varname>logging_collector</varname>�
 <literal>DEBUG3</>, <literal>DEBUG2</>, <literal>DEBUG1</>,
 <literal>INFO</>, <literal>NOTICE</>, <literal>WARNING</>,
 <literal>ERROR</>, <literal>LOG</>, <literal>FATAL</>, and
-<literal>PANIC</>이다. 각 레벨에는 후속되는 모든 레벨이 포함된다. 
-후속 레벨일수록 메시지가 로그에 적게 전송된다. 기본값은 <literal>WARNING</>이다. <literal>LOG</>는 여기서 <varname>client_min_messages</>와는 다른 랭크를 갖는다. 수퍼유저만 이 설정을 변경할 수 있다.
+<literal>PANIC</>이다. 각 레벨에는 이전 레벨들을 모두 포함한다.
+레벨이 뒤로 갈수록 메시지가 로그에 적게 전송된다. 
+기본값은 <literal>WARNING</>이다. 여기서 <literal>LOG</> 순위는 <varname>log_min_messages</>에서의 순위와 다르다.
+수퍼유저만 이 설정을 변경할 수 있다.
  </para>
 </listitem>
  </varlistentry>
@@ -3108,15 +3285,17 @@ Unix 시스템에서, 이 매개변수는 <varname>logging_collector</varname>�
 </term>
 <listitem>
  <para>
-에러 상태를 유발한 SQL 문이 서버 로그에 기록되는 것을 제어한다. 메시지가 지정된 심각도 이상일 경우 현재 SQL 문이 로그 항목에 포함된다. 
+에러 상태를 유발한 SQL 문 중에 어떤 SQL문이 서버 로그에 기록될 지를 제어한다. 
+메시지가 지정된 심각도 이상인 경우 해당 SQL 문이 로그 항목에 포함된다. 
 유효 값은 <literal>DEBUG5</literal> 및 
 <literal>DEBUG4</literal>, <literal>DEBUG3</literal>,
 <literal>DEBUG2</literal>, <literal>DEBUG1</literal>,
 <literal>INFO</literal>, <literal>NOTICE</literal>,
 <literal>WARNING</literal>, <literal>ERROR</literal>,
 <literal>LOG</literal>,
-<literal>FATAL</literal>, <literal>PANIC</literal>이다. 기본값은, 에러, 로그 메시지, 심각한 에러 또는 패닉을 유발한 문(statement)을 로깅하는 <literal>ERROR</literal>이다. 
-실패 문의 로깅을 효율적으로 해제하려면 이 매개변수를 <literal>PANIC</literal>으로 설정해야 한다. 수퍼유저만 이 설정을 변경할 수 있다.
+<literal>FATAL</literal>, <literal>PANIC</literal>이다. 
+기본값은 에러 또는 로그 메시지, 심각한 에러, 패닉을 유발한 구문(statement)을 로깅하는 <literal>ERROR</literal>이다. 
+실패하는 구문의 로깅을 효율적으로 해제하려면 이 매개변수를 <literal>PANIC</literal>으로 설정해야 한다. 수퍼유저만 이 설정을 변경할 수 있다.
  </para>
 </listitem>
  </varlistentry>
@@ -3129,18 +3308,22 @@ Unix 시스템에서, 이 매개변수는 <varname>logging_collector</varname>�
 </term>
  <listitem>
 <para>
- 최소한 지정된 밀리 초 동안 문이 실행된 경우 완료된 문별로 지속 시간이 로깅되게 한다. 이것을 0으로 설정하면 모든 문의 기간이 인쇄된다. -1(기본값)은 로깅 문 기간을 비활성화한다. 
- 예를 들어, <literal>250ms</literal>로 설정하면 250ms 이상 실행된 모든 SQL 문이 로깅된다. 이 매개변수를 활성화하면 애플리케이션에서 최적화되지 않은 쿼리를 찾아내는 데 도움이 된다. 수퍼유저만 이 설정을 변경할 수 있다.
+ 최소한 지정된 밀리 초 동안 구문이 실행된 경우 완료된 구문별로 지속 시간이 로깅되게 한다. 
+ 이것을 0으로 설정하면 모든 구문의 기간이 인쇄된다. -1(기본값)은 로깅되는 구문 기간을 비활성화한다. 
+ 예를 들어, <literal>250ms</literal>로 설정하면 250ms 이상 실행된 모든 SQL문이 로깅된다. 
+ 이 매개변수를 활성화하면 애플리케이션에서 최적화되지 않은 쿼리를 찾아내는 데 도움이 된다. 수퍼유저만 이 설정을 변경할 수 있다.
 </para>
 
 <para>
- 확장 쿼리 프로토콜을 사용하는 클라이언트의 경우 Parse, Bind 및 Execute 단계의 지속 시간이 각각 로깅된다.
+ 확장 쿼리 프로토콜을 사용하는 클라이언트의 경우 Parse 및 Bind, Execute 단계의 지속 시간이 각각 로깅된다.
 </para>
 
  <note>
 <para>
- 이 옵션을 <xref linkend="guc-log-statement">와 함께 사용하면 로그 메시지 지속 시간에 <varname>log_statement</>가 반복되지 않으므로 문의 텍스트가 로깅되지 않는다. 
- <application>syslog</>를 사용하지 않는 경우 프로세스 ID 또는 세션 ID를 사용하여 문 메시지를 나중의 지속 시간 메시지에 연결할 수 있는 <xref linkend="guc-log-line-prefix">를 사용하여 PID 또는 세션 ID를 로깅하는 것이 좋다.
+ 이 옵션을 <xref linkend="guc-log-statement">와 함께 사용하면 로그 메시지 지연 시간에 <varname>log_statement</>가 반복되지 않으므로 
+ 구문 텍스트가 로깅되지 않는다. 
+ <application>syslog</>를 사용하지 않는 경우 프로세스 ID 또는 세션 ID를 사용하여 
+ 구문 메시지를 추후 지연 시간 메시지에 연결할 수 있도록 <xref linkend="guc-log-line-prefix">를 사용하여 PID 또는 세션 ID를 로깅하는 것이 좋다.
 </para>
  </note>
  </listitem>
@@ -3150,7 +3333,8 @@ Unix 시스템에서, 이 매개변수는 <varname>logging_collector</varname>�
 
 <para>
  <xref linkend="runtime-config-severity-levels">은 <productname>Agens SQL</>에서 사용되는 메시지 심각도 레벨을 설명한다. 
- 로깅 출력이 <systemitem>syslog</systemitem> 또는 Windows의 <systemitem>eventlog</systemitem>에 전송되는 경우 심각도 레벨은 표에 나타난 대로 해석된다.
+ 로깅 출력이 <systemitem>syslog</systemitem> 또는 Windows의 <systemitem>eventlog</systemitem>에 전송되는 경우 
+ 심각도 레벨은 표에 나타난 대로 해석된다.
 </para>
 
 <table id="runtime-config-severity-levels">
@@ -3203,7 +3387,7 @@ Unix 시스템에서, 이 매개변수는 <varname>logging_collector</varname>�
 
  <row>
 <entry><literal>LOG</></entry>
-<entry>checkpoint 작업 같이 관리자가 관심 있어 할 정보를 알려준다.</entry>
+<entry> 체크포인트 작업 같이 관리자가 관심 있어 할 정보를 알려준다.</entry>
 <entry><literal>INFO</></entry>
 <entry><literal>INFORMATION</></entry>
  </row>
@@ -3239,8 +3423,12 @@ Unix 시스템에서, 이 매개변수는 <varname>logging_collector</varname>�
 </term>
 <listitem>
  <para>
-<varname>application_name</varname>은 <symbol>NAMEDATALEN</> 글자 수(표준 빌드에서 64자) 이내의 string일 수 있다. 이것은 일반적으로 서버 연결 시 애플리케이션에 의해 설정된다. 이름은 <structname>pg_stat_activity</> 뷰에 표시되고 CSV 로그 항목에 포함된다. 
-<xref linkend="guc-log-line-prefix"> 매개변수를 통해 일반 로그 항목에 포함될 수도 있다. 인쇄 가능한 ASCII 문자만 <varname>application_name</varname> 값으로 사용된다. 다른 문자는 물음표(<literal>?</literal>)로 대체된다.
+<varname>application_name</varname>은 <symbol>NAMEDATALEN</> 글자 수(표준 빌드에서 64자) 이내의 string일 수 있다. 
+이것은 일반적으로 서버 연결 시 애플리케이션에 의해 설정된다. 
+이름은 <structname>pg_stat_activity</> 뷰에 표시되고 CSV 로그 항목에 포함된다. 
+<xref linkend="guc-log-line-prefix"> 매개변수를 통해 일반 로그 항목에 포함될 수도 있다. 
+인쇄 가능한 ASCII 문자만 <varname>application_name</varname> 값으로 사용된다. 
+다른 문자는 물음표(<literal>?</literal>)로 대체된다.
  </para>
 </listitem>
  </varlistentry>
@@ -3263,8 +3451,11 @@ Unix 시스템에서, 이 매개변수는 <varname>logging_collector</varname>�
 </term>
 <listitem>
  <para>
-이 매개변수는 다양한 디버깅 출력을 활성화한다. 설정된 경우 결과로 나온 파싱 트리, 쿼리 재작성 출력 또는 실행된 각 쿼리별로 실행 플랜이 인쇄된다. 
-이 메시지는 <literal>LOG</> 메시지 수준으로 출력되므로 기본적으로 서버 로그에 나타나지만 클라이언트로 전송되지는 않는다. <xref linkend="guc-client-min-messages"> 및/또는 <xref linkend="guc-log-min-messages">를 조절하여 변경할 수 있다. 이 매개변수의 기본값은 off이다.
+이 매개변수는 다양한 디버깅 출력을 활성화한다. 
+설정된 경우 결과로 나온 파싱 트리 또는 쿼리 재작성 출력, 실행된 각 쿼리별로 실행 플랜이 인쇄된다. 
+이 메시지는 <literal>LOG</> 메시지 수준으로 출력되므로 기본적으로 서버 로그에 나타나지만 클라이언트로 전송되지는 않는다. 
+<xref linkend="guc-client-min-messages"> 및/또는 <xref linkend="guc-log-min-messages">를 조절하여 변경할 수 있다. 
+이 매개변수의 기본값은 off이다.
  </para>
 </listitem>
  </varlistentry>
@@ -3277,7 +3468,8 @@ Unix 시스템에서, 이 매개변수는 <varname>logging_collector</varname>�
 </term>
 <listitem>
  <para>
-설정된 경우, <varname>debug_pretty_print</varname>는 <varname>debug_print_parse</varname>, <varname>debug_print_rewritten</varname> 또는 <varname>debug_print_plan</varname>에 의해 생성된 메시지를 들여쓰기 한다. 
+설정된 경우, <varname>debug_pretty_print</varname>는 <varname>debug_print_parse</varname> 또는 <varname>debug_print_rewritten</varname>, 
+<varname>debug_print_plan</varname>에 의해 생성된 메시지를 들여쓰기 한다. 
 따라서 가독성이 증가하는 대신, off로 설정된 경우의 <quote>compact</> 형식보다 출력이 길어진다. 기본값은 on이다.
  </para>
 </listitem>
@@ -3291,7 +3483,8 @@ Unix 시스템에서, 이 매개변수는 <varname>logging_collector</varname>�
 </term>
 <listitem>
  <para>
-checkpoints 및 restartpoints가 서버 로그에 로깅되게 한다. 일부 통계는 작성된 버퍼 수 및 작성할 때 소요된 시간을 비롯한 로그 메시지에 포함된다. 
+ 체크포인트들 및 재시작포인트들(restartpoints)이 서버 로그에 로깅되게 한다. 
+ 일부 통계는 작성된 버퍼 수 및 작성할 때 소요된 시간을 비롯한 로그 메시지에 포함된다. 
 이 매개변수는 <filename>postgresql.conf</> 파일 또는 서버 커맨드 라인에서만 설정 가능하다. 기본값은 off이다.
  </para>
 </listitem>
@@ -3310,7 +3503,8 @@ checkpoints 및 restartpoints가 서버 로그에 로깅되게 한다. 일부 �
 
  <note>
 <para>
- <application>psql</> 같은 일부 클라이언트 프로그램은 패스워드가 필수인지 판단하면서 2번 연결을 시도하므로<quote>connection received</> 메시지가 중복되어 나타나도 문제를 뜻하지는 않는다. 
+ <application>psql</> 같은 일부 클라이언트 프로그램은 패스워드가 필수인지 판단하면서 
+ 2번 연결을 시도하므로<quote>connection received</> 메시지가 중복되어 나타나도 문제를 뜻하지는 않는다. 
 </para>
  </note>
 </listitem>
@@ -3324,7 +3518,8 @@ checkpoints 및 restartpoints가 서버 로그에 로깅되게 한다. 일부 �
 </term>
 <listitem>
  <para>
-이것은 세션을 중단할 때 외에는 <varname>log_connections</varname>와 유사하게 서버 로그에 한 줄을 출력하고 세션의 지속 시간을 포함한다. 기본값은 off이다. 이 매개변수는 세션 시작 후에는 변경할 수 없다.
+이것은 세션을 중단할 때 외에는 <varname>log_connections</varname>와 유사하게 서버 로그에 한 줄을 출력하고 세션의 지속 시간을 포함한다. 
+기본값은 off이다. 이 매개변수는 세션 시작 후에는 변경할 수 없다.
  </para>
 </listitem>
  </varlistentry>
@@ -3342,13 +3537,15 @@ checkpoints 및 restartpoints가 서버 로그에 로깅되게 한다. 일부 �
  </para>
 
  <para>
-확장 쿼리 프로토콜을 사용하는 클라이언트의 경우 Parse, Bind 및 Execute 단계의 지속 시간이 각각 로깅된다.
+확장 쿼리 프로토콜을 사용하는 클라이언트의 경우 Parse 및 Bind, Execute 단계의 지속 시간이 각각 로깅된다.
  </para>
 
  <note>
 <para>
- 이 옵션과 <xref linkend="guc-log-min-duration-statement">를 0으로 설정하는 것의 차이는 <varname>log_min_duration_statement</>를 초과하면 쿼리 텍스트가 강제로 로깅되지만, 이 옵션은 그렇지 않다는 것이다. 
- 따라서 <varname>log_duration</>이 <literal>on</>으로 설정되고 <varname>log_min_duration_statement</>가 양의 값을 갖는 경우 모든 지속 시간이 로깅되지만 쿼리 텍스트는 임계값을 초과하는 문인 경우에만 포함된다. 
+ 이 옵션과 <xref linkend="guc-log-min-duration-statement">를 0으로 설정하는 것의 차이는 
+ <varname>log_min_duration_statement</>를 초과하면 쿼리 텍스트가 강제로 로깅되지만, 이 옵션은 그렇지 않다는 것이다. 
+ 따라서 <varname>log_duration</>이 <literal>on</>으로 설정되고 <varname>log_min_duration_statement</>가 양의 값을 갖는 경우 
+ 모든 지속 시간이 로깅되지만 쿼리 텍스트는 임계값을 초과하는 문인 경우에만 포함된다. 
  이러한 동작은 고부하 설치에서 통계를 수집할 때 유용하다.
 </para>
  </note>
@@ -3382,7 +3579,7 @@ checkpoints 및 restartpoints가 서버 로그에 로깅되게 한다. 일부 �
 <listitem>
  <para>
 기본적으로, 연결 로그 메시지는 연결 호스트의 IP 주소만 표시한다. 이 매개변수를 활성화하면 호스트 이름도 로깅된다. 
-호스트 이름 설정에 따라 이것이 상당한 성능 패널티를 부과할 수도 있다. 
+호스트 이름 설정에 따라 이것이 상당한 성능을 요구한다.
 이 매개변수는 <filename>postgresql.conf</> 파일 또는 서버 커맨드 라인에서만 설정 가능하다.
  </para>
 </listitem>
@@ -3396,9 +3593,10 @@ checkpoints 및 restartpoints가 서버 로그에 로깅되게 한다. 일부 �
 </term>
 <listitem>
  <para>
- 이것은 각 로그 줄의 처음에 출력되는 <function>printf</> 스타일 string이다. <literal>%</> 문자는 <quote>이스케이프 시퀀스</>로 시작되며 아래 요약된 상태 정보로 대체된다. 미인식 이스케이프는 무시된다. 
+ 이것은 각 로그 줄의 처음에 출력되는 <function>printf</> 스타일 string이다. 
+ <literal>%</> 문자는 <quote>이스케이프 시퀀스</>로 시작되며 아래 요약된 상태 정보로 대체된다. 미인식 이스케이프는 무시된다. 
  다른 문자는 로그 줄에 직접 복사된다. 
- 일부 이스케이프는 세션 프로세스에 의해 인식만 된고, 메인 서버 프로세스 같은 백그라운드 프로세스에 의해 빈 것으로 처리된다. 
+ 일부 이스케이프는 세션 프로세스만 인식 하고, 메인 서버 프로세스 같은 백그라운드 프로세스는 빈 것으로 처리한다.
  상태 정보는 % 뒤, 옵션 앞에 숫자 리터럴을 지정함으로써 왼쪽 또는 오른쪽에 정렬될 수 있다. 
  음의 값은 최소 너비를 갖도록 상태 정보를 오른쪽에서 공백으로 채우고, 양의 값은 왼쪽에서 공백으로 채운다. 
  패딩(padding)은 로그 파일의 가독성을 늘릴 때 유용하다. 
@@ -3416,7 +3614,7 @@ checkpoints 및 restartpoints가 서버 로그에 로깅되게 한다. 일부 �
  <tbody>
 <row>
  <entry><literal>%a</literal></entry>
- <entry>어플리케이션 이름</entry>
+ <entry>애플리케이션 이름</entry>
  <entry>yes</entry>
 </row>
 <row>
@@ -3503,7 +3701,8 @@ checkpoints 및 restartpoints가 서버 로그에 로깅되게 한다. 일부 �
 </tgroup>
  </informaltable>
  <literal>%c</> 이스케이프는 점으로 구분된 4바이트 16진수(선행 0 없음) 2개로 환경 설정되는 의사 고유(quasi-unique) 세션을 인쇄한다. 
- 숫자는 프로세스 시작 시간 및 프로세스 ID이므로 해당 항목의 인쇄 공간 절약 방법으로 <literal>%c</>를 사용할 수도 있다. 예를 들면, <literal>pg_stat_activity</>의 세션 식별자를 생성하려면 아래 쿼리를 사용한다.
+ 숫자는 프로세스 시작 시간 및 프로세스 ID이므로 해당 항목의 인쇄 공간 절약 방법으로 <literal>%c</>를 사용할 수도 있다. 
+ 예를 들면, <literal>pg_stat_activity</>의 세션 식별자를 생성하려면 아래 쿼리를 사용한다.
 <programlisting>
 SELECT to_hex(EXTRACT(EPOCH FROM backend_start)::integer) || '.' ||
  to_hex(pid)
@@ -3514,14 +3713,16 @@ FROM pg_stat_activity;
 
  <tip>
 <para>
- <varname>log_line_prefix</>에 비어 있지 않은 값을 설정하면 보통은 마지막 문자가 공백이 되도록 해서 로그 줄의 나머지와 육안상 구분이 되게 해야 한다. 
+ <varname>log_line_prefix</>에 비어 있지 않은 값을 설정하면 보통은 마지막 문자가 공백이 되도록 해서 로그 줄의 나머지와 
+ 육안상 구분이 되게 해야 한다. 
  문장 부호를 사용할 수도 있다.
 </para>
  </tip>
 
  <tip>
 <para>
- <application>Syslog</>는 자체 타임스탬프와 프로세스 ID 정보를 생성하므로 <application>syslog</>에 로깅하는 경우 사용자는 이러한 이스케이프를 포함하는 것을 원하지 않을 수도 있다.
+ <application>Syslog</>는 자체 타임스탬프와 프로세스 ID 정보를 생성하므로 <application>syslog</>에 로깅하는 경우 
+ 사용자는 이러한 이스케이프를 포함하는 것을 원하지 않을 수도 있다.
 </para>
  </tip>
 </listitem>
@@ -3549,25 +3750,27 @@ FROM pg_stat_activity;
 </term>
 <listitem>
  <para>
-로깅할 SQL 문을 제어한다. 유효 값은 <literal>none</>(off), <literal>ddl</>, <literal>mod</>, <literal>all</>(모든 문)이다. <literal>ddl</>은 <command>CREATE</> 및 <command>ALTER</>, 
-<command>DROP</> 문 같은 모든 데이터 정의 문을 로깅한다. 
-<literal>mod</>는 모든 <literal>ddl</> 문과 <command>INSERT</> 및
-<command>UPDATE</>, <command>DELETE</>, <command>TRUNCATE</>, <command>COPY FROM</>같은 데이터 수정 문을 로깅한다. <command>PREPARE</> 및 <command>EXECUTE</>, 
+로깅할 SQL 문을 제어한다. 유효 값은 <literal>none</>(off), <literal>ddl</>, <literal>mod</>, <literal>all</>(모든 구문)이다. 
+<literal>ddl</>은 <command>CREATE</> 및 <command>ALTER</>, 
+<command>DROP</>문 같은 모든 데이터 정의문을 로깅한다. 
+<literal>mod</>는 모든 <literal>ddl</>문과 <command>INSERT</> 및
+<command>UPDATE</>, <command>DELETE</>, <command>TRUNCATE</>, <command>COPY FROM</>같은 데이터 수정문을 로깅한다. 
+<command>PREPARE</> 및 <command>EXECUTE</>, 
 <command>EXPLAIN ANALYZE</>문도 포함된 명령이 적절한 타입인 경우 로깅된다. 
-확장 쿼리 프로토콜을 사용하는 클라이언트의 경우 Execute 메시지를 수신하면 로깅이 발생되고, Bind 매개변수의 값이 포함된다(작은따옴표를 겹쳐서 사용).
+확장 쿼리 프로토콜을 사용하는 클라이언트의 경우 Execute 메시지를 수신하면 로깅이 발생되고, 
+Bind 매개변수의 값이 포함된다(작은따옴표를 겹쳐서 사용).
  </para>
 
  <para>
 기본값은 none이다. 수퍼유저만 이 설정을 변경할 수 있다.
-The default is <literal>none</>. Only superusers can change this
-setting.
  </para>
 
  <note>
 <para>
- 기본 파싱이 완료되어 문 타입이 결정된 후에만 로그 메시지가 발생되므로 <varname>log_statement</> = <literal>all</> 설정에 의해서도 간단한 구문 에러가 포함된 문은 로깅되지 않는다. 
- 확장 쿼리 프로토콜의 경우 이 설정은 Execute 단계 전에 실패한 문을 로깅하지 않는다(예: 파싱 분석 또는 플래닝 도중). 
- 해당 문을 로깅하려면 <varname>log_min_error_statement</>를 <literal>ERROR</>(또는 그 이상)로 설정해야 한다.
+ 기본 파싱이 완료되어 문 타입이 결정된 후에만 로그 메시지가 발생되므로 
+ <varname>log_statement</> = <literal>all</> 설정에 의해서도 간단한 구문 에러가 포함된 구문은 로깅되지 않는다. 
+ 확장 쿼리 프로토콜의 경우 이 설정은 Execute 단계 전에 실패한 구문을 로깅하지 않는다(예: 파싱 분석 또는 플래닝 도중). 
+ 해당 구문을 로깅하려면 <varname>log_min_error_statement</>를 <literal>ERROR</>(또는 그 이상)로 설정해야 한다.
 </para>
  </note>
 </listitem>
@@ -3581,8 +3784,10 @@ setting.
 </term>
 <listitem>
  <para>
-임시 파일 이름과 크기의 로깅을 제어한다. 정렬, 해시 및 임시 쿼리 결과를 위해 임시 파일을 생성할 수 있다. 로그는 각 임시 파일이 삭제된 경우 입력된다. 
-0 값은 모든 임시 파일 정보를 로깅하고, 양의 값은 크기가 지정된 킬로바이트 이상일 때만 로깅된다. 기본값은, 해당 로깅이 비활성화되는 -1이다. 수퍼유저만 이 설정을 변경할 수 있다.
+임시 파일 이름과 크기의 로깅을 제어한다. 정렬, 해시 및 임시 쿼리 결과를 위해 임시 파일을 생성할 수 있다. 
+로그는 각 임시 파일이 삭제된 경우 입력된다. 
+0 값은 모든 임시 파일 정보를 로깅하고, 양의 값은 크기가 지정된 킬로바이트 이상일 때만 로깅된다. 
+기본값은, 해당 로깅이 비활성화되는 -1이다. 수퍼유저만 이 설정을 변경할 수 있다.
  </para>
 </listitem>
  </varlistentry>
@@ -3595,8 +3800,10 @@ setting.
 </term>
 <listitem>
  <para>
-서버 로그에 작성되는 타임스탬프에 사용할 시간대를 설정한다. <xref linkend="guc-timezone">과 달리, 이 값은 클러스터 차원(cluster-wide)의 값이므로 모든 세션이 일관되게 타임스탬프를 알려준다. 
-내장 기본값은 <literal>GMT</>이지만, 일반적으로 <filename>postgresql.conf</>에 오버라이드되고 <application>initdb</>는 시스템 환경에 해당되는 곳에 설정을 설치한다. 
+서버 로그에 작성되는 타임스탬프에 사용할 시간대를 설정한다. <xref linkend="guc-timezone">과 달리, 
+이 값은 클러스터 차원(cluster-wide)의 값이므로 모든 세션이 일관되게 타임스탬프를 알려준다. 
+내장 기본값은 <literal>GMT</>이지만, 일반적으로 <filename>postgresql.conf</>에 오버라이드되고 
+<application>initdb</>는 시스템 환경에 해당되는 곳에 설정을 설치한다. 
 이 매개변수는 <filename>postgresql.conf</> 파일 또는 서버 커맨드 라인에서만 설정 가능하다.
  </para>
 </listitem>
@@ -3609,10 +3816,12 @@ setting.
 
  <para>
 <varname>log_destination</> 목록에서 <literal>csvlog</>를 포함하면 로그 파일을 데이터베이스 테이블에 편리하게 가져올 수 있다. 
-이 옵션은 쉼표로 구분된 값(<acronym>CSV</>) 형식으로 로그 줄을 출력하며, 밀리초의 타임스탬프, 사용자 이름, 데이터베이스 이름, 프로세스 ID, 클라이언트 호스트:포트 번호, 세션 ID, 세션별 줄 번호, 명령 태그, 세션 시작 시간, 
-가상 트랜잭션 ID, 일반 트랜잭션 ID, 에러 심각도, SQLSTATE 코드, 에러 메시지, 에러 메시지 상세, 힌트, 에러 유발 내부 쿼리(있을 경우), 에러 위치의 문자 카운트, 에러 문맥, 
-에어 유발 사용자 쿼리(있을 경우 및 <varname>log_min_error_statement</>에서 활성화된 경우), 에러 위치의 문자 카운트, Agens SQL 소스 코드에서 에러의 위치(<varname>log_error_verbosity</>가 <literal>verbose</>로 설정된 경우) 및 애플리케이션 이름의 칼럼으로 
-환경 설정되어 있다. CSV 형식 로그 파일 출력을 저장하기 위한 샘플 테이블 정의는 다음과 같다.
+이 옵션은 쉼표로 구분된 값(<acronym>CSV</>) 형식으로 로그 줄을 출력하며, 밀리초의 타임스탬프 및 사용자 이름, 데이터베이스 이름, 
+프로세스 ID, 클라이언트 호스트:포트 번호, 세션 ID, 세션별 줄 번호, 명령 태그, 세션 시작 시간, 
+가상 트랜잭션 ID, 일반 트랜잭션 ID, 에러 심각도, SQLSTATE 코드, 에러 메시지, 에러 메시지 상세, 힌트, 에러 유발 내부 쿼리(있을 경우), 
+에러 위치의 문자 카운트, 에러 문맥, 에러 유발 사용자 쿼리(있을 경우 및 <varname>log_min_error_statement</>에서 활성화된 경우), 
+에러 위치의 문자 카운트, Agens SQL 소스 코드에서 에러의 위치(<varname>log_error_verbosity</>가 <literal>verbose</>로 설정된 경우), 
+애플리케이션 이름의 칼럼으로 환경 설정되어 있다. CSV 형식 로그 파일 출력을 저장하기 위한 샘플 테이블 정의는 다음과 같다.
 <programlisting>
 CREATE TABLE postgres_log
 (
@@ -3657,8 +3866,7 @@ COPY postgres_log FROM '/full/path/to/logfile.csv' WITH csv;
  <listitem>
  <para>
 로그 파일에 대한 일관되고, 예측 가능한 네이밍 체계를 제공하려면 <varname>log_filename</varname> 및 <varname>log_rotation_age</>를 설정해야 한다. 
-이로써 사용자는 파일 이름과 개별 로그 파일이 완료되는 시점을 예상할 수 있으므로 
-가져오기에 대한 대비를 할 수 있다.
+이로써 사용자는 파일 이름과 개별 로그 파일이 완료되는 시점을 예상할 수 있으므로 가져오기에 대한 대비를 할 수 있다.
  </para>
 </listitem>
 
@@ -3670,7 +3878,8 @@ COPY postgres_log FROM '/full/path/to/logfile.csv' WITH csv;
 
 <listitem>
 <para>
- 오래된 로그 데이터가 새 데이터와 동일한 파일에 혼재되지 않게 하려면 <varname>log_truncate_on_rotation</varname>을 <literal>on</>으로 설정해야 한다.
+ 오래된 로그 데이터가 새 데이터와 동일한 파일에 혼재되지 않게 하려면 <varname>log_truncate_on_rotation</varname>을 
+ <literal>on</>으로 설정해야 한다.
 </para>
 </listitem>
 
@@ -3697,8 +3906,8 @@ COPY postgres_log FROM '/full/path/to/logfile.csv' WITH csv;
 
  <para>
 이 매개변수는 서버 차원(server-wide)의 통계 수집 기능을 제어한다. 
-통계 수집이 활성화되면 생성된 데이터는 <structname>pg_stat</structname> 및 <structname>pg_statio</structname> 계열 시스템 뷰를 통해 액세스할 수 있다. 
-자세한 내용은 <xref linkend="monitoring">을 참조 바란다.
+통계 수집이 활성화되면 생성된 데이터는 <structname>pg_stat</structname> 및 <structname>pg_statio</structname> 
+계열 시스템 뷰를 통해 액세스할 수 있다. 자세한 내용은 <xref linkend="monitoring">을 참조 바란다.
  </para>
 
  <variablelist>
@@ -3713,7 +3922,8 @@ COPY postgres_log FROM '/full/path/to/logfile.csv' WITH csv;
  <para>
 각 세션에서 현재 실행 중인 명령의 실행이 시작될 때 해당 명령에 대한 정보 수집을 활성화한다. 
 이 매개변수의 기본값은 on이다. 
-활성화된 경우에도 이 정보가 모든 사용자에게 보이는 것은 아니며, 수퍼유저 및 리포트되는 세션의 소유자에게만 표시되므로 보안 위험을 나타내서는 안 된다. 
+활성화된 경우에도 이 정보가 모든 사용자에게 보이는 것은 아니며, 수퍼유저 및 리포트되는 세션의 소유자에게만 표시되므로 
+보안 위험을 나타내서는 안 된다. 
 수퍼유저만 이 설정을 변경할 수 있다.
  </para>
 </listitem>
@@ -3727,8 +3937,8 @@ COPY postgres_log FROM '/full/path/to/logfile.csv' WITH csv;
 </term>
 <listitem>
  <para>
- 각각의 활성 세션에 대해 현재 실행 중인 명령을 추적하기 위해 <structname>pg_stat_activity</>.<structfield>query</> 필드에 예약된 바이트 수를 지정한다. 
- 기본값은 1024이다. 이 매개변수는 서버 시작 시에만 설정 가능하다.
+ 각각의 활성 세션에 대해 현재 실행 중인 명령을 추적하기 위해 <structname>pg_stat_activity</>.<structfield>query</> 필드에 예약된 바이트 수를 
+ 지정한다. 기본값은 1024이다. 이 매개변수는 서버 시작 시 설정 된다.
  </para>
 </listitem>
  </varlistentry>
@@ -3811,7 +4021,8 @@ I/O 타이밍 정보는 BUFFERS 옵션이 사용되는 경우 및 pg_stat_statem
 <listitem>
  <para>
 임시 통계 데이터를 저장할 디렉토리를 설정한다. 디렉토리에 대한 상대 경로이거나 절대 경로일 수 있다. 
-기본값은 <filename>pg_stat_tmp</filename>이다. RAM 기본 파일 시스템에서 이것을 지정하면 물리적 I/O 요구 사항이 줄어들고 성능 개선으로 이어질 수 있다. 
+기본값은 <filename>pg_stat_tmp</filename>이다.
+ RAM 기본 파일 시스템에서 이것을 지정하면 물리적 I/O 요구 사항이 줄어들고 성능 개선으로 이어질 수 있다. 
 이 매개변수는 <filename>postgresql.conf</> 파일 또는 서버 커맨드 라인에서만 설정 가능하다.
  </para>
 </listitem>
@@ -3847,9 +4058,11 @@ I/O 타이밍 정보는 BUFFERS 옵션이 사용되는 경우 및 pg_stat_statem
 </term>
 <listitem>
  <para>
-각 쿼리에 대해 각 모듈의 성능 통계를 서버 로그에 출력한다. 이것은 Unix <function>getrusage()</> 운영 체제 기능과 유사한 대략적인 프로파일링 방법이다. 
-<varname>log_statement_stats</varname>는 총 문 통계를 리포트하고, 그 외의 것은 모듈별 통계를 알려준다. 
-<varname>log_statement_stats</varname>는 모듈별 옵션과 함께 활성화될 수 없다. 이 옵션은 모두 기본적으로 비활성화된다. 수퍼유저만 이 설정을 변경할 수 있다.
+각 쿼리에 대해 각 모듈의 성능 통계를 서버 로그에 출력한다. 
+이것은 Unix <function>getrusage()</> 운영 체제 기능과 유사한 대략적인 프로파일링 방법이다. 
+<varname>log_statement_stats</varname>는 총 구문 통계를 리포트하고, 그 외의 것은 모듈별 통계를 알려준다. 
+<varname>log_statement_stats</varname>는 모듈별 옵션과 함께 활성화될 수 없다. 
+이 옵션은 모두 기본적으로 비활성화된다. 수퍼유저만 이 설정을 변경할 수 있다.
  </para>
 </listitem>
  </varlistentry>
@@ -3919,7 +4132,7 @@ linkend="vacuum-for-wraparound">을 참조 바란다.
 <listitem>
  <para>
 한 번에 실행할 수 있는 autovacuum 프로세스(autovacuum 제외)의 최대 수를 지정한다. 기본값은 3이다. 
-이 매개변수는 서버 시작 시에만 설정 가능하다.
+이 매개변수는 서버 시작 시 설정된다.
  </para>
 </listitem>
  </varlistentry>
@@ -3933,8 +4146,9 @@ linkend="vacuum-for-wraparound">을 참조 바란다.
 <listitem>
  <para>
 주어진 데이터베이스에서 autovacuum 실행 사이의 최소 지연을 지정한다. 
-각 라운드에서 데몬은 데이터베이스를 검사하고 필요 시 해당 데이터베이스 테이블에 대해 <command>VACUUM</> 및 <command>ANALYZE</> 명령을 실행한다. 
-지연은 초 단위로 측정되며 기본값은 1분이다(<literal>1min</>). 이 매개변수는 <filename>postgresql.conf</> 파일 또는 서버 커맨드 라인에서만 설정 가능하다.
+각 작업에서 데몬은 데이터베이스를 검사하고 필요 시 해당 데이터베이스 테이블에 대해 <command>VACUUM</> 및 <command>ANALYZE</> 명령을 실행한다. 
+지연은 초 단위로 측정되며 기본값은 1분이다(<literal>1min</>). 
+이 매개변수는 <filename>postgresql.conf</> 파일 또는 서버 커맨드 라인에서만 설정 가능하다.
  </para>
 </listitem>
  </varlistentry>
@@ -4007,20 +4221,15 @@ linkend="vacuum-for-wraparound">을 참조 바란다.
 </term>
 <listitem>
  <para>
-테이블 내 트랜잭션 ID 랩어라운드를 방지하기 위해 <command>VACUUM</> 명령을 강제로 실행하기 전에 테이블의 <structname>pg_class</>.<structfield>relfrozenxid</> 필드가 도달할 수 있는 연령(트랜잭션에서)을 지정한다. 
+테이블 내 트랜잭션 ID 랩어라운드를 방지하기 위해 <command>VACUUM</> 명령을 강제로 실행하기 전에 
+테이블의 <structname>pg_class</>.<structfield>relfrozenxid</> 필드가 도달할 수 있는 연령(트랜잭션에서)을 지정한다. 
 autovacuum이 달리 비활성화된 경우에도 시스템은 랩어라운드를 방지하기 위해 autovacuum 프로세스를 실행한다는 점에 유의해야 한다.
  </para>
 
  <para>
-Vacuum은 pg_clog 서브 디렉토리에서 오래된 파일도 제거하는데, 이는 기본값이 2억 트랜잭션으로 상대적으로 낮기 때문이다. 
-이 매개변수는 서버 시작 시에만 설정할 수 있지만 저장소 매개변수를 변경함으로써 개별 테이블에 대한 설정을 줄일 수 있다. 자세한 내용은 23.1.5절을 참조 바란다.
-Vacuum also allows removal of old files from the
-<filename>pg_clog</> subdirectory, which is why the default
-is a relatively low 200 million transactions.
-This parameter can only be set at server start, but the setting
-can be reduced for individual tables by
-changing storage parameters.
-For more information see <xref linkend="vacuum-for-wraparound">.
+Vacuum은 <filename>pg_clog</> 서브 디렉토리에서 오래된 파일도 제거하는데, 이는 기본값이 2억 트랜잭션으로 상대적으로 낮기 때문이다. 
+이 매개변수는 서버 시작 시에만 설정할 수 있지만 저장소 매개변수를 변경함으로써 개별 테이블에 대한 설정을 줄일 수 있다. 
+자세한 내용은 <xref linkend="vacuum-for-wraparound">을 참조 바란다.
  </para>
 </listitem>
  </varlistentry>
@@ -4033,13 +4242,16 @@ For more information see <xref linkend="vacuum-for-wraparound">.
 </term>
 <listitem>
  <para>
-테이블 내 multixact ID 랩어라운드를 방지하기 위해 <command>VACUUM</> 명령을 강제하기 전에 테이블의 <structname>pg_class</>.<structfield>relminmxid</> 필드가 도달할 수 있는 연령(multixacts에서)을 지정한다. 
+테이블 내 multixact ID 랩어라운드를 방지하기 위해 <command>VACUUM</> 명령을 강제하기 전에 
+테이블의 <structname>pg_class</>.<structfield>relminmxid</> 필드가 도달할 수 있는 연령(multixacts에서)을 지정한다. 
 autovacuum이 달리 비활성화된 경우에도 시스템은 랩어라운드를 방지하기 위해 autovacuum 프로세스를 실행한다는 점에 유의해야 한다.
  </para>
 
  <para>
-Vacuuming multixacts는 <filename>pg_multixact/members</> 및 <filename>pg_multixact/offsets</> 서브 디렉토리에서 오래된 파일도 제거하는데, 이는 기본값이 4억 multixacts로 상대적으로 낮기 때문이다. 
-이 매개변수는 서버 시작 시에만 설정할 수 있지만 저장소 매개변수를 변경함으로써 개별 테이블에 대한 설정을 줄일 수 있다. 자세한 내용은 <xref linkend="vacuum-for-multixact-wraparound">을 참조 바란다.
+Vacuuming multixacts는 <filename>pg_multixact/members</> 및 <filename>pg_multixact/offsets</> 서브 디렉토리에서 오래된 파일도 제거하는데, 
+이는 기본값이 4억 multixacts로 상대적으로 낮기 때문이다. 
+이 매개변수는 서버 시작 시에만 설정할 수 있지만 저장소 매개변수를 변경함으로써 개별 테이블에 대한 설정을 줄일 수 있다. 
+자세한 내용은 <xref linkend="vacuum-for-multixact-wraparound">을 참조 바란다.
  </para>
 </listitem>
  </varlistentry>
@@ -4052,7 +4264,8 @@ Vacuuming multixacts는 <filename>pg_multixact/members</> 및 <filename>pg_multi
 </term>
 <listitem>
  <para>
-자동 <command>VACUUM</> 명령에 사용되는 비용 지연 값을 지정한다. -1을 지정하면 일반 <xref linkend="guc-vacuum-cost-delay"> 값이 사용된다. 
+자동 <command>VACUUM</> 명령에 사용되는 비용 지연 값을 지정한다. 
+-1을 지정하면 일반 <xref linkend="guc-vacuum-cost-delay"> 값이 사용된다. 
 기본값은 20밀리초이다. 이 매개변수는 <filename>postgresql.conf</> 파일 또는 서버 커맨드 라인에서만 설정 가능하다. 
 이 설정은 저장소 매개변수를 변경함으로써 개별 테이블에 오버라이드할 수 있다.
  </para>
@@ -4106,12 +4319,14 @@ Vacuuming multixacts는 <filename>pg_multixact/members</> 및 <filename>pg_multi
  </para>
 
  <para>
-목록 항목 중 하나가 특수한 이름 <literal>$user</literal>인 경우, 해당 스키마 및 사용자에게 <literal>USAGE</> 권한이 있으면 <function>SESSION_USER</>가 리턴한 이름의 스키마는 대체된다. 
+목록 항목 중 하나가 특수한 이름 <literal>$user</literal>인 경우, 
+해당 스키마 및 사용자에게 <literal>USAGE</> 권한이 있으면 <function>SESSION_USER</>가 리턴한 이름의 스키마는 대체된다. 
 (그 외에는 <literal>$user</literal>가 무시된다.)
  </para>
 
  <para>
-시스템 카탈로그 스키마 <literal>pg_catalog</>는 경로에 있든 없든 항상 검색된다. 경로에 있을 경우 지정된 순서대로 검색된다. <literal>pg_catalog</>가 경로에 없으면 경로 항목을 검색하기 <emphasis>전</>에 검색된다.
+시스템 카탈로그 스키마 <literal>pg_catalog</>는 경로에 있든 없든 항상 검색된다. 경로에 있을 경우 지정된 순서대로 검색된다. 
+<literal>pg_catalog</>가 경로에 없으면 경로 항목을 검색하기 <emphasis>전</>에 검색된다.
  </para>
 
  <para>
@@ -4129,13 +4344,15 @@ Vacuuming multixacts는 <filename>pg_multixact/members</> 및 <filename>pg_multi
 
  <para>
 이 매개변수의 기본값은 <literal>"$user", public</literal>이다. 
-이 설정은 데이터베이스의 공유 사용(사용자에게 개인 스키마가 없고 모두 <literal>public</>의 공유 사용인 경우), 개인 사용자별 스키마 및 이러한 것들의 조합을 지원한다. 
+이 설정은 데이터베이스의 공유 사용(사용자에게 개인 스키마가 없고 모두 <literal>public</>의 공유 사용인 경우), 
+개인 사용자별 스키마 및 이러한 것들의 조합을 지원한다. 
 전역적 또는 사용자별 기본 검색 경로 설정을 전환함으로써 다른 효과를 얻을 수도 있다.
  </para>
 
  <para>
 검색 경로에서 현재 효과적인 값은 <acronym>SQL</acronym> 함수 <function>current_schemas</>를 통해서 검사할 수 있다. 
-<function>current_schemas</>는 <varname>search_path</varname>에 표시되는 항목이 해결되는 방법을 표시하므로 이것은 <varname>search_path</varname> 값을 검사하는 것과 다르다. 
+<function>current_schemas</>는 <varname>search_path</varname>에 표시되는 항목이 해결되는 방법을 표시하므로 
+이것은 <varname>search_path</varname> 값을 검사하는 것과 다르다. 
  </para>
 </listitem>
  </varlistentry>
@@ -4149,7 +4366,8 @@ Vacuuming multixacts는 <filename>pg_multixact/members</> 및 <filename>pg_multi
 </term>
 <listitem>
  <para>
-이 변수는 <command>CREATE</> 명령이 테이블스페이스를 명시적으로 지정하지 않는 경우 개체(테이블 및 인덱스)가 생성되는 기본 테이블스페이스를 지정한다.
+이 변수는 <command>CREATE</> 명령이 테이블스페이스를 명시적으로 지정하지 않는 경우 
+개체(테이블 및 인덱스)가 생성되는 기본 테이블스페이스를 지정한다.
  </para>
 
  <para>
@@ -4178,22 +4396,25 @@ Vacuuming multixacts는 <filename>pg_multixact/members</> 및 <filename>pg_multi
 <indexterm>
  <primary><varname>temp_tablespaces</> 환경 설정 매개변수</primary>
 </indexterm>
-<indexterm><primary>tablespace</><secondary>temporary</></>
+<indexterm><primary>테이블스페이스</><secondary>임시</></>
 </term>
 <listitem>
  <para>
-이 변수는 <command>CREATE</> 명령이 테이블스페이스를 명시적으로 지정하지 않는 경우 임시 개체(임시 테이블 및 임시 테이블의 인덱스)가 생성되는 테이블스페이스를 지정한다. 
+이 변수는 <command>CREATE</> 명령이 테이블스페이스를 명시적으로 지정하지 않는 경우 
+임시 개체(임시 테이블 및 임시 테이블의 인덱스)가 생성되는 테이블스페이스를 지정한다. 
 대형 데이터집합 정렬 같은 용도의 임시 파일도 이 테이블스페이스에서 생성된다.
  </para>
 
  <para>
 값은 테이블스페이스의 이름 목록이다. 
-목록에서 이름이 2개 이상 있는 경우, 트랜잭션 내에서 연속 생성된 임시 개체가 목록에서 연속 테이블스페이스에 매치되는 것 외에는 <productname>Agens SQL</>는 임시 개체를 생성할 때마다 목록에서 멤버를 임의로 선택한다. 
+목록에서 이름이 2개 이상 있는 경우, 트랜잭션 내에서 연속 생성된 임시 개체가 목록에서 
+연속 테이블스페이스에 매치되는 것 외에는 <productname>Agens SQL</>는 임시 개체를 생성할 때마다 목록에서 멤버를 임의로 선택한다. 
 목록에서 선택된 요소가 비어 있는 string인 경우 <productname>Agens SQL</>이 현재 데이터베이스의 기본 테이블 스페이스를 자동으로 대신 사용한다.
  </para>
 
  <para>
-사용자에게 <literal>CREATE</> 권한이 없는 테이블스페이스를 지정하는 것이므로, <varname>temp_tablespaces</>가 인터랙티브하게 설정된 경우 존재하지 않는 테이블스페이스를 지정하는 것은 에러이다. 
+사용자에게 <literal>CREATE</> 권한이 없는 테이블스페이스를 지정하는 것이므로, 
+<varname>temp_tablespaces</>가 인터랙티브하게 설정된 경우 존재하지 않는 테이블스페이스를 지정하는 것은 에러이다. 
 단, 사용자에게 <literal>CREATE</> 권한이 없는 테이블스페이스이므로, 이전에 설정된 값을 사용하는 경우 존재하지 않는 테이블스페이스는 무시된다. 
 특히, 이 규칙은 <filename>postgresql.conf</>에 설정된 값을 사용하는 경우에 적용된다.
  </para>
@@ -4218,7 +4439,7 @@ See also <xref linkend="guc-default-tablespace">.
 <listitem>
  <para>
 이 매개변수는 일반적으로 on이다. <literal>off</>로 설정되면 CREATE FUNCTION 중에 함수 본문 string의 검증이 비활성화된다. 
-검증을 비활성화하면 검증 프로세스의 부작용이 예방되고 전방 참조 같은 문제로 인한 거짓 긍정이 방지된다. 
+검증을 비활성화하면 검증 프로세스의 부작용이 예방되고 전방 참조(forward references) 같은 문제로 인한 거짓 긍정이 방지된다. 
 다른 사용자를 위해 함수를 로딩하기 전에 이 매개변수를 <literal>off</>로 설정해야 한다. 
 <application>pg_dump</>는 자동으로 off로 설정한다.
  </para>
@@ -4249,8 +4470,8 @@ committed</quote>, <quote>repeatable read</quote>,
  <varlistentry id="guc-default-transaction-read-only" xreflabel="default_transaction_read_only">
 <term><varname>default_transaction_read_only</varname> (<type>boolean</type>)
 <indexterm>
- <primary>read-only transaction</primary>
- <secondary>setting default</secondary>
+ <primary>읽기 전용 트랜잭션</primary>
+ <secondary>기본값 설정</secondary>
 </indexterm>
 <indexterm>
  <primary><varname>default_transaction_read_only</> 환경 설정 매개변수</primary>
@@ -4268,8 +4489,8 @@ committed</quote>, <quote>repeatable read</quote>,
  <varlistentry id="guc-default-transaction-deferrable" xreflabel="default_transaction_deferrable">
 <term><varname>default_transaction_deferrable</varname> (<type>boolean</type>)
 <indexterm>
- <primary>deferrable transaction</primary>
- <secondary>setting default</secondary>
+ <primary>유예 가능한 트랜잭션</primary>
+ <secondary>기본값 설정</secondary>
 </indexterm>
 <indexterm>
  <primary><varname>default_transaction_deferrable</> 환경 설정 매개변수</primary>
@@ -4277,19 +4498,19 @@ committed</quote>, <quote>repeatable read</quote>,
 </term>
 <listitem>
  <para>
-<literal>serializable</> 격리 수준에서 실행 중인 경우 진행을 허용하기 전에 유예 가능한 읽기 전용 SQL 트랜잭션을 지연시킬 수 있다. 
-그러나 실행이 시작되면, 오버헤드가 발생하지 않고 직렬화를 보장하기 때문에 직렬화 코드는 동시 업데이트 때문에 강제 중단을 할 이유가 없어진다. 장기 실행되는 읽기 전용 트랜잭션에 적합하다.
+<literal>직렬화 가능한(serializable)</> 격리 수준에서 실행 중인 경우 진행을 허용하기 전에 유예 가능한 읽기 전용 SQL 트랜잭션을 지연시킬 수 있다. 
+그러나 실행이 시작되면, 오버헤드가 발생하지 않고 직렬화를 보장하기 때문에 직렬화 코드는 동시 업데이트 때문에 강제 중단을 할 이유가 없어진다. 
+장기 실행되는 읽기 전용 트랜잭션에 적합하다.
 </para>
 
 <para>
 이 매개변수는 새 트랜잭션마다 유예 가능한 기본 상태를 제어한다. 
-이것은 현재 읽기 전용 트랜잭션에 아무런 효과가 없고, <literal>serializable</>보다 낮은 격리 수준에서 작동되는 트랜잭션에는 효과가 없다. 기본값은 <literal>off</>이다.
+이것은 현재 읽기 전용 트랜잭션에 아무런 효과가 없고, 
+<literal>직렬화 가능한(serializable)</>보다 낮은 격리 수준에서 작동되는 트랜잭션에는 효과가 없다. 기본값은 <literal>off</>이다.
  </para>
 
 </listitem>
  </varlistentry>
-
-
  <varlistentry id="guc-session-replication-role" xreflabel="session_replication_role">
 <term><varname>session_replication_role</varname> (<type>enum</type>)
 <indexterm>
@@ -4299,7 +4520,8 @@ committed</quote>, <quote>repeatable read</quote>,
 <listitem>
  <para>
 복제 관련 트리거 시작 및 현재 세션의 규칙을 제어한다. 
-이 변수를 설정하려면 수퍼유저 권한이 필요하고, 따라서 이전에 캐시된 쿼리 플랜이 삭제된다. 가능한 값은 <literal>origin</>(기본값), <literal>replica</> 및 <literal>local</>이다. 
+이 변수를 설정하려면 수퍼유저 권한이 필요하고, 따라서 이전에 캐시된 쿼리 플랜이 삭제된다.
+가능한 값은 <literal>origin</>(기본값) 및 <literal>replica</>, <literal>local</>이다. 
  </para>
 </listitem>
  </varlistentry>
@@ -4312,8 +4534,9 @@ committed</quote>, <quote>repeatable read</quote>,
 </term>
 <listitem>
  <para>
-명령이 클라이언트에서 서버로 도착한 때부터 걸린 시간이 지정된 밀리초를 초과한 문을 중단한다. 
-<varname>log_min_error_statement</>가 <literal>ERROR</> 이하로 설정되면 타임아웃된 문도 로깅된다. 0 값(기본값)은 이것을 해제한다.
+명령이 클라이언트에서 서버로 도착한 때부터 걸린 시간이 지정된 밀리초를 초과한 구문을 중단한다. 
+<varname>log_min_error_statement</>가 <literal>ERROR</> 이하로 설정되면 타임아웃된 구문도 로깅된다. 
+0 값(기본값)은 이것을 해제한다.
  </para>
 
  <para>
@@ -4330,17 +4553,18 @@ committed</quote>, <quote>repeatable read</quote>,
 </term>
 <listitem>
  <para>
-테이블, 인덱스, 행 또는 기타 데이터베이스 개체의 잠금을 획득하기 위해 대기한 시간이 지정된 밀리초를 초과하면 문을 중단한다. 
+테이블, 인덱스, 행 또는 기타 데이터베이스 개체의 잠금을 획득하기 위해 대기한 시간이 지정된 밀리초를 초과하면 구문을 중단한다. 
 획득 시도별로 시간 제한이 개별적으로 적용된다. 
 이 제한은 명시적 잠금 요청(예: <command>LOCK TABLE</> 또는 <literal>NOWAIT</>하지 않은 <command>SELECT
 FOR UPDATE</>) 및 암시적으로 획득한 잠금에 모두 적용된다. 
-<varname>log_min_error_statement</>가 <literal>ERROR</> 이하로 설정되면 타임아웃된 문이 로깅된다. 
+<varname>log_min_error_statement</>가 <literal>ERROR</> 이하로 설정되면 타임아웃된 구문이 로깅된다. 
 0 값(기본값)은 이것을 해제한다.
  </para>
 
  <para>
 <varname>statement_timeout</>과 달리, 이 타임아웃은 잠금 대기 시에만 발생한다. 
-<varname>statement_timeout</>이 0이 아닌 경우, 문 타임아웃이 항상 먼저 트리거되므로 <varname>lock_timeout</>을 동일한 값이나 큰 값으로 설정하는 것은 무의미하다.
+<varname>statement_timeout</>이 0이 아닌 경우, 구문 타임아웃이 항상 먼저 트리거되므로 <varname>lock_timeout</>을 동일한 값이나 
+큰 값으로 설정하는 것은 무의미하다.
  </para>
 
  <para>
@@ -4357,8 +4581,11 @@ FOR UPDATE</>) 및 암시적으로 획득한 잠금에 모두 적용된다.
 </term>
 <listitem>
  <para>
-<command>VACUUM</>은 테이블의 <structname>pg_class</>.<structfield>relfrozenxid</> 필드가 이 설정에서 지정된 연령에 도달한 경우 전체 테이블 스캔을 수행한다. 기본값은 1억 5천만 트랜잭션이다. 
-사용자는 이 값을 0 ~ 20억 중 아무거나 설정할 수 있지만 <command>VACUUM</>은 유효 값을 <xref linkend="guc-autovacuum-freeze-max-age">의 95%로 슬며시 제한하므로 랩어라운드 방지 autovacuum이 테이블에서 실행되기 주기적으로 직접 <command>VACUUM</>할 수 있다. 
+<command>VACUUM</>은 테이블의 <structname>pg_class</>.<structfield>relfrozenxid</> 필드가 이 설정에서 지정된 연령에 
+도달한 경우 전체 테이블 스캔을 수행한다. 기본값은 1억 5천만 트랜잭션이다. 
+사용자는 이 값을 0 ~ 20억 중 아무거나 설정할 수 있지만 <command>VACUUM</>은 유효 값을 
+<xref linkend="guc-autovacuum-freeze-max-age">의 95%로 슬며시 제한하므로 랩어라운드 방지 
+autovacuum이 테이블에서 실행되기 주기적으로 직접 <command>VACUUM</>할 수 있다. 
 자세한 내용은 <xref linkend="vacuum-for-wraparound">을 참조 바란다.
  </para>
 </listitem>
@@ -4372,10 +4599,11 @@ FOR UPDATE</>) 및 암시적으로 획득한 잠금에 모두 적용된다.
 </term>
 <listitem>
  <para>
-테이블 스캔 중 행 버전 동결 여부를 결정할 때 <command>VACUUM</>이 사용해야 하는 컷오프 연령(트랜잭션에서)을 지정한다. 기본값은 5천만 트랜잭션이다. 
-사용자는 이 값을 0 ~ 10억 중 아무거나 설정할 수 있지만 <command>VACUUM</>은 유효 값을 <xref linkend="guc-autovacuum-freeze-max-age">의 절반으로 슬며시 제한하므로 강제 autovacuum들 사이에 시간이 불합리하게 짧은 경우는 없다. 
-자세한 내용은 <xref
-linkend="vacuum-for-wraparound">을 참조 바란다.
+테이블 스캔 중 행 버전 동결 여부를 결정할 때 <command>VACUUM</>이 사용해야 하는 컷오프 연령(트랜잭션에서)을 지정한다. 
+기본값은 5천만 트랜잭션이다. 
+사용자는 이 값을 0 ~ 10억 중 아무거나 설정할 수 있지만 <command>VACUUM</>은 유효 값을 <xref linkend="guc-autovacuum-freeze-max-age">의 
+절반으로 슬며시 제한하므로 강제 autovacuum들 사이에 시간이 불합리하게 짧은 경우는 없다. 
+자세한 내용은 <xref linkend="vacuum-for-wraparound">을 참조 바란다.
  </para>
 </listitem>
  </varlistentry>
@@ -4388,8 +4616,11 @@ linkend="vacuum-for-wraparound">을 참조 바란다.
 </term>
 <listitem>
  <para>
-<command>VACUUM</>은 테이블의 <structname>pg_class</>.<structfield>relminmxid</> 필드가 이 설정에서 지정된 연령에 도달한 경우 전체 테이블 스캔을 수행한다. 기본값은 1억 5천만 multixact이다. 
-사용자는 이 값을 0 ~ 20억 중 아무거나 설정할 수 있지만 <command>VACUUM</>은 유효 값을 <xref linkend="guc-autovacuum-multixact-freeze-max-age">의 95%로 슬며시 제한하므로 랩어라운드 방지가 테이블에서 실행되기 전에 주기적으로 직접 <command>VACUUM</>할 수 있다. 
+<command>VACUUM</>은 테이블의 <structname>pg_class</>.<structfield>relminmxid</> 필드가 이 설정에서 지정된 연령에 도달한 경우 
+전체 테이블 스캔을 수행한다. 기본값은 1억 5천만 다중 트랜잭션이다. 
+사용자는 이 값을 0 ~ 20억 중 아무거나 설정할 수 있지만 <command>VACUUM</>은 유효 값을 
+<xref linkend="guc-autovacuum-multixact-freeze-max-age">의 95%로 슬며시 제한하므로 랩어라운드 방지가 테이블에서 실행되기 전에 
+주기적으로 직접 <command>VACUUM</>할 수 있다. 
 자세한 내용은 <xref linkend="vacuum-for-multixact-wraparound">을 참조 바란다.
  </para>
 </listitem>
@@ -4403,8 +4634,12 @@ linkend="vacuum-for-wraparound">을 참조 바란다.
 </term>
 <listitem>
  <para>
-테이블 스캔 중 행 multixact ID를 후속 트랜잭션 ID 또는 multixact ID로 교체 여부를 결정할 때 <command>VACUUM</>이 사용해야 하는 컷오프 연령(multixact에서)을 지정한다. 
-기본값은 5백만 multixact이다. 사용자는 이 값을 0 ~ 10억 중 아무거나 설정할 수 있지만 <command>VACUUM</>은 유효 값을 <xref linkend="guc-autovacuum-multixact-freeze-max-age">의 절반으로 슬며시 제한하므로 강제 autovacuum들 사이에 시간이 불합리하게 짧은 경우는 없다. 
+테이블 스캔 중 행 multixact ID를 후속 트랜잭션 ID 또는 multixact ID로 교체 여부를 결정할 때 <command>VACUUM</>이 사용해야 하는 
+컷오프 연령(multixact에서)을 지정한다. 
+기본값은 5백만 다중 트랜잭션이다. 
+사용자는 이 값을 0 ~ 10억 중 아무거나 설정할 수 있지만 <command>VACUUM</>은 유효 값을 
+<xref linkend="guc-autovacuum-multixact-freeze-max-age">의 절반으로 슬며시 제한하므로 
+강제 autovacuum들 사이에 시간이 불합리하게 짧은 경우는 없다. 
 자세한 내용은 <xref linkend="vacuum-for-multixact-wraparound">을 참조 바란다.
  </para>
 </listitem>
@@ -4418,8 +4653,9 @@ linkend="vacuum-for-wraparound">을 참조 바란다.
 </term>
 <listitem>
  <para>
-타입 <type>bytea</type> 타입의 값에 대한 출력 형식을 설정한다. 유효 값은 <literal>hex</literal>(기본값) 및 <literal>escape</literal>(전형적인 Agens SQL 형식)이다. 
-<type>bytea</type> 타입은 이 설정과 무관하게 입력에서 항상 두양쪽 형식을 수용한다.
+타입 <type>bytea</type> 타입의 값에 대한 출력 형식을 설정한다. 
+유효 값은 <literal>hex</literal>(기본값) 및 <literal>escape</literal>(전형적인 PostgreSQL 형식)이다. 
+<type>bytea</type> 타입은 이 설정과 무관하게 입력에서 항상 두 형식을 수용한다.
  </para>
 </listitem>
  </varlistentry>
@@ -4433,13 +4669,14 @@ linkend="vacuum-for-wraparound">을 참조 바란다.
 <listitem>
  <para>
 바이너리 값이 XML로 인코딩되는 방법을 설정한다. 
-이것은 예를 들면 <type>bytea</type> 값이 <function>xmlelement</function> 또는 <function>xmlforest</function> 함수에 의해 XML로 변환되는 경우에 적용된다. 
+이것은 예를 들면 <type>bytea</type> 값이 <function>xmlelement</function> 또는 <function>xmlforest</function> 함수에 의해 
+XML로 변환되는 경우에 적용된다. 
 가능한 값은, XML 스키마 표준에서 정의된 <literal>base64</literal> 및 <literal>hex</literal>이다. 
 기본값은 <literal>base64</literal>이다. 
  </para>
 
  <para>
-여기서 선택한 것을 실제로 선호도의 문제로, 클라이언트 애플리케이션에서 가능한 제약에 의해서만 제한된다. 
+이것은 실제로 선호도의 문제로, 클라이언트 애플리케이션에서 가능한 제약에 의해서만 제한된다. 
 양쪽 방법은 hex 인코딩이 base64 인코딩보다 다소 크더라도 가능한 모든 값을 지원한다.
  </para>
 </listitem>
@@ -4491,8 +4728,10 @@ SET XML OPTION { DOCUMENT | CONTENT };
 날짜 및 시간 값의 표시 형식과, 애매한 날짜 입력 값을 해석하는 규칙을 설정한다. 
 역사적인 이유로, 이 변수는 두 가지 독립적인 요소인 출력 형식 명세(<literal>ISO</> 또는
 <literal>Postgres</>, <literal>SQL</>, <literal>German</>)와 연/월/일 순서의 입력/출력 명시(<literal>DMY</> 또는 <literal>MDY</>, <literal>YMD</>)로 환경 설정된다. 
-이것은 별개로 설정하거나 함께 설정할 수 있다. 키워드 <literal>Euro</> 및 <literal>European</>은 <literal>DMY</>의 동의어이고, 키워드 <literal>US</>, <literal>NonEuro</> 및 <literal>NonEuropean</>은 <literal>MDY</>의 동의어이다. 
-내장된 기본값은 <literal>ISO, MDY</>이지만 <application>initdb</application>는 선택된 <varname>lc_time</varname> 로케일(locale)의 동작에 해당되는 설정으로 환경 설정 파일을 초기화한다.
+이것은 별개로 설정하거나 함께 설정할 수 있다. 키워드 <literal>Euro</> 및 <literal>European</>은 <literal>DMY</>의 동의어이고, 
+키워드 <literal>US</>, <literal>NonEuro</> 및 <literal>NonEuropean</>은 <literal>MDY</>의 동의어이다. 
+내장된 기본값은 <literal>ISO, MDY</>이지만 <application>initdb</application>는 선택된 <varname>lc_time</varname> 
+로케일(locale)의 동작에 해당되는 설정으로 환경 설정 파일을 초기화한다.
  </para>
 </listitem>
  </varlistentry>
@@ -4506,27 +4745,30 @@ SET XML OPTION { DOCUMENT | CONTENT };
 <listitem>
  <para>
 간격 값에 대한 표시 형식을 설정한다. <literal>sql_standard</>는 <acronym>SQL</acronym> 표준 간격 리터럴과 일치하는 출력을 생성한다. 
-<literal>postgres</> 값(기본값)은 <xref linkend="guc-datestyle"> 매개변수가 <literal>ISO</>로 설정된 경우 <productname>Agens SQL</> 8.4 이전 릴리스와 일치하는 출력을 생성한다. 
-<literal>postgres_verbose</> 값은 <varname>DateStyle</> 매개변수가 비 <literal>ISO</> 출력으로 설정된 경우 <productname>Agens SQL</> 8.4 이전 릴리스와 일치하는 출력을 생성한다. 
+<literal>postgres</> 값(기본값)은 <xref linkend="guc-datestyle"> 매개변수가 <literal>ISO</>로 설정된 경우 <productname>Agens SQL</> 
+8.4 이전 릴리스와 일치하는 출력을 생성한다. 
+<literal>postgres_verbose</> 값은 <varname>DateStyle</> 매개변수가 비 <literal>ISO</> 출력으로 설정된 경우 
+<productname>Agens SQL</> 8.4 이전 릴리스와 일치하는 출력을 생성한다. 
 <literal>iso_8601</> 값은 ISO 8601의 section 4.4.3.2에 정의된 <quote>format with designators</> 시간 간격과 일치하는 출력을 생성한다.
  </para>
  <para>
-<varname>IntervalStyle</> 파라미터매개변수 또한 애매한 간격 입력을 해석하는 데 영향을 준다. 
+<varname>IntervalStyle</> 매개변수 또한 애매한 간격 입력을 해석하는 데 영향을 준다. 
  </para>
 </listitem>
  </varlistentry>
 
  <varlistentry id="guc-timezone" xreflabel="TimeZone">
-<term><varname>TimeZone</varname> (<type>string</type>)
+<term><varname>타임존</varname> (<type>string</type>)
 <indexterm>
- <primary><varname>TimeZone</> 환경 설정 매개변수</primary>
+ <primary><varname>타임존</> 환경 설정 매개변수</primary>
 </indexterm>
-<indexterm><primary>time zone</></>
+<indexterm><primary>타임존</></>
 </term>
 <listitem>
  <para>
 타임스탬프를 표시 및 해석하기 위한 시간대를 설정한다. 
-내장 기본값은 <literal>GMT</>이지만, 일반적으로 <filename>postgresql.conf</>에 오버라이드되고 <application>initdb</>는 시스템 환경에 해당되는 곳에 설정을 설치한다. 
+내장 기본값은 <literal>GMT</>이지만, 
+일반적으로 <filename>postgresql.conf</>에 오버라이드되고 <application>initdb</>는 시스템 환경에 해당되는 곳에 설정을 설치한다. 
  </para>
 </listitem>
  </varlistentry>
@@ -4536,12 +4778,13 @@ SET XML OPTION { DOCUMENT | CONTENT };
 <indexterm>
  <primary><varname>timezone_abbreviations</> 환경 설정 매개변수</primary>
 </indexterm>
-<indexterm><primary>time zone names</></>
+<indexterm><primary>타임존 이름</></>
 </term>
 <listitem>
  <para>
 서버에서 datetime 입력으로 수용되는 시간대 약어 컬렉션을 설정한다. 
-기본값은, 거의 전세계적으로 적용되는 컬렉션인 <literal>'Default'</>이며, 특정 설치용으로 정의할 수 있는 <literal>'Australia'</literal>와 <literal>'India'</literal> 및 기타 컬렉션도 있다. 
+기본값은, 거의 전세계적으로 적용되는 컬렉션인 <literal>'Default'</>이며, 
+특정 설치용으로 정의할 수 있는 <literal>'Australia'</literal>와 <literal>'India'</literal> 및 기타 컬렉션도 있다. 
  </para>
 </listitem>
  </varlistentry>
@@ -4549,11 +4792,11 @@ SET XML OPTION { DOCUMENT | CONTENT };
  <varlistentry id="guc-extra-float-digits" xreflabel="extra_float_digits">
 <term><varname>extra_float_digits</varname> (<type>integer</type>)
 <indexterm>
- <primary>significant digits</primary>
+ <primary>중요 숫자</primary>
 </indexterm>
 <indexterm>
  <primary>floating-point</primary>
- <secondary>display</secondary>
+ <secondary>디스플레이</secondary>
 </indexterm>
 <indexterm>
  <primary><varname>extra_float_digits</> 환경 설정 매개변수</primary>
@@ -4561,7 +4804,8 @@ SET XML OPTION { DOCUMENT | CONTENT };
 </term>
 <listitem>
  <para>
-이 매개변수는 <type>float4</>, <type>float8</> 및 기하학적(geometric) 데이터 타입을 비롯한 floating-point 값에 대해 표시할 수 있는 자릿수를 조절한다. 
+이 매개변수는 <type>float4</>, <type>float8</> 및 기하학적(geometric) 데이터 타입을 비롯한 
+floating-point 값에 대해 표시할 수 있는 자릿수를 조절한다. 
 매개변수 값은 표준 자릿수에 추가된다(<literal>FLT_DIG</> 또는 <literal>DBL_DIG</>를 적절하게). 
 부분적 유효 숫자를 포함하여 값은 최대 3까지 설정할 수 있다. 이것은 정확한 복원이 필요한 부동 데이터를 덤프할 때 특히 유용하다. 
 또는 불필요한 숫자가 나타나지 않도록 음수로 설정할 수도 있다. 
@@ -4602,7 +4846,8 @@ SET XML OPTION { DOCUMENT | CONTENT };
  </para>
 
  <para>
-서버 로그 및 클라이언트로 전송되는 메시지에 영향을 줄 수 있고 부적절한 값이 서버 로그의 가독성을 해칠 수 있으므로 수퍼유저만 이 설정을 변경할 수 있다.
+서버 로그 및 클라이언트로 전송되는 메시지에 영향을 줄 수 있고 부적절한 값이 서버 로그의 가독성을 해칠 수 있으므로 
+수퍼유저만 이 설정을 변경할 수 있다.
  </para>
 </listitem>
  </varlistentry>
@@ -4663,7 +4908,8 @@ linkend="locale">을 참조 바란다.
 <listitem>
  <para>
 환경 설정을 지정하는 명시적 인수 없이, 텍스트 검색 함수의 변형에서 사용되는 텍스트 검색 환경 설정을 선택한다. 
-내장된 기본값은 <literal>pg_catalog.simple</>이지만 로케일(locale) 일치 환경 설정을 식별할 수 있는 경우 <application>initdb</application>는 선택된 <varname>lc_ctype</varname> 로케일(locale)에 해당되는 설정으로 환경 설정 파일을 초기화한다.
+내장된 기본값은 <literal>pg_catalog.simple</>이지만 로케일(locale) 일치 환경 설정을 식별할 수 있는 경우 
+<application>initdb</application>는 선택된 <varname>lc_ctype</varname> 로케일(locale)에 해당되는 설정으로 환경 설정 파일을 초기화한다.
  </para>
 </listitem>
  </varlistentry>
@@ -4677,11 +4923,14 @@ linkend="locale">을 참조 바란다.
 
  <para>
 추가 기능을 로드하거나 성능상 이점을 위해 몇 가지 설정을 서버로의 공유 라이브러리 사전 로드에 사용할 수 있다. 
-예를 들면, <literal>'$libdir/mylib'</literal> 설정은 <literal>mylib.so</>(또는 일부 플랫폼에서, <literal>mylib.sl</>)가 설치 표준 라이브러리 디렉토리로부터 사전 로드되게 한다. 설정 간 차이라면 효과가 나타나는 시간과, 변경 시 필요한 권한이다.
+예를 들면, <literal>'$libdir/mylib'</literal> 설정은 <literal>mylib.so</>(또는 일부 플랫폼에서, 
+<literal>mylib.sl</>)가 설치 표준 라이브러리 디렉토리로부터 사전 로드되게 한다. 
+설정 간 차이라면 효과가 나타나는 시간과 변경 시 필요한 권한이다.
  </para>
 
  <para>
-<productname>Agens SQL</productname> 프로시저 언어 라이브러리는 이와 같은 방식으로 사전 로드할 수 있으며, 일반적으로 <literal>'$libdir/plXXX'</literal> 구문이 사용된다. 
+<productname>Agens SQL</productname> 프로시저 언어 라이브러리는 이와 같은 방식으로 사전 로드할 수 있으며, 
+일반적으로 <literal>'$libdir/plXXX'</literal> 구문이 사용된다. 
 여기서 <literal>XXX</literal>는 <literal>pgsql</>, <literal>perl</>, <literal>tcl</> 또는 <literal>python</>이다.
  </para>
 
@@ -4691,9 +4940,9 @@ linkend="locale">을 참조 바란다.
  </para>
 
  <para>
-특별히 Agens SQL과 함께 사용하려는 공유 라이브러리만 이와 같은 방식으로 로드할 수 있다. 
-모든 Agens SQL 지원 라이브러리는 호환성 보장을 검사하는 <quote>magic block</>이 있다. 
-이러한 이유로 비 Agens SQL 라이브러리는 이 방식으로 로드할 수 없다. 
+특별히 <productname>Agens SQL</productname>과 함께 사용하려는 공유 라이브러리만 이와 같은 방식으로 로드할 수 있다. 
+모든 <productname>Agens SQL</productname> 지원 라이브러리는 호환성 보장을 검사하는 <quote>magic block</>이 있다. 
+이러한 이유로 비 <productname>Agens SQL</productname> 라이브러리는 이 방식으로 로드할 수 없다. 
 이를 위해 <envar>LD_PRELOAD</envar> 같은 운영 체제 기능을 사용할 수는 있다.
  </para>
 
@@ -4718,14 +4967,16 @@ linkend="locale">을 참조 바란다.
  </para>
 
  <para>
-이 옵션은 사용자가 설정할 수 있다. 따라서 로드된 라이브러리는 설치의 표준 라이브러리 디렉토리의 <filename>plugins</> 서브 디렉토리에 나타나는 것으로 한정된다. 
+이 옵션은 사용자가 설정할 수 있다. 
+따라서 로드된 라이브러리는 설치의 표준 라이브러리 디렉토리의 <filename>plugins</> 서브 디렉토리에 나타나는 것으로 한정된다. 
 (<quote>안전한</> 라이브러리만 설치되게 하는 것은 데이터베이스 관리자의 책임이다.) 
 예를 들면, <literal>$libdir/plugins/mylib</literal> 같이 <varname>local_preload_libraries</>의 항목은 이 디렉토리를 명시적으로 지정할 수 있으며, 
 또는 라이브러리 이름 <literal>mylib</literal>는 <literal>$libdir/plugins/mylib</literal>와 효과가 동일할 수 있다.
  </para>
 
  <para>
-수퍼유저 이외에 사용자가 이러한 방식으로 사용할 수 있도록 모듈이 특수하게 디자인되어 있지 않는 한 이것은 일반적으로 올바른 설정 방법이 아니다. 
+수퍼유저 이외에 사용자가 이러한 방식으로 사용할 수 있도록 모듈이 특수하게 디자인되어 있지 않는 한 
+이것은 일반적으로 올바른 설정 방법이 아니다. 
 대신 <xref linkend="guc-session-preload-libraries">를 찾아 보기 바란다.
  </para>
 </listitem>
@@ -4741,14 +4992,16 @@ linkend="locale">을 참조 바란다.
 <listitem>
  <para>
 이 변수는 연결 시작 시 사전 로드되는 공유 라이브러리를 하나 이상 지정한다. 수퍼유저만 이 설정을 변경할 수 있다. 
-매개변수 값은 연결 시작 시에만 효과가 있다. 후속 변경은 무효하다. 
+매개변수 값은 연결 시작 시에만 효과가 있다. 추후 변경은 무효하다. 
 지정된 라이브러리를 찾지 못하면 연결 시도가 실패한다.
  </para>
 
  <para>
 이 기능은 명시적 <command>LOAD</> 명령 없이 디버깅 또는 성능 평가 라이브러리가 특정 세션에 로드되도록 한다. 
-예를 들면, <command>ALTER ROLE SET</>를 사용하여 이 매개변수를 설정하면 주어진 사용자 이름 하의 모든 세션에 대해 auto_explain의 활성화가 가능하다.
-또한 이 매개변수는 서버 재시작 없이 변경 가능하므로(단, 세션을 새로 시작하는 경우에만 효과가 있다), 새 모듈을 모든 세션에 적용해야 하더라도 이렇게 추가하는 것이 쉽다.
+예를 들면, <command>ALTER ROLE SET</>를 사용하여 이 매개변수를 설정하면 주어진 사용자 이름 하의 모든 세션에 대해 
+auto_explain의 활성화가 가능하다.
+또한 이 매개변수는 서버 재시작 없이 변경 가능하므로(단, 세션을 새로 시작하는 경우에만 효과가 있다), 
+새 모듈을 모든 세션에 적용해야 하더라도 이렇게 추가하는 것이 쉽다.
  </para>
 
  <para>
@@ -4767,17 +5020,18 @@ linkend="locale">을 참조 바란다.
 <listitem>
  <para>
 이 변수는 서버 시작 시에 사전 로드할 하나 이상의 공유 라이브러리를 쉼표를 사용하여 지정한다. 
-이 매개변수는 서버 시작 시에만 설정 가능하다. 지정된 라이브러리를 찾지 못하면 서버 시작이 실패한다.
+이 매개변수는 서버 시작 시 설정 된다. 지정된 라이브러리를 찾지 못하면 서버 시작이 실패한다.
  </para>
 
  <para>
-일부 라이브러리는 공유 메모리 할당, 경량 잠금 예약 또는 백그라운드 worker 시작 같은 postmaster 시작 시에만 일어날 수 있는 특정한 명령을 수행해야 한다. 
-해당 라이브러리는 이 매개변수를 통해 서버 시작 시에만 로드해야 한다. 
+일부 라이브러리는 공유 메모리 할당 또는 경량 잠금 예약, 백그라운드 worker 시작 같은 postmaster 시작 시에만 일어날 수 있는 
+특정한 명령을 수행해야 한다. 해당 라이브러리는 이 매개변수를 통해 서버 시작 시에만 로드해야 한다. 
 자세한 내용은 각 라이브러리의 문서를 참조 바란다.
  </para>
 
  <para>
-다른 라이브러리는 사전 로드할 수도 있다. 공유 라이브러리를 사전 로드해서 라이브러리를 먼저 사용하는 경우 라이브러리 시작 시간은 라이브러리가 처음 사용될 때 바뀐다. 
+다른 라이브러리는 사전 로드할 수도 있다. 공유 라이브러리를 사전 로드해서 라이브러리를 먼저 사용하는 경우 
+라이브러리 시작 시간은 라이브러리가 처음 사용될 때 바뀐다. 
 단, 해당 프로세스가 라이브러리를 사용하지 않더라도 각각의 새로운 서버 프로세스 시작 시간이 약간 늘어날 수 있다. 
 따라서 이 매개변수는 대부분의 세션에서 사용되는 라이브러리인 경우에만 권장된다. 
 또한 이 매개변수를 변경하면 서버를 재시작해야 하므로 단기간 디버깅 시에는 설정이 바람직하지 않다. 
@@ -4788,8 +5042,8 @@ linkend="locale">을 참조 바란다.
  <para>
 Windows 호스트에서 서버 시작 시 라이브러리를 사전 로드하는 것은 각각의 새 서버 프로세스를 시작하는 데 필요한 시간을 줄이지 않는다. 
 각 서버 프로세스는 모든 사전 로드 라이브러리를 리로드한다. 
-그러나, postmaster 시작 시에 명령을 수행해야 하는 라이브러리의 경우 <varname>shared_preload_libraries
-</varname>는 Windows 호스트에 여전히 유용하다.
+그러나, postmaster 시작 시에 명령을 수행해야 하는 라이브러리의 경우 
+<varname>shared_preload_libraries</varname>는 Windows 호스트에 여전히 유용하다.
  </para>
 </note>
 </listitem>
@@ -4811,14 +5065,16 @@ Windows 호스트에서 서버 시작 시 라이브러리를 사전 로드하는
 </term>
 <listitem>
  <para>
-동적 로드 가능한 모듈을 열어야 하고 <command>CREATE FUNCTION</command> 또는 <command>LOAD</command> 명령에서 지정된 파일 이름에 디렉토리 성분이 없는 경우(예: 이름에 슬래시가 없음) 시스템은 필요한 파일에 대한 이 경로를 검색한다.
+동적 로드 가능한 모듈을 열어야 하고 <command>CREATE FUNCTION</command> 또는 <command>LOAD</command> 
+명령에서 지정된 파일 이름에 디렉토리 성분이 없는 경우(예: 이름에 슬래시가 없음) 시스템은 필요한 파일에 대한 이 경로를 검색한다.
  </para>
 
  <para>
  <varname>dynamic_library_path</varname>에 대한 값은 콜론(또는 Windows에서 세미콜론)으로 구분된 절대 디렉토리 경로 목록이어야 한다. 
- 목록 요소가 특수 문자 <literal>$libdir</literal>로 시작되는 경우 컴파일된 <productname>Agens SQL</productname> 패키지 라이브러리 디렉토리가 $libdir에 대체된다. 
+ 목록 요소가 특수 문자 <literal>$libdir</literal>로 시작되는 경우 컴파일된 <productname>Agens SQL</productname> 패키지 라이브러리 
+ 디렉토리가 $libdir에 대체된다. 
  이것은 표준 <productname>Agens SQL</productname> 배포에 의해 제공된 모듈이 설치되는 경우에 해당된다. 
- (이 디렉토리의 이름을 찾으려면 <literal>pg_config --pkglibdir</literal>을 사용해야 한다.) 예를 들면:
+ (이 디렉토리의 이름을 찾으려면 <literal>pg_config --pkglibdir</literal>을 사용해야 한다.) 예를 들면,
 <programlisting>
 dynamic_library_path = '/usr/local/lib/postgresql:/home/my_project/lib:$libdir'
 </programlisting>
@@ -4865,12 +5121,12 @@ GIN 인덱스 스캔에 의해 리턴된 설정 크기에 대한 상한.
  <varlistentry id="guc-deadlock-timeout" xreflabel="deadlock_timeout">
 <term><varname>deadlock_timeout</varname> (<type>integer</type>)
 <indexterm>
- <primary>deadlock</primary>
+ <primary>데드록</primary>
  <secondary>timeout during</secondary>
 </indexterm>
 <indexterm>
  <primary>timeout</primary>
- <secondary>deadlock</secondary>
+ <secondary>데드록</secondary>
 </indexterm>
 <indexterm>
  <primary><varname>deadlock_timeout</> 환경 설정 매개변수</primary>
@@ -4881,10 +5137,11 @@ GIN 인덱스 스캔에 의해 리턴된 설정 크기에 대한 상한.
 이것은 데드록 상황인지 검사하기 전에 잠금을 대기하는 밀리초 단위의 시간이다. 
 데드록에 대한 검사는 상대적으로 고비용이므로 잠금을 기다릴 때마다 서버가 검사를 실행하지는 않는다. 
 실제 운영 중인 애플리케이션에서 데드록이 일반적이지는 않으며, 데드록 검사 전에 잠시 잠금을 기다리는 것이라고 긍정적으로 가정한다. 
-이 값을 늘리면 불필요한 데드록 검사를 위해 대기하는 시간이 줄어들지만 실제 데드록 에러 리포팅이 느려진다. 기본값은, 실제로 사용자가 희망하는 최소값일 가능성이 높은 1초이다(<literal>1s</>). 
+이 값을 늘리면 불필요한 데드록 검사를 위해 대기하는 시간이 줄어들지만 실제 데드록 에러 리포팅이 느려진다. 
+기본값은, 실제로 사용자가 희망하는 최소값일 가능성이 높은 1초이다(<literal>1s</>). 
 로드가 과도한 서버에서는 이 값을 올리고 싶을 것이다. 
-이상적으로, waiter가 데드록 검사를 결정하기 전에 잠금이 해제되는 이상한 상황을 개선하려면 이 설정은 사용자의 일반적인 트랜잭션 시간을 초과해야 한다. 
-수퍼유저만 이 설정을 변경할 수 있다.
+이상적으로, waiter가 데드록 검사를 결정하기 전에 잠금이 해제되는 이상한 상황을 개선하려면 이 설정은 사용자의 일반적인 트랜잭션 
+시간을 초과해야 한다. 수퍼유저만 이 설정을 변경할 수 있다.
  </para>
 
  <para>
@@ -4905,14 +5162,18 @@ GIN 인덱스 스캔에 의해 리턴된 설정 크기에 대한 상한.
 공유 잠금 테이블은 <varname>max_locks_per_transaction</varname> * (<xref
 linkend="guc-max-connections"> + <xref
 linkend="guc-max-prepared-transactions">) 개체(예: 테이블)에 대한 잠금을 추적하므로 이 개체 수 이하를 언제든 잠글 수 있다. 
-이 매개변수는 트랜잭션별로 할당된 평균 개체 잠금 수를 제어한다. 개별 트랜잭션은 모든 트랜잭션의 잠금이 잠금 테이블에 적합한 경우에 개체를 추가로 잠글 수 있다. 
+이 매개변수는 트랜잭션별로 할당된 평균 개체 잠금 수를 제어한다. 
+개별 트랜잭션은 모든 트랜잭션의 잠금이 잠금 테이블에 적합한 경우에 개체를 추가로 잠글 수 있다. 
 이것은 잠글 수 있는 행 수는 <emphasis>아니다</>. 
-해당 값은 무제한이다. 기본값으로 64가 충분한 것으로 입증되었지만, 쿼리가 단일 트랜잭션으로 서로 다른 여러 가지 테이블에 액세스하는 경우라면 이 값을 늘려야 할 수도 있다(예: 자식이 다수 있는 부모 테이블에 대한 쿼리).
-이 매개변수는 서버 시작 시에만 설정 가능하다.
+해당 값은 무제한이다. 
+기본값으로 64가 충분한 것으로 입증되었지만, 쿼리가 단일 트랜잭션으로 서로 다른 여러 가지 테이블에 액세스하는 경우라면 이 값을 늘려야 할 수도 있다
+(예: 자식이 다수 있는 부모 테이블에 대한 쿼리).
+이 매개변수는 서버 시작 시 설정 된다.
  </para>
 
  <para>
-대기 서버 실행 중에 사용자는 이 매개변수를 마스터 서버 값보다 크거나 같게 설정해야 한다. 그렇지 않으면 대기 서버에서 쿼리가 허용되지 않는다.
+대기 서버 실행 중에 사용자는 이 매개변수를 마스터 서버 값보다 크거나 같게 설정해야 한다. 
+그렇지 않으면 대기 서버에서 쿼리가 허용되지 않는다.
  </para>
 </listitem>
  </varlistentry>
@@ -4928,10 +5189,13 @@ linkend="guc-max-prepared-transactions">) 개체(예: 테이블)에 대한 잠�
 공유 예측 잠금 테이블은 <varname>max_pred_locks_per_transaction</varname> * (<xref
 linkend="guc-max-connections"> + <xref
 linkend="guc-max-prepared-transactions">) 개체(예: 테이블)에 대한 잠금을 추적하므로 이 개체 수 이하를 언제든 잠글 수 있다. 
-이 매개변수는 트랜잭션별로 할당된 평균 개체 잠금 수를 제어한다. 개별 트랜잭션은 모든 트랜잭션의 잠금이 잠금 테이블에 적합한 경우에 개체를 추가로 잠글 수 있다. 
+이 매개변수는 트랜잭션별로 할당된 평균 개체 잠금 수를 제어한다. 
+개별 트랜잭션은 모든 트랜잭션의 잠금이 잠금 테이블에 적합한 경우에 개체를 추가로 잠글 수 있다. 
 이것은 잠글 수 있는 행의 수는 <emphasis>아니다</>. 
-해당 값은 무제한이다. 기본값으로 64가 테스트 시 충분한 것으로 입증되었지만, 클라이언트가 직렬화 가능한 트랜잭션으로 서로 다른 여러 가지 테이블에 액세스하는 경우라면 이 값을 늘려야 할 수도 있다. 
-이 매개변수는 서버 시작 시에만 설정 가능하다.
+해당 값은 무제한이다. 
+기본값으로 64가 테스트 시 충분한 것으로 입증되었지만, 클라이언트가 직렬화 가능한 
+트랜잭션으로 서로 다른 여러 가지 테이블에 액세스하는 경우라면 이 값을 늘려야 할 수도 있다. 
+이 매개변수는 서버 시작 시 설정 된다.
  </para>
 
 </listitem>
@@ -4958,8 +5222,9 @@ linkend="guc-max-prepared-transactions">) 개체(예: 테이블)에 대한 잠�
  <para>
 이것은 따옴표 없는 <literal>NULL</>을 null 배열 요소로 지정하는 것으로 배열 입력 파서에 인식시킬 것인지를 제어한다. 
 기본적으로 이것은, null 값이 포함된 배열값의 입력을 허용하는 <literal>on</>이다. 
-단, 8.2 이전 버전의 <productname>Agens SQL</>은 배열에서 null 값을 지원하지 않으며, 따라서 string 값 <quote>NULL</>을 사용하는 일반적인 배열 요소를 지정하는 것으로 <literal>NULL</>을 처리한다. 
-예전 동작을 필요로 하는 어플리케이션 이전 버전과의 호환성 때문에 이 변수를 <literal>off</>로 설정할 수 있다.
+단, 8.2 이전 버전의 <productname>PostgreSQL</>은 배열에서 null 값을 지원하지 않으며, 
+따라서 string 값 <quote>NULL</>을 사용하는 일반적인 배열 요소를 지정하는 것으로 <literal>NULL</>을 처리한다. 
+예전 동작을 필요로 하는 애플리케이션 이전 버전과의 호환성 때문에 이 변수를 <literal>off</>로 설정할 수 있다.
  </para>
 
  <para>
@@ -4977,8 +5242,12 @@ linkend="guc-max-prepared-transactions">) 개체(예: 테이블)에 대한 잠�
 </term>
 <listitem>
  <para>
-이것은 string 리터럴에서 따옴표를 <literal>\'</>로 표기할 수 있는지를 제어한다. 따옴표를 SQL 표준 방식으로 표기하는 방법은 이중으로 사용하는 것(<literal>''</>)이지만 <productname>Agens SQL</>은 오래 전부터 <literal>\'</>도 허용해 왔다. 
-그러나, <literal>\'</>를 사용하면 일부 클라이언트 문자 집합 인코딩에서 마지막 바이트가 수치상 ASCII <literal>\</>와 동일한 멀티바이트 문자가 있기 때문에 보안상 위험하다. 클라이언트 측 코드가 잘못 이스케이프할 경우 SQL 인젝션 공격이 가능하다. 
+이것은 string 리터럴에서 따옴표를 <literal>\'</>로 표기할 수 있는지를 제어한다. 
+따옴표를 SQL 표준 방식으로 표기하는 방법은 이중으로 사용하는 것(<literal>''</>)이지만 
+<productname>PostgreSQL</>은 오래 전부터 <literal>\'</>도 허용해 왔다. 
+그러나, <literal>\'</>를 사용하면 일부 클라이언트 문자 집합 인코딩에서 마지막 바이트가 
+수치상 ASCII <literal>\</>와 동일한 멀티바이트 문자가 있기 때문에 보안상 위험하다. 
+클라이언트 측 코드가 잘못 이스케이프할 경우 SQL 인젝션 공격이 가능하다. 
 이러한 위험은, 역슬래시에 의해 이스케이프되는 따옴표가 있는 경우에 서버가 쿼리를 거부하도록 함으로써 예방할 수 있다. 
 <varname>backslash_quote</>의 허용 값은 <literal>on</>(항상 <literal>\'</> 허용), <literal>off</>(항상 거부) 및 <literal>safe_encoding</>(클라이언트 인코딩이 멀티바이트 문자 내에서 ASCII <literal>\</>를 수락하지 않는 경우에만 허용)이다. 
 기본 설정은 <literal>safe_encoding</>이다.
@@ -5000,7 +5269,8 @@ linkend="guc-max-prepared-transactions">) 개체(예: 테이블)에 대한 잠�
 <listitem>
  <para>
 이것은 <literal>WITH OIDS</literal> 또는 <literal>WITHOUT OIDS</literal>가 지정되지 않은 경우 <command>CREATE TABLE</command> 및 <command>CREATE TABLE AS</command>가 새로 생성된 테이블에서 OID 칼럼을 포함할 것인지를 제어한다. 
-또한 OID를 <command>SELECT INTO</command>에 의해 생성된 테이블에 포함할 것인지를 결정한다. 이 매개변수는 기본적으로 <literal>off</>이며, <productname>Agens SQL</> 8.0 이전 버전에서는 기본적으로 on이다.
+또한 OID를 <command>SELECT INTO</command>에 의해 생성된 테이블에 포함할 것인지를 결정한다. 
+이 매개변수는 기본적으로 <literal>off</>이며, <productname>Agens SQL</> 8.0 이전 버전에서는 기본적으로 on이다.
  </para>
 
  <para>
@@ -5020,11 +5290,13 @@ linkend="guc-max-prepared-transactions">) 개체(예: 테이블)에 대한 잠�
 </term>
 <listitem>
  <para>
-on인 경우 역슬래시(<literal>\</>)가 일반 string 리터럴(<literal>'...'</> 구문)에 있고 <varname>standard_conforming_strings</varname>가 off인 경우 경고가 나타난다. 
+on인 경우 역슬래시(<literal>\</>)가 일반 string 리터럴(<literal>'...'</> 구문)에 있고 
+<varname>standard_conforming_strings</varname>가 off인 경우 경고가 나타난다. 
 기본값은 <literal>on</>이다.
  </para>
  <para>
-SQL 표준에 따라 일반 string의 기본 동작은 역슬래시를 일반 문자로 처리하기 때문에 역슬래시를 이스케이프로 사용하려는 애플리케이션은 이스케이프 string 구문(<literal>E'...'</>)을 수정해야 한다. 
+SQL 표준에 따라 일반 string의 기본 동작은 역슬래시를 일반 문자로 처리하기 때문에 역슬래시를 
+이스케이프로 사용하려는 애플리케이션은 이스케이프 string 구문(<literal>E'...'</>)을 수정해야 한다. 
 이 변수를 활성화하면 수정이 필요한 코드를 찾는 데 도움이 된다.
  </para>
 </listitem>
@@ -5038,12 +5310,14 @@ SQL 표준에 따라 일반 string의 기본 동작은 역슬래시를 일반 �
 </term>
 <listitem>
  <para>
-9.0 이전의 <productname>Agens SQL</> 릴리스에서 거대(large) 개체는 액세스 권한이 없었으며, 항상 모든 사용자에 의해 읽기 및 쓰기가 가능했었다. 
+9.0 이전의 <productname>PostgreSQL</> 릴리스에서 거대(large) 개체는 액세스 권한이 없었으며, 
+항상 모든 사용자에 의해 읽기 및 쓰기가 가능했었다. 
 이 변수를 <literal>on</>으로 설정하면 이전 릴리스와의 호환성에 대한 새 권한 검사가 비활성화된다. 
 기본값은 <literal>off</>이다. 수퍼유저만 이 설정을 변경할 수 있다.
  </para>
  <para>
-이 변수를 설정한다고 해서 거대(large) 개체와 관련된 모든 보안 검사가 비활성화되는 것은 아니다. 기본 동작에 대한 것만 <productname>Agens SQL</> 9.0에서 변경되었다. 
+이 변수를 설정한다고 해서 거대(large) 개체와 관련된 모든 보안 검사가 비활성화되는 것은 아니다. 
+기본 동작에 대한 것만 <productname>PostgreSQL</> 9.0에서 변경되었다. 
 예를 들면, <literal>lo_import()</literal> 및 <literal>lo_export()</literal>는 이 설정과 무관하게 수퍼유저 권한이 필요하다.
  </para>
 </listitem>
@@ -5076,7 +5350,8 @@ pg_dump 및 pg_dumpall의 <option>--quote-all-identifiers</option> 옵션도 참
 이 설정은 장식이 없는 테이블 참조가 상속 자식 테이블을 포함하는 것으로 간주할 것인지를 제어한다. 
 기본값은, 자식 테이블이 포함됨을 의미하는 <literal>on</>이다(따라서 <literal>*</> 접미사가 기본적으로 추정된다). 
 <literal>off</>으로 설정되면 자식 테이블이 포함되지 않는다(따라서 <literal>ONLY</literal> 접두사가 추정된다). 
-SQL 표준은 포함할 자식 테이블이 필요하므로, <literal>off</> 설정은 규격에 맞지 않지만 7.1 이전 <productname>Agens SQL</> 릴리스와의 호환성을 위해 제공된다. 
+SQL 표준은 포함할 자식 테이블이 필요하므로, <literal>off</> 설정은 규격에 맞지 않지만 7.1 이전 <productname>PostgreSQL</> 버전과의 
+호환성을 위해 제공된다. 
  </para>
 
  <para>
@@ -5096,7 +5371,7 @@ SQL 표준은 포함할 자식 테이블이 필요하므로, <literal>off</> 설
 <listitem>
  <para>
 이것은 대개 string 리터럴(<literal>'...'</>)이 역슬래시를 SQL 표준에 지정된 대로 문자 그대로 처리할 것인지 제어한다. 
-<productname>Agens SQL</productname> 9.1 초반에는 기본값이 <literal>on</>이다(이전 릴리스에서는 기본값이 <literal>off</>). 
+<productname>PostgreSQL</productname> 9.1 초반에는 기본값이 <literal>on</>이다(이전 릴리스에서는 기본값이 <literal>off</>). 
 애플리케이션은 string 리터럴 처리하는 방법을 결정하는 이 매개변수를 검사한다. 
 이 매개변수가 존재하면 이스케이프 string 구문(<literal>E'...'</>)이 지원되는 것으로 볼 수 있다. 
 애플리케이션이 역슬래시를 이스케이프 문자로 처리하기를 원할 경우에는 이스케이프 string 구문을 사용해야 한다.
@@ -5147,13 +5422,16 @@ NULL</literal>(또는 <literal>NULL =
 
  <para>
 그러나, <productname>Microsoft
-Access</productname>에서 필터링된 양식은 <literal><replaceable>expr</> = NULL</literal>을 사용하여 null 값을 테스트하기 위한 쿼리를 생성하므로 해당 인터페이스를 사용하여 데이터베이스에 액세스하는 경우 사용자는 이 옵션을 on으로 설정하고자 할 수 있다. 
-표현식 <literal><replaceable>expr</> = NULL</literal>은 항상 null 값을 리턴하므로(SQL 표준 해석 사용), 그다지 유용하지 않고, 일반적인 애플리케이션에 거의 나타나지 않으므로 실제로 이 옵션은 해가 되지 않는다. 
+Access</productname>에서 필터링된 양식은 <literal><replaceable>expr</> = NULL</literal>을 사용하여 null 값을 테스트하기 위한 
+쿼리를 생성하므로 해당 인터페이스를 사용하여 데이터베이스에 액세스하는 경우 사용자는 이 옵션을 on으로 설정하고자 할 수 있다. 
+표현식 <literal><replaceable>expr</> = NULL</literal>은 항상 null 값을 리턴하므로(SQL 표준 해석 사용), 그다지 유용하지 않고, 
+일반적인 애플리케이션에 거의 나타나지 않으므로 실제로 이 옵션은 해가 되지 않는다. 
 하지만 새 사용자는 null 값이 관련된 표현식을 헷갈려 하므로 이 옵션은 기본적으로 off로 설정되어 있다.
  </para>
 
  <para>
-이 옵션은 정확한 양식 <literal>= NULL</>에만 영향을 미치며, 다른 비교 연산자 또는 동일한 연산자(예: <literal>IN</literal>)와 관련된 몇몇 표현식과 계산상 동일한 다른 표현식에는 영향을 미치지는 않는다. 
+이 옵션은 정확한 양식 <literal>= NULL</>에만 영향을 미치며, 
+다른 비교 연산자 또는 동일한 연산자(예: <literal>IN</literal>)와 관련된 몇몇 표현식과 계산상 동일한 다른 표현식에는 영향을 미치지는 않는다. 
 따라서 이 옵션이 나쁜 프로그래밍에 대한 해결책은 아니다.
  </para>
 
@@ -5177,7 +5455,8 @@ Access</productname>에서 필터링된 양식은 <literal><replaceable>expr</> 
 </term>
 <listitem>
  <para>
-true인 경우 어떤 에러가 발생했든 현재 세션이 중단된다. 기본적으로 이것은 false로 설정되고 FATAL 에러 시 세션이 중단된다.
+true인 경우 어떤 에러가 발생했든 현재 세션이 중단된다. 
+기본적으로 이것은 false로 설정되고 FATAL 에러 시 세션이 중단된다.
  </para>
 </listitem>
  </varlistentry>
@@ -5192,7 +5471,8 @@ true인 경우 어떤 에러가 발생했든 현재 세션이 중단된다. 기�
  <para>
 기본값인 true로 설정되면 백엔드 충돌 후 <productname>Agens SQL</>이 자동으로 재초기화된다. 
 이 값을 계속 true로 설정하는 것은 일반적으로 데이터베이스의 가용성을 최대화하는 최고의 방법이다. 
-그러나, 클러스터웨어에서 <productname>Agens SQL</>를 호출하는 경우처럼 경우에 따라 재시작을 비활성화해서 클러스터웨어가 제어를 획득하고 적절하다고 생각되는 조치를 취할 수 있게 하는 점이 유용하다.
+그러나, 클러스터웨어에서 <productname>Agens SQL</>를 호출하는 경우처럼 
+경우에 따라 재시작을 비활성화해서 클러스터웨어가 제어를 획득하고 적절하다고 생각되는 조치를 취할 수 있게 하는 점이 유용하다.
  </para>
 </listitem>
  </varlistentry>
@@ -5307,7 +5587,8 @@ true인 경우 어떤 에러가 발생했든 현재 세션이 중단된다. 기�
 <listitem>
  <para>
 최대 식별자 길이를 알려준다. 이것은 서버 빌드 시 <literal>NAMEDATALEN</> 값보다 하나 작게 결정된다. 
-<literal>NAMEDATALEN</>의 기본값이 64이므로 <varname>max_identifier_length</varname> 기본값은 63바이트이며, 이것은 멀티바이트 인코딩 시 63자 미만일 수 있다.
+<literal>NAMEDATALEN</>의 기본값이 64이므로 <varname>max_identifier_length</varname> 기본값은 63바이트이며, 
+이것은 멀티바이트 인코딩 시 63자 미만일 수 있다.
  </para>
 </listitem>
  </varlistentry>
@@ -5426,9 +5707,11 @@ WAL 세그먼트 파일의 총 크기(바이트 단위)는 <varname>wal_block_si
 </para>
 
 <para>
- 커스텀 옵션은 관련 확장 모듈이 로드되지 않은 프로세스에서 설정되어야 하므로, <productname>Agens SQL</>은 두 부분의 매개변수 이름에 대한 설정을 허용한다. 
+ 커스텀 옵션은 관련 확장 모듈이 로드되지 않은 프로세스에서 설정되어야 하므로, 
+ <productname>Agens SQL</>은 두 부분의 매개변수 이름에 대한 설정을 허용한다. 
  해당 변수는 플레이스 홀더로 처리되며 변수를 정의하는 모듈이 로드되기 전까지는 함수를 갖지 않는다. 
- 확장 모듈이 로드된 경우 변수 정의가 추가되고, 해당 변수에 따라 플레이스 홀더 값이 변환되고, 확장명으로 시작되는데 인식되지 않는 플레이스 홀더에 대해 경고를 보낸다.
+ 확장 모듈이 로드된 경우 변수 정의가 추가되고, 해당 변수에 따라 플레이스 홀더 값이 변환되고, 
+ 확장명으로 시작되는데 인식되지 않는 플레이스 홀더에 대해 경고를 보낸다.
 </para>
  </sect1>
 
@@ -5436,7 +5719,8 @@ WAL 세그먼트 파일의 총 크기(바이트 단위)는 <varname>wal_block_si
 <title>개발자 옵션</title>
 
 <para>
- 다음 매개변수는 <productname>Agens SQL</productname> 소스 코드에서 사용할 수 있으며 경우에 따라 심각한 데이터베이스 손상을 복구하는 데에도 도움이 된다. 
+ 다음 매개변수는 <productname>Agens SQL</productname> 소스 코드에서 사용할 수 있으며 경우에 따라 
+ 심각한 데이터베이스 손상을 복구하는 데에도 도움이 된다. 
  실제 운영 중인 데이터베이스에서 이 매개변수를 사용할 이유는 없다. 
  따라서 <filename>postgresql.conf</> 샘플 파일에서는 제외되었다. 
  이러한 매개변수 다수는 어쨌든 제대로 작동하려면 특수한 소스 컴파일 플래그가 필요하다.
@@ -5451,7 +5735,7 @@ WAL 세그먼트 파일의 총 크기(바이트 단위)는 <varname>wal_block_si
 </term>
 <listitem>
  <para>
-시스템 테이블의 구조 수정을 허용한다. 이것은 <command>initdb</command>에서 사용된다. 이 매개변수는 서버 시작 시에만 설정 가능하다.
+시스템 테이블의 구조 수정을 허용한다. 이것은 <command>initdb</command>에서 사용된다. 이 매개변수는 서버 시작 시 설정 된다.
  </para>
 </listitem>
  </varlistentry>
@@ -5466,7 +5750,8 @@ WAL 세그먼트 파일의 총 크기(바이트 단위)는 <varname>wal_block_si
  <para>
 다양한 assertion 검사를 사용으로 설정한다. 이것은 디버깅 시 도움이 된다. 
 이상한 문제가 발생하거나 충돌이 있는 경우 프로그래밍 실수에 의한 것일 수 있으므로 사용자는 이것을 사용 설정하려고 할 수 있다. 
-이 매개변수를 사용하려면 <productname>Agens SQL</productname>을 빌드할 때 매크로 <symbol>USE_ASSERT_CHECKING</symbol>을 정의해야 한다(<command>configure</command> 옵션 <option>--enable-cassert</option>로 가능). 
+이 매개변수를 사용하려면 <productname>Agens SQL</productname>을 빌드할 때 매크로 
+<symbol>USE_ASSERT_CHECKING</symbol>을 정의해야 한다(<command>configure</command> 옵션 <option>--enable-cassert</option>로 가능). 
 assertion이 활성화된 상태에서 <productname>Agens SQL</productname>을 빌드하면 <varname>debug_assertions</varname>의 기본값은 <literal>on</>이 된다.
  </para>
 </listitem>
@@ -5525,7 +5810,8 @@ assertion이 활성화된 상태에서 <productname>Agens SQL</productname>을 �
 <listitem>
  <para>
 <command>LISTEN</command> 및 <command>NOTIFY</command> 명령에 대한 대량의 디버깅 출력을 생성한다. 
-이 출력을 클라이언트 또는 서버 로그에 각각 전송하려면 <xref linkend="guc-client-min-messages"> 또는 <xref linkend="guc-log-min-messages">는 <literal>DEBUG1</literal>이어야 한다.
+이 출력을 클라이언트 또는 서버 로그에 각각 전송하려면 <xref linkend="guc-client-min-messages"> 또는 
+<xref linkend="guc-log-min-messages">는 <literal>DEBUG1</literal>이어야 한다.
  </para>
 </listitem>
  </varlistentry>
@@ -5746,7 +6032,7 @@ data checksums가 활성화된 경우에만 효과가 있다.
 그러나 이것을 이용하면 사용자는 에러를 무시하고 테이블에 남아 있을 수 있는 미손상 페이지에서 행을 검색할 수 있다. 
 이것은 하드웨어 또는 소프트웨어 에러에 의한 손상이 발생된 경우 데이터를 복구할 때 유용하다. 
 테이블의 손상된 페이지에서 데이터를 복구하지 않기로 결정하기 전에는 이것을 on으로 설정하면 안 된다. 
-0으로 처리된 페이지는 디스크에 강제로 쓰여지지 않으므로 이 매개변수를 off로 다시 설정하기 전에 테이블 또는 인덱스를 재생하는 것이 좋다. 
+0으로 처리된 페이지는 디스크에 강제로 쓰여지지 않으므로 이 매개변수를 off로 다시 설정하기 전에 테이블 또는 인덱스를 재생성하는 것이 좋다. 
 기본값은 <literal>off</>이고 수퍼유저에 의해서만 변경 가능하다.
  </para>
 </listitem>

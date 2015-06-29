@@ -1,0 +1,3051 @@
+<index id='bookindex'>
+
+<!-- This file was produced by collateindex.pl.         -->
+<!-- Remove this comment if you edit this file by hand! -->
+<!-- ULINK is abused here.
+
+      The URL attribute holds the URL that points from the index entry
+      back to the appropriate place in the output produced by the HTML
+      stylesheet. (It's much easier to calculate this URL in the first
+      pass.)
+
+      The Role attribute holds the ID (either real or manufactured) of
+      the corresponding INDEXTERM.  This is used by the print backends
+      to produce page numbers.
+
+      The entries below are sorted and collated into the correct order.
+      Duplicates may be removed in the HTML backend, but in the print
+      backends, it is impossible to suppress duplicate pages or coalesce
+      sequences of pages into a range.
+-->
+
+<indexdiv><title>Symbols</title>
+
+<indexentry>
+  <primaryie>$libdir/plugins,
+    <ulink url="runtime-config-client.html#RUNTIME-CONFIG-CLIENT-PRELOAD" role="AEN4603">공유 라이브러리 사전 로드</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>겹침
+  </primaryie>
+  <secondaryie>다중 트랜잭션,
+    <ulink url="routine-vacuuming.html#VACUUM-FOR-MULTIXACT-WRAPAROUND" role="AEN8063">다중 트랜잭션과 겹침</ulink>
+  </secondaryie>
+  <secondaryie>트랜잭션 ID,
+    <ulink url="routine-vacuuming.html#VACUUM-FOR-WRAPAROUND" role="AEN7967">트랜잭션 ID 겹침 오류 방지</ulink>
+  </secondaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>고가용성,
+    <ulink url="high-availability.html" role="AEN8759">고가용성, 부하 분산, 복제</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>공유 메모리,
+    <ulink url="kernel-resources.html#SYSVIPC" role="SYSVIPC">공유 메모리 및 세마포어</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>관리,
+    <ulink url="maintenance.html" role="maintenance">정기적인 데이터베이스 관리 작업들</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>네트워크 파일 시스템,
+    <ulink url="creating-cluster.html#CREATING-CLUSTER-NFS" role="CREATING-CLUSTER-NFS">네트워크 파일 시스템</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>데드록
+  </primaryie>
+  <secondaryie>timeout during,
+    <ulink url="runtime-config-locks.html" role="AEN4690">잠금(lock) 관리</ulink>
+  </secondaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>데이터 영역
+  </primaryie>
+    <seeie>데이터베이스 클러스터</seeie>
+</indexentry>
+
+<indexentry>
+  <primaryie>데이터베이스,
+    <ulink url="managing-databases.html" role="managing-databases">데이터베이스 관리</ulink>
+  </primaryie>
+  <secondaryie>생성 권한,
+    <ulink url="role-attributes.html" role="AEN6374">role 속성</ulink>
+  </secondaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>데이터베이스 클러스터,
+    <ulink url="creating-cluster.html" role="AEN31">데이터베이스 클러스터 생성</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>데이터베이스 활동
+  </primaryie>
+  <secondaryie>모니터링,
+    <ulink url="monitoring.html" role="monitoring">데이터베이스 성능 모니터링</ulink>
+  </secondaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>동기식 복제,
+    <ulink url="high-availability.html" role="high-availability">고가용성, 부하 분산, 복제</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>디스크 사용량,
+    <ulink url="disk-usage.html" role="disk-usage">디스크 사용량 결정</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>디스크 여유 공간,
+    <ulink url="routine-vacuuming.html#VACUUM-FOR-SPACE-RECOVERY" role="VACUUM-FOR-SPACE-RECOVERY">디스크 여유 공간 확보</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>로그인 권한,
+    <ulink url="role-attributes.html" role="AEN6351">role 속성</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>로드 밸런싱,
+    <ulink url="high-availability.html" role="AEN8765">고가용성, 부하 분산, 복제</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>로케일,
+    <ulink url="locale.html" role="locale">로케일(Locale) 지원</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>리눅스
+  </primaryie>
+  <secondaryie>IPC 설정,
+    <ulink url="kernel-resources.html#SYSVIPC" role="AEN519">공유 메모리 및 세마포어</ulink>
+  </secondaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>리플리케이션,
+    <ulink url="high-availability.html" role="AEN8763">고가용성, 부하 분산, 복제</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>리플리케이션 슬롯
+  </primaryie>
+  <secondaryie>스트리밍 리플리케이션,
+    <ulink url="warm-standby.html#STREAMING-REPLICATION-SLOTS" role="AEN9098">리플리케이션 슬롯</ulink>
+  </secondaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>모니터링
+  </primaryie>
+  <secondaryie>데이터베이스 서버,
+    <ulink url="monitoring.html" role="monitoring">데이터베이스 성능 모니터링</ulink>
+  </secondaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>문자 집합,
+    <ulink url="multibyte.html" role="multibyte">문자 집합 지원</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>백업,
+    <ulink url="backup.html" role="backup">백업과 복원</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>버전
+  </primaryie>
+  <secondaryie>호환성,
+    <ulink url="upgrading.html" role="upgrading">Agens SQL 클러스터 업그레이드</ulink>
+  </secondaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>복제,
+    <ulink url="high-availability.html" role="AEN8771">고가용성, 부하 분산, 복제</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>부팅
+  </primaryie>
+  <secondaryie>시 데이터베이스 서버 시작,
+    <ulink url="server-start.html" role="AEN176">데이터베이스 서버 시작</ulink>
+  </secondaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>부하 분산,
+    <ulink url="high-availability.html" role="AEN8767">고가용성, 부하 분산, 복제</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>비동기 커밋,
+    <ulink url="wal-async-commit.html" role="AEN11725">비동기 커밋</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>사용자,
+    <ulink url="database-roles.html" role="database-roles">데이터베이스 role</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>사용자 이름 맵,
+    <ulink url="auth-username-maps.html" role="auth-username-maps">사용자 이름 맵</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>상시 대기,
+    <ulink url="high-availability.html" role="high-availability">고가용성, 부하 분산, 복제</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>서버 로그,
+    <ulink url="runtime-config-logging.html" role="runtime-config-logging">에러 리포팅 및 로깅</ulink>
+  </primaryie>
+  <secondaryie>로그 파일 관리,
+    <ulink url="logfile-maintenance.html" role="logfile-maintenance">로그 파일 관리</ulink>
+  </secondaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>서버 스푸핑,
+    <ulink url="preventing-server-spoofing.html" role="preventing-server-spoofing">서버 스푸핑 방지</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>세마포어,
+    <ulink url="kernel-resources.html#SYSVIPC" role="SYSVIPC">공유 메모리 및 세마포어</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>셧다운,
+    <ulink url="server-shutdown.html" role="server-shutdown">서버 셧다운</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>수퍼유저,
+    <ulink url="role-attributes.html" role="AEN6366">role 속성</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>순차적 복제,
+    <ulink url="high-availability.html" role="high-availability">고가용성, 부하 분산, 복제</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>스키마,
+    <ulink url="manage-ag-overview.html" role="manage-ag-overview">개요</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>스트리밍 복제,
+    <ulink url="high-availability.html" role="high-availability">고가용성, 부하 분산, 복제</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>아카이브 모드 백업,
+    <ulink url="backup.html" role="backup">백업과 복원</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>암호화,
+    <ulink url="encryption-options.html" role="encryption-options">암호화 옵션</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>업그레이드,
+    <ulink url="upgrading.html" role="upgrading">Agens SQL 클러스터 업그레이드</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>유예 가능한 트랜잭션
+  </primaryie>
+  <secondaryie>기본값 설정,
+    <ulink url="runtime-config-client.html#RUNTIME-CONFIG-CLIENT-STATEMENT" role="AEN4238">문 동작</ulink>
+  </secondaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>이벤트 로그
+  </primaryie>
+  <secondaryie>이벤트 로그,
+    <ulink url="event-log-registration.html" role="event-log-registration">Windows에 이벤트 로그 등록</ulink>
+  </secondaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>인증서,
+    <ulink url="auth-methods.html#AUTH-CERT" role="AUTH-CERT">인증서 인증</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>읽기 전용 트랜잭션
+  </primaryie>
+  <secondaryie>기본값 설정,
+    <ulink url="runtime-config-client.html#RUNTIME-CONFIG-CLIENT-STATEMENT" role="AEN4225">문 동작</ulink>
+  </secondaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>잠금
+  </primaryie>
+  <secondaryie>모니터링,
+    <ulink url="monitoring-locks.html" role="monitoring-locks">잠금 보기</ulink>
+  </secondaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>장애처리,
+    <ulink url="high-availability.html" role="AEN8761">고가용성, 부하 분산, 복제</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>재시작포인트,
+    <ulink url="wal-configuration.html" role="AEN11798">WAL 환경 설정</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>정규식 표현
+  </primaryie>
+  <secondaryie>및 로케일,
+    <ulink url="locale.html#AEN6839" role="AEN6867">동작</ulink>
+  </secondaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>정기 관리,
+    <ulink url="maintenance.html" role="maintenance">정기적인 데이터베이스 관리 작업들</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>제네틱 쿼리 최적화,
+    <ulink url="runtime-config-query.html#RUNTIME-CONFIG-QUERY-GEQO" role="AEN2918">제네틱 쿼리 옵티마이저</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>제약 조건 배제,
+    <ulink url="runtime-config-query.html#RUNTIME-CONFIG-QUERY-OTHER" role="AEN3008">Other Planner Options</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>중요 숫자,
+    <ulink url="runtime-config-client.html#RUNTIME-CONFIG-CLIENT-FORMAT" role="AEN4489">로케일(locale) 및 형식 지정</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>체크포인트,
+    <ulink url="wal-configuration.html" role="AEN11768">WAL 환경 설정</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>콜레이션,
+    <ulink url="collation.html" role="collation">콜레이션 지원</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>클라이언트 인증,
+    <ulink url="client-authentication.html" role="client-authentication">클라이언트 인증</ulink>
+  </primaryie>
+  <secondaryie>timeout during,
+    <ulink url="runtime-config-connection.html#RUNTIME-CONFIG-CONNECTION-SECURITY" role="AEN1650">보안 및 인증</ulink>
+  </secondaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>클러스터링,
+    <ulink url="high-availability.html" role="AEN8769">고가용성, 부하 분산, 복제</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>타임라인,
+    <ulink url="backup.html" role="backup">백업과 복원</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>타임존,
+    <ulink url="runtime-config-client.html#RUNTIME-CONFIG-CLIENT-FORMAT" role="AEN4464">로케일(locale) 및 형식 지정</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>타임존 이름,
+    <ulink url="runtime-config-client.html#RUNTIME-CONFIG-CLIENT-FORMAT" role="AEN4478">로케일(locale) 및 형식 지정</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>타임존 환경 설정 매개변수,
+    <ulink url="runtime-config-client.html#RUNTIME-CONFIG-CLIENT-FORMAT" role="AEN4461">로케일(locale) 및 형식 지정</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>테이블스페이스,
+    <ulink url="manage-ag-tablespaces.html" role="manage-ag-tablespaces">Tablespaces</ulink>
+  </primaryie>
+  <secondaryie>임시,
+    <ulink url="runtime-config-client.html#RUNTIME-CONFIG-CLIENT-STATEMENT" role="AEN4175">문 동작</ulink>
+  </secondaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>통계,
+    <ulink url="monitoring-stats.html" role="monitoring-stats">통계 수집기</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>통계 정보
+  </primaryie>
+  <secondaryie>쿼리 실행계획기,
+    <ulink url="routine-vacuuming.html#VACUUM-FOR-STATISTICS" role="VACUUM-FOR-STATISTICS">실행계획 통계 정보 갱신</ulink>
+  </secondaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>트랜잭션 ID
+  </primaryie>
+  <secondaryie>겹침,
+    <ulink url="routine-vacuuming.html#VACUUM-FOR-WRAPAROUND" role="VACUUM-FOR-WRAPAROUND">트랜잭션 ID 겹침 오류 방지</ulink>
+  </secondaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>트랜잭션 로그
+  </primaryie>
+    <seeie>WAL</seeie>
+</indexentry>
+
+<indexentry>
+  <primaryie>특정시점 복구,
+    <ulink url="backup.html" role="backup">백업과 복원</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>패스워드,
+    <ulink url="role-attributes.html" role="AEN6404">role 속성</ulink>
+  </primaryie>
+  <secondaryie>슈퍼유저의,
+    <ulink url="creating-cluster.html" role="AEN95">데이터베이스 클러스터 생성</ulink>
+  </secondaryie>
+  <secondaryie>인증,
+    <ulink url="auth-methods.html#AUTH-PASSWORD" role="AEN5910">패스워드 인증</ulink>
+  </secondaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>포트 환경 설정 매개변수,
+    <ulink url="runtime-config-connection.html#RUNTIME-CONFIG-CONNECTION-SETTINGS" role="AEN1498">연결 설정</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>피어,
+    <ulink url="auth-methods.html#AUTH-PEER" role="AEN6074">피어(peer) 인증</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>환경 설정
+  </primaryie>
+  <secondaryie>서버,
+    <ulink url="runtime-config.html" role="AEN1206">서버 환경 설정</ulink>
+  </secondaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>환경설정
+  </primaryie>
+  <secondaryie>복구
+  </secondaryie>
+  <tertiaryie>대기 서버 (standby server),
+    <ulink url="recovery-config.html" role="AEN9557">복구 환경설정</ulink>
+  </tertiaryie>
+</indexentry>
+
+</indexdiv>
+<indexdiv><title>A</title>
+
+<indexentry>
+  <primaryie>agens,
+    <ulink url="server-start.html" role="AEN148">데이터베이스 서버 시작</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>agens 사용자,
+    <ulink url="agens-user.html" role="AEN20">Agens SQL 사용자 계정</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>AIX
+  </primaryie>
+  <secondaryie>IPC 환경 설정,
+    <ulink url="kernel-resources.html#SYSVIPC" role="AEN415">공유 메모리 및 세마포어</ulink>
+  </secondaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>allow_system_table_mods 환경 설정 매개변수,
+    <ulink url="runtime-config-developer.html" role="AEN5133">개발자 옵션</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>ALTER ROLE,
+    <ulink url="role-attributes.html" role="AEN6414">role 속성</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>ANALYZE,
+    <ulink url="routine-vacuuming.html#VACUUM-FOR-STATISTICS" role="VACUUM-FOR-STATISTICS">실행계획 통계 정보 갱신</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>application_name 환경 설정 매개변수,
+    <ulink url="runtime-config-logging.html#RUNTIME-CONFIG-LOGGING-WHAT" role="AEN3480">What To 로그</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>archive_cleanup_command 복구 매개변수,
+    <ulink url="archive-recovery-settings.html" role="AEN9597">아카이브 복구 설정</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>archive_command 환경 설정 매개변수,
+    <ulink url="runtime-config-wal.html#RUNTIME-CONFIG-WAL-ARCHIVING" role="AEN2489">Archiving</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>archive_mode 환경 설정 매개변수,
+    <ulink url="runtime-config-wal.html#RUNTIME-CONFIG-WAL-ARCHIVING" role="AEN2472">Archiving</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>archive_timeout 환경 설정 매개변수,
+    <ulink url="runtime-config-wal.html#RUNTIME-CONFIG-WAL-ARCHIVING" role="AEN2511">Archiving</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>array_nulls 환경 설정 매개변수,
+    <ulink url="runtime-config-compatible.html#RUNTIME-CONFIG-COMPATIBLE-VERSION" role="AEN4741">이전 Agens SQL 버전</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>authentication_timeout 환경 설정 매개변수,
+    <ulink url="runtime-config-connection.html#RUNTIME-CONFIG-CONNECTION-SECURITY" role="AEN1653">보안 및 인증</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>autovacuum
+  </primaryie>
+  <secondaryie>일반 정보,
+    <ulink url="routine-vacuuming.html#AUTOVACUUM" role="AEN8079">Autovacuum 데몬</ulink>
+  </secondaryie>
+  <secondaryie>환경 설정 매개변수s,
+    <ulink url="runtime-config-autovacuum.html" role="AEN3945">자동 Vacuuming</ulink>
+  </secondaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>autovacuum 환경 설정 매개변수,
+    <ulink url="runtime-config-autovacuum.html" role="AEN3956">자동 Vacuuming</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>autovacuum_analyze_scale_factor 환경 설정 매개변수,
+    <ulink url="runtime-config-autovacuum.html" role="AEN4037">자동 Vacuuming</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>autovacuum_analyze_threshold 환경 설정 매개변수,
+    <ulink url="runtime-config-autovacuum.html" role="AEN4014">자동 Vacuuming</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>autovacuum_freeze_max_age 환경 설정 매개변수,
+    <ulink url="runtime-config-autovacuum.html" role="AEN4049">자동 Vacuuming</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>autovacuum_max_workers 환경 설정 매개변수,
+    <ulink url="runtime-config-autovacuum.html" role="AEN3981">자동 Vacuuming</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>autovacuum_multixact_freeze_max_age 환경 설정 매개변수,
+    <ulink url="runtime-config-autovacuum.html" role="AEN4064">자동 Vacuuming</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>autovacuum_naptime 환경 설정 매개변수,
+    <ulink url="runtime-config-autovacuum.html" role="AEN3990">자동 Vacuuming</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>autovacuum_vacuum_cost_delay 환경 설정 매개변수,
+    <ulink url="runtime-config-autovacuum.html" role="AEN4080">자동 Vacuuming</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>autovacuum_vacuum_cost_limit 환경 설정 매개변수,
+    <ulink url="runtime-config-autovacuum.html" role="AEN4092">자동 Vacuuming</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>autovacuum_vacuum_scale_factor 환경 설정 매개변수,
+    <ulink url="runtime-config-autovacuum.html" role="AEN4025">자동 Vacuuming</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>autovacuum_vacuum_threshold 환경 설정 매개변수,
+    <ulink url="runtime-config-autovacuum.html" role="AEN4003">자동 Vacuuming</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>autovacuum_work_mem 환경 설정 매개변수,
+    <ulink url="runtime-config-resource.html#RUNTIME-CONFIG-RESOURCE-MEMORY" role="AEN1971">Memory</ulink>
+  </primaryie>
+</indexentry>
+
+</indexdiv>
+<indexdiv><title>B</title>
+
+<indexentry>
+  <primaryie>backslash_quote 환경 설정 매개변수,
+    <ulink url="runtime-config-compatible.html#RUNTIME-CONFIG-COMPATIBLE-VERSION" role="AEN4761">이전 Agens SQL 버전</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>bgwriter_delay 환경 설정 매개변수,
+    <ulink url="runtime-config-resource.html#RUNTIME-CONFIG-RESOURCE-BACKGROUND-WRITER" role="AEN2115">백그라운드 Writer</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>bgwriter_lru_maxpages 환경 설정 매개변수,
+    <ulink url="runtime-config-resource.html#RUNTIME-CONFIG-RESOURCE-BACKGROUND-WRITER" role="AEN2129">백그라운드 Writer</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>bgwriter_lru_multiplier 환경 설정 매개변수,
+    <ulink url="runtime-config-resource.html#RUNTIME-CONFIG-RESOURCE-BACKGROUND-WRITER" role="AEN2139">백그라운드 Writer</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>bitmap scan,
+    <ulink url="runtime-config-query.html#RUNTIME-CONFIG-QUERY-ENABLE" role="AEN2720">플래너 방법 환경 설정</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>block_size 환경 설정 매개변수,
+    <ulink url="runtime-config-preset.html" role="AEN4965">프리셋 옵션</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>bonjour 환경 설정 매개변수,
+    <ulink url="runtime-config-connection.html#RUNTIME-CONFIG-CONNECTION-SETTINGS" role="AEN1585">연결 설정</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>bonjour_name 환경 설정 매개변수,
+    <ulink url="runtime-config-connection.html#RUNTIME-CONFIG-CONNECTION-SETTINGS" role="AEN1595">연결 설정</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>bytea_output 환경 설정 매개변수,
+    <ulink url="runtime-config-client.html#RUNTIME-CONFIG-CLIENT-STATEMENT" role="AEN4359">문 동작</ulink>
+  </primaryie>
+</indexentry>
+
+</indexdiv>
+<indexdiv><title>C</title>
+
+<indexentry>
+  <primaryie>Cascading Replication,
+    <ulink url="high-availability.html" role="high-availability">고가용성, 부하 분산, 복제</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>character set,
+    <ulink url="runtime-config-client.html#RUNTIME-CONFIG-CLIENT-FORMAT" role="AEN4510">로케일(locale) 및 형식 지정</ulink>,
+    <ulink url="runtime-config-preset.html" role="AEN5068">프리셋 옵션</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>checkpoint_completion_target 환경 설정 매개변수,
+    <ulink url="runtime-config-wal.html#RUNTIME-CONFIG-WAL-CHECKPOINTS" role="AEN2445"> 체크포인트</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>checkpoint_segments 환경 설정 매개변수,
+    <ulink url="runtime-config-wal.html#RUNTIME-CONFIG-WAL-CHECKPOINTS" role="AEN2424"> 체크포인트</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>checkpoint_timeout 환경 설정 매개변수,
+    <ulink url="runtime-config-wal.html#RUNTIME-CONFIG-WAL-CHECKPOINTS" role="AEN2434"> 체크포인트</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>checkpoint_warning 환경 설정 매개변수,
+    <ulink url="runtime-config-wal.html#RUNTIME-CONFIG-WAL-CHECKPOINTS" role="AEN2455"> 체크포인트</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>check_function_bodies 환경 설정 매개변수,
+    <ulink url="runtime-config-client.html#RUNTIME-CONFIG-CLIENT-STATEMENT" role="AEN4196">문 동작</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>client_encoding 환경 설정 매개변수,
+    <ulink url="runtime-config-client.html#RUNTIME-CONFIG-CLIENT-FORMAT" role="AEN4507">로케일(locale) 및 형식 지정</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>client_min_messages 환경 설정 매개변수,
+    <ulink url="runtime-config-logging.html#RUNTIME-CONFIG-LOGGING-WHEN" role="AEN3307">When To 로그</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>clustering,
+    <ulink url="high-availability.html" role="AEN8755">고가용성, 부하 분산, 복제</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>commit_delay 환경 설정 매개변수,
+    <ulink url="runtime-config-wal.html#RUNTIME-CONFIG-WAL-SETTINGS" role="AEN2393">설정</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>commit_siblings 환경 설정 매개변수,
+    <ulink url="runtime-config-wal.html#RUNTIME-CONFIG-WAL-SETTINGS" role="AEN2411">설정</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>config_file환경 설정 매개변수,
+    <ulink url="runtime-config-file-locations.html" role="AEN1413">파일 위치</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>constraint_exclusion 환경 설정 매개변수,
+    <ulink url="runtime-config-query.html#RUNTIME-CONFIG-QUERY-OTHER" role="AEN3010">Other Planner Options</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>Continuous Archiving,
+    <ulink url="backup.html" role="backup">백업과 복원</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>cpu_index_tuple_cost 환경 설정 매개변수,
+    <ulink url="runtime-config-query.html#RUNTIME-CONFIG-QUERY-CONSTANTS" role="AEN2883">플래너 비용 상수</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>cpu_operator_cost 환경 설정 매개변수,
+    <ulink url="runtime-config-query.html#RUNTIME-CONFIG-QUERY-CONSTANTS" role="AEN2892">플래너 비용 상수</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>cpu_tuple_cost 환경 설정 매개변수,
+    <ulink url="runtime-config-query.html#RUNTIME-CONFIG-QUERY-CONSTANTS" role="AEN2874">플래너 비용 상수</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>CREATE DATABASE,
+    <ulink url="manage-ag-createdb.html" role="AEN6533">데이터베이스 생성</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>CREATE ROLE,
+    <ulink url="database-roles.html" role="AEN6311">데이터베이스 role</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>CREATE TABLESPACE,
+    <ulink url="manage-ag-tablespaces.html" role="AEN6698">Tablespaces</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>createdb,
+    <ulink url="manage-ag-createdb.html" role="AEN6565">데이터베이스 생성</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>createuser,
+    <ulink url="database-roles.html" role="AEN6322">데이터베이스 role</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>cursor_tuple_fraction 환경 설정 매개변수,
+    <ulink url="runtime-config-query.html#RUNTIME-CONFIG-QUERY-OTHER" role="AEN3031">Other Planner Options</ulink>
+  </primaryie>
+</indexentry>
+
+</indexdiv>
+<indexdiv><title>D</title>
+
+<indexentry>
+  <primaryie>data partitioning,
+    <ulink url="high-availability.html" role="AEN8757">고가용성, 부하 분산, 복제</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>data_checksums 환경 설정 매개변수,
+    <ulink url="runtime-config-preset.html" role="AEN4978">프리셋 옵션</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>data_directory 환경 설정 매개변수,
+    <ulink url="runtime-config-file-locations.html" role="AEN1404">파일 위치</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>DateStyle 환경 설정 매개변수,
+    <ulink url="runtime-config-client.html#RUNTIME-CONFIG-CLIENT-FORMAT" role="AEN4412">로케일(locale) 및 형식 지정</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>db_user_namespace 환경 설정 매개변수,
+    <ulink url="runtime-config-connection.html#RUNTIME-CONFIG-CONNECTION-SECURITY" role="AEN1838">보안 및 인증</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>deadlock_timeout 환경 설정 매개변수,
+    <ulink url="runtime-config-locks.html" role="AEN4696">잠금(lock) 관리</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>debug_assertions 환경 설정 매개변수,
+    <ulink url="runtime-config-developer.html" role="AEN5143">개발자 옵션</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>debug_deadlocks 환경 설정 매개변수,
+    <ulink url="runtime-config-developer.html" role="AEN5296">개발자 옵션</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>debug_pretty_print 환경 설정 매개변수,
+    <ulink url="runtime-config-logging.html#RUNTIME-CONFIG-LOGGING-WHAT" role="AEN3519">What To 로그</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>debug_print_parse 환경 설정 매개변수,
+    <ulink url="runtime-config-logging.html#RUNTIME-CONFIG-LOGGING-WHAT" role="AEN3495">What To 로그</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>debug_print_plan 환경 설정 매개변수,
+    <ulink url="runtime-config-logging.html#RUNTIME-CONFIG-LOGGING-WHAT" role="AEN3507">What To 로그</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>debug_print_rewritten 환경 설정 매개변수,
+    <ulink url="runtime-config-logging.html#RUNTIME-CONFIG-LOGGING-WHAT" role="AEN3501">What To 로그</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>default_statistics_target 환경 설정 매개변수,
+    <ulink url="runtime-config-query.html#RUNTIME-CONFIG-QUERY-OTHER" role="AEN2997">Other Planner Options</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>default_tablespace 환경 설정 매개변수,
+    <ulink url="runtime-config-client.html#RUNTIME-CONFIG-CLIENT-STATEMENT" role="AEN4151">문 동작</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>default_text_search_config 환경 설정 매개변수,
+    <ulink url="runtime-config-client.html#RUNTIME-CONFIG-CLIENT-FORMAT" role="AEN4565">로케일(locale) 및 형식 지정</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>default_transaction_deferrable 환경 설정 매개변수,
+    <ulink url="runtime-config-client.html#RUNTIME-CONFIG-CLIENT-STATEMENT" role="AEN4241">문 동작</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>default_transaction_isolation 환경 설정 매개변수,
+    <ulink url="runtime-config-client.html#RUNTIME-CONFIG-CLIENT-STATEMENT" role="AEN4211">문 동작</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>default_transaction_read_only 환경 설정 매개변수,
+    <ulink url="runtime-config-client.html#RUNTIME-CONFIG-CLIENT-STATEMENT" role="AEN4228">문 동작</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>default_with_oids 환경 설정 매개변수,
+    <ulink url="runtime-config-compatible.html#RUNTIME-CONFIG-COMPATIBLE-VERSION" role="AEN4787">이전 Agens SQL 버전</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>disk drive,
+    <ulink url="wal-internals.html" role="AEN11864">WAL 인터널</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>DROP DATABASE,
+    <ulink url="manage-ag-dropdb.html" role="AEN6671">데이터베이스 소멸</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>DROP ROLE,
+    <ulink url="database-roles.html" role="AEN6313">데이터베이스 role</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>dropdb,
+    <ulink url="manage-ag-dropdb.html" role="AEN6680">데이터베이스 소멸</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>dropuser,
+    <ulink url="database-roles.html" role="AEN6324">데이터베이스 role</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>DTrace,
+    <ulink url="dynamic-trace.html" role="dynamic-trace">Dynamic Tracing</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>dynamic loading,
+    <ulink url="runtime-config-client.html#RUNTIME-CONFIG-CLIENT-OTHER" role="AEN4656">그 외 기본값</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>dynamic_library_path 환경 설정 매개변수,
+    <ulink url="runtime-config-client.html#RUNTIME-CONFIG-CLIENT-OTHER" role="AEN4653">그 외 기본값</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>dynamic_shared_memory_type 환경 설정 매개변수,
+    <ulink url="runtime-config-resource.html#RUNTIME-CONFIG-RESOURCE-MEMORY" role="AEN1996">Memory</ulink>
+  </primaryie>
+</indexentry>
+
+</indexdiv>
+<indexdiv><title>E</title>
+
+<indexentry>
+  <primaryie>effective_cache_size 환경 설정 매개변수,
+    <ulink url="runtime-config-query.html#RUNTIME-CONFIG-QUERY-CONSTANTS" role="AEN2901">플래너 비용 상수</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>effective_io_concurrency 환경 설정 매개변수,
+    <ulink url="runtime-config-resource.html#RUNTIME-CONFIG-RESOURCE-ASYNC-BEHAVIOR" role="AEN2158">비동기 동작</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>enable_bitmapscan 환경 설정 매개변수,
+    <ulink url="runtime-config-query.html#RUNTIME-CONFIG-QUERY-ENABLE" role="AEN2722">플래너 방법 환경 설정</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>enable_hashagg 환경 설정 매개변수,
+    <ulink url="runtime-config-query.html#RUNTIME-CONFIG-QUERY-ENABLE" role="AEN2732">플래너 방법 환경 설정</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>enable_hashjoin 환경 설정 매개변수,
+    <ulink url="runtime-config-query.html#RUNTIME-CONFIG-QUERY-ENABLE" role="AEN2742">플래너 방법 환경 설정</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>enable_indexonlyscan 환경 설정 매개변수,
+    <ulink url="runtime-config-query.html#RUNTIME-CONFIG-QUERY-ENABLE" role="AEN2766">플래너 방법 환경 설정</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>enable_indexscan 환경 설정 매개변수,
+    <ulink url="runtime-config-query.html#RUNTIME-CONFIG-QUERY-ENABLE" role="AEN2754">플래너 방법 환경 설정</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>enable_material 환경 설정 매개변수,
+    <ulink url="runtime-config-query.html#RUNTIME-CONFIG-QUERY-ENABLE" role="AEN2776">플래너 방법 환경 설정</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>enable_mergejoin 환경 설정 매개변수,
+    <ulink url="runtime-config-query.html#RUNTIME-CONFIG-QUERY-ENABLE" role="AEN2786">플래너 방법 환경 설정</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>enable_nestloop 환경 설정 매개변수,
+    <ulink url="runtime-config-query.html#RUNTIME-CONFIG-QUERY-ENABLE" role="AEN2796">플래너 방법 환경 설정</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>enable_seqscan 환경 설정 매개변수,
+    <ulink url="runtime-config-query.html#RUNTIME-CONFIG-QUERY-ENABLE" role="AEN2808">플래너 방법 환경 설정</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>enable_sort 환경 설정 매개변수,
+    <ulink url="runtime-config-query.html#RUNTIME-CONFIG-QUERY-ENABLE" role="AEN2818">플래너 방법 환경 설정</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>enable_tidscan 환경 설정 매개변수,
+    <ulink url="runtime-config-query.html#RUNTIME-CONFIG-QUERY-ENABLE" role="AEN2828">플래너 방법 환경 설정</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>escape_string_warning 환경 설정 매개변수,
+    <ulink url="runtime-config-compatible.html#RUNTIME-CONFIG-COMPATIBLE-VERSION" role="AEN4808">이전 Agens SQL 버전</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>event_source 환경 설정 매개변수,
+    <ulink url="runtime-config-logging.html#RUNTIME-CONFIG-LOGGING-WHERE" role="AEN3291">Where To 로그</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>exit_on_error 환경 설정 매개변수,
+    <ulink url="runtime-config-error-handling.html" role="AEN4937">에러 처리</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>external_pid_file환경 설정 매개변수,
+    <ulink url="runtime-config-file-locations.html" role="AEN1445">파일 위치</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>extra_float_digits 환경 설정 매개변수,
+    <ulink url="runtime-config-client.html#RUNTIME-CONFIG-CLIENT-FORMAT" role="AEN4494">로케일(locale) 및 형식 지정</ulink>
+  </primaryie>
+</indexentry>
+
+</indexdiv>
+<indexdiv><title>F</title>
+
+<indexentry>
+  <primaryie>failover,
+    <ulink url="high-availability.html" role="AEN8749">고가용성, 부하 분산, 복제</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>floating-point
+  </primaryie>
+  <secondaryie>디스플레이,
+    <ulink url="runtime-config-client.html#RUNTIME-CONFIG-CLIENT-FORMAT" role="AEN4491">로케일(locale) 및 형식 지정</ulink>
+  </secondaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>FreeBSD
+  </primaryie>
+  <secondaryie>IPC 환경 설정,
+    <ulink url="kernel-resources.html#SYSVIPC" role="AEN430">공유 메모리 및 세마포어</ulink>
+  </secondaryie>
+  <secondaryie>시작 스크립트,
+    <ulink url="server-start.html" role="AEN197">데이터베이스 서버 시작</ulink>
+  </secondaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>from_collapse_limit 환경 설정 매개변수,
+    <ulink url="runtime-config-query.html#RUNTIME-CONFIG-QUERY-OTHER" role="AEN3041">Other Planner Options</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>fsync 환경 설정 매개변수,
+    <ulink url="runtime-config-wal.html#RUNTIME-CONFIG-WAL-SETTINGS" role="AEN2232">설정</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>full_page_writes 환경 설정 매개변수,
+    <ulink url="runtime-config-wal.html#RUNTIME-CONFIG-WAL-SETTINGS" role="AEN2334">설정</ulink>
+  </primaryie>
+</indexentry>
+
+</indexdiv>
+<indexdiv><title>G</title>
+
+<indexentry>
+  <primaryie>GEQO
+  </primaryie>
+    <seeie>제네틱 쿼리 최적화</seeie>
+</indexentry>
+
+<indexentry>
+  <primaryie>geqo 환경 설정 매개변수,
+    <ulink url="runtime-config-query.html#RUNTIME-CONFIG-QUERY-GEQO" role="AEN2923">제네틱 쿼리 옵티마이저</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>geqo_effort 환경 설정 매개변수,
+    <ulink url="runtime-config-query.html#RUNTIME-CONFIG-QUERY-GEQO" role="AEN2945">제네틱 쿼리 옵티마이저</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>geqo_generations 환경 설정 매개변수,
+    <ulink url="runtime-config-query.html#RUNTIME-CONFIG-QUERY-GEQO" role="AEN2966">제네틱 쿼리 옵티마이저</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>geqo_pool_size 환경 설정 매개변수,
+    <ulink url="runtime-config-query.html#RUNTIME-CONFIG-QUERY-GEQO" role="AEN2956">제네틱 쿼리 옵티마이저</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>geqo_seed 환경 설정 매개변수,
+    <ulink url="runtime-config-query.html#RUNTIME-CONFIG-QUERY-GEQO" role="AEN2985">제네틱 쿼리 옵티마이저</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>geqo_selection_bias 환경 설정 매개변수,
+    <ulink url="runtime-config-query.html#RUNTIME-CONFIG-QUERY-GEQO" role="AEN2976">제네틱 쿼리 옵티마이저</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>geqo_threshold 환경 설정 매개변수,
+    <ulink url="runtime-config-query.html#RUNTIME-CONFIG-QUERY-GEQO" role="AEN2933">제네틱 쿼리 옵티마이저</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>gin_fuzzy_search_limit 환경 설정 매개변수,
+    <ulink url="runtime-config-client.html#RUNTIME-CONFIG-CLIENT-OTHER" role="AEN4678">그 외 기본값</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>GSSAPI,
+    <ulink url="auth-methods.html#GSSAPI-AUTH" role="GSSAPI-AUTH">GSSAPI 인증</ulink>
+  </primaryie>
+</indexentry>
+
+</indexdiv>
+<indexdiv><title>H</title>
+
+<indexentry>
+  <primaryie>hba_file환경 설정 매개변수,
+    <ulink url="runtime-config-file-locations.html" role="AEN1424">파일 위치</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>high availability,
+    <ulink url="high-availability.html" role="AEN8747">고가용성, 부하 분산, 복제</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>Hot Standby,
+    <ulink url="high-availability.html" role="high-availability">고가용성, 부하 분산, 복제</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>hot_standby 환경 설정 매개변수,
+    <ulink url="runtime-config-replication.html#RUNTIME-CONFIG-REPLICATION-STANDBY" role="AEN2636">대기 서버</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>hot_standby_feedback 환경 설정 매개변수,
+    <ulink url="runtime-config-replication.html#RUNTIME-CONFIG-REPLICATION-STANDBY" role="AEN2687">대기 서버</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>HP-UX
+  </primaryie>
+  <secondaryie>IPC 설정,
+    <ulink url="kernel-resources.html#SYSVIPC" role="AEN501">공유 메모리 및 세마포어</ulink>
+  </secondaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>huge_pages 환경 설정 매개변수,
+    <ulink url="runtime-config-resource.html#RUNTIME-CONFIG-RESOURCE-MEMORY" role="AEN1891">Memory</ulink>
+  </primaryie>
+</indexentry>
+
+</indexdiv>
+<indexdiv><title>I</title>
+
+<indexentry>
+  <primaryie>ident,
+    <ulink url="auth-methods.html#AUTH-IDENT" role="AEN6041">Ident 인증</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>ident_file환경 설정 매개변수,
+    <ulink url="runtime-config-file-locations.html" role="AEN1434">파일 위치</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>ignore_checksum_failure 환경 설정 매개변수,
+    <ulink url="runtime-config-developer.html" role="AEN5331">개발자 옵션</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>ignore_system_indexes 환경 설정 매개변수,
+    <ulink url="runtime-config-developer.html" role="AEN5159">개발자 옵션</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>include
+  </primaryie>
+  <secondaryie>환경 설정 파일,
+    <ulink url="config-setting.html#CONFIG-INCLUDES" role="AEN1350">환경 설정 파일 내용 관리</ulink>
+  </secondaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>include_dir
+  </primaryie>
+  <secondaryie>환경 설정 파일 내,
+    <ulink url="config-setting.html#CONFIG-INCLUDES" role="AEN1367">환경 설정 파일 내용 관리</ulink>
+  </secondaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>include_if_exists
+  </primaryie>
+  <secondaryie>환경 설정 파일 내,
+    <ulink url="config-setting.html#CONFIG-INCLUDES" role="AEN1358">환경 설정 파일 내용 관리</ulink>
+  </secondaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>index scan,
+    <ulink url="runtime-config-query.html#RUNTIME-CONFIG-QUERY-ENABLE" role="AEN2752">플래너 방법 환경 설정</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>index-only scan,
+    <ulink url="runtime-config-query.html#RUNTIME-CONFIG-QUERY-ENABLE" role="AEN2764">플래너 방법 환경 설정</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>inheritance,
+    <ulink url="runtime-config-compatible.html#RUNTIME-CONFIG-COMPATIBLE-VERSION" role="AEN4854">이전 Agens SQL 버전</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>initdb,
+    <ulink url="creating-cluster.html" role="AEN49">데이터베이스 클러스터 생성</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>integer_datetimes 환경 설정 매개변수,
+    <ulink url="runtime-config-preset.html" role="AEN4987">프리셋 옵션</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>IntervalStyle 환경 설정 매개변수,
+    <ulink url="runtime-config-client.html#RUNTIME-CONFIG-CLIENT-FORMAT" role="AEN4438">로케일(locale) 및 형식 지정</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>IS NULL,
+    <ulink url="runtime-config-compatible.html#RUNTIME-CONFIG-COMPATIBLE-CLIENTS" role="AEN4904">플랫폼 및 클라이언트 호환성</ulink>
+  </primaryie>
+</indexentry>
+
+</indexdiv>
+<indexdiv><title>J</title>
+
+<indexentry>
+  <primaryie>join_collapse_limit 환경 설정 매개변수,
+    <ulink url="runtime-config-query.html#RUNTIME-CONFIG-QUERY-OTHER" role="AEN3054">Other Planner Options</ulink>
+  </primaryie>
+</indexentry>
+
+</indexdiv>
+<indexdiv><title>K</title>
+
+<indexentry>
+  <primaryie>krb_caseins_users 환경 설정 매개변수,
+    <ulink url="runtime-config-connection.html#RUNTIME-CONFIG-CONNECTION-SECURITY" role="AEN1827">보안 및 인증</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>krb_server_keyfile 환경 설정 매개변수,
+    <ulink url="runtime-config-connection.html#RUNTIME-CONFIG-CONNECTION-SECURITY" role="AEN1816">보안 및 인증</ulink>
+  </primaryie>
+</indexentry>
+
+</indexdiv>
+<indexdiv><title>L</title>
+
+<indexentry>
+  <primaryie>lc_collate 환경 설정 매개변수,
+    <ulink url="runtime-config-preset.html" role="AEN5000">프리셋 옵션</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>lc_ctype 환경 설정 매개변수,
+    <ulink url="runtime-config-preset.html" role="AEN5010">프리셋 옵션</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>lc_messages 환경 설정 매개변수,
+    <ulink url="runtime-config-client.html#RUNTIME-CONFIG-CLIENT-FORMAT" role="AEN4520">로케일(locale) 및 형식 지정</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>lc_monetary 환경 설정 매개변수,
+    <ulink url="runtime-config-client.html#RUNTIME-CONFIG-CLIENT-FORMAT" role="AEN4532">로케일(locale) 및 형식 지정</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>lc_numeric 환경 설정 매개변수,
+    <ulink url="runtime-config-client.html#RUNTIME-CONFIG-CLIENT-FORMAT" role="AEN4543">로케일(locale) 및 형식 지정</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>lc_time 환경 설정 매개변수,
+    <ulink url="runtime-config-client.html#RUNTIME-CONFIG-CLIENT-FORMAT" role="AEN4554">로케일(locale) 및 형식 지정</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>LDAP,
+    <ulink url="auth-methods.html#AUTH-LDAP" role="AUTH-LDAP">LDAP 인증</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>LIKE
+  </primaryie>
+  <secondaryie>및 로케일,
+    <ulink url="locale.html#AEN6839" role="AEN6864">동작</ulink>
+  </secondaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>Linux
+  </primaryie>
+  <secondaryie>시작 스크립트,
+    <ulink url="server-start.html" role="AEN211">데이터베이스 서버 시작</ulink>
+  </secondaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>listen_addresses 환경 설정 매개변수,
+    <ulink url="runtime-config-connection.html#RUNTIME-CONFIG-CONNECTION-SETTINGS" role="AEN1482">연결 설정</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>load balancing,
+    <ulink url="high-availability.html" role="AEN8753">고가용성, 부하 분산, 복제</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>locale,
+    <ulink url="creating-cluster.html" role="AEN108">데이터베이스 클러스터 생성</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>local_preload_libraries 환경 설정 매개변수,
+    <ulink url="runtime-config-client.html#RUNTIME-CONFIG-CLIENT-PRELOAD" role="AEN4600">공유 라이브러리 사전 로드</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>lock_timeout 환경 설정 매개변수,
+    <ulink url="runtime-config-client.html#RUNTIME-CONFIG-CLIENT-STATEMENT" role="AEN4280">문 동작</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>log shipping,
+    <ulink url="high-availability.html" role="high-availability">고가용성, 부하 분산, 복제</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>logging_collector 환경 설정 매개변수,
+    <ulink url="runtime-config-logging.html#RUNTIME-CONFIG-LOGGING-WHERE" role="AEN3120">Where To 로그</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>log_autovacuum_min_duration 환경 설정 매개변수,
+    <ulink url="runtime-config-autovacuum.html" role="AEN3969">자동 Vacuuming</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>log_btree_build_stats 환경 설정 매개변수,
+    <ulink url="runtime-config-developer.html" role="AEN5308">개발자 옵션</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>log_checkpoints 환경 설정 매개변수,
+    <ulink url="runtime-config-logging.html#RUNTIME-CONFIG-LOGGING-WHAT" role="AEN3533">What To 로그</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>log_connections 환경 설정 매개변수,
+    <ulink url="runtime-config-logging.html#RUNTIME-CONFIG-LOGGING-WHAT" role="AEN3543">What To 로그</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>log_destination 환경 설정 매개변수,
+    <ulink url="runtime-config-logging.html#RUNTIME-CONFIG-LOGGING-WHERE" role="AEN3081">Where To 로그</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>log_directory 환경 설정 매개변수,
+    <ulink url="runtime-config-logging.html#RUNTIME-CONFIG-LOGGING-WHERE" role="AEN3141">Where To 로그</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>log_disconnections 환경 설정 매개변수,
+    <ulink url="runtime-config-logging.html#RUNTIME-CONFIG-LOGGING-WHAT" role="AEN3556">What To 로그</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>log_duration 환경 설정 매개변수,
+    <ulink url="runtime-config-logging.html#RUNTIME-CONFIG-LOGGING-WHAT" role="AEN3566">What To 로그</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>log_error_verbosity 환경 설정 매개변수,
+    <ulink url="runtime-config-logging.html#RUNTIME-CONFIG-LOGGING-WHAT" role="AEN3584">What To 로그</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>log_executor_stats 환경 설정 매개변수,
+    <ulink url="runtime-config-statistics.html#RUNTIME-CONFIG-STATISTICS-MONITOR" role="AEN3935">통계 모니터링</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>log_filename 환경 설정 매개변수,
+    <ulink url="runtime-config-logging.html#RUNTIME-CONFIG-LOGGING-WHERE" role="AEN3153">Where To 로그</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>log_file_mode 환경 설정 매개변수,
+    <ulink url="runtime-config-logging.html#RUNTIME-CONFIG-LOGGING-WHERE" role="AEN3181">Where To 로그</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>log_hostname 환경 설정 매개변수,
+    <ulink url="runtime-config-logging.html#RUNTIME-CONFIG-LOGGING-WHAT" role="AEN3603">What To 로그</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>log_line_prefix 환경 설정 매개변수,
+    <ulink url="runtime-config-logging.html#RUNTIME-CONFIG-LOGGING-WHAT" role="AEN3613">What To 로그</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>log_lock_waits 환경 설정 매개변수,
+    <ulink url="runtime-config-logging.html#RUNTIME-CONFIG-LOGGING-WHAT" role="AEN3731">What To 로그</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>log_min_duration_statement 환경 설정 매개변수,
+    <ulink url="runtime-config-logging.html#RUNTIME-CONFIG-LOGGING-WHEN" role="AEN3377">When To 로그</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>log_min_error_statement 환경 설정 매개변수,
+    <ulink url="runtime-config-logging.html#RUNTIME-CONFIG-LOGGING-WHEN" role="AEN3354">When To 로그</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>log_min_messages 환경 설정 매개변수,
+    <ulink url="runtime-config-logging.html#RUNTIME-CONFIG-LOGGING-WHEN" role="AEN3330">When To 로그</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>log_parser_stats 환경 설정 매개변수,
+    <ulink url="runtime-config-statistics.html#RUNTIME-CONFIG-STATISTICS-MONITOR" role="AEN3923">통계 모니터링</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>log_planner_stats 환경 설정 매개변수,
+    <ulink url="runtime-config-statistics.html#RUNTIME-CONFIG-STATISTICS-MONITOR" role="AEN3929">통계 모니터링</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>log_rotation_age 환경 설정 매개변수,
+    <ulink url="runtime-config-logging.html#RUNTIME-CONFIG-LOGGING-WHERE" role="AEN3200">Where To 로그</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>log_rotation_size 환경 설정 매개변수,
+    <ulink url="runtime-config-logging.html#RUNTIME-CONFIG-LOGGING-WHERE" role="AEN3211">Where To 로그</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>log_statement 환경 설정 매개변수,
+    <ulink url="runtime-config-logging.html#RUNTIME-CONFIG-LOGGING-WHAT" role="AEN3742">What To 로그</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>log_statement_stats 환경 설정 매개변수,
+    <ulink url="runtime-config-statistics.html#RUNTIME-CONFIG-STATISTICS-MONITOR" role="AEN3917">통계 모니터링</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>log_temp_files 환경 설정 매개변수,
+    <ulink url="runtime-config-logging.html#RUNTIME-CONFIG-LOGGING-WHAT" role="AEN3776">What To 로그</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>log_timezone 환경 설정 매개변수,
+    <ulink url="runtime-config-logging.html#RUNTIME-CONFIG-LOGGING-WHAT" role="AEN3785">What To 로그</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>log_truncate_on_rotation 환경 설정 매개변수,
+    <ulink url="runtime-config-logging.html#RUNTIME-CONFIG-LOGGING-WHERE" role="AEN3222">Where To 로그</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>lower
+  </primaryie>
+  <secondaryie>및 로케일,
+    <ulink url="locale.html#AEN6839" role="AEN6857">동작</ulink>
+  </secondaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>lo_compat_privileges 환경 설정 매개변수,
+    <ulink url="runtime-config-compatible.html#RUNTIME-CONFIG-COMPATIBLE-VERSION" role="AEN4823">이전 Agens SQL 버전</ulink>
+  </primaryie>
+</indexentry>
+
+</indexdiv>
+<indexdiv><title>M</title>
+
+<indexentry>
+  <primaryie>maintenance_work_mem 환경 설정 매개변수,
+    <ulink url="runtime-config-resource.html#RUNTIME-CONFIG-RESOURCE-MEMORY" role="AEN1954">Memory</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>max_connections 환경 설정 매개변수,
+    <ulink url="runtime-config-connection.html#RUNTIME-CONFIG-CONNECTION-SETTINGS" role="AEN1507">연결 설정</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>max_files_per_process 환경 설정 매개변수,
+    <ulink url="runtime-config-resource.html#RUNTIME-CONFIG-RESOURCE-KERNEL" role="AEN2033">커널 리소스 사용량</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>max_function_args 환경 설정 매개변수,
+    <ulink url="runtime-config-preset.html" role="AEN5021">프리셋 옵션</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>max_identifier_length 환경 설정 매개변수,
+    <ulink url="runtime-config-preset.html" role="AEN5031">프리셋 옵션</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>max_index_keys 환경 설정 매개변수,
+    <ulink url="runtime-config-preset.html" role="AEN5043">프리셋 옵션</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>max_locks_per_transaction 환경 설정 매개변수,
+    <ulink url="runtime-config-locks.html" role="AEN4709">잠금(lock) 관리</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>max_pred_locks_per_transaction 환경 설정 매개변수,
+    <ulink url="runtime-config-locks.html" role="AEN4723">잠금(lock) 관리</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>max_prepared_transactions 환경 설정 매개변수,
+    <ulink url="runtime-config-resource.html#RUNTIME-CONFIG-RESOURCE-MEMORY" role="AEN1926">Memory</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>max_replication_slots 환경 설정 매개변수,
+    <ulink url="runtime-config-replication.html#RUNTIME-CONFIG-REPLICATION-SENDER" role="AEN2548">전송 서버(들)</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>max_stack_depth 환경 설정 매개변수,
+    <ulink url="runtime-config-resource.html#RUNTIME-CONFIG-RESOURCE-MEMORY" role="AEN1982">Memory</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>max_standby_archive_delay 환경 설정 매개변수,
+    <ulink url="runtime-config-replication.html#RUNTIME-CONFIG-REPLICATION-STANDBY" role="AEN2647">대기 서버</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>max_standby_streaming_delay 환경 설정 매개변수,
+    <ulink url="runtime-config-replication.html#RUNTIME-CONFIG-REPLICATION-STANDBY" role="AEN2661">대기 서버</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>max_wal_senders 환경 설정 매개변수,
+    <ulink url="runtime-config-replication.html#RUNTIME-CONFIG-REPLICATION-SENDER" role="AEN2536">전송 서버(들)</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>max_worker_processes 환경 설정 매개변수,
+    <ulink url="runtime-config-resource.html#RUNTIME-CONFIG-RESOURCE-ASYNC-BEHAVIOR" role="AEN2173">비동기 동작</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>MD5,
+    <ulink url="auth-methods.html#AUTH-PASSWORD" role="AEN5908">패스워드 인증</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>MultiXactId,
+    <ulink url="routine-vacuuming.html#VACUUM-FOR-MULTIXACT-WRAPAROUND" role="AEN8061">다중 트랜잭션과 겹침</ulink>
+  </primaryie>
+</indexentry>
+
+</indexdiv>
+<indexdiv><title>N</title>
+
+<indexentry>
+  <primaryie>NetBSD
+  </primaryie>
+  <secondaryie>IPC 설정,
+    <ulink url="kernel-resources.html#SYSVIPC" role="AEN464">공유 메모리 및 세마포어</ulink>
+  </secondaryie>
+  <secondaryie>시작 스크립트,
+    <ulink url="server-start.html" role="AEN224">데이터베이스 서버 시작</ulink>
+  </secondaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>Network Attached Storage (NAS)
+  </primaryie>
+    <seeie>네트워크 파일 시스템</seeie>
+</indexentry>
+
+<indexentry>
+  <primaryie>NFS
+  </primaryie>
+    <seeie>네트워크 파일 시스템</seeie>
+</indexentry>
+
+</indexdiv>
+<indexdiv><title>O</title>
+
+<indexentry>
+  <primaryie>OpenBSD
+  </primaryie>
+  <secondaryie>IPC 설정,
+    <ulink url="kernel-resources.html#SYSVIPC" role="AEN486">공유 메모리 및 세마포어</ulink>
+  </secondaryie>
+  <secondaryie>시작 스크립트,
+    <ulink url="server-start.html" role="AEN204">데이터베이스 서버 시작</ulink>
+  </secondaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>ORDER BY
+  </primaryie>
+  <secondaryie>및 로케일,
+    <ulink url="locale.html#AEN6839" role="AEN6846">동작</ulink>
+  </secondaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>OS X
+  </primaryie>
+  <secondaryie>IPC 설정,
+    <ulink url="kernel-resources.html#SYSVIPC" role="AEN546">공유 메모리 및 세마포어</ulink>
+  </secondaryie>
+</indexentry>
+
+</indexdiv>
+<indexdiv><title>P</title>
+
+<indexentry>
+  <primaryie>PAM,
+    <ulink url="auth-methods.html#AUTH-PAM" role="AUTH-PAM">PAM 인증</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>password_encryption 환경 설정 매개변수,
+    <ulink url="runtime-config-connection.html#RUNTIME-CONFIG-CONNECTION-SECURITY" role="AEN1804">보안 및 인증</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>path
+  </primaryie>
+  <secondaryie>for schemas,
+    <ulink url="runtime-config-client.html#RUNTIME-CONFIG-CLIENT-STATEMENT" role="AEN4112">문 동작</ulink>
+  </secondaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>pause_at_recovery_target 복구 매개변수,
+    <ulink url="recovery-target-settings.html" role="AEN9690">복구 시점 설정</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>PGDATA,
+    <ulink url="creating-cluster.html" role="AEN60">데이터베이스 클러스터 생성</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>pg_ctl,
+    <ulink url="creating-cluster.html" role="AEN64">데이터베이스 클러스터 생성</ulink>,
+    <ulink url="server-start.html" role="AEN169">데이터베이스 서버 시작</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>pg_database,
+    <ulink url="manage-ag-templatedbs.html" role="AEN6628">템플릿 데이터베이스</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>pg_dumpall
+  </primaryie>
+  <secondaryie>업그레이드 시 사용,
+    <ulink url="upgrading.html#UPGRADING-VIA-PGDUMPALL" role="AEN877">pg_dumpall을 통한 데이터 업그레이드</ulink>
+  </secondaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>pg_hba.conf,
+    <ulink url="auth-pg-hba-conf.html" role="auth-pg-hba-conf">The pg_hba.conf 파일</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>pg_ident.conf,
+    <ulink url="auth-username-maps.html" role="AEN5825">사용자 이름 맵</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>pg_statio_all_indexes,
+    <ulink url="monitoring-stats.html#MONITORING-STATS-VIEWS" role="AEN9963">수집된 통계 정보 보기</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>pg_statio_all_sequences,
+    <ulink url="monitoring-stats.html#MONITORING-STATS-VIEWS" role="AEN9983">수집된 통계 정보 보기</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>pg_statio_all_tables,
+    <ulink url="monitoring-stats.html#MONITORING-STATS-VIEWS" role="AEN9943">수집된 통계 정보 보기</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>pg_statio_sys_indexes,
+    <ulink url="monitoring-stats.html#MONITORING-STATS-VIEWS" role="AEN9969">수집된 통계 정보 보기</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>pg_statio_sys_sequences,
+    <ulink url="monitoring-stats.html#MONITORING-STATS-VIEWS" role="AEN9989">수집된 통계 정보 보기</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>pg_statio_sys_tables,
+    <ulink url="monitoring-stats.html#MONITORING-STATS-VIEWS" role="AEN9949">수집된 통계 정보 보기</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>pg_statio_user_indexes,
+    <ulink url="monitoring-stats.html#MONITORING-STATS-VIEWS" role="AEN9976">수집된 통계 정보 보기</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>pg_statio_user_sequences,
+    <ulink url="monitoring-stats.html#MONITORING-STATS-VIEWS" role="AEN9996">수집된 통계 정보 보기</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>pg_statio_user_tables,
+    <ulink url="monitoring-stats.html#MONITORING-STATS-VIEWS" role="AEN9956">수집된 통계 정보 보기</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>pg_stat_activity,
+    <ulink url="monitoring-stats.html#MONITORING-STATS-VIEWS" role="AEN9856">수집된 통계 정보 보기</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>pg_stat_all_indexes,
+    <ulink url="monitoring-stats.html#MONITORING-STATS-VIEWS" role="AEN9923">수집된 통계 정보 보기</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>pg_stat_all_tables,
+    <ulink url="monitoring-stats.html#MONITORING-STATS-VIEWS" role="AEN9880">수집된 통계 정보 보기</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>pg_stat_archiver,
+    <ulink url="monitoring-stats.html#MONITORING-STATS-VIEWS" role="AEN9862">수집된 통계 정보 보기</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>pg_stat_bgwriter,
+    <ulink url="monitoring-stats.html#MONITORING-STATS-VIEWS" role="AEN9868">수집된 통계 정보 보기</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>pg_stat_clear_snapshot,
+    <ulink url="monitoring-stats.html#MONITORING-STATS-FUNCTIONS" role="AEN11075">통계 함수들</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>pg_stat_database,
+    <ulink url="monitoring-stats.html#MONITORING-STATS-VIEWS" role="AEN9874">수집된 통계 정보 보기</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>pg_stat_database_conflicts,
+    <ulink url="monitoring-stats.html#MONITORING-STATS-VIEWS" role="AEN10024">수집된 통계 정보 보기</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>pg_stat_get_activity,
+    <ulink url="monitoring-stats.html#MONITORING-STATS-FUNCTIONS" role="AEN11064">통계 함수들</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>pg_stat_replication,
+    <ulink url="monitoring-stats.html#MONITORING-STATS-VIEWS" role="AEN10018">수집된 통계 정보 보기</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>pg_stat_reset,
+    <ulink url="monitoring-stats.html#MONITORING-STATS-FUNCTIONS" role="AEN11084">통계 함수들</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>pg_stat_reset_shared,
+    <ulink url="monitoring-stats.html#MONITORING-STATS-FUNCTIONS" role="AEN11093">통계 함수들</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>pg_stat_reset_single_function_counters,
+    <ulink url="monitoring-stats.html#MONITORING-STATS-FUNCTIONS" role="AEN11113">통계 함수들</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>pg_stat_reset_single_table_counters,
+    <ulink url="monitoring-stats.html#MONITORING-STATS-FUNCTIONS" role="AEN11104">통계 함수들</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>pg_stat_sys_indexes,
+    <ulink url="monitoring-stats.html#MONITORING-STATS-VIEWS" role="AEN9929">수집된 통계 정보 보기</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>pg_stat_sys_tables,
+    <ulink url="monitoring-stats.html#MONITORING-STATS-VIEWS" role="AEN9886">수집된 통계 정보 보기</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>pg_stat_user_functions,
+    <ulink url="monitoring-stats.html#MONITORING-STATS-VIEWS" role="AEN10003">수집된 통계 정보 보기</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>pg_stat_user_indexes,
+    <ulink url="monitoring-stats.html#MONITORING-STATS-VIEWS" role="AEN9936">수집된 통계 정보 보기</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>pg_stat_user_tables,
+    <ulink url="monitoring-stats.html#MONITORING-STATS-VIEWS" role="AEN9893">수집된 통계 정보 보기</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>pg_stat_xact_all_tables,
+    <ulink url="monitoring-stats.html#MONITORING-STATS-VIEWS" role="AEN9900">수집된 통계 정보 보기</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>pg_stat_xact_sys_tables,
+    <ulink url="monitoring-stats.html#MONITORING-STATS-VIEWS" role="AEN9909">수집된 통계 정보 보기</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>pg_stat_xact_user_functions,
+    <ulink url="monitoring-stats.html#MONITORING-STATS-VIEWS" role="AEN10009">수집된 통계 정보 보기</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>pg_stat_xact_user_tables,
+    <ulink url="monitoring-stats.html#MONITORING-STATS-VIEWS" role="AEN9916">수집된 통계 정보 보기</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>pg_temp,
+    <ulink url="runtime-config-client.html#RUNTIME-CONFIG-CLIENT-STATEMENT" role="AEN4133">문 동작</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>PITR,
+    <ulink url="backup.html" role="backup">백업과 복원</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>PITR standby,
+    <ulink url="high-availability.html" role="high-availability">고가용성, 부하 분산, 복제</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>Point-in-Time Recovery,
+    <ulink url="backup.html" role="backup">백업과 복원</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>postgres,
+    <ulink url="manage-ag-createdb.html" role="AEN6551">데이터베이스 생성</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>postgresql.auto.conf,
+    <ulink url="config-setting.html#CONFIG-SETTING-CONFIGURATION-FILE" role="AEN1283">환경 설정 파일을 통한 매개변수 인터랙션</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>postgresql.conf,
+    <ulink url="config-setting.html#CONFIG-SETTING-CONFIGURATION-FILE" role="AEN1266">환경 설정 파일을 통한 매개변수 인터랙션</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>post_auth_delay 환경 설정 매개변수,
+    <ulink url="runtime-config-developer.html" role="AEN5168">개발자 옵션</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>pre_auth_delay 환경 설정 매개변수,
+    <ulink url="runtime-config-developer.html" role="AEN5177">개발자 옵션</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>primary_conninfo 복구 매개변수,
+    <ulink url="standby-settings.html" role="AEN9718">대기 서버 설정</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>ps
+  </primaryie>
+  <secondaryie>프로세스 살펴 보기,
+    <ulink url="monitoring-ps.html" role="monitoring-ps">표준 유닉스 도구들</ulink>
+  </secondaryie>
+</indexentry>
+
+</indexdiv>
+<indexdiv><title>Q</title>
+
+<indexentry>
+  <primaryie>quote_all_identifiers 환경 설정 매개변수,
+    <ulink url="runtime-config-compatible.html#RUNTIME-CONFIG-COMPATIBLE-VERSION" role="AEN4839">이전 Agens SQL 버전</ulink>
+  </primaryie>
+</indexentry>
+
+</indexdiv>
+<indexdiv><title>R</title>
+
+<indexentry>
+  <primaryie>RADIUS,
+    <ulink url="auth-methods.html#AUTH-RADIUS" role="AUTH-RADIUS">RADIUS 인증</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>random_page_cost 환경 설정 매개변수,
+    <ulink url="runtime-config-query.html#RUNTIME-CONFIG-QUERY-CONSTANTS" role="AEN2857">플래너 비용 상수</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>recovery.conf,
+    <ulink url="recovery-config.html" role="AEN9563">복구 환경설정</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>recovery_end_command 복구 매개변수,
+    <ulink url="archive-recovery-settings.html" role="AEN9613">아카이브 복구 설정</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>recovery_min_apply_delay recovery parameter,
+    <ulink url="standby-settings.html" role="AEN9750">대기 서버 설정</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>recovery_target recovery parameter,
+    <ulink url="recovery-target-settings.html" role="AEN9627">복구 시점 설정</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>recovery_target_inclusive 복구 매개변수,
+    <ulink url="recovery-target-settings.html" role="AEN9669">복구 시점 설정</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>recovery_target_name 복구 매개변수,
+    <ulink url="recovery-target-settings.html" role="AEN9638">복구 시점 설정</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>recovery_target_time 복구 매개변수,
+    <ulink url="recovery-target-settings.html" role="AEN9649">복구 시점 설정</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>recovery_target_timeline 복구 매개변수,
+    <ulink url="recovery-target-settings.html" role="AEN9680">복구 시점 설정</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>recovery_target_xid 복구 매개변수,
+    <ulink url="recovery-target-settings.html" role="AEN9659">복구 시점 설정</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>reindex,
+    <ulink url="routine-reindex.html" role="routine-reindex">정기적인 인덱스 다시 만들기</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>replication,
+    <ulink url="high-availability.html" role="AEN8751">고가용성, 부하 분산, 복제</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>restart_after_crash 환경 설정 매개변수,
+    <ulink url="runtime-config-error-handling.html" role="AEN4946">에러 처리</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>restore_command 복구 매개변수,
+    <ulink url="archive-recovery-settings.html" role="AEN9579">아카이브 복구 설정</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>role,
+    <ulink url="database-roles.html" role="database-roles">데이터베이스 role</ulink>
+  </primaryie>
+  <secondaryie>멤버십 in,
+    <ulink url="role-membership.html" role="role-membership">role 멤버십</ulink>
+  </secondaryie>
+  <secondaryie>복제 초기화 권한,
+    <ulink url="role-attributes.html" role="AEN6394">role 속성</ulink>
+  </secondaryie>
+  <secondaryie>생성 권한,
+    <ulink url="role-attributes.html" role="AEN6383">role 속성</ulink>
+  </secondaryie>
+</indexentry>
+
+</indexdiv>
+<indexdiv><title>S</title>
+
+<indexentry>
+  <primaryie>SCO 오픈서버
+  </primaryie>
+  <secondaryie>IPC 환경 설정,
+    <ulink url="kernel-resources.html#SYSVIPC" role="AEN573">공유 메모리 및 세마포어</ulink>
+  </secondaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>search_path 환경 설정 매개변수,
+    <ulink url="runtime-config-client.html#RUNTIME-CONFIG-CLIENT-STATEMENT" role="AEN4109">문 동작</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>segment_size 환경 설정 매개변수,
+    <ulink url="runtime-config-preset.html" role="AEN5053">프리셋 옵션</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>sequential scan,
+    <ulink url="runtime-config-query.html#RUNTIME-CONFIG-QUERY-ENABLE" role="AEN2806">플래너 방법 환경 설정</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>seq_page_cost 환경 설정 매개변수,
+    <ulink url="runtime-config-query.html#RUNTIME-CONFIG-QUERY-CONSTANTS" role="AEN2848">플래너 비용 상수</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>server_encoding 환경 설정 매개변수,
+    <ulink url="runtime-config-preset.html" role="AEN5065">프리셋 옵션</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>server_version 환경 설정 매개변수,
+    <ulink url="runtime-config-preset.html" role="AEN5077">프리셋 옵션</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>server_version_num 환경 설정 매개변수,
+    <ulink url="runtime-config-preset.html" role="AEN5087">프리셋 옵션</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>session_preload_libraries 환경 설정 매개변수,
+    <ulink url="runtime-config-client.html#RUNTIME-CONFIG-CLIENT-PRELOAD" role="AEN4621">공유 라이브러리 사전 로드</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>session_replication_role 환경 설정 매개변수,
+    <ulink url="runtime-config-client.html#RUNTIME-CONFIG-CLIENT-STATEMENT" role="AEN4254">문 동작</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>SET XML OPTION,
+    <ulink url="runtime-config-client.html#RUNTIME-CONFIG-CLIENT-STATEMENT" role="AEN4391">문 동작</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>shared_buffers 환경 설정 매개변수,
+    <ulink url="runtime-config-resource.html#RUNTIME-CONFIG-RESOURCE-MEMORY" role="AEN1869">Memory</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>shared_preload_libraries 환경 설정 매개변수,
+    <ulink url="runtime-config-client.html#RUNTIME-CONFIG-CLIENT-PRELOAD" role="AEN4635">공유 라이브러리 사전 로드</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>SIGHUP,
+    <ulink url="config-setting.html#CONFIG-SETTING-CONFIGURATION-FILE" role="AEN1272">환경 설정 파일을 통한 매개변수 인터랙션</ulink>,
+    <ulink url="auth-pg-hba-conf.html" role="AEN5797">The pg_hba.conf 파일</ulink>,
+    <ulink url="auth-username-maps.html" role="AEN5853">사용자 이름 맵</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>SIGINT,
+    <ulink url="server-shutdown.html" role="AEN779">서버 셧다운</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>SIGQUIT,
+    <ulink url="server-shutdown.html" role="AEN788">서버 셧다운</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>SIGTERM,
+    <ulink url="server-shutdown.html" role="AEN770">서버 셧다운</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>Solaris
+  </primaryie>
+  <secondaryie>IPC 설정,
+    <ulink url="kernel-resources.html#SYSVIPC" role="AEN590">공유 메모리 및 세마포어</ulink>
+  </secondaryie>
+  <secondaryie>시작 스크립트,
+    <ulink url="server-start.html" role="AEN231">데이터베이스 서버 시작</ulink>
+  </secondaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>sql_inheritance 환경 설정 매개변수,
+    <ulink url="runtime-config-compatible.html#RUNTIME-CONFIG-COMPATIBLE-VERSION" role="AEN4851">이전 Agens SQL 버전</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>ssh,
+    <ulink url="ssh-tunnels.html" role="ssh-tunnels">SSH 터널을 사용하여 TCP/IP 연결 보호</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>SSL,
+    <ulink url="ssl-tcp.html" role="ssl-tcp">SSL을 사용한 TCP/IP 연결 보호</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>ssl 환경 설정 매개변수,
+    <ulink url="runtime-config-connection.html#RUNTIME-CONFIG-CONNECTION-SECURITY" role="AEN1664">보안 및 인증</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>ssl_ca_file 환경 설정 매개변수,
+    <ulink url="runtime-config-connection.html#RUNTIME-CONFIG-CONNECTION-SECURITY" role="AEN1677">보안 및 인증</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>ssl_cert_file 환경 설정 매개변수,
+    <ulink url="runtime-config-connection.html#RUNTIME-CONFIG-CONNECTION-SECURITY" role="AEN1687">보안 및 인증</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>ssl_ciphers 환경 설정 매개변수,
+    <ulink url="runtime-config-connection.html#RUNTIME-CONFIG-CONNECTION-SECURITY" role="AEN1730">보안 및 인증</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>ssl_crl_file 환경 설정 매개변수,
+    <ulink url="runtime-config-connection.html#RUNTIME-CONFIG-CONNECTION-SECURITY" role="AEN1697">보안 및 인증</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>ssl_ecdh_curve 환경 설정 매개변수,
+    <ulink url="runtime-config-connection.html#RUNTIME-CONFIG-CONNECTION-SECURITY" role="AEN1786">보안 및 인증</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>ssl_key_file 환경 설정 매개변수,
+    <ulink url="runtime-config-connection.html#RUNTIME-CONFIG-CONNECTION-SECURITY" role="AEN1707">보안 및 인증</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>ssl_prefer_server_ciphers 환경 설정 매개변수,
+    <ulink url="runtime-config-connection.html#RUNTIME-CONFIG-CONNECTION-SECURITY" role="AEN1775">보안 및 인증</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>ssl_renegotiation_limit 환경 설정 매개변수,
+    <ulink url="runtime-config-connection.html#RUNTIME-CONFIG-CONNECTION-SECURITY" role="AEN1717">보안 및 인증</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>SSPI,
+    <ulink url="auth-methods.html#SSPI-AUTH" role="SSPI-AUTH">SSPI 인증</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>standard_conforming_strings 환경 설정 매개변수,
+    <ulink url="runtime-config-compatible.html#RUNTIME-CONFIG-COMPATIBLE-VERSION" role="AEN4874">이전 Agens SQL 버전</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>standby server,
+    <ulink url="high-availability.html" role="high-availability">고가용성, 부하 분산, 복제</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>standby_mode 복구 매개변수,
+    <ulink url="standby-settings.html" role="AEN9705">대기 서버 설정</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>statement_timeout 환경 설정 매개변수,
+    <ulink url="runtime-config-client.html#RUNTIME-CONFIG-CLIENT-STATEMENT" role="AEN4266">문 동작</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>stats_temp_directory 환경 설정 매개변수,
+    <ulink url="runtime-config-statistics.html#RUNTIME-CONFIG-STATISTICS-COLLECTOR" role="AEN3903">쿼리 및 인덱스 통계 콜렉터</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>STONITH,
+    <ulink url="high-availability.html" role="high-availability">고가용성, 부하 분산, 복제</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>strings
+  </primaryie>
+  <secondaryie>backslash quotes,
+    <ulink url="runtime-config-compatible.html#RUNTIME-CONFIG-COMPATIBLE-VERSION" role="AEN4758">이전 Agens SQL 버전</ulink>
+  </secondaryie>
+  <secondaryie>escape warning,
+    <ulink url="runtime-config-compatible.html#RUNTIME-CONFIG-COMPATIBLE-VERSION" role="AEN4805">이전 Agens SQL 버전</ulink>
+  </secondaryie>
+  <secondaryie>standard conforming,
+    <ulink url="runtime-config-compatible.html#RUNTIME-CONFIG-COMPATIBLE-VERSION" role="AEN4871">이전 Agens SQL 버전</ulink>
+  </secondaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>superuser_reserved_connections 환경 설정 매개변수,
+    <ulink url="runtime-config-connection.html#RUNTIME-CONFIG-CONNECTION-SETTINGS" role="AEN1518">연결 설정</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>synchronize_seqscans 환경 설정 매개변수,
+    <ulink url="runtime-config-compatible.html#RUNTIME-CONFIG-COMPATIBLE-VERSION" role="AEN4888">이전 Agens SQL 버전</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>Synchronous Replication,
+    <ulink url="high-availability.html" role="high-availability">고가용성, 부하 분산, 복제</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>synchronous_commit 환경 설정 매개변수,
+    <ulink url="runtime-config-wal.html#RUNTIME-CONFIG-WAL-SETTINGS" role="AEN2261">설정</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>synchronous_standby_names 환경 설정 매개변수,
+    <ulink url="runtime-config-replication.html#RUNTIME-CONFIG-REPLICATION-MASTER" role="AEN2591">마스터 서버</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>syslog_facility 환경 설정 매개변수,
+    <ulink url="runtime-config-logging.html#RUNTIME-CONFIG-LOGGING-WHERE" role="AEN3256">Where To 로그</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>syslog_ident 환경 설정 매개변수,
+    <ulink url="runtime-config-logging.html#RUNTIME-CONFIG-LOGGING-WHERE" role="AEN3277">Where To 로그</ulink>
+  </primaryie>
+</indexentry>
+
+</indexdiv>
+<indexdiv><title>T</title>
+
+<indexentry>
+  <primaryie>tablespace
+  </primaryie>
+  <secondaryie>default,
+    <ulink url="runtime-config-client.html#RUNTIME-CONFIG-CLIENT-STATEMENT" role="AEN4154">문 동작</ulink>
+  </secondaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>tcp_keepalives_count 환경 설정 매개변수,
+    <ulink url="runtime-config-connection.html#RUNTIME-CONFIG-CONNECTION-SETTINGS" role="AEN1632">연결 설정</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>tcp_keepalives_idle 환경 설정 매개변수,
+    <ulink url="runtime-config-connection.html#RUNTIME-CONFIG-CONNECTION-SETTINGS" role="AEN1607">연결 설정</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>tcp_keepalives_interval 환경 설정 매개변수,
+    <ulink url="runtime-config-connection.html#RUNTIME-CONFIG-CONNECTION-SETTINGS" role="AEN1620">연결 설정</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>template0,
+    <ulink url="manage-ag-templatedbs.html" role="AEN6596">템플릿 데이터베이스</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>template1,
+    <ulink url="manage-ag-createdb.html" role="AEN6557">데이터베이스 생성</ulink>,
+    <ulink url="manage-ag-templatedbs.html" role="AEN6588">템플릿 데이터베이스</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>temp_buffers 환경 설정 매개변수,
+    <ulink url="runtime-config-resource.html#RUNTIME-CONFIG-RESOURCE-MEMORY" role="AEN1912">Memory</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>temp_file_limit 환경 설정 매개변수,
+    <ulink url="runtime-config-resource.html#RUNTIME-CONFIG-RESOURCE-DISK" role="AEN2017">디스크</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>temp_tablespaces 환경 설정 매개변수,
+    <ulink url="runtime-config-client.html#RUNTIME-CONFIG-CLIENT-STATEMENT" role="AEN4172">문 동작</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>timeout
+  </primaryie>
+  <secondaryie>데드록,
+    <ulink url="runtime-config-locks.html" role="AEN4693">잠금(lock) 관리</ulink>
+  </secondaryie>
+  <secondaryie>클라이언트 인증,
+    <ulink url="runtime-config-connection.html#RUNTIME-CONFIG-CONNECTION-SECURITY" role="AEN1647">보안 및 인증</ulink>
+  </secondaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>timezone_abbreviations 환경 설정 매개변수,
+    <ulink url="runtime-config-client.html#RUNTIME-CONFIG-CLIENT-FORMAT" role="AEN4475">로케일(locale) 및 형식 지정</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>to_char
+  </primaryie>
+  <secondaryie>및 로케일,
+    <ulink url="locale.html#AEN6839" role="AEN6873">동작</ulink>
+  </secondaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>trace_locks 환경 설정 매개변수,
+    <ulink url="runtime-config-developer.html" role="AEN5233">개발자 옵션</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>trace_lock_oidmin 환경 설정 매개변수,
+    <ulink url="runtime-config-developer.html" role="AEN5272">개발자 옵션</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>trace_lock_table 환경 설정 매개변수,
+    <ulink url="runtime-config-developer.html" role="AEN5284">개발자 옵션</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>trace_lwlocks 환경 설정 매개변수,
+    <ulink url="runtime-config-developer.html" role="AEN5247">개발자 옵션</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>trace_notify 환경 설정 매개변수,
+    <ulink url="runtime-config-developer.html" role="AEN5187">개발자 옵션</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>trace_recovery_messages 환경 설정 매개변수,
+    <ulink url="runtime-config-developer.html" role="AEN5201">개발자 옵션</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>trace_sort 환경 설정 매개변수,
+    <ulink url="runtime-config-developer.html" role="AEN5221">개발자 옵션</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>trace_userlocks 환경 설정 매개변수,
+    <ulink url="runtime-config-developer.html" role="AEN5259">개발자 옵션</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>track_activities 환경 설정 매개변수,
+    <ulink url="runtime-config-statistics.html#RUNTIME-CONFIG-STATISTICS-COLLECTOR" role="AEN3838">쿼리 및 인덱스 통계 콜렉터</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>track_activity_query_size 환경 설정 매개변수,
+    <ulink url="runtime-config-statistics.html#RUNTIME-CONFIG-STATISTICS-COLLECTOR" role="AEN3847">쿼리 및 인덱스 통계 콜렉터</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>track_counts 환경 설정 매개변수,
+    <ulink url="runtime-config-statistics.html#RUNTIME-CONFIG-STATISTICS-COLLECTOR" role="AEN3858">쿼리 및 인덱스 통계 콜렉터</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>track_functions 환경 설정 매개변수,
+    <ulink url="runtime-config-statistics.html#RUNTIME-CONFIG-STATISTICS-COLLECTOR" role="AEN3877">쿼리 및 인덱스 통계 콜렉터</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>track_io_timing 환경 설정 매개변수,
+    <ulink url="runtime-config-statistics.html#RUNTIME-CONFIG-STATISTICS-COLLECTOR" role="AEN3867">쿼리 및 인덱스 통계 콜렉터</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>transaction isolation level
+  </primaryie>
+  <secondaryie>setting default,
+    <ulink url="runtime-config-client.html#RUNTIME-CONFIG-CLIENT-STATEMENT" role="AEN4208">문 동작</ulink>
+  </secondaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>transform_null_equals 환경 설정 매개변수,
+    <ulink url="runtime-config-compatible.html#RUNTIME-CONFIG-COMPATIBLE-CLIENTS" role="AEN4906">플랫폼 및 클라이언트 호환성</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>trigger_file 복구 매개변수,
+    <ulink url="standby-settings.html" role="AEN9738">대기 서버 설정</ulink>
+  </primaryie>
+</indexentry>
+
+</indexdiv>
+<indexdiv><title>U</title>
+
+<indexentry>
+  <primaryie>UnixWare
+  </primaryie>
+  <secondaryie>IPC 설정,
+    <ulink url="kernel-resources.html#SYSVIPC" role="AEN628">공유 메모리 및 세마포어</ulink>
+  </secondaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>unix_socket_directories 환경 설정 매개변수,
+    <ulink url="runtime-config-connection.html#RUNTIME-CONFIG-CONNECTION-SETTINGS" role="AEN1534">연결 설정</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>unix_socket_group 환경 설정 매개변수,
+    <ulink url="runtime-config-connection.html#RUNTIME-CONFIG-CONNECTION-SETTINGS" role="AEN1552">연결 설정</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>unix_socket_permissions 환경 설정 매개변수,
+    <ulink url="runtime-config-connection.html#RUNTIME-CONFIG-CONNECTION-SETTINGS" role="AEN1563">연결 설정</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>update_process_title 환경 설정 매개변수,
+    <ulink url="runtime-config-statistics.html#RUNTIME-CONFIG-STATISTICS-COLLECTOR" role="AEN3892">쿼리 및 인덱스 통계 콜렉터</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>upper
+  </primaryie>
+  <secondaryie>및 로케일,
+    <ulink url="locale.html#AEN6839" role="AEN6854">동작</ulink>
+  </secondaryie>
+</indexentry>
+
+</indexdiv>
+<indexdiv><title>V</title>
+
+<indexentry>
+  <primaryie>vacuum,
+    <ulink url="routine-vacuuming.html" role="routine-vacuuming">정기적인 Vacuum 작업</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>vacuum_cost_delay 환경 설정 매개변수,
+    <ulink url="runtime-config-resource.html#RUNTIME-CONFIG-RESOURCE-VACUUM-COST" role="AEN2055">비용기반 Vacuum 지연</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>vacuum_cost_limit 환경 설정 매개변수,
+    <ulink url="runtime-config-resource.html#RUNTIME-CONFIG-RESOURCE-VACUUM-COST" role="AEN2094">비용기반 Vacuum 지연</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>vacuum_cost_page_dirty 환경 설정 매개변수,
+    <ulink url="runtime-config-resource.html#RUNTIME-CONFIG-RESOURCE-VACUUM-COST" role="AEN2085">비용기반 Vacuum 지연</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>vacuum_cost_page_hit 환경 설정 매개변수,
+    <ulink url="runtime-config-resource.html#RUNTIME-CONFIG-RESOURCE-VACUUM-COST" role="AEN2067">비용기반 Vacuum 지연</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>vacuum_cost_page_miss 환경 설정 매개변수,
+    <ulink url="runtime-config-resource.html#RUNTIME-CONFIG-RESOURCE-VACUUM-COST" role="AEN2076">비용기반 Vacuum 지연</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>vacuum_defer_cleanup_age 환경 설정 매개변수,
+    <ulink url="runtime-config-replication.html#RUNTIME-CONFIG-REPLICATION-MASTER" role="AEN2617">마스터 서버</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>vacuum_freeze_min_age 환경 설정 매개변수,
+    <ulink url="runtime-config-client.html#RUNTIME-CONFIG-CLIENT-STATEMENT" role="AEN4317">문 동작</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>vacuum_freeze_table_age 환경 설정 매개변수,
+    <ulink url="runtime-config-client.html#RUNTIME-CONFIG-CLIENT-STATEMENT" role="AEN4301">문 동작</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>vacuum_multixact_freeze_min_age 환경 설정 매개변수,
+    <ulink url="runtime-config-client.html#RUNTIME-CONFIG-CLIENT-STATEMENT" role="AEN4346">문 동작</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>vacuum_multixact_freeze_table_age 환경 설정 매개변수,
+    <ulink url="runtime-config-client.html#RUNTIME-CONFIG-CLIENT-STATEMENT" role="AEN4330">문 동작</ulink>
+  </primaryie>
+</indexentry>
+
+</indexdiv>
+<indexdiv><title>W</title>
+
+<indexentry>
+  <primaryie>WAL,
+    <ulink url="wal.html" role="wal">안정성 및 Write-Ahead 로그</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>wal_block_size 환경 설정 매개변수,
+    <ulink url="runtime-config-preset.html" role="AEN5097">프리셋 옵션</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>wal_buffers 환경 설정 매개변수,
+    <ulink url="runtime-config-wal.html#RUNTIME-CONFIG-WAL-SETTINGS" role="AEN2365">설정</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>wal_debug 환경 설정 매개변수,
+    <ulink url="runtime-config-developer.html" role="AEN5320">개발자 옵션</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>wal_keep_segments 환경 설정 매개변수,
+    <ulink url="runtime-config-replication.html#RUNTIME-CONFIG-REPLICATION-SENDER" role="AEN2560">전송 서버(들)</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>wal_level 환경 설정 매개변수,
+    <ulink url="runtime-config-wal.html#RUNTIME-CONFIG-WAL-SETTINGS" role="AEN2190">설정</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>wal_log_hints 환경 설정 매개변수,
+    <ulink url="runtime-config-wal.html#RUNTIME-CONFIG-WAL-SETTINGS" role="AEN2351">설정</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>wal_receiver_status_interval 환경 설정 매개변수,
+    <ulink url="runtime-config-replication.html#RUNTIME-CONFIG-REPLICATION-STANDBY" role="AEN2675">대기 서버</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>wal_receiver_timeout 환경 설정 매개변수,
+    <ulink url="runtime-config-replication.html#RUNTIME-CONFIG-REPLICATION-STANDBY" role="AEN2700">대기 서버</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>wal_segment_size 환경 설정 매개변수,
+    <ulink url="runtime-config-preset.html" role="AEN5107">프리셋 옵션</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>wal_sender_timeout 환경 설정 매개변수,
+    <ulink url="runtime-config-replication.html#RUNTIME-CONFIG-REPLICATION-SENDER" role="AEN2575">전송 서버(들)</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>wal_sync_method 환경 설정 매개변수,
+    <ulink url="runtime-config-wal.html#RUNTIME-CONFIG-WAL-SETTINGS" role="AEN2295">설정</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>wal_writer_delay 환경 설정 매개변수,
+    <ulink url="runtime-config-wal.html#RUNTIME-CONFIG-WAL-SETTINGS" role="AEN2380">설정</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>warm standby,
+    <ulink url="high-availability.html" role="high-availability">고가용성, 부하 분산, 복제</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>where to 로그,
+    <ulink url="runtime-config-logging.html#RUNTIME-CONFIG-LOGGING-WHERE" role="RUNTIME-CONFIG-LOGGING-WHERE">Where To 로그</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>witness server,
+    <ulink url="high-availability.html" role="high-availability">고가용성, 부하 분산, 복제</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>work_mem 환경 설정 매개변수,
+    <ulink url="runtime-config-resource.html#RUNTIME-CONFIG-RESOURCE-MEMORY" role="AEN1940">Memory</ulink>
+  </primaryie>
+</indexentry>
+
+</indexdiv>
+<indexdiv><title>X</title>
+
+<indexentry>
+  <primaryie>XML option,
+    <ulink url="runtime-config-client.html#RUNTIME-CONFIG-CLIENT-STATEMENT" role="AEN4394">문 동작</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>xmlbinary 환경 설정 매개변수,
+    <ulink url="runtime-config-client.html#RUNTIME-CONFIG-CLIENT-STATEMENT" role="AEN4372">문 동작</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>xmloption 환경 설정 매개변수,
+    <ulink url="runtime-config-client.html#RUNTIME-CONFIG-CLIENT-STATEMENT" role="AEN4388">문 동작</ulink>
+  </primaryie>
+</indexentry>
+
+</indexdiv>
+<indexdiv><title>Z</title>
+
+<indexentry>
+  <primaryie>zero_damaged_pages 환경 설정 매개변수,
+    <ulink url="runtime-config-developer.html" role="AEN5345">개발자 옵션</ulink>
+  </primaryie>
+</indexentry>
+
+</indexdiv>
+</index>

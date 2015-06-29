@@ -28,7 +28,7 @@ CONTENT="text/html; charset=UTF-8"><META
 name="viewport"
 content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width"><META
 NAME="creation"
-CONTENT="2015-06-26T04:43:18"></HEAD
+CONTENT="2015-06-29T09:12:38"></HEAD
 ><BODY
 CLASS="SECT1"
 ><DIV
@@ -185,7 +185,7 @@ CLASS="TYPE"
 ><DD
 ><P
 >한 번에 실행할 수 있는 autovacuum 프로세스(autovacuum 제외)의 최대 수를 지정한다. 기본값은 3이다. 
-이 매개변수는 서버 시작 시에만 설정 가능하다.
+이 매개변수는 서버 시작 시 설정된다.
  </P
 ></DD
 ><DT
@@ -202,7 +202,7 @@ CLASS="TYPE"
 ><DD
 ><P
 >주어진 데이터베이스에서 autovacuum 실행 사이의 최소 지연을 지정한다. 
-각 라운드에서 데몬은 데이터베이스를 검사하고 필요 시 해당 데이터베이스 테이블에 대해 <TT
+각 작업에서 데몬은 데이터베이스를 검사하고 필요 시 해당 데이터베이스 테이블에 대해 <TT
 CLASS="COMMAND"
 >VACUUM</TT
 > 및 <TT
@@ -212,7 +212,8 @@ CLASS="COMMAND"
 지연은 초 단위로 측정되며 기본값은 1분이다(<TT
 CLASS="LITERAL"
 >1min</TT
->). 이 매개변수는 <TT
+>). 
+이 매개변수는 <TT
 CLASS="FILENAME"
 >postgresql.conf</TT
 > 파일 또는 서버 커맨드 라인에서만 설정 가능하다.
@@ -336,7 +337,8 @@ CLASS="TYPE"
 >테이블 내 트랜잭션 ID 랩어라운드를 방지하기 위해 <TT
 CLASS="COMMAND"
 >VACUUM</TT
-> 명령을 강제로 실행하기 전에 테이블의 <TT
+> 명령을 강제로 실행하기 전에 
+테이블의 <TT
 CLASS="STRUCTNAME"
 >pg_class</TT
 >.<TT
@@ -346,21 +348,15 @@ CLASS="STRUCTFIELD"
 autovacuum이 달리 비활성화된 경우에도 시스템은 랩어라운드를 방지하기 위해 autovacuum 프로세스를 실행한다는 점에 유의해야 한다.
  </P
 ><P
->Vacuum은 pg_clog 서브 디렉토리에서 오래된 파일도 제거하는데, 이는 기본값이 2억 트랜잭션으로 상대적으로 낮기 때문이다. 
-이 매개변수는 서버 시작 시에만 설정할 수 있지만 저장소 매개변수를 변경함으로써 개별 테이블에 대한 설정을 줄일 수 있다. 자세한 내용은 23.1.5절을 참조 바란다.
-Vacuum also allows removal of old files from the
-<TT
+>Vacuum은 <TT
 CLASS="FILENAME"
 >pg_clog</TT
-> subdirectory, which is why the default
-is a relatively low 200 million transactions.
-This parameter can only be set at server start, but the setting
-can be reduced for individual tables by
-changing storage parameters.
-For more information see <A
+> 서브 디렉토리에서 오래된 파일도 제거하는데, 이는 기본값이 2억 트랜잭션으로 상대적으로 낮기 때문이다. 
+이 매개변수는 서버 시작 시에만 설정할 수 있지만 저장소 매개변수를 변경함으로써 개별 테이블에 대한 설정을 줄일 수 있다. 
+자세한 내용은 <A
 HREF="routine-vacuuming.html#VACUUM-FOR-WRAPAROUND"
 >7.1.5절</A
->.
+>을 참조 바란다.
  </P
 ></DD
 ><DT
@@ -379,7 +375,8 @@ CLASS="TYPE"
 >테이블 내 multixact ID 랩어라운드를 방지하기 위해 <TT
 CLASS="COMMAND"
 >VACUUM</TT
-> 명령을 강제하기 전에 테이블의 <TT
+> 명령을 강제하기 전에 
+테이블의 <TT
 CLASS="STRUCTNAME"
 >pg_class</TT
 >.<TT
@@ -395,8 +392,10 @@ CLASS="FILENAME"
 > 및 <TT
 CLASS="FILENAME"
 >pg_multixact/offsets</TT
-> 서브 디렉토리에서 오래된 파일도 제거하는데, 이는 기본값이 4억 multixacts로 상대적으로 낮기 때문이다. 
-이 매개변수는 서버 시작 시에만 설정할 수 있지만 저장소 매개변수를 변경함으로써 개별 테이블에 대한 설정을 줄일 수 있다. 자세한 내용은 <A
+> 서브 디렉토리에서 오래된 파일도 제거하는데, 
+이는 기본값이 4억 multixacts로 상대적으로 낮기 때문이다. 
+이 매개변수는 서버 시작 시에만 설정할 수 있지만 저장소 매개변수를 변경함으로써 개별 테이블에 대한 설정을 줄일 수 있다. 
+자세한 내용은 <A
 HREF="routine-vacuuming.html#VACUUM-FOR-MULTIXACT-WRAPAROUND"
 >7.1.5.1절</A
 >을 참조 바란다.
@@ -418,7 +417,8 @@ CLASS="TYPE"
 >자동 <TT
 CLASS="COMMAND"
 >VACUUM</TT
-> 명령에 사용되는 비용 지연 값을 지정한다. -1을 지정하면 일반 <A
+> 명령에 사용되는 비용 지연 값을 지정한다. 
+-1을 지정하면 일반 <A
 HREF="runtime-config-resource.html#GUC-VACUUM-COST-DELAY"
 >vacuum_cost_delay</A
 > 값이 사용된다. 

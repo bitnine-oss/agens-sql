@@ -296,54 +296,54 @@
   </para>
 
   <para>
-   <firstterm>Checkpoints</firstterm><indexterm><primary>checkpoint</></>는 힙 및 인덱스 데이터 파일이 해당 checkpoint 전에 기록된 모든 정보로 업데이트되도록 보장하는 트랜잭션 시퀀스의 지점이다. 
-   checkpoint 시에, 모든 dirty 데이터 페이지는 디스크에 쓰기되고, 특수한 checkpoint 레코드는 로그 파일에 기록된다. (변경 레코드는 이전에 <acronym>WAL</acronym> 파일에 기록되었다.) 
-   충돌 발생 시, 충돌 복구 프로시저는 REDO 명령을 시작해야 하는 로그의 지점을 판단하기 위해 최신 checkpoint 레코드를 찾아본다. 해당 지점 이전의 데이터 파일을 변경해도 디스크에는 남아 있다. 
-   따라서, checkpoint 이후에 redo 레코드가 포함되기 이전의 로그 세그먼트는 더 이상 불필요하며, 재활용되거나 제거할 수 있다. 
+   <firstterm>체크포인트들</firstterm><indexterm><primary>체크포인트</></>는 힙 및 인덱스 데이터 파일이 해당 체크포인트 전에 기록된 모든 정보로 업데이트되도록 보장하는 트랜잭션 시퀀스의 지점이다. 
+   체크포인트 시에, 모든 dirty 데이터 페이지는 디스크에 쓰기되고, 특수한 체크포인트 레코드는 로그 파일에 기록된다. (변경 레코드는 이전에 <acronym>WAL</acronym> 파일에 기록되었다.) 
+   충돌 발생 시, 충돌 복구 프로시저는 REDO 명령을 시작해야 하는 로그의 지점을 판단하기 위해 최신 체크포인트 레코드를 찾아본다. 해당 지점 이전의 데이터 파일을 변경해도 디스크에는 남아 있다. 
+   따라서, 체크포인트 이후에 redo 레코드가 포함되기 이전의 로그 세그먼트는 더 이상 불필요하며, 재활용되거나 제거할 수 있다. 
    (<acronym>WAL</acronym> 아카이빙이 완료되면 로그 세그먼트는 재활용 또는 제거되기 전에 아카이브되어야 한다.)
   </para>
 
   <para>
-   모든 dirty 데이터 페이지를 디스크에 쓰는 checkpoint 요구조건은 상당한 I/O 로드를 야기할 수 있다. 
-   그러므로 checkpoint 시작 시 I/O가 시작되고, 다음 checkpoint가 시작되기 전에 완료되도록 checkpoint 활동이 조절된다. 
-   이렇게 함으로써 checkpoint 시점에 성능 저하가 최소화된다.
+   모든 dirty 데이터 페이지를 디스크에 쓰는 체크포인트 요구조건은 상당한 I/O 로드를 야기할 수 있다. 
+   그러므로 체크포인트 시작 시 I/O가 시작되고, 다음 체크포인트가 시작되기 전에 완료되도록 체크포인트 활동이 조절된다. 
+   이렇게 함으로써 체크포인트 시점에 성능 저하가 최소화된다.
   </para>
 
   <para>
-   서버의 checkpointer 프로세스는 매우 빈번하게 모든 checkpoint를 자동으로 수행한다. 
-   checkpoint는 모든 checkpoint_segments 로그 세그먼트 또는 모든 checkpoint_timeout 초마다 먼저 해당되는 것부터 시작된다. 
-   기본 설정은 각각 3개의 세그먼트들 및 300초(5분)이다. 이전 checkpoint 이후로 기록된 WAL이 없으면 <varname>checkpoint_timeout</>을 초과했더라도 새 checkpoint를 건너뛴다. 
-   (WAL 아카이빙을 사용 중이고, 데이터 손실 가능성에 대한 제한을 두려고 파일 아카이빙 간격에 대한 하한을 설정하고 싶으면 checkpoint 매개 변수가 아니라 archive_timeout 매개 변수를 조절해야 한다.) 
-   SQL 명령 <command>CHECKPOINT</command>를 사용하여 checkpoint를 강제 적용하는 것도 가능하다.
+   서버의 체크포인터 프로세스는 매우 빈번하게 모든 체크포인트를 자동으로 수행한다. 
+   체크포인트는 모든 checkpoint_segments 로그 세그먼트 또는 모든 checkpoint_timeout 초마다 먼저 해당되는 것부터 시작된다. 
+   기본 설정은 각각 3개의 세그먼트들 및 300초(5분)이다. 이전 체크포인트 이후로 기록된 WAL이 없으면 <varname>checkpoint_timeout</>을 초과했더라도 새 체크포인트를 건너뛴다. 
+   (WAL 아카이빙을 사용 중이고, 데이터 손실 가능성에 대한 제한을 두려고 파일 아카이빙 간격에 대한 하한을 설정하고 싶으면 체크포인트 매개 변수가 아니라 archive_timeout 매개 변수를 조절해야 한다.) 
+   SQL 명령 <command>CHECKPOINT</command>를 사용하여 체크포인트를 강제 적용하는 것도 가능하다.
   </para>
 
   <para>
-   <varname>checkpoint_segments</varname> 및/또는 <varname>checkpoint_timeout</varname>을 줄이면 checkpoint가 좀 더 빈번하게 발생한다. 
+   <varname>checkpoint_segments</varname> 및/또는 <varname>checkpoint_timeout</varname>을 줄이면 체크포인트가 좀 더 빈번하게 발생한다. 
    이렇게 하면 redo에 필요한 작업이 줄어들므로 충돌 후 복구가 빨라진다. 
    그러나 dirty 데이터 페이지를 빈번하게 기록함으로써 늘어나는 비용 간에 균형을 맞출 필요가 있다. 
    full_page_writes가 설정된 경우(기본값), 다른 요소를 고려해야 한다. 
-   데이터 페이지의 일관성을 유지하려면 각 checkpoint 후 데이터 페이지의 첫 번째 수정은 결과적으로 전체 페이지 내용을 로깅하는 것으로 이어진다. 
-   이런 경우 checkpoint 간격이 짧을수록 WAL 로그로의 출력 볼륨이 증가하여 짧은 간격으로 사용하는 목적이 부분적으로 무력화되고, 경우에 따라서는 디스크 I/O가 늘어나기도 한다.
+   데이터 페이지의 일관성을 유지하려면 각 체크포인트 후 데이터 페이지의 첫 번째 수정은 결과적으로 전체 페이지 내용을 로깅하는 것으로 이어진다. 
+   이런 경우 체크포인트 간격이 짧을수록 WAL 로그로의 출력 볼륨이 증가하여 짧은 간격으로 사용하는 목적이 부분적으로 무력화되고, 경우에 따라서는 디스크 I/O가 늘어나기도 한다.
   </para>
 
   <para>
-   checkpoint는, 첫째로 모든 현재의 dirty 버퍼를 기록해야 하고, 둘째로 위에서 설명한 대로 추후 WAL 트래픽이 추가 발생하기 때문에 매우 비싸다. 
-   따라서, checkpoint가 너무 빈번하지 않도록 checkpointing 매개 변수를 최대한 크게 설정하는 것이 좋다. 
-   checkpointing 매개 변수의 간단한 정상 여부 검사로서 checkpoint_warning 매개 변수를 설정할 수 있다. 
-   checkpoint가 <varname>checkpoint_warning</> 초에서 설정된 것보다 간격이 짧은 경우 <varname>checkpoint_segments</varname>를 늘리라는 서버 로그 권고문이 메시지로 출력된다. 
-   해당 메시지가 가끔씩 출현하면 경고가 발생하지 않지만 빈번하게 나타날 경우 checkpoint 제어 매개 변수를 증가해야 한다. 
+   체크포인트는, 첫째로 모든 현재의 dirty 버퍼를 기록해야 하고, 둘째로 위에서 설명한 대로 추후 WAL 트래픽이 추가 발생하기 때문에 매우 비싸다. 
+   따라서, 체크포인트가 너무 빈번하지 않도록 체크포인트 하는 매개 변수를 최대한 크게 설정하는 것이 좋다. 
+   체크포인트 하는 매개 변수의 간단한 정상 여부 검사로서 checkpoint_warning 매개 변수를 설정할 수 있다. 
+   체크포인트가 <varname>checkpoint_warning</> 초에서 설정된 것보다 간격이 짧은 경우 <varname>checkpoint_segments</varname>를 늘리라는 서버 로그 권고문이 메시지로 출력된다. 
+   해당 메시지가 가끔씩 출현하면 경고가 발생하지 않지만 빈번하게 나타날 경우 체크포인트 제어 매개 변수를 증가해야 한다. 
    <varname>checkpoint_segments</>를 충분히 크게 설정한 경우 거대(large) <command>COPY</> 전송 같은 대량 작업으로 해당 경고가 다수 나타날 수 있다.
   </para>
 
   <para>
-   폭발적인 페이지 쓰기량으로 인한 I/O 시스템 폭주를 막기 위해 checkpoint 중 dirty 버퍼 쓰기는 일정 기간에 걸쳐 분산된다. 
-   해당 기간은 checkpoint_completion_target에 의해 제어되며, 이것은 checkpoint 간격의 분획으로 지정된다. 
-   지정된 <varname>checkpoint_segments</varname> WAL 세그먼트 분획이 checkpoint 시작 후에 소모되었거나, 지정된 <varname>checkpoint_timeout</varname> 초 분획을 경과한 경우, 둘 중에 빠른 것에 의해 checkpoint가 완료되도록 I/O 속도가 조정된다. 
-   기본값이 0.5인 <productname>Agens SQL</>은 다음 checkpoint가 시작되기 전 시간의 약 절반이 지난 후 각 checkpoint를 완료하는 것으로 예상한다. 
-   정상 실행 중에 최대 I/O 처리량에 매우 근접한 시스템에서는 I/O 로드를 checkpoint로부터 줄이고자 <varname>checkpoint_completion_target</varname>를 늘리려고 할 수 있다. 
-   이것의 단점은, 복구 시에 사용할 수 있도록 WAL 세그먼트를 더 많이 확보해야 하기 때문에 연장된 checkpoint가 복구 시간에 영향을 준다는 것이다. 
-   <varname>checkpoint_completion_target</varname>을 1.0로 설정할 수는 있지만 checkpoint는 dirty 버퍼 쓰기 외에 다른 활동도 일부 포함하므로 그것보다는 낮게 유지하는 것이 좋다(최대 0.9). 
-   1.0로 설정하면 checkpoint가 제시간에 완료되지 않을 가능성이 높으므로, 필요한 WAL 세그먼트 수의 예상치 못한 변동으로 성능 손실이 야기될 수 있다.
+   폭발적인 페이지 쓰기량으로 인한 I/O 시스템 폭주를 막기 위해 체크포인트 중 dirty 버퍼 쓰기는 일정 기간에 걸쳐 분산된다. 
+   해당 기간은 checkpoint_completion_target에 의해 제어되며, 이것은 체크포인트 간격의 분획으로 지정된다. 
+   지정된 <varname>checkpoint_segments</varname> WAL 세그먼트 분획이 체크포인트 시작 후에 소모되었거나, 지정된 <varname>checkpoint_timeout</varname> 초 분획을 경과한 경우, 둘 중에 빠른 것에 의해 체크포인트가 완료되도록 I/O 속도가 조정된다. 
+   기본값이 0.5인 <productname>Agens SQL</>은 다음 체크포인트가 시작되기 전 시간의 약 절반이 지난 후 각 체크포인트를 완료하는 것으로 예상한다. 
+   정상 실행 중에 최대 I/O 처리량에 매우 근접한 시스템에서는 I/O 로드를 체크포인트로부터 줄이고자 <varname>checkpoint_completion_target</varname>를 늘리려고 할 수 있다. 
+   이것의 단점은, 복구 시에 사용할 수 있도록 WAL 세그먼트를 더 많이 확보해야 하기 때문에 연장된 체크포인트가 복구 시간에 영향을 준다는 것이다. 
+   <varname>checkpoint_completion_target</varname>을 1.0로 설정할 수는 있지만 체크포인트는 dirty 버퍼 쓰기 외에 다른 활동도 일부 포함하므로 그것보다는 낮게 유지하는 것이 좋다(최대 0.9). 
+   1.0로 설정하면 체크포인트가 제시간에 완료되지 않을 가능성이 높으므로, 필요한 WAL 세그먼트 수의 예상치 못한 변동으로 성능 손실이 야기될 수 있다.
   </para>
 
   <para>
@@ -354,11 +354,11 @@
   </para>
 
   <para>
-   아카이브 복구 또는 스탠바이 모드에서 서버는 주기적으로 <firstterm>restartpoints</>,<indexterm><primary>restartpoint</></>를 수행하는데, 이것은 정상 실행된 checkpoints와 유사하다. 
+   아카이브 복구 또는 스탠바이 모드에서 서버는 주기적으로 <firstterm>재시작포인트(restartpoint)들</>,<indexterm><primary>재시작포인트</></>를 수행하는데, 이것은 정상 실행된 체크포인트들과 유사하다. 
    서버는 모든 상태를 디스크에 강제로 기록하고, <filename>pg_control</> 파일을 업데이트하여 이미 처리된 WAL 데이터를 다시 스캔할 필요가 없음을 표시하여 <filename>pg_xlog</> 디렉토리에 있는 예전 로그 세그먼트 파일을 재활용할 수 있게 한다. 
-   restartpoints는 checkpoint 레코드에서만 수행될 수 있으므로 restartpoints는 마스터에서의 수행 빈도가 checkpoints보다 적다. 
-   마지막 restartpoint 이후에 최소한 <varname>checkpoint_timeout</> 초를 경과한 경우 checkpoint 레코드에 도달하면 restartpoint가 트리거된다. 
-   스탠바이 모드에서, 최소한 <varname>checkpoint_segments</> 로그 세그먼트가 마지막 restartpoint 이후에 리플레이된 경우에도 restartpoint가 트리거된다.
+   재시작포인트들은 체크포인트 레코드에서만 수행될 수 있으므로 재시작포인트들은 마스터에서의 수행 빈도가 체크포인트들보다 적다. 
+   마지막 재시작포인트 이후에 최소한 <varname>checkpoint_timeout</> 초를 경과한 경우 체크포인트 레코드에 도달하면 재시작포인트가 트리거된다. 
+   스탠바이 모드에서, 최소한 <varname>checkpoint_segments</> 로그 세그먼트가 마지막 재시작포인트 이후에 리플레이된 경우에도 재시작포인트가 트리거된다.
   </para>
 
   <para>
@@ -370,7 +370,7 @@
    일반적으로, <acronym>WAL</acronym> 버퍼는 <function>XLogFlush</function> 요청에 의해 쓰기 되어야 하지만, 대부분의 경우 트랜잭션 레코드가 영구적인 저장소에 기록되도록 트랜잭션 커밋 시에 발생한다. 
    로그 출력이 많은 시스템에서 <function>XLogFlush</function> 요청은 <function>XLogInsert</function>가 쓰기를 금지할 만큼 빈번하지 않다. 
    해당 시스템에서는 wal_buffers 매개 변수를 변경하여 <acronym>WAL</acronym> 버퍼 수를 늘려야 한다. 
-   full_page_writes가 설정된 경우 및 시스템이 매우 바쁜 경우, <varname>wal_buffers</>를 큰 값으로 설정하면 각 checkpoint 바로 다음 기간 중에 순조로운 반응 시간을 유도할 수 있다.
+   full_page_writes가 설정된 경우 및 시스템이 매우 바쁜 경우, <varname>wal_buffers</>를 큰 값으로 설정하면 각 체크포인트 바로 다음 기간 중에 순조로운 반응 시간을 유도할 수 있다.
   </para>
 
   <para>
@@ -445,15 +445,15 @@
   </para>
 
   <para>
-   checkpoint가 설정되고 로그가 쓰기된 후 checkpoint의 위치는 <filename>pg_control</filename> 파일에 저장된다. 
-   그러므로, 복구 시작 시 서버는 먼저 <filename>pg_control</filename>을 읽은 다음, checkpoint 레코드를 읽는다. 
+   체크포인트가 설정되고 로그가 쓰기된 후 체크포인트의 위치는 <filename>pg_control</filename> 파일에 저장된다. 
+   그러므로, 복구 시작 시 서버는 먼저 <filename>pg_control</filename>을 읽은 다음, 체크포인트 레코드를 읽는다. 
    그러고 나서 chekcpoint 레코드에 표시된 로그 위치에서 순방향으로 스캔하여 REDO 명령을 수행한다. 
-   데이터 페이지의 전체 내용은 checkpoint 이후의 첫 번째 페이지 수정에 대한 로그에 저장되므로
-   (full_page_writes는 비활성화되었다고 가정) checkpoint 이후의 모든 페이지 변경은 일관된 상태로 복원된다.
+   데이터 페이지의 전체 내용은 체크포인트 이후의 첫 번째 페이지 수정에 대한 로그에 저장되므로
+   (full_page_writes는 비활성화되었다고 가정) 체크포인트 이후의 모든 페이지 변경은 일관된 상태로 복원된다.
   </para>
 
   <para>
-   <filename>pg_control</filename>가 손상된 경우를 처리하려면 최신 checkpoint를 찾기 위해 역순(가장 최신- 가장 과거 순)으로 기존 로그 세그먼트를 스캐닝 해봐야 한다. 
+   <filename>pg_control</filename>가 손상된 경우를 처리하려면 최신 체크포인트를 찾기 위해 역순(가장 최신- 가장 과거 순)으로 기존 로그 세그먼트를 스캐닝 해봐야 한다. 
    이는 아직 구현되지 않았다. 
    <filename>pg_control</filename>은 충분히 작아서(디스크 페이지 1개 미만) partial-write 문제에 해당되지 않으며, 현재까지, <filename>pg_control</filename> 자체가 읽지 못하는 것만으로 데이터베이스 오류가 난 적은 없었다. 
    따라서, 이론적으론 고쳐야 할 부분이지만 <filename>pg_control</filename>이 실제로 문제가 되는 것은 아니다.

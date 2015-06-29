@@ -28,7 +28,7 @@ CONTENT="text/html; charset=UTF-8"><META
 name="viewport"
 content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width"><META
 NAME="creation"
-CONTENT="2015-06-26T04:43:18"></HEAD
+CONTENT="2015-06-29T09:12:38"></HEAD
 ><BODY
 CLASS="SECT1"
 ><DIV
@@ -142,7 +142,8 @@ CLASS="LITERAL"
 >목록 항목 중 하나가 특수한 이름 <TT
 CLASS="LITERAL"
 >$user</TT
->인 경우, 해당 스키마 및 사용자에게 <TT
+>인 경우, 
+해당 스키마 및 사용자에게 <TT
 CLASS="LITERAL"
 >USAGE</TT
 > 권한이 있으면 <CODE
@@ -158,7 +159,8 @@ CLASS="LITERAL"
 >시스템 카탈로그 스키마 <TT
 CLASS="LITERAL"
 >pg_catalog</TT
->는 경로에 있든 없든 항상 검색된다. 경로에 있을 경우 지정된 순서대로 검색된다. <TT
+>는 경로에 있든 없든 항상 검색된다. 경로에 있을 경우 지정된 순서대로 검색된다. 
+<TT
 CLASS="LITERAL"
 >pg_catalog</TT
 >가 경로에 없으면 경로 항목을 검색하기 <SPAN
@@ -205,7 +207,8 @@ CLASS="LITERAL"
 이 설정은 데이터베이스의 공유 사용(사용자에게 개인 스키마가 없고 모두 <TT
 CLASS="LITERAL"
 >public</TT
->의 공유 사용인 경우), 개인 사용자별 스키마 및 이러한 것들의 조합을 지원한다. 
+>의 공유 사용인 경우), 
+개인 사용자별 스키마 및 이러한 것들의 조합을 지원한다. 
 전역적 또는 사용자별 기본 검색 경로 설정을 전환함으로써 다른 효과를 얻을 수도 있다.
  </P
 ><P
@@ -222,7 +225,8 @@ CLASS="FUNCTION"
 >는 <TT
 CLASS="VARNAME"
 >search_path</TT
->에 표시되는 항목이 해결되는 방법을 표시하므로 이것은 <TT
+>에 표시되는 항목이 해결되는 방법을 표시하므로 
+이것은 <TT
 CLASS="VARNAME"
 >search_path</TT
 > 값을 검사하는 것과 다르다. 
@@ -245,7 +249,8 @@ CLASS="TYPE"
 >이 변수는 <TT
 CLASS="COMMAND"
 >CREATE</TT
-> 명령이 테이블스페이스를 명시적으로 지정하지 않는 경우 개체(테이블 및 인덱스)가 생성되는 기본 테이블스페이스를 지정한다.
+> 명령이 테이블스페이스를 명시적으로 지정하지 않는 경우 
+개체(테이블 및 인덱스)가 생성되는 기본 테이블스페이스를 지정한다.
  </P
 ><P
 >값은 테이블스페이스의 이름 또는 현재 데이터베이스의 기본 테이블스페이스를 사용하여 지정하기 위한 비어 있는 string이다. 
@@ -292,12 +297,14 @@ CLASS="TYPE"
 >이 변수는 <TT
 CLASS="COMMAND"
 >CREATE</TT
-> 명령이 테이블스페이스를 명시적으로 지정하지 않는 경우 임시 개체(임시 테이블 및 임시 테이블의 인덱스)가 생성되는 테이블스페이스를 지정한다. 
+> 명령이 테이블스페이스를 명시적으로 지정하지 않는 경우 
+임시 개체(임시 테이블 및 임시 테이블의 인덱스)가 생성되는 테이블스페이스를 지정한다. 
 대형 데이터집합 정렬 같은 용도의 임시 파일도 이 테이블스페이스에서 생성된다.
  </P
 ><P
 >값은 테이블스페이스의 이름 목록이다. 
-목록에서 이름이 2개 이상 있는 경우, 트랜잭션 내에서 연속 생성된 임시 개체가 목록에서 연속 테이블스페이스에 매치되는 것 외에는 <SPAN
+목록에서 이름이 2개 이상 있는 경우, 트랜잭션 내에서 연속 생성된 임시 개체가 목록에서 
+연속 테이블스페이스에 매치되는 것 외에는 <SPAN
 CLASS="PRODUCTNAME"
 >Agens SQL</SPAN
 >는 임시 개체를 생성할 때마다 목록에서 멤버를 임의로 선택한다. 
@@ -310,7 +317,8 @@ CLASS="PRODUCTNAME"
 >사용자에게 <TT
 CLASS="LITERAL"
 >CREATE</TT
-> 권한이 없는 테이블스페이스를 지정하는 것이므로, <TT
+> 권한이 없는 테이블스페이스를 지정하는 것이므로, 
+<TT
 CLASS="VARNAME"
 >temp_tablespaces</TT
 >가 인터랙티브하게 설정된 경우 존재하지 않는 테이블스페이스를 지정하는 것은 에러이다. 
@@ -351,7 +359,7 @@ CLASS="TYPE"
 CLASS="LITERAL"
 >off</TT
 >로 설정되면 CREATE FUNCTION 중에 함수 본문 string의 검증이 비활성화된다. 
-검증을 비활성화하면 검증 프로세스의 부작용이 예방되고 전방 참조 같은 문제로 인한 거짓 긍정이 방지된다. 
+검증을 비활성화하면 검증 프로세스의 부작용이 예방되고 전방 참조(forward references) 같은 문제로 인한 거짓 긍정이 방지된다. 
 다른 사용자를 위해 함수를 로딩하기 전에 이 매개변수를 <TT
 CLASS="LITERAL"
 >off</TT
@@ -434,14 +442,16 @@ CLASS="TYPE"
 ><P
 ><TT
 CLASS="LITERAL"
->serializable</TT
+>직렬화 가능한(serializable)</TT
 > 격리 수준에서 실행 중인 경우 진행을 허용하기 전에 유예 가능한 읽기 전용 SQL 트랜잭션을 지연시킬 수 있다. 
-그러나 실행이 시작되면, 오버헤드가 발생하지 않고 직렬화를 보장하기 때문에 직렬화 코드는 동시 업데이트 때문에 강제 중단을 할 이유가 없어진다. 장기 실행되는 읽기 전용 트랜잭션에 적합하다.</P
+그러나 실행이 시작되면, 오버헤드가 발생하지 않고 직렬화를 보장하기 때문에 직렬화 코드는 동시 업데이트 때문에 강제 중단을 할 이유가 없어진다. 
+장기 실행되는 읽기 전용 트랜잭션에 적합하다.</P
 ><P
 >이 매개변수는 새 트랜잭션마다 유예 가능한 기본 상태를 제어한다. 
-이것은 현재 읽기 전용 트랜잭션에 아무런 효과가 없고, <TT
+이것은 현재 읽기 전용 트랜잭션에 아무런 효과가 없고, 
+<TT
 CLASS="LITERAL"
->serializable</TT
+>직렬화 가능한(serializable)</TT
 >보다 낮은 격리 수준에서 작동되는 트랜잭션에는 효과가 없다. 기본값은 <TT
 CLASS="LITERAL"
 >off</TT
@@ -462,13 +472,14 @@ CLASS="TYPE"
 ><DD
 ><P
 >복제 관련 트리거 시작 및 현재 세션의 규칙을 제어한다. 
-이 변수를 설정하려면 수퍼유저 권한이 필요하고, 따라서 이전에 캐시된 쿼리 플랜이 삭제된다. 가능한 값은 <TT
+이 변수를 설정하려면 수퍼유저 권한이 필요하고, 따라서 이전에 캐시된 쿼리 플랜이 삭제된다.
+가능한 값은 <TT
 CLASS="LITERAL"
 >origin</TT
->(기본값), <TT
+>(기본값) 및 <TT
 CLASS="LITERAL"
 >replica</TT
-> 및 <TT
+>, <TT
 CLASS="LITERAL"
 >local</TT
 >이다. 
@@ -487,14 +498,15 @@ CLASS="TYPE"
 >)&#13;</DT
 ><DD
 ><P
->명령이 클라이언트에서 서버로 도착한 때부터 걸린 시간이 지정된 밀리초를 초과한 문을 중단한다. 
+>명령이 클라이언트에서 서버로 도착한 때부터 걸린 시간이 지정된 밀리초를 초과한 구문을 중단한다. 
 <TT
 CLASS="VARNAME"
 >log_min_error_statement</TT
 >가 <TT
 CLASS="LITERAL"
 >ERROR</TT
-> 이하로 설정되면 타임아웃된 문도 로깅된다. 0 값(기본값)은 이것을 해제한다.
+> 이하로 설정되면 타임아웃된 구문도 로깅된다. 
+0 값(기본값)은 이것을 해제한다.
  </P
 ><P
 >모든 세션에 영향을 줄 수 있으므로 <TT
@@ -519,7 +531,7 @@ CLASS="TYPE"
 >)&#13;</DT
 ><DD
 ><P
->테이블, 인덱스, 행 또는 기타 데이터베이스 개체의 잠금을 획득하기 위해 대기한 시간이 지정된 밀리초를 초과하면 문을 중단한다. 
+>테이블, 인덱스, 행 또는 기타 데이터베이스 개체의 잠금을 획득하기 위해 대기한 시간이 지정된 밀리초를 초과하면 구문을 중단한다. 
 획득 시도별로 시간 제한이 개별적으로 적용된다. 
 이 제한은 명시적 잠금 요청(예: <TT
 CLASS="COMMAND"
@@ -538,7 +550,7 @@ CLASS="VARNAME"
 >가 <TT
 CLASS="LITERAL"
 >ERROR</TT
-> 이하로 설정되면 타임아웃된 문이 로깅된다. 
+> 이하로 설정되면 타임아웃된 구문이 로깅된다. 
 0 값(기본값)은 이것을 해제한다.
  </P
 ><P
@@ -549,10 +561,11 @@ CLASS="VARNAME"
 <TT
 CLASS="VARNAME"
 >statement_timeout</TT
->이 0이 아닌 경우, 문 타임아웃이 항상 먼저 트리거되므로 <TT
+>이 0이 아닌 경우, 구문 타임아웃이 항상 먼저 트리거되므로 <TT
 CLASS="VARNAME"
 >lock_timeout</TT
->을 동일한 값이나 큰 값으로 설정하는 것은 무의미하다.
+>을 동일한 값이나 
+큰 값으로 설정하는 것은 무의미하다.
  </P
 ><P
 >모든 세션에 영향을 줄 수 있으므로 <TT
@@ -586,14 +599,17 @@ CLASS="STRUCTNAME"
 >.<TT
 CLASS="STRUCTFIELD"
 >relfrozenxid</TT
-> 필드가 이 설정에서 지정된 연령에 도달한 경우 전체 테이블 스캔을 수행한다. 기본값은 1억 5천만 트랜잭션이다. 
+> 필드가 이 설정에서 지정된 연령에 
+도달한 경우 전체 테이블 스캔을 수행한다. 기본값은 1억 5천만 트랜잭션이다. 
 사용자는 이 값을 0 ~ 20억 중 아무거나 설정할 수 있지만 <TT
 CLASS="COMMAND"
 >VACUUM</TT
->은 유효 값을 <A
+>은 유효 값을 
+<A
 HREF="runtime-config-autovacuum.html#GUC-AUTOVACUUM-FREEZE-MAX-AGE"
 >autovacuum_freeze_max_age</A
->의 95%로 슬며시 제한하므로 랩어라운드 방지 autovacuum이 테이블에서 실행되기 주기적으로 직접 <TT
+>의 95%로 슬며시 제한하므로 랩어라운드 방지 
+autovacuum이 테이블에서 실행되기 주기적으로 직접 <TT
 CLASS="COMMAND"
 >VACUUM</TT
 >할 수 있다. 
@@ -619,14 +635,16 @@ CLASS="TYPE"
 >테이블 스캔 중 행 버전 동결 여부를 결정할 때 <TT
 CLASS="COMMAND"
 >VACUUM</TT
->이 사용해야 하는 컷오프 연령(트랜잭션에서)을 지정한다. 기본값은 5천만 트랜잭션이다. 
+>이 사용해야 하는 컷오프 연령(트랜잭션에서)을 지정한다. 
+기본값은 5천만 트랜잭션이다. 
 사용자는 이 값을 0 ~ 10억 중 아무거나 설정할 수 있지만 <TT
 CLASS="COMMAND"
 >VACUUM</TT
 >은 유효 값을 <A
 HREF="runtime-config-autovacuum.html#GUC-AUTOVACUUM-FREEZE-MAX-AGE"
 >autovacuum_freeze_max_age</A
->의 절반으로 슬며시 제한하므로 강제 autovacuum들 사이에 시간이 불합리하게 짧은 경우는 없다. 
+>의 
+절반으로 슬며시 제한하므로 강제 autovacuum들 사이에 시간이 불합리하게 짧은 경우는 없다. 
 자세한 내용은 <A
 HREF="routine-vacuuming.html#VACUUM-FOR-WRAPAROUND"
 >7.1.5절</A
@@ -655,14 +673,17 @@ CLASS="STRUCTNAME"
 >.<TT
 CLASS="STRUCTFIELD"
 >relminmxid</TT
-> 필드가 이 설정에서 지정된 연령에 도달한 경우 전체 테이블 스캔을 수행한다. 기본값은 1억 5천만 multixact이다. 
+> 필드가 이 설정에서 지정된 연령에 도달한 경우 
+전체 테이블 스캔을 수행한다. 기본값은 1억 5천만 다중 트랜잭션이다. 
 사용자는 이 값을 0 ~ 20억 중 아무거나 설정할 수 있지만 <TT
 CLASS="COMMAND"
 >VACUUM</TT
->은 유효 값을 <A
+>은 유효 값을 
+<A
 HREF="runtime-config-autovacuum.html#GUC-AUTOVACUUM-MULTIXACT-FREEZE-MAX-AGE"
 >autovacuum_multixact_freeze_max_age</A
->의 95%로 슬며시 제한하므로 랩어라운드 방지가 테이블에서 실행되기 전에 주기적으로 직접 <TT
+>의 95%로 슬며시 제한하므로 랩어라운드 방지가 테이블에서 실행되기 전에 
+주기적으로 직접 <TT
 CLASS="COMMAND"
 >VACUUM</TT
 >할 수 있다. 
@@ -688,14 +709,18 @@ CLASS="TYPE"
 >테이블 스캔 중 행 multixact ID를 후속 트랜잭션 ID 또는 multixact ID로 교체 여부를 결정할 때 <TT
 CLASS="COMMAND"
 >VACUUM</TT
->이 사용해야 하는 컷오프 연령(multixact에서)을 지정한다. 
-기본값은 5백만 multixact이다. 사용자는 이 값을 0 ~ 10억 중 아무거나 설정할 수 있지만 <TT
+>이 사용해야 하는 
+컷오프 연령(multixact에서)을 지정한다. 
+기본값은 5백만 다중 트랜잭션이다. 
+사용자는 이 값을 0 ~ 10억 중 아무거나 설정할 수 있지만 <TT
 CLASS="COMMAND"
 >VACUUM</TT
->은 유효 값을 <A
+>은 유효 값을 
+<A
 HREF="runtime-config-autovacuum.html#GUC-AUTOVACUUM-MULTIXACT-FREEZE-MAX-AGE"
 >autovacuum_multixact_freeze_max_age</A
->의 절반으로 슬며시 제한하므로 강제 autovacuum들 사이에 시간이 불합리하게 짧은 경우는 없다. 
+>의 절반으로 슬며시 제한하므로 
+강제 autovacuum들 사이에 시간이 불합리하게 짧은 경우는 없다. 
 자세한 내용은 <A
 HREF="routine-vacuuming.html#VACUUM-FOR-MULTIXACT-WRAPAROUND"
 >7.1.5.1절</A
@@ -718,17 +743,18 @@ CLASS="TYPE"
 >타입 <TT
 CLASS="TYPE"
 >bytea</TT
-> 타입의 값에 대한 출력 형식을 설정한다. 유효 값은 <TT
+> 타입의 값에 대한 출력 형식을 설정한다. 
+유효 값은 <TT
 CLASS="LITERAL"
 >hex</TT
 >(기본값) 및 <TT
 CLASS="LITERAL"
 >escape</TT
->(전형적인 Agens SQL 형식)이다. 
+>(전형적인 PostgreSQL 형식)이다. 
 <TT
 CLASS="TYPE"
 >bytea</TT
-> 타입은 이 설정과 무관하게 입력에서 항상 두양쪽 형식을 수용한다.
+> 타입은 이 설정과 무관하게 입력에서 항상 두 형식을 수용한다.
  </P
 ></DD
 ><DT
@@ -754,7 +780,8 @@ CLASS="FUNCTION"
 > 또는 <CODE
 CLASS="FUNCTION"
 >xmlforest</CODE
-> 함수에 의해 XML로 변환되는 경우에 적용된다. 
+> 함수에 의해 
+XML로 변환되는 경우에 적용된다. 
 가능한 값은, XML 스키마 표준에서 정의된 <TT
 CLASS="LITERAL"
 >base64</TT
@@ -768,7 +795,7 @@ CLASS="LITERAL"
 >이다. 
  </P
 ><P
->여기서 선택한 것을 실제로 선호도의 문제로, 클라이언트 애플리케이션에서 가능한 제약에 의해서만 제한된다. 
+>이것은 실제로 선호도의 문제로, 클라이언트 애플리케이션에서 가능한 제약에 의해서만 제한된다. 
 양쪽 방법은 hex 인코딩이 base64 인코딩보다 다소 크더라도 가능한 모든 값을 지원한다.
  </P
 ></DD
@@ -876,7 +903,8 @@ CLASS="LITERAL"
 >은 <TT
 CLASS="LITERAL"
 >DMY</TT
->의 동의어이고, 키워드 <TT
+>의 동의어이고, 
+키워드 <TT
 CLASS="LITERAL"
 >US</TT
 >, <TT
@@ -898,7 +926,8 @@ CLASS="APPLICATION"
 >는 선택된 <TT
 CLASS="VARNAME"
 >lc_time</TT
-> 로케일(locale)의 동작에 해당되는 설정으로 환경 설정 파일을 초기화한다.
+> 
+로케일(locale)의 동작에 해당되는 설정으로 환경 설정 파일을 초기화한다.
  </P
 ></DD
 ><DT
@@ -933,7 +962,8 @@ CLASS="LITERAL"
 >로 설정된 경우 <SPAN
 CLASS="PRODUCTNAME"
 >Agens SQL</SPAN
-> 8.4 이전 릴리스와 일치하는 출력을 생성한다. 
+> 
+8.4 이전 릴리스와 일치하는 출력을 생성한다. 
 <TT
 CLASS="LITERAL"
 >postgres_verbose</TT
@@ -943,7 +973,8 @@ CLASS="VARNAME"
 > 매개변수가 비 <TT
 CLASS="LITERAL"
 >ISO</TT
-> 출력으로 설정된 경우 <SPAN
+> 출력으로 설정된 경우 
+<SPAN
 CLASS="PRODUCTNAME"
 >Agens SQL</SPAN
 > 8.4 이전 릴리스와 일치하는 출력을 생성한다. 
@@ -959,7 +990,7 @@ CLASS="QUOTE"
 ><TT
 CLASS="VARNAME"
 >IntervalStyle</TT
-> 파라미터매개변수 또한 애매한 간격 입력을 해석하는 데 영향을 준다. 
+> 매개변수 또한 애매한 간격 입력을 해석하는 데 영향을 준다. 
  </P
 ></DD
 ><DT
@@ -968,7 +999,7 @@ NAME="GUC-TIMEZONE"
 ></A
 ><TT
 CLASS="VARNAME"
->TimeZone</TT
+>타임존</TT
 > (<TT
 CLASS="TYPE"
 >string</TT
@@ -980,7 +1011,8 @@ CLASS="TYPE"
 내장 기본값은 <TT
 CLASS="LITERAL"
 >GMT</TT
->이지만, 일반적으로 <TT
+>이지만, 
+일반적으로 <TT
 CLASS="FILENAME"
 >postgresql.conf</TT
 >에 오버라이드되고 <SPAN
@@ -1007,7 +1039,8 @@ CLASS="TYPE"
 기본값은, 거의 전세계적으로 적용되는 컬렉션인 <TT
 CLASS="LITERAL"
 >'Default'</TT
->이며, 특정 설치용으로 정의할 수 있는 <TT
+>이며, 
+특정 설치용으로 정의할 수 있는 <TT
 CLASS="LITERAL"
 >'Australia'</TT
 >와 <TT
@@ -1037,7 +1070,8 @@ CLASS="TYPE"
 >, <TT
 CLASS="TYPE"
 >float8</TT
-> 및 기하학적(geometric) 데이터 타입을 비롯한 floating-point 값에 대해 표시할 수 있는 자릿수를 조절한다. 
+> 및 기하학적(geometric) 데이터 타입을 비롯한 
+floating-point 값에 대해 표시할 수 있는 자릿수를 조절한다. 
 매개변수 값은 표준 자릿수에 추가된다(<TT
 CLASS="LITERAL"
 >FLT_DIG</TT
@@ -1097,7 +1131,8 @@ HREF="locale.html"
 또한 원하는 언어로 번역된 메시지가 존재하지 않을 수도 있다. 이런 경우 영어 메시지를 확인할 수 있다.
  </P
 ><P
->서버 로그 및 클라이언트로 전송되는 메시지에 영향을 줄 수 있고 부적절한 값이 서버 로그의 가독성을 해칠 수 있으므로 수퍼유저만 이 설정을 변경할 수 있다.
+>서버 로그 및 클라이언트로 전송되는 메시지에 영향을 줄 수 있고 부적절한 값이 서버 로그의 가독성을 해칠 수 있으므로 
+수퍼유저만 이 설정을 변경할 수 있다.
  </P
 ></DD
 ><DT
@@ -1188,7 +1223,8 @@ CLASS="TYPE"
 내장된 기본값은 <TT
 CLASS="LITERAL"
 >pg_catalog.simple</TT
->이지만 로케일(locale) 일치 환경 설정을 식별할 수 있는 경우 <SPAN
+>이지만 로케일(locale) 일치 환경 설정을 식별할 수 있는 경우 
+<SPAN
 CLASS="APPLICATION"
 >initdb</SPAN
 >는 선택된 <TT
@@ -1216,16 +1252,19 @@ CLASS="LITERAL"
 > 설정은 <TT
 CLASS="LITERAL"
 >mylib.so</TT
->(또는 일부 플랫폼에서, <TT
+>(또는 일부 플랫폼에서, 
+<TT
 CLASS="LITERAL"
 >mylib.sl</TT
->)가 설치 표준 라이브러리 디렉토리로부터 사전 로드되게 한다. 설정 간 차이라면 효과가 나타나는 시간과, 변경 시 필요한 권한이다.
+>)가 설치 표준 라이브러리 디렉토리로부터 사전 로드되게 한다. 
+설정 간 차이라면 효과가 나타나는 시간과 변경 시 필요한 권한이다.
  </P
 ><P
 ><SPAN
 CLASS="PRODUCTNAME"
 >Agens SQL</SPAN
-> 프로시저 언어 라이브러리는 이와 같은 방식으로 사전 로드할 수 있으며, 일반적으로 <TT
+> 프로시저 언어 라이브러리는 이와 같은 방식으로 사전 로드할 수 있으며, 
+일반적으로 <TT
 CLASS="LITERAL"
 >'$libdir/plXXX'</TT
 > 구문이 사용된다. 
@@ -1251,12 +1290,21 @@ CLASS="LITERAL"
 모든 라이브러리 이름은 큰따옴표를 사용하지 않는 한 소문자로 변환된다.
  </P
 ><P
->특별히 Agens SQL과 함께 사용하려는 공유 라이브러리만 이와 같은 방식으로 로드할 수 있다. 
-모든 Agens SQL 지원 라이브러리는 호환성 보장을 검사하는 <SPAN
+>특별히 <SPAN
+CLASS="PRODUCTNAME"
+>Agens SQL</SPAN
+>과 함께 사용하려는 공유 라이브러리만 이와 같은 방식으로 로드할 수 있다. 
+모든 <SPAN
+CLASS="PRODUCTNAME"
+>Agens SQL</SPAN
+> 지원 라이브러리는 호환성 보장을 검사하는 <SPAN
 CLASS="QUOTE"
 >"magic block"</SPAN
 >이 있다. 
-이러한 이유로 비 Agens SQL 라이브러리는 이 방식으로 로드할 수 없다. 
+이러한 이유로 비 <SPAN
+CLASS="PRODUCTNAME"
+>Agens SQL</SPAN
+> 라이브러리는 이 방식으로 로드할 수 없다. 
 이를 위해 <TT
 CLASS="ENVAR"
 >LD_PRELOAD</TT
@@ -1288,7 +1336,8 @@ CLASS="TYPE"
 특정 세션 시작 후에는 이 매개변수를 변경할 수 없다. 지정된 라이브러리를 찾지 못하면 연결 시도가 실패한다.
  </P
 ><P
->이 옵션은 사용자가 설정할 수 있다. 따라서 로드된 라이브러리는 설치의 표준 라이브러리 디렉토리의 <TT
+>이 옵션은 사용자가 설정할 수 있다. 
+따라서 로드된 라이브러리는 설치의 표준 라이브러리 디렉토리의 <TT
 CLASS="FILENAME"
 >plugins</TT
 > 서브 디렉토리에 나타나는 것으로 한정된다. 
@@ -1312,7 +1361,8 @@ CLASS="LITERAL"
 >와 효과가 동일할 수 있다.
  </P
 ><P
->수퍼유저 이외에 사용자가 이러한 방식으로 사용할 수 있도록 모듈이 특수하게 디자인되어 있지 않는 한 이것은 일반적으로 올바른 설정 방법이 아니다. 
+>수퍼유저 이외에 사용자가 이러한 방식으로 사용할 수 있도록 모듈이 특수하게 디자인되어 있지 않는 한 
+이것은 일반적으로 올바른 설정 방법이 아니다. 
 대신 <A
 HREF="runtime-config-client.html#GUC-SESSION-PRELOAD-LIBRARIES"
 >session_preload_libraries</A
@@ -1333,7 +1383,7 @@ CLASS="TYPE"
 ><DD
 ><P
 >이 변수는 연결 시작 시 사전 로드되는 공유 라이브러리를 하나 이상 지정한다. 수퍼유저만 이 설정을 변경할 수 있다. 
-매개변수 값은 연결 시작 시에만 효과가 있다. 후속 변경은 무효하다. 
+매개변수 값은 연결 시작 시에만 효과가 있다. 추후 변경은 무효하다. 
 지정된 라이브러리를 찾지 못하면 연결 시도가 실패한다.
  </P
 ><P
@@ -1344,8 +1394,10 @@ CLASS="COMMAND"
 예를 들면, <TT
 CLASS="COMMAND"
 >ALTER ROLE SET</TT
->를 사용하여 이 매개변수를 설정하면 주어진 사용자 이름 하의 모든 세션에 대해 auto_explain의 활성화가 가능하다.
-또한 이 매개변수는 서버 재시작 없이 변경 가능하므로(단, 세션을 새로 시작하는 경우에만 효과가 있다), 새 모듈을 모든 세션에 적용해야 하더라도 이렇게 추가하는 것이 쉽다.
+>를 사용하여 이 매개변수를 설정하면 주어진 사용자 이름 하의 모든 세션에 대해 
+auto_explain의 활성화가 가능하다.
+또한 이 매개변수는 서버 재시작 없이 변경 가능하므로(단, 세션을 새로 시작하는 경우에만 효과가 있다), 
+새 모듈을 모든 세션에 적용해야 하더라도 이렇게 추가하는 것이 쉽다.
  </P
 ><P
 ><A
@@ -1369,15 +1421,16 @@ CLASS="TYPE"
 ><DD
 ><P
 >이 변수는 서버 시작 시에 사전 로드할 하나 이상의 공유 라이브러리를 쉼표를 사용하여 지정한다. 
-이 매개변수는 서버 시작 시에만 설정 가능하다. 지정된 라이브러리를 찾지 못하면 서버 시작이 실패한다.
+이 매개변수는 서버 시작 시 설정 된다. 지정된 라이브러리를 찾지 못하면 서버 시작이 실패한다.
  </P
 ><P
->일부 라이브러리는 공유 메모리 할당, 경량 잠금 예약 또는 백그라운드 worker 시작 같은 postmaster 시작 시에만 일어날 수 있는 특정한 명령을 수행해야 한다. 
-해당 라이브러리는 이 매개변수를 통해 서버 시작 시에만 로드해야 한다. 
+>일부 라이브러리는 공유 메모리 할당 또는 경량 잠금 예약, 백그라운드 worker 시작 같은 postmaster 시작 시에만 일어날 수 있는 
+특정한 명령을 수행해야 한다. 해당 라이브러리는 이 매개변수를 통해 서버 시작 시에만 로드해야 한다. 
 자세한 내용은 각 라이브러리의 문서를 참조 바란다.
  </P
 ><P
->다른 라이브러리는 사전 로드할 수도 있다. 공유 라이브러리를 사전 로드해서 라이브러리를 먼저 사용하는 경우 라이브러리 시작 시간은 라이브러리가 처음 사용될 때 바뀐다. 
+>다른 라이브러리는 사전 로드할 수도 있다. 공유 라이브러리를 사전 로드해서 라이브러리를 먼저 사용하는 경우 
+라이브러리 시작 시간은 라이브러리가 처음 사용될 때 바뀐다. 
 단, 해당 프로세스가 라이브러리를 사용하지 않더라도 각각의 새로운 서버 프로세스 시작 시간이 약간 늘어날 수 있다. 
 따라서 이 매개변수는 대부분의 세션에서 사용되는 라이브러리인 경우에만 권장된다. 
 또한 이 매개변수를 변경하면 서버를 재시작해야 하므로 단기간 디버깅 시에는 설정이 바람직하지 않다. 
@@ -1395,7 +1448,8 @@ CLASS="NOTE"
 >참고: </B
 >Windows 호스트에서 서버 시작 시 라이브러리를 사전 로드하는 것은 각각의 새 서버 프로세스를 시작하는 데 필요한 시간을 줄이지 않는다. 
 각 서버 프로세스는 모든 사전 로드 라이브러리를 리로드한다. 
-그러나, postmaster 시작 시에 명령을 수행해야 하는 라이브러리의 경우 <TT
+그러나, postmaster 시작 시에 명령을 수행해야 하는 라이브러리의 경우 
+<TT
 CLASS="VARNAME"
 >shared_preload_libraries</TT
 >는 Windows 호스트에 여전히 유용하다.
@@ -1439,7 +1493,8 @@ CLASS="COMMAND"
 > 또는 <TT
 CLASS="COMMAND"
 >LOAD</TT
-> 명령에서 지정된 파일 이름에 디렉토리 성분이 없는 경우(예: 이름에 슬래시가 없음) 시스템은 필요한 파일에 대한 이 경로를 검색한다.
+> 
+명령에서 지정된 파일 이름에 디렉토리 성분이 없는 경우(예: 이름에 슬래시가 없음) 시스템은 필요한 파일에 대한 이 경로를 검색한다.
  </P
 ><P
 > <TT
@@ -1452,7 +1507,8 @@ CLASS="LITERAL"
 >로 시작되는 경우 컴파일된 <SPAN
 CLASS="PRODUCTNAME"
 >Agens SQL</SPAN
-> 패키지 라이브러리 디렉토리가 $libdir에 대체된다. 
+> 패키지 라이브러리 
+ 디렉토리가 $libdir에 대체된다. 
  이것은 표준 <SPAN
 CLASS="PRODUCTNAME"
 >Agens SQL</SPAN
@@ -1460,7 +1516,7 @@ CLASS="PRODUCTNAME"
  (이 디렉토리의 이름을 찾으려면 <TT
 CLASS="LITERAL"
 >pg_config --pkglibdir</TT
->을 사용해야 한다.) 예를 들면:
+>을 사용해야 한다.) 예를 들면,
 </P><PRE
 CLASS="PROGRAMLISTING"
 >dynamic_library_path = '/usr/local/lib/postgresql:/home/my_project/lib:$libdir'</PRE

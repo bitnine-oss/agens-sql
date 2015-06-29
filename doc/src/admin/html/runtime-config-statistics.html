@@ -28,7 +28,7 @@ CONTENT="text/html; charset=UTF-8"><META
 name="viewport"
 content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width"><META
 NAME="creation"
-CONTENT="2015-06-26T04:43:18"></HEAD
+CONTENT="2015-06-29T09:12:38"></HEAD
 ><BODY
 CLASS="SECT1"
 ><DIV
@@ -113,8 +113,8 @@ CLASS="STRUCTNAME"
 > 및 <TT
 CLASS="STRUCTNAME"
 >pg_statio</TT
-> 계열 시스템 뷰를 통해 액세스할 수 있다. 
-자세한 내용은 <A
+> 
+계열 시스템 뷰를 통해 액세스할 수 있다. 자세한 내용은 <A
 HREF="monitoring.html"
 >11장</A
 >을 참조 바란다.
@@ -139,7 +139,8 @@ CLASS="TYPE"
 ><P
 >각 세션에서 현재 실행 중인 명령의 실행이 시작될 때 해당 명령에 대한 정보 수집을 활성화한다. 
 이 매개변수의 기본값은 on이다. 
-활성화된 경우에도 이 정보가 모든 사용자에게 보이는 것은 아니며, 수퍼유저 및 리포트되는 세션의 소유자에게만 표시되므로 보안 위험을 나타내서는 안 된다. 
+활성화된 경우에도 이 정보가 모든 사용자에게 보이는 것은 아니며, 수퍼유저 및 리포트되는 세션의 소유자에게만 표시되므로 
+보안 위험을 나타내서는 안 된다. 
 수퍼유저만 이 설정을 변경할 수 있다.
  </P
 ></DD
@@ -162,8 +163,8 @@ CLASS="STRUCTNAME"
 >.<TT
 CLASS="STRUCTFIELD"
 >query</TT
-> 필드에 예약된 바이트 수를 지정한다. 
- 기본값은 1024이다. 이 매개변수는 서버 시작 시에만 설정 가능하다.
+> 필드에 예약된 바이트 수를 
+ 지정한다. 기본값은 1024이다. 이 매개변수는 서버 시작 시 설정 된다.
  </P
 ></DD
 ><DT
@@ -289,7 +290,8 @@ CLASS="TYPE"
 기본값은 <TT
 CLASS="FILENAME"
 >pg_stat_tmp</TT
->이다. RAM 기본 파일 시스템에서 이것을 지정하면 물리적 I/O 요구 사항이 줄어들고 성능 개선으로 이어질 수 있다. 
+>이다.
+ RAM 기본 파일 시스템에서 이것을 지정하면 물리적 I/O 요구 사항이 줄어들고 성능 개선으로 이어질 수 있다. 
 이 매개변수는 <TT
 CLASS="FILENAME"
 >postgresql.conf</TT
@@ -343,18 +345,20 @@ CLASS="TYPE"
 >)&#13;</DT
 ><DD
 ><P
->각 쿼리에 대해 각 모듈의 성능 통계를 서버 로그에 출력한다. 이것은 Unix <CODE
+>각 쿼리에 대해 각 모듈의 성능 통계를 서버 로그에 출력한다. 
+이것은 Unix <CODE
 CLASS="FUNCTION"
 >getrusage()</CODE
 > 운영 체제 기능과 유사한 대략적인 프로파일링 방법이다. 
 <TT
 CLASS="VARNAME"
 >log_statement_stats</TT
->는 총 문 통계를 리포트하고, 그 외의 것은 모듈별 통계를 알려준다. 
+>는 총 구문 통계를 리포트하고, 그 외의 것은 모듈별 통계를 알려준다. 
 <TT
 CLASS="VARNAME"
 >log_statement_stats</TT
->는 모듈별 옵션과 함께 활성화될 수 없다. 이 옵션은 모두 기본적으로 비활성화된다. 수퍼유저만 이 설정을 변경할 수 있다.
+>는 모듈별 옵션과 함께 활성화될 수 없다. 
+이 옵션은 모두 기본적으로 비활성화된다. 수퍼유저만 이 설정을 변경할 수 있다.
  </P
 ></DD
 ></DL

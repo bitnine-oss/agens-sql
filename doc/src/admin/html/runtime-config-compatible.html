@@ -28,7 +28,7 @@ CONTENT="text/html; charset=UTF-8"><META
 name="viewport"
 content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width"><META
 NAME="creation"
-CONTENT="2015-06-26T04:43:18"></HEAD
+CONTENT="2015-06-29T09:12:38"></HEAD
 ><BODY
 CLASS="SECT1"
 ><DIV
@@ -133,15 +133,16 @@ CLASS="LITERAL"
 >이다. 
 단, 8.2 이전 버전의 <SPAN
 CLASS="PRODUCTNAME"
->Agens SQL</SPAN
->은 배열에서 null 값을 지원하지 않으며, 따라서 string 값 <SPAN
+>PostgreSQL</SPAN
+>은 배열에서 null 값을 지원하지 않으며, 
+따라서 string 값 <SPAN
 CLASS="QUOTE"
 >"NULL"</SPAN
 >을 사용하는 일반적인 배열 요소를 지정하는 것으로 <TT
 CLASS="LITERAL"
 >NULL</TT
 >을 처리한다. 
-예전 동작을 필요로 하는 어플리케이션 이전 버전과의 호환성 때문에 이 변수를 <TT
+예전 동작을 필요로 하는 애플리케이션 이전 버전과의 호환성 때문에 이 변수를 <TT
 CLASS="LITERAL"
 >off</TT
 >로 설정할 수 있다.
@@ -170,12 +171,14 @@ CLASS="TYPE"
 >이것은 string 리터럴에서 따옴표를 <TT
 CLASS="LITERAL"
 >\'</TT
->로 표기할 수 있는지를 제어한다. 따옴표를 SQL 표준 방식으로 표기하는 방법은 이중으로 사용하는 것(<TT
+>로 표기할 수 있는지를 제어한다. 
+따옴표를 SQL 표준 방식으로 표기하는 방법은 이중으로 사용하는 것(<TT
 CLASS="LITERAL"
 >''</TT
->)이지만 <SPAN
+>)이지만 
+<SPAN
 CLASS="PRODUCTNAME"
->Agens SQL</SPAN
+>PostgreSQL</SPAN
 >은 오래 전부터 <TT
 CLASS="LITERAL"
 >\'</TT
@@ -183,10 +186,12 @@ CLASS="LITERAL"
 그러나, <TT
 CLASS="LITERAL"
 >\'</TT
->를 사용하면 일부 클라이언트 문자 집합 인코딩에서 마지막 바이트가 수치상 ASCII <TT
+>를 사용하면 일부 클라이언트 문자 집합 인코딩에서 마지막 바이트가 
+수치상 ASCII <TT
 CLASS="LITERAL"
 >\</TT
->와 동일한 멀티바이트 문자가 있기 때문에 보안상 위험하다. 클라이언트 측 코드가 잘못 이스케이프할 경우 SQL 인젝션 공격이 가능하다. 
+>와 동일한 멀티바이트 문자가 있기 때문에 보안상 위험하다. 
+클라이언트 측 코드가 잘못 이스케이프할 경우 SQL 인젝션 공격이 가능하다. 
 이러한 위험은, 역슬래시에 의해 이스케이프되는 따옴표가 있는 경우에 서버가 쿼리를 거부하도록 함으로써 예방할 수 있다. 
 <TT
 CLASS="VARNAME"
@@ -255,7 +260,8 @@ CLASS="COMMAND"
 또한 OID를 <TT
 CLASS="COMMAND"
 >SELECT INTO</TT
->에 의해 생성된 테이블에 포함할 것인지를 결정한다. 이 매개변수는 기본적으로 <TT
+>에 의해 생성된 테이블에 포함할 것인지를 결정한다. 
+이 매개변수는 기본적으로 <TT
 CLASS="LITERAL"
 >off</TT
 >이며, <SPAN
@@ -292,7 +298,8 @@ CLASS="LITERAL"
 >)가 일반 string 리터럴(<TT
 CLASS="LITERAL"
 >'...'</TT
-> 구문)에 있고 <TT
+> 구문)에 있고 
+<TT
 CLASS="VARNAME"
 >standard_conforming_strings</TT
 >가 off인 경우 경고가 나타난다. 
@@ -302,7 +309,8 @@ CLASS="LITERAL"
 >이다.
  </P
 ><P
->SQL 표준에 따라 일반 string의 기본 동작은 역슬래시를 일반 문자로 처리하기 때문에 역슬래시를 이스케이프로 사용하려는 애플리케이션은 이스케이프 string 구문(<TT
+>SQL 표준에 따라 일반 string의 기본 동작은 역슬래시를 일반 문자로 처리하기 때문에 역슬래시를 
+이스케이프로 사용하려는 애플리케이션은 이스케이프 string 구문(<TT
 CLASS="LITERAL"
 >E'...'</TT
 >)을 수정해야 한다. 
@@ -324,8 +332,9 @@ CLASS="TYPE"
 ><P
 >9.0 이전의 <SPAN
 CLASS="PRODUCTNAME"
->Agens SQL</SPAN
-> 릴리스에서 거대(large) 개체는 액세스 권한이 없었으며, 항상 모든 사용자에 의해 읽기 및 쓰기가 가능했었다. 
+>PostgreSQL</SPAN
+> 릴리스에서 거대(large) 개체는 액세스 권한이 없었으며, 
+항상 모든 사용자에 의해 읽기 및 쓰기가 가능했었다. 
 이 변수를 <TT
 CLASS="LITERAL"
 >on</TT
@@ -336,9 +345,10 @@ CLASS="LITERAL"
 >이다. 수퍼유저만 이 설정을 변경할 수 있다.
  </P
 ><P
->이 변수를 설정한다고 해서 거대(large) 개체와 관련된 모든 보안 검사가 비활성화되는 것은 아니다. 기본 동작에 대한 것만 <SPAN
+>이 변수를 설정한다고 해서 거대(large) 개체와 관련된 모든 보안 검사가 비활성화되는 것은 아니다. 
+기본 동작에 대한 것만 <SPAN
 CLASS="PRODUCTNAME"
->Agens SQL</SPAN
+>PostgreSQL</SPAN
 > 9.0에서 변경되었다. 
 예를 들면, <TT
 CLASS="LITERAL"
@@ -410,8 +420,9 @@ CLASS="LITERAL"
 >off</TT
 > 설정은 규격에 맞지 않지만 7.1 이전 <SPAN
 CLASS="PRODUCTNAME"
->Agens SQL</SPAN
-> 릴리스와의 호환성을 위해 제공된다. 
+>PostgreSQL</SPAN
+> 버전과의 
+호환성을 위해 제공된다. 
  </P
 ><P
 ><TT
@@ -444,7 +455,7 @@ CLASS="LITERAL"
 >)이 역슬래시를 SQL 표준에 지정된 대로 문자 그대로 처리할 것인지 제어한다. 
 <SPAN
 CLASS="PRODUCTNAME"
->Agens SQL</SPAN
+>PostgreSQL</SPAN
 > 9.1 초반에는 기본값이 <TT
 CLASS="LITERAL"
 >on</TT
@@ -582,7 +593,8 @@ CLASS="REPLACEABLE"
 >expr</I
 ></TT
 > = NULL</TT
->을 사용하여 null 값을 테스트하기 위한 쿼리를 생성하므로 해당 인터페이스를 사용하여 데이터베이스에 액세스하는 경우 사용자는 이 옵션을 on으로 설정하고자 할 수 있다. 
+>을 사용하여 null 값을 테스트하기 위한 
+쿼리를 생성하므로 해당 인터페이스를 사용하여 데이터베이스에 액세스하는 경우 사용자는 이 옵션을 on으로 설정하고자 할 수 있다. 
 표현식 <TT
 CLASS="LITERAL"
 ><TT
@@ -591,14 +603,16 @@ CLASS="REPLACEABLE"
 >expr</I
 ></TT
 > = NULL</TT
->은 항상 null 값을 리턴하므로(SQL 표준 해석 사용), 그다지 유용하지 않고, 일반적인 애플리케이션에 거의 나타나지 않으므로 실제로 이 옵션은 해가 되지 않는다. 
+>은 항상 null 값을 리턴하므로(SQL 표준 해석 사용), 그다지 유용하지 않고, 
+일반적인 애플리케이션에 거의 나타나지 않으므로 실제로 이 옵션은 해가 되지 않는다. 
 하지만 새 사용자는 null 값이 관련된 표현식을 헷갈려 하므로 이 옵션은 기본적으로 off로 설정되어 있다.
  </P
 ><P
 >이 옵션은 정확한 양식 <TT
 CLASS="LITERAL"
 >= NULL</TT
->에만 영향을 미치며, 다른 비교 연산자 또는 동일한 연산자(예: <TT
+>에만 영향을 미치며, 
+다른 비교 연산자 또는 동일한 연산자(예: <TT
 CLASS="LITERAL"
 >IN</TT
 >)와 관련된 몇몇 표현식과 계산상 동일한 다른 표현식에는 영향을 미치지는 않는다. 

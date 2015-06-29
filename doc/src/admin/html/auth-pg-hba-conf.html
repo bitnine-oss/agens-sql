@@ -28,7 +28,7 @@ CONTENT="text/html; charset=UTF-8"><META
 name="viewport"
 content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width"><META
 NAME="creation"
-CONTENT="2015-06-26T04:43:18"></HEAD
+CONTENT="2015-06-29T09:12:38"></HEAD
 ><BODY
 CLASS="SECT1"
 ><DIV
@@ -402,7 +402,8 @@ CLASS="NOTE"
 > 기본 동작이 로컬 루프백 주소인 <TT
 CLASS="LITERAL"
 >localhost</TT
->에 대해서만 TCP/IP 연결을 listen하는 것이므로 서버가 적절한 listen_addresses 값으로 시작되지 않으면 원격 TCP/IP 연결이 불가능하다.</P
+>에 대해서만 TCP/IP 연결을 listen하는 것이므로 
+ 서버가 적절한 listen_addresses 값으로 시작되지 않으면 원격 TCP/IP 연결이 불가능하다.</P
 ></BLOCKQUOTE
 ></DIV
 ></DD
@@ -425,7 +426,8 @@ CLASS="ACRONYM"
  또한 <ACRONYM
 CLASS="ACRONYM"
 >SSL</ACRONYM
->은 ssl 환경 설정 매개 변수를 설정함으로써 서버 시작 시에 활성화되어야 한다(자세한 내용은 <A
+>은 ssl 환경 설정 매개 변수를 설정함으로써 서버 시작 시에 활성화되어야 한다
+ (자세한 내용은 <A
 HREF="ssl-tcp.html"
 >1.9절</A
 > 참조).</P
@@ -507,7 +509,8 @@ CLASS="LITERAL"
  이 외에는, 특정한 데이터베이스 사용자의 이름이거나 앞에 <TT
 CLASS="LITERAL"
 >+</TT
->를 붙인 그룹 이름이다. (<SPAN
+>를 붙인 그룹 이름이다. 
+ (<SPAN
 CLASS="PRODUCTNAME"
 >Agens SQL</SPAN
 >에서는 사용자와 그룹 이름 간에 실제로 차이는 없다. 
@@ -541,7 +544,8 @@ CLASS="REPLACEABLE"
 > IP 주소는 <ACRONYM
 CLASS="ACRONYM"
 >CIDR</ACRONYM
-> 마스크 길이의, 점으로 구분된 십진수(dotted decimal) 표준 표기법으로 지정된다. 마스크 길이는 일치해야 하는 클라이언트 IP 주소의 상위 비트 수를 나타낸다. 이것의 오른쪽에 있는 비트는 주어진 IP 주소에서 0이어야 한다. 
+> 마스크 길이의, 점으로 구분된 십진수(dotted decimal) 표준 표기법으로 지정된다. 
+ 마스크 길이는 일치해야 하는 클라이언트 IP 주소의 상위 비트 수를 나타낸다. 이것의 오른쪽에 있는 비트는 주어진 IP 주소에서 0이어야 한다. 
  IP 주소 및 <TT
 CLASS="LITERAL"
 >/</TT
@@ -550,7 +554,8 @@ CLASS="LITERAL"
 > 이러한 방법으로 지정된 IP 주소 범위의 전형적인 예시는 단일 호스트의 경우 <TT
 CLASS="LITERAL"
 >172.20.143.89/32</TT
->, 소규모 네트워크의 경우 <TT
+>, 
+ 소규모 네트워크의 경우 <TT
 CLASS="LITERAL"
 >172.20.143.0/24</TT
 >, 대규모 네트워크의 경우 <TT
@@ -573,16 +578,19 @@ CLASS="LITERAL"
 >은 IPv6 주소 <TT
 CLASS="LITERAL"
 >::ffff:127.0.0.1</TT
->과 일치하게 된다. IPv6 형식의 항목은 표시된 주소가 IPv4-in-IPv6 범위 내이더라도 IPv6 연결만 일치하게 된다. 
+>과 일치하게 된다. 
+ IPv6 형식의 항목은 표시된 주소가 IPv4-in-IPv6 범위 내이더라도 IPv6 연결만 일치하게 된다. 
  IPv6 형식의 항목은 시스템의 C 라이브러리가 IPv6 주소를 지원하지 않는 경우 거부된다.</P
 ><P
 > 사용자는 아무 IP 주소나 일치하도록 <TT
 CLASS="LITERAL"
 >all</TT
->을 쓸 수도 있고, 서버의 자체 IP 주소 아무거나 일치하도록 <TT
+>을 쓸 수도 있고, 
+ 서버의 자체 IP 주소 아무거나 일치하도록 <TT
 CLASS="LITERAL"
 >samehost</TT
->를 쓸 수도 있고, 서버가 직접 연결되는 서브넷의 아무 주소나 일치하도록 <TT
+>를 쓸 수도 있고, 
+ 서버가 직접 연결되는 서브넷의 아무 주소나 일치하도록 <TT
 CLASS="LITERAL"
 >samenet</TT
 >을 쓸 수도 있다.</P
@@ -626,10 +634,10 @@ CLASS="VARNAME"
 > 이 필드는 <TT
 CLASS="LITERAL"
 >host</TT
->, <TT
+> 및 <TT
 CLASS="LITERAL"
 >hostssl</TT
-> 및 <TT
+>, <TT
 CLASS="LITERAL"
 >hostnossl</TT
 > 레코드에 적용된다.</P
@@ -644,16 +652,19 @@ CLASS="SIDEBAR"
 ><P
 ></P
 ><A
-NAME="AEN5671"
+NAME="AEN5673"
 ></A
 ><P
 >클라이언트 IP 주소의 역방향 조회를 비롯한 두 이름 분석 방법이 이렇게 복잡한 방식으로 호스트 이름을 처리하는 이유를 궁금해 하는 사용자도 있다. 
-클라이언트의 역방향 DNS 항목이 설정되지 않았거나 올바르지 않은 호스트 이름을 넘겨주는 경우에 사용법이 복잡해진다. 이것은 기본적으로 효율을 위한 것이다. 
-이와 같은 연결 시도는 기껏해야 두 가지 리졸버(resolver) 조회(역방향 하나 및 순방향 하나)를 시도한다. 일부 주소에 리졸버(resolver) 문제가 있는 경우 이것은 해당 클라이언트만의 문제이다. 
+클라이언트의 역방향 DNS 항목이 설정되지 않았거나 올바르지 않은 호스트 이름을 넘겨주는 경우에 사용법이 복잡해진다. 
+이것은 기본적으로 효율을 위한 것이다. 
+이와 같은 연결 시도는 기껏해야 두 가지 리졸버(resolver) 조회(역방향 하나 및 순방향 하나)를 시도한다. 
+일부 주소에 리졸버(resolver) 문제가 있는 경우 이것은 해당 클라이언트만의 문제이다. 
 순방향 조회만 수행하면 <TT
 CLASS="FILENAME"
 >pg_hba.conf</TT
->에 나오는 모든 호스트 이름을 연결 시도할 때마다 분석해야 한다. 이름이 많을 경우 속도가 매우 느려진다. 
+>에 나오는 모든 호스트 이름을 연결 시도할 때마다 분석해야 한다. 
+이름이 많을 경우 속도가 매우 느려진다. 
 그리고, 호스트 이름 중 하나라도 리졸버(resolver) 문제가 있는 경우 이것은 전체의 문제가 된다.
  </P
 ><P
@@ -688,7 +699,8 @@ CLASS="REPLACEABLE"
 ><I
 >CIDR-address</I
 ></TT
-> 표기의 대안으로 사용될 수 있다. 마스크 길이를 지정하는 대신 실제 마스크가 쉼표로 구분하여 지정된다. 
+> 표기의 대안으로 사용될 수 있다. 
+ 마스크 길이를 지정하는 대신 실제 마스크가 쉼표로 구분하여 지정된다. 
  예를 들면, <TT
 CLASS="LITERAL"
 >255.0.0.0</TT
@@ -738,7 +750,8 @@ CLASS="LITERAL"
 >무조건 연결을 허용한다. 이 방법은 패스워드나 다른 인증 없이 임의의 <SPAN
 CLASS="PRODUCTNAME"
 >Agens SQL</SPAN
-> 데이터베이스 사용자로 로그인하여 누구나 <SPAN
+> 데이터베이스 사용자로 
+로그인하여 누구나 <SPAN
 CLASS="PRODUCTNAME"
 >Agens SQL</SPAN
 > 데이터베이스 서버에 연결할 수 있다. 
@@ -923,7 +936,8 @@ CLASS="REPLACEABLE"
 ><I
 >auth-method</I
 ></TT
-> 필드 이후에 인증 방법에 대한 옵션을 지정하는 <TT
+> 필드 이후에 인증 방법에 대한 옵션을 지정하는 
+ <TT
 CLASS="REPLACEABLE"
 ><I
 >name</I
@@ -956,7 +970,8 @@ CLASS="LITERAL"
 >로 표시된 주석 및 중첩된 <TT
 CLASS="LITERAL"
 >@</TT
-> 구문이 허용된다. 파일 이름 뒤에 <TT
+> 구문이 허용된다.
+ 파일 이름 뒤에 <TT
 CLASS="LITERAL"
 >@</TT
 >가 나오는 것이 절대 경로가 아니면 참조 파일이 있는 디렉토리의 상대 경로로 취급된다.</P
@@ -964,7 +979,8 @@ CLASS="LITERAL"
 > <TT
 CLASS="FILENAME"
 >pg_hba.conf</TT
-> 레코드는 각 연결 시도에 대해 순차적으로 검사되므로 레코드의 순서는 중요하다. 일반적으로 초기 레코드는 연결 일치 매개 변수는 치밀하고, 인증 방법은 느슨한 반면, 후기 레코드는 일치 매개 변수는 느슨하고 인증 방법은 강력하다. 
+> 레코드는 각 연결 시도에 대해 순차적으로 검사되므로 레코드의 순서는 중요하다. 
+ 일반적으로 초기 레코드는 연결 일치 매개 변수는 치밀하고, 인증 방법은 느슨한 반면, 후기 레코드는 일치 매개 변수는 느슨하고 인증 방법은 강력하다. 
  예를 들면, 로컬 TCP/IP 연결에 대한 <TT
 CLASS="LITERAL"
 >trust</TT
@@ -972,16 +988,19 @@ CLASS="LITERAL"
  이런 경우 127.0.0.1로부터 연결을 위한 <TT
 CLASS="LITERAL"
 >trust</TT
-> 인증을 지정한 레코드는 다양한 허용 클라이언트 IP 주소에 대해 패스워드 인증을 지원하는 레코드 이전에 나타난다.</P
+> 인증을 지정한 레코드는 다양한 허용 클라이언트 IP 주소에 대해 
+ 패스워드 인증을 지원하는 레코드 이전에 나타난다.</P
 ><P
 > <TT
 CLASS="FILENAME"
 >pg_hba.conf</TT
-> 파일은 시작 시 및 메인 서버 프로세스가 <SPAN
+> 파일은 시작 시 및 메인 서버 프로세스가 
+ <SPAN
 CLASS="SYSTEMITEM"
 >SIGHUP</SPAN
 > 신호를 수신하면 읽혀지게 된다. 
- 활성화 된 시스템에서 파일을 편집하는 경우 파일을 다시 읽어오려면 postmaster에 신호를 전송해야 한다(<TT
+ 활성화 된 시스템에서 파일을 편집하는 경우 파일을 다시 읽어오려면 postmaster에 신호를 전송해야 한다
+ (<TT
 CLASS="LITERAL"
 >pg_ctl reload</TT
 > 또는 <TT
@@ -998,14 +1017,16 @@ CLASS="TIP"
 >특수한 데이터베이스에 연결하려면 <TT
 CLASS="FILENAME"
 >pg_hba.conf</TT
-> 검사만 통과해서는 안 되며 데이터베이스에 대한 <TT
+> 검사만 통과해서는 안 되며 데이터베이스에 대한 
+<TT
 CLASS="LITERAL"
 >CONNECT</TT
 > 권한이 사용자에게 있어야 한다. 
 데이터베이스에 연결 가능한 사용자를 제한하고 싶으면 <TT
 CLASS="FILENAME"
 >pg_hba.conf</TT
-> 항목에 규칙을 입력하는 것보다 <TT
+> 항목에 규칙을 입력하는 것보다 
+<TT
 CLASS="LITERAL"
 >CONNECT</TT
 > 권한을 부여/취소하는 것이 일반적으로 쉽다.
@@ -1019,7 +1040,8 @@ CLASS="FILENAME"
 > 항목에 대한 몇 가지 예시가 <A
 HREF="auth-pg-hba-conf.html#EXAMPLE-PG-HBA.CONF"
 >예 3-1</A
->에 나와 있다. 서로 다른 인증 방법에 대한 자세한 내용은 다음 절을 참조 바란다.</P
+>에 나와 있다. 
+ 서로 다른 인증 방법에 대한 자세한 내용은 다음 절을 참조 바란다.</P
 ><DIV
 CLASS="EXAMPLE"
 ><A

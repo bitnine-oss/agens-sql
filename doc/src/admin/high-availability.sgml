@@ -263,7 +263,7 @@ protocol to make nodes agree on a serializable transactional order.
 
     <para>
          <productname>Agens SQL</>에서는 이 방식의 복제 기능은 제공하지 않는다.
-         하지만, <productname>Agens SQL</> 이중 커밋 two-phase commit
+         하지만, <productname>Agens SQL</> 이중 커밋
          (PREPARE TRANSACTION, COMMIT PREPARED) 명령이 이 방식을 구현 하는데 사용될 수 있다.
     </para>
    </listitem>
@@ -1514,7 +1514,7 @@ if (!triggered)
    </para>
 
    <para>
-    <productname>Agens SQL</> 9.0 버전 이상은 스트리밍 리플리케이션(<xref linkend="streaming-replication">을 참조)으로 편리하게 할 수 있다.
+    <productname>PostgreSQL</> 9.0 버전 이상은 스트리밍 리플리케이션(<xref linkend="streaming-replication">을 참조)으로 편리하게 할 수 있다.
    </para>
   </sect2>
  </sect1>
