@@ -8,15 +8,10 @@
 
 ]>
 <book id="postgres" lang=ko>
-<title>Agens SQL 1.0 문서</title>
-<bookinfo>
-<productname>Agens SQL</productname>
-<productnumber>1.0</productnumber>
-</bookinfo>
- <part id="installation"> 
- <title>Installation</title>
+ <part id="start">
+ <title>시작하기</title>
  <partIntro>
-   <para>Installation를 소개하는 부분입니다.</para>
+   <para>이번 장에서는 Agens SQL 인스톨러를 이용하여 Agens SQL을 설치하고 데이터베이스를 생성 및 사용하는 방법을 설명한다. </para>
  </partIntro>
  &techSheet;
  &install;

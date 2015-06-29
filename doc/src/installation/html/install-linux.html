@@ -9,7 +9,6 @@ CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
 REV="MADE"
 HREF="mailto:pgsql-docs@postgresql.org"><LINK
 REL="HOME"
-TITLE="Agens SQL 1.0 문서"
 HREF="index.html"><LINK
 REL="UP"
 TITLE="설치"
@@ -28,7 +27,7 @@ CONTENT="text/html; charset=UTF-8"><META
 name="viewport"
 content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width"><META
 NAME="creation"
-CONTENT="2015-06-26T04:52:31"></HEAD
+CONTENT="2015-06-29T00:18:42"></HEAD
 ><BODY
 CLASS="SECT1"
 ><DIV
@@ -46,7 +45,7 @@ ALIGN="center"
 VALIGN="bottom"
 ><A
 HREF="index.html"
->Agens SQL 1.0 문서</A
+></A
 ></TH
 ></TR
 ><TR
@@ -99,8 +98,15 @@ NAME="INSTALL-LINUX"
 ></H1
 ><P
 CLASS="LITERALLAYOUT"
->Agens&nbsp;SQL&nbsp;인스톨러는&nbsp;자바를&nbsp;기반으로&nbsp;한&nbsp;인스톨러이다.<br>
-설치는&nbsp;GUI&nbsp;모드와&nbsp;콘솔&nbsp;모드로&nbsp;나뉘어&nbsp;있으며&nbsp;이번&nbsp;장에서는&nbsp;GUI&nbsp;모드로&nbsp;설치하는&nbsp;방법을&nbsp;설명한다.</P
+><SPAN
+CLASS="PRODUCTNAME"
+>Agens SQL</SPAN
+>은&nbsp;인스톨러를&nbsp;이용한&nbsp;제품&nbsp;설치를&nbsp;지원한다.<br>
+<SPAN
+CLASS="PRODUCTNAME"
+>Agens SQL</SPAN
+>&nbsp;인스톨러는&nbsp;linux계열이라면&nbsp;플랫폼의&nbsp;구분&nbsp;없이&nbsp;동일한&nbsp;방법으로&nbsp;설치가&nbsp;진행된다.&nbsp;기본적으로는&nbsp;GUI&nbsp;모드로&nbsp;설치가&nbsp;진행되지만&nbsp;콘솔&nbsp;모드로&nbsp;설치&nbsp;할&nbsp;수&nbsp;있다.<br>
+Standard&nbsp;Edition과&nbsp;Enterprise&nbsp;Edition은&nbsp;설치할&nbsp;수&nbsp;있는&nbsp;패키지의&nbsp;수가&nbsp;다르다는&nbsp;것&nbsp;외에는&nbsp;설치&nbsp;방법에&nbsp;차이가&nbsp;없다.&nbsp;이&nbsp;문서에서는&nbsp;Enterprise&nbsp;Edition을&nbsp;기준으로&nbsp;설명한다.</P
 ><DIV
 CLASS="SECT2"
 ><H2
@@ -110,17 +116,49 @@ NAME="INSTALL-LINUX-PREPARE"
 >2.1.1. 설치 전 준비사항</A
 ></H2
 ><P
->Agens SQL을 설치하기에 앞서 다음과 같은 사항이 준비되어 있어야 한다.</P
+><SPAN
+CLASS="PRODUCTNAME"
+>Agens SQL</SPAN
+>을 설치하기에 앞서 다음과 같은 사항이 준비되어 있어야 한다.</P
 ><P
 ></P
 ><UL
 ><LI
 ><P
->Agens SQL 인스톨러를 실행시키기 위한 Java JRE(Java Runtime Environment)가 설치되어 있어야 한다.</P
+><SPAN
+CLASS="PRODUCTNAME"
+>Agens SQL</SPAN
+> 인스톨러를 실행시키기 위한 Java JRE(Java Runtime Environment)가 설치되어 있어야 한다.</P
 ></LI
 ><LI
 ><P
->Agens SQL를 관리하기 위한 OS User가 생성 되어 있어야 한다. Agens SQL은 OS User의 이름을 'agens'로 사용할 것을 권장한다.</P
+><SPAN
+CLASS="PRODUCTNAME"
+>Agens SQL</SPAN
+>를 관리하기 위한 OS User가 생성 되어 있어야 한다. <SPAN
+CLASS="PRODUCTNAME"
+>Agens SQL</SPAN
+>은 OS User의 이름을 '<TT
+CLASS="LITERAL"
+>agens</TT
+>'로 사용할 것을 권장한다.</P
+></LI
+><LI
+><P
+><SPAN
+CLASS="PRODUCTNAME"
+>Agens SQL</SPAN
+>를 관리하기 위한 OS User로 접속한 상태에서 <A
+HREF="techsheet.html"
+>1장</A
+>를 참고하여 <SPAN
+CLASS="PRODUCTNAME"
+>Agens SQL</SPAN
+> 홈페이지에서 본인의 지원 플랫폼 및 운영체제에 맞는 인스톨러를 다운로드 받는다. (<A
+HREF="http://www.agens.co.kr/downloads"
+TARGET="_top"
+>http://www.agens.co.kr/downloads/</A
+>)</P
 ></LI
 ></UL
 ></DIV
@@ -132,13 +170,21 @@ CLASS="SECT2"
 NAME="INSTALL-LINUX-START"
 >2.1.2. 설치 시작</A
 ></H2
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="INSTALL-LINUX-START-GUI"
+>2.1.2.1. GUI 모드</A
+></H3
 ><P
 ></P
 ><OL
 TYPE="1"
 ><LI
 ><P
->Agens SQL을 설치할 OS User로 로그인한다.</P
+>인스톨러를 다운로드 받은 곳으로 이동하여 다음의 명령어를 통해 인스톨러를 GUI 모드로 실행한다.</P
 ><PRE
 CLASS="SCREEN"
 >  <SAMP
@@ -146,24 +192,7 @@ CLASS="PROMPT"
 >$ </SAMP
 ><KBD
 CLASS="USERINPUT"
->su agens</KBD
-></PRE
-></LI
-><LI
-><P
->Technical Sheet를 참고하여 Agens SQL 홈페이지에서 본인의 운영체제에 맞는 인스톨러를 다운로드 받는다. (!!링크 주소 넣기)</P
-></LI
-><LI
-><P
->인스톨러를 다운로드 받은 곳으로 이동하여 다음의 명령어를 통해 인스톨러를 실행한다.</P
-><PRE
-CLASS="SCREEN"
->  <SAMP
-CLASS="PROMPT"
->$ </SAMP
-><KBD
-CLASS="USERINPUT"
->java -jar Agens_SQL_Version.jar</KBD
+>java -jar Agens_SQL_Version_Edition_Platform.jar</KBD
 ></PRE
 ></LI
 ><LI
@@ -171,50 +200,67 @@ CLASS="USERINPUT"
 >인스톨러가 정상적으로 실행되었다면 다음과 같이 초기화면이 나타난다.</P
 ><P
 ><IMG
-SRC="images/welcome.png"
-ALIGN="CENTER"></P
+SRC="images/welcome.png"></P
 ><P
 CLASS="LITERALLAYOUT"
->제품의&nbsp;버전정보와&nbsp;고객지원팀의&nbsp;이메일&nbsp;그리고&nbsp;제품&nbsp;홈페이지에&nbsp;대한&nbsp;정보를&nbsp;확인할&nbsp;수&nbsp;있다.<br>
+>제품의&nbsp;버전정보와&nbsp;이메일&nbsp;그리고&nbsp;제품&nbsp;홈페이지에&nbsp;대한&nbsp;정보를&nbsp;확인할&nbsp;수&nbsp;있다.<br>
 [다음]&nbsp;버튼을&nbsp;클릭하여&nbsp;설치를&nbsp;계속&nbsp;진행한다.<br>
 설치하는&nbsp;도중에&nbsp;[종료]&nbsp;버튼을&nbsp;클릭하여&nbsp;설치를&nbsp;취소&nbsp;할&nbsp;수&nbsp;있다.</P
 ></LI
 ><LI
 ><P
->Agens SQL에 대한 소개</P
+><SPAN
+CLASS="PRODUCTNAME"
+>Agens SQL</SPAN
+>에 대한 소개</P
 ><P
 ><IMG
-SRC="images/infomation.png"
-ALIGN="CENTER"></P
+SRC="images/infomation.png"></P
 ><P
 CLASS="LITERALLAYOUT"
->Agens&nbsp;SQL에&nbsp;대한&nbsp;소개가&nbsp;나타난다.&nbsp;확인&nbsp;후&nbsp;[다음]&nbsp;버튼을&nbsp;클릭하여&nbsp;설치를&nbsp;계속&nbsp;진행한다.<br>
+><SPAN
+CLASS="PRODUCTNAME"
+>Agens SQL</SPAN
+>에&nbsp;대한&nbsp;소개가&nbsp;나타난다.&nbsp;확인&nbsp;후&nbsp;[다음]&nbsp;버튼을&nbsp;클릭하여&nbsp;설치를&nbsp;계속&nbsp;진행한다.<br>
 설치하는&nbsp;도중에&nbsp;[이전]&nbsp;버튼을&nbsp;클릭하여&nbsp;이전의&nbsp;단계로&nbsp;이동할&nbsp;수&nbsp;있다.</P
 ></LI
 ><LI
 ><P
->Agens SQL 라이선스 동의</P
+><SPAN
+CLASS="PRODUCTNAME"
+>Agens SQL</SPAN
+> 라이선스 동의</P
 ><P
 ><IMG
-SRC="images/license.png"
-ALIGN="CENTER"></P
+SRC="images/license.png"></P
 ><P
 CLASS="LITERALLAYOUT"
->Agens&nbsp;SQL의&nbsp;라이선스&nbsp;정보가&nbsp;나타난다.&nbsp;라이선스를&nbsp;확인하고&nbsp;'이&nbsp;라이선스&nbsp;조항에&nbsp;동의한다'를&nbsp;선택해야&nbsp;[다음]&nbsp;버튼이&nbsp;활성화된다.<br>
+><SPAN
+CLASS="PRODUCTNAME"
+>Agens SQL</SPAN
+>의&nbsp;라이선스&nbsp;정보가&nbsp;나타난다.&nbsp;라이선스를&nbsp;확인하고&nbsp;'이&nbsp;라이선스&nbsp;조항에&nbsp;동의한다'를&nbsp;선택해야&nbsp;[다음]&nbsp;버튼이&nbsp;활성화된다.<br>
 [다음]&nbsp;버튼을&nbsp;클릭하여&nbsp;설치를&nbsp;계속&nbsp;진행한다.</P
 ></LI
 ><LI
 ><P
->Agens SQL 설치 경로 설정</P
+><SPAN
+CLASS="PRODUCTNAME"
+>Agens SQL</SPAN
+> 설치 경로 설정</P
 ><P
 ><IMG
-SRC="images/target.png"
-ALIGN="CENTER"></P
+SRC="images/target.png"></P
 ><P
 CLASS="LITERALLAYOUT"
->Agens&nbsp;SQL의&nbsp;설치&nbsp;경로를&nbsp;설정하는&nbsp;창이&nbsp;나타난다.<br>
-디폴트&nbsp;디렉터리는&nbsp;'$HOME/Agens&nbsp;SQL'로&nbsp;설정되어&nbsp;있다.<br>
-설치&nbsp;경로를&nbsp;변경하려면&nbsp;[찾아보기]&nbsp;버튼을&nbsp;클릭하여&nbsp;Agens&nbsp;SQL가&nbsp;설치될&nbsp;디렉터리의&nbsp;위치를&nbsp;선택하거나&nbsp;디폴트&nbsp;설치&nbsp;경로가&nbsp;작성되어&nbsp;있는&nbsp;곳을&nbsp;클릭하여&nbsp;직접&nbsp;설치&nbsp;경로를&nbsp;입력한다.<br>
+><SPAN
+CLASS="PRODUCTNAME"
+>Agens SQL</SPAN
+>의&nbsp;설치&nbsp;경로를&nbsp;설정하는&nbsp;창이&nbsp;나타난다.<br>
+디폴트&nbsp;디렉터리는&nbsp;'$HOME/Agens_SQL'로&nbsp;설정되어&nbsp;있다.<br>
+설치&nbsp;경로를&nbsp;변경하려면&nbsp;[찾아보기]&nbsp;버튼을&nbsp;클릭하여&nbsp;<SPAN
+CLASS="PRODUCTNAME"
+>Agens SQL</SPAN
+>가&nbsp;설치될&nbsp;디렉터리의&nbsp;위치를&nbsp;선택하거나&nbsp;디폴트&nbsp;설치&nbsp;경로가&nbsp;작성되어&nbsp;있는&nbsp;곳을&nbsp;클릭하여&nbsp;직접&nbsp;설치&nbsp;경로를&nbsp;입력한다.<br>
 경로&nbsp;설정을&nbsp;마쳤으면&nbsp;[다음]&nbsp;버튼을&nbsp;클릭하여&nbsp;설치를&nbsp;계속&nbsp;진행한다.</P
 ></LI
 ><LI
@@ -222,8 +268,7 @@ CLASS="LITERALLAYOUT"
 >새 디렉터리 생성 팝업</P
 ><P
 ><IMG
-SRC="images/target_popup.png"
-ALIGN="CENTER"></P
+SRC="images/target_popup.png"></P
 ><P
 CLASS="LITERALLAYOUT"
 >입력한&nbsp;설치&nbsp;디렉터리가&nbsp;존재하지&nbsp;않을&nbsp;경우&nbsp;팝업&nbsp;창이&nbsp;나타난다.<br>
@@ -234,8 +279,7 @@ CLASS="LITERALLAYOUT"
 >설치할 패키지 선택</P
 ><P
 ><IMG
-SRC="images/packages.png"
-ALIGN="CENTER"></P
+SRC="images/packages.png"></P
 ><P
 CLASS="LITERALLAYOUT"
 >설치할&nbsp;패키지를&nbsp;선택하는&nbsp;창이&nbsp;나타난다.&nbsp;각&nbsp;패키지의&nbsp;이름을&nbsp;클릭하면&nbsp;해당&nbsp;패키지에&nbsp;대한&nbsp;설명을&nbsp;볼&nbsp;수&nbsp;있다.<br>
@@ -247,11 +291,13 @@ CLASS="LITERALLAYOUT"
 >포트 번호 설정</P
 ><P
 ><IMG
-SRC="images/port.png"
-ALIGN="CENTER"></P
+SRC="images/port.png"></P
 ><P
 CLASS="LITERALLAYOUT"
->Agens&nbsp;SQL이&nbsp;사용할&nbsp;포트&nbsp;번호를&nbsp;설정한다.&nbsp;입력&nbsp;가능한&nbsp;포트&nbsp;번호는&nbsp;0부터&nbsp;65535까지의&nbsp;숫자이며,&nbsp;기본&nbsp;값은&nbsp;5456으로&nbsp;설정되어&nbsp;있다.<br>
+><SPAN
+CLASS="PRODUCTNAME"
+>Agens SQL</SPAN
+>이&nbsp;사용할&nbsp;포트&nbsp;번호를&nbsp;설정한다.&nbsp;입력&nbsp;가능한&nbsp;포트&nbsp;번호는&nbsp;0부터&nbsp;65535까지의&nbsp;숫자이며,&nbsp;디폴트는&nbsp;5456으로&nbsp;설정되어&nbsp;있다.<br>
 설치되는&nbsp;머신에서&nbsp;이미&nbsp;사용중이거나&nbsp;0부터&nbsp;65535&nbsp;사이의&nbsp;정수값이&nbsp;아니면&nbsp;다음단계로&nbsp;진행되지&nbsp;않는다.</P
 ></LI
 ><LI
@@ -259,40 +305,41 @@ CLASS="LITERALLAYOUT"
 >데이터베이스 생성 디렉토리 입력</P
 ><P
 ><IMG
-SRC="images/data_dir.png"
-ALIGN="CENTER"></P
+SRC="images/data_dir.png"></P
 ><P
 CLASS="LITERALLAYOUT"
 >데이터베이스가&nbsp;생성될&nbsp;디렉토리의&nbsp;경로를&nbsp;입력한다.<br>
-기본값은&nbsp;$AGENS_SQL/pgsql/data로&nbsp;설정되어&nbsp;있다.</P
+디폴트는&nbsp;$INSTALL_PATH/pgsql/data로&nbsp;설정되어&nbsp;있다.</P
 ></LI
 ><LI
 ><P
 >설치 패키지 목록 확인</P
 ><P
 ><IMG
-SRC="images/summary.png"
-ALIGN="CENTER"></P
+SRC="images/summary.png"></P
 ><P
->Agens SQL을 설치할 경로와 선택한 패키지의 목록이 나타난다. [다음] 버튼을 클릭하면 설치가 시작된다.</P
+><SPAN
+CLASS="PRODUCTNAME"
+>Agens SQL</SPAN
+>을 설치할 경로와 선택한 패키지의 목록이 나타난다. [다음] 버튼을 클릭하면 설치가 시작된다.</P
 ></LI
 ><LI
 ><P
 >설치 시작</P
 ><P
 ><IMG
-SRC="images/installation.png"
-ALIGN="CENTER"></P
+SRC="images/installation.png"></P
 ><P
-> 설치 진행 상황을 확인 할 수 있다. 현재 창에서는 실시간으로 설치되고 있는 패키지와 파일을 확인 할 수 있다.</P
+CLASS="LITERALLAYOUT"
+>설치&nbsp;진행&nbsp;상황을&nbsp;확인&nbsp;할&nbsp;수&nbsp;있다.&nbsp;현재&nbsp;창에서는&nbsp;실시간으로&nbsp;설치되고&nbsp;있는&nbsp;패키지와&nbsp;파일을&nbsp;확인&nbsp;할&nbsp;수&nbsp;있다.&nbsp;<br>
+시스템&nbsp;성능에&nbsp;따라&nbsp;약간의&nbsp;시간이&nbsp;소요될&nbsp;수&nbsp;있다.</P
 ></LI
 ><LI
 ><P
 >설치 완료</P
 ><P
 ><IMG
-SRC="images/installation_end.png"
-ALIGN="CENTER"></P
+SRC="images/installation_end.png"></P
 ><P
 CLASS="LITERALLAYOUT"
 >진행&nbsp;표시줄에&nbsp;[완료됨]이&nbsp;나타나면&nbsp;문제&nbsp;없이&nbsp;정상적으로&nbsp;설치가&nbsp;완료된&nbsp;것이다.<br>
@@ -300,17 +347,246 @@ CLASS="LITERALLAYOUT"
 ></LI
 ><LI
 ><P
->Agens SQL 인스톨러 종료</P
+><SPAN
+CLASS="PRODUCTNAME"
+>Agens SQL</SPAN
+> 인스톨러 종료</P
 ><P
 ><IMG
-SRC="images/finish.png"
-ALIGN="CENTER"></P
+SRC="images/finish.png"></P
 ><P
 CLASS="LITERALLAYOUT"
 >설치가&nbsp;모두&nbsp;끝났다는&nbsp;것을&nbsp;알리는&nbsp;창이&nbsp;나타난다.<br>
 [완료]를&nbsp;클릭하면&nbsp;인스톨러가&nbsp;정상적으로&nbsp;종료된다.</P
 ></LI
 ></OL
+></DIV
+><DIV
+CLASS="SECT3"
+><H3
+CLASS="SECT3"
+><A
+NAME="INSTALL-LINUX-START-CONSOLE"
+>2.1.2.2. 콘솔 모드</A
+></H3
+><P
+></P
+><OL
+TYPE="1"
+><LI
+><P
+>인스톨러를 다운로드 받은 곳으로 이동하여 다음의 명령어를 통해 인스톨러를 콘솔 모드로 실행한다.</P
+><PRE
+CLASS="SCREEN"
+>  <SAMP
+CLASS="PROMPT"
+>$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>java -jar Agens_SQL_Version_Edition_Platform.jar -console</KBD
+></PRE
+></LI
+><LI
+><P
+>인스톨러가 정상적으로 실행되었다면 다음과 같이 출력된다.</P
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>Agens_SQL V1.0.0_Enterprise_Edition을 설치합니다.
+ -  bitnine@agens.co.kr
+홈페이지: http://www.agens.co.kr
+press 1 to continue, 2 to quit, 3 to redisplay</SAMP
+></PRE
+><P
+CLASS="LITERALLAYOUT"
+>1을&nbsp;입력하고&nbsp;엔터를&nbsp;눌러&nbsp;설치를&nbsp;진행한다.<br>
+2를&nbsp;입력하거나&nbsp;[Ctrl&nbsp;+&nbsp;c]를&nbsp;입력하면&nbsp;설치를&nbsp;중단할&nbsp;수&nbsp;있다.<br>
+3읍&nbsp;입력하면&nbsp;콘솔에&nbsp;현재&nbsp;설치&nbsp;단계에&nbsp;대한&nbsp;설명이&nbsp;다시&nbsp;한번&nbsp;출력된다.</P
+></LI
+><LI
+><P
+><SPAN
+CLASS="PRODUCTNAME"
+>Agens SQL</SPAN
+> 라이선스 동의</P
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>Agens SQL, Copyright (c) 2015, Bitnine Co., Ltd.
+Permission to use, copy, modify, and distribute this software and its documentation for any purpose, without fee, and without a written agreement is hereby granted, provided that the above copyright notice and this paragraph and the following two paragraphs appear in all copies.
+IN NO EVENT SHALL BITNINE BE LIABLE TO ANY PARTY FOR DIRECT, INDIRECT, SPECIAL, INCIDENTAL, OR CONSEQUENTIAL DAMAGES, INCLUDING LOST PROFITS, ARISING OUT OF THE USE OF THIS SOFTWARE AND ITS DOCUMENTATION, EVEN IF BITNINE HAS BEEN ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+BITNINE SPECIFICALLY DISCLAIMS ANY WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE. THE SOFTWARE PROVIDED HEREUNDER IS ON AN "AS IS" BASIS, AND BITNINE HAS NO OBLIGATIONS TO qPROVIDE MAINTENANCE, SUPPORT, UPDATES, ENHANCEMENTS, OR MODIFICATIONS.
+press 1 to accept, 2 to reject, 3 to redisplay</SAMP
+></PRE
+><P
+CLASS="LITERALLAYOUT"
+><SPAN
+CLASS="PRODUCTNAME"
+>Agens SQL</SPAN
+>의&nbsp;라이선스&nbsp;정보가&nbsp;나타난다.&nbsp;라이선스를&nbsp;확인하고&nbsp;라이센스에&nbsp;동의하면&nbsp;1을&nbsp;입력하여&nbsp;설치를&nbsp;계속&nbsp;진행한다.</P
+></LI
+><LI
+><P
+><SPAN
+CLASS="PRODUCTNAME"
+>Agens SQL</SPAN
+> 설치 경로 설정</P
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>Select target path [/home/mesh/Agens_SQL] </SAMP
+></PRE
+><P
+CLASS="LITERALLAYOUT"
+><SPAN
+CLASS="PRODUCTNAME"
+>Agens SQL</SPAN
+>의&nbsp;설치&nbsp;경로를&nbsp;설정한다.<br>
+설치할&nbsp;경로를&nbsp;입력한다.&nbsp;경로를&nbsp;입력하지&nbsp;않고&nbsp;엔터를&nbsp;누르면&nbsp;디폴트&nbsp;디렉터리로&nbsp;설정된다.&nbsp;디폴트&nbsp;디렉터리는&nbsp;'$HOME/Agens_SQL'로&nbsp;설정되어&nbsp;있다.</P
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>press 1 to continue, 2 to quit, 3 to redisplay</SAMP
+></PRE
+><P
+>경로 설정을 마쳤으면 1을 입력하여 설치를 계속 진행한다.</P
+></LI
+><LI
+><P
+>설치할 패키지 선택</P
+><P
+CLASS="LITERALLAYOUT"
+>설치할&nbsp;패키지를&nbsp;선택한다.&nbsp;각&nbsp;패키지에&nbsp;대한&nbsp;설명이&nbsp;출력되며,&nbsp;설치를&nbsp;하고자&nbsp;하는&nbsp;패키지를&nbsp;선택하려면&nbsp;1을&nbsp;선택하지&nbsp;않으려면&nbsp;0을&nbsp;입력한다.</P
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>설치할 패키지를 선택하십시오:
+
+[x] PostgreSQL (PostgreSQL은 강력한 오픈 소스 객체관계형 데이터베이스 시스템입니다. 완벽한 ACID속성을 제공하고 다양한 언어로 제공되는 저장 프로시저를 비롯하여 외래키, 조인, 뷰, 트리거를 제공합니다. SQL:2008 표준을 준수합니다. Perl, Python, Ruby, Tcl, C/C++를 포함하는 다양한 언어로 작성된 저장프로시저를 실행할 수 있습니다.)
+input 1 to select, 0 to deselect:
+
+[x] pgpool-II (PostgreSQL 서버와 PostgreSQL DB 클라이언트 사이에 동작하는 미들웨어입니다. Connection pooling, Load Balancing 기능을 통해 시스템 전체의 처리량을 향상시키거나 Replication 기능을 통해 사용자에게 고가용성(High Availability)를 제공합니다.)
+input 1 to select, 0 to deselect:
+
+[x] PostGIS (PostgreSQL에 지리적 객체기능을 더하여 공간정보 처리기능을 효율적으로 수행할 수 있도록 합니다. 이를 이용하여 지리적 객체를 이용한 SQL query문을 작성할 수 있습니다.)
+input 1 to select, 0 to deselect:
+
+[x] PgBouncer (PostgreSQL에 connection pooling 기능을 가능케 해주는 매우 가벼운 모듈입니다. Session pooling을 이용하여 클라이언트 세션과 비연결 상태일 때 서버는 해당 세션에 대한 연결정보를 pool에 저장하여 관리를 할 수 있습니다. 이로써 세션과 서버간의 연결이 성립될 때 갖게 되는 부하를 줄일 수 있습니다.)
+input 1 to select, 0 to deselect:
+
+[x] SkyTools (PGQ를 포함한 다양한 기능을 제공하는 패키지 입니다. PGQ는 Queueing Solution으로써 트랜젝션에 대한 비동기 배치 작업을 손쉽게 해결하여 줍니다.)
+input 1 to select, 0 to deselect:
+
+[x] pg_hint_plan (사용자가 직접 query에 hint절을 추가하여 최적의 query execute plan을 세울 수 있도록 합니다.)
+input 1 to select, 0 to deselect:
+
+[x] PL/Proxy (proxy함수를 작성하여 호출하는 방식으로 사용하며, proxy 함수를 수행하면 원격 데이터베이스 내에 구현되어 있는 함수를 로컬의 proxy 함수 내부에 명시되어 있는 원격 주소만으로도 원격 함수와 동일한 동작을 가능케 합니다.)
+input 1 to select, 0 to deselect:
+
+[x] Slony-I (Slony-I은 마스터 멀티 슬레이브 기반의 replication 툴입니다. 데이타베이스 전체가 아니라 테이블 기반으로 replication을 수행합니다.)
+input 1 to select, 0 to deselect:
+
+[x] POWA-archivist (POWA는 PostgreSQL 서버에 대한 성능통계를 수집 및 종합하여 실시간으로 차트와 그래프 형태로 제공합니다.)
+input 1 to select, 0 to deselect:&#13;</SAMP
+></PRE
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>&#13;...pack selection done.
+press 1 to continue, 2 to quit, 3 to redisplay</SAMP
+></PRE
+><P
+CLASS="LITERALLAYOUT"
+>패키지&nbsp;선택이&nbsp;끝나면&nbsp;한&nbsp;번&nbsp;더&nbsp;진행할&nbsp;것인지에&nbsp;대해서&nbsp;물어본다.&nbsp;1을&nbsp;입력하여&nbsp;설치를&nbsp;계속&nbsp;진행한다.</P
+></LI
+><LI
+><P
+>포트 번호 설정</P
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>Agens SQL에서 사용할 포트번호를 입력하시오.
+Agens SQL은 5456 포트를 기본값으로 사용합니다.
+이 포트번호는 설치 후 변경이 가능합니다.
+
+------------------------------------------
+
+Port Number: [5456] 
+
+press 1 to continue, 2 to quit, 3 to redisplay</SAMP
+></PRE
+><P
+><SPAN
+CLASS="PRODUCTNAME"
+>Agens SQL</SPAN
+>이 사용할 포트 번호를 설정한다. 입력 가능한 포트 번호는 0부터 65535까지의 숫자이며, 디폴트는 5456으로 설정되어 있다.
+설치되는 머신에서 이미 사용중이거나 0부터 65535 사이의 정수값이 아니면 다음단계로 진행되지 않는다.
+아무것도 입력하지 않고 엔터를 누르면 디폴트 값으로 설정된다.</P
+></LI
+><LI
+><P
+>데이터베이스 생성 디렉토리 입력</P
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>Agens SQL의 데이터베이스 클러스터가 저장될 디렉토리의 경로를 입력하시오 .
+이 디렉토리에 실제 데이터베이스 정보가 저장됩니다.
+Agens SQL이 설치되는 경로 하위에 /pgsql/data가 기본값으로 설정되어 있습니다.
+
+------------------------------------------
+
+Data directory: [/home/mesh/Agens_SQL/pgsql/data] 
+
+press 1 to continue, 2 to quit, 3 to redisplay</SAMP
+></PRE
+><P
+CLASS="LITERALLAYOUT"
+>데이터베이스가&nbsp;생성될&nbsp;디렉토리의&nbsp;경로를&nbsp;입력한다.<br>
+디폴트는&nbsp;$INSTALL_PATH/pgsql/data로&nbsp;설정되어&nbsp;있다.<br>
+아무것도&nbsp;입력하지&nbsp;않고&nbsp;엔터를&nbsp;누르면&nbsp;디폴트&nbsp;값으로&nbsp;설정된다.<br>&#13;</P
+></LI
+><LI
+><P
+>설치 시작</P
+><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="COMPUTEROUTPUT"
+>[ Starting to unpack ]
+[ Processing package: pgsql (1/9) ]
+[ Processing package: pgpool (2/9) ]
+[ Processing package: postgis (3/9) ]
+[ Processing package: pgbouncer (4/9) ]
+[ Processing package: skytools (5/9) ]
+[ Processing package: pg_hint_plan (6/9) ]
+[ Processing package: plproxy (7/9) ]
+[ Processing package: slony (8/9) ]
+[ Processing package: powa-archivist (9/9) ]
+[ Unpacking finished ]
+Install was successful
+application installed on /home/mesh/Agens_SQL
+[ Console installation done ]</SAMP
+></PRE
+><P
+CLASS="LITERALLAYOUT"
+>설치&nbsp;진행&nbsp;상황을&nbsp;확인&nbsp;할&nbsp;수&nbsp;있다.&nbsp;현재&nbsp;창에서는&nbsp;실시간으로&nbsp;설치되고&nbsp;있는&nbsp;패키지와&nbsp;파일을&nbsp;확인&nbsp;할&nbsp;수&nbsp;있다.&nbsp;<br>
+시스템&nbsp;성능에&nbsp;따라&nbsp;약간의&nbsp;시간이&nbsp;소요될&nbsp;수&nbsp;있다.<br>
+<br>
+설치가&nbsp;정상적으로&nbsp;완료되었다는&nbsp;<TT
+CLASS="LITERAL"
+>[ Console installation done ]</TT
+>&nbsp;메세지가&nbsp;나타나고&nbsp;설치가&nbsp;종료된다.</P
+></LI
+></OL
+></DIV
 ></DIV
 ><DIV
 CLASS="SECT2"
@@ -321,10 +597,19 @@ NAME="INSTALL-LINUX-POSTINSTALL"
 >2.1.3. 설치 후 작업</A
 ></H2
 ><P
->   환경변수를 등록하지 않으면 설치된 라이브러리를 제대로 읽어들이지 않아 올바르게 작동하지 않고, 명령어를 호출할 때 psql과 같이 단순한 명령어가 아닌 /path/to/Agens_SQL/pgsql/bin/psql과 같이 절대경로를 입력해야 한다.
+> 환경변수를 등록하지 않으면 설치된 라이브러리를 제대로 읽어들이지 않아 올바르게 작동하지 않고, 명령어를 호출할 때 <TT
+CLASS="COMMAND"
+>psql</TT
+>과 같이 단순한 명령어가 아닌 <TT
+CLASS="COMMAND"
+>/path/to/Agens_SQL/pgsql/bin/psql</TT
+>과 같이 절대경로를 입력해야 한다.
    </P
 ><P
->Agens SQL이 설치된 OS User의 bash_profile에 환경변수를 추가한다.
+><SPAN
+CLASS="PRODUCTNAME"
+>Agens SQL</SPAN
+>이 설치된 OS User의 bash_profile에 환경변수를 추가한다.
 </P><PRE
 CLASS="SCREEN"
 ><SAMP
@@ -340,8 +625,8 @@ CLASS="USERINPUT"
 ><PRE
 CLASS="PROGRAMLISTING"
 >export AGENS_HOME=/path/to/Agens_SQL
-export PATH=/path/to/Agens_SQL/pgsql/bin:$PATH
-export LD_LIBRARY_PATH=/path/to/Agens_SQL/pgsql/lib:$LD_LIBRARY_PATH</PRE
+export PATH=$AGENS_HOME/pgsql/bin:$PATH
+export LD_LIBRARY_PATH=$AGENS_HOME/pgsql/lib:$LD_LIBRARY_PATH</PRE
 ><P
 >    다음과 같은 방법을 하나를 선택하여 환경변수가 적용되도록 한다.
     <P
@@ -353,7 +638,10 @@ export LD_LIBRARY_PATH=/path/to/Agens_SQL/pgsql/lib:$LD_LIBRARY_PATH</PRE
 ></LI
 ><LI
 ><P
->다음의 명령을 호출</P
+><TT
+CLASS="COMMAND"
+>source</TT
+>의 명령을 호출</P
 ><PRE
 CLASS="SCREEN"
 ><SAMP

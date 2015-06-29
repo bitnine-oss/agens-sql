@@ -2,7 +2,7 @@
 
 <!ENTITY postgres    SYSTEM "postgres.sgml">
 
-<!-- installation -->
+<!-- start -->
 <!ENTITY basicStructure      SYSTEM "basicStructure.sgml">
 <!ENTITY databaseCreateUse      SYSTEM "databaseCreateUse.sgml">
 <!ENTITY techSheet   SYSTEM "techSheet.sgml">

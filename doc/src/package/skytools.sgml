@@ -244,7 +244,7 @@ pidfile = /home/postgres/9.4/pgsql/data/pg_log/pgqd_ticker.pid
                 </para>
 
                 <para>
-                    <ProgramListing><prompt>localhost</prompt> $ <userinput><command>ps -ef | grep postgres</command></userinput>
+                    <ProgramListing><prompt>localhost</prompt> $ <userinput><command>ps -ef | grep pgqd</command></userinput>
 <computeroutput>postgres 25249     1  0 07:17 ?        00:00:00 pgqd -d ./pgqd.ini</computeroutput></ProgramListing>
                 </para>
 
@@ -262,39 +262,6 @@ pidfile = /home/postgres/9.4/pgsql/data/pg_log/pgqd_ticker.pid
 2015-06-24 08:37:54.189 25249 LOG {ticks: 30, maint: 0, retry: 0}
 2015-06-24 08:38:24.189 25249 LOG {ticks: 30, maint: 0, retry: 0}</ProgramListing>
                 </para>
-
-                <sect3 id="skytools-err">
-                    <title>에러 해결</title>
-
-                    <para>
-                        <filename>log_filename.log</filename>파일을 열어 봤을 때 에러 문구가 다음과 같이 나온다면,
-
-                        <ProgramListing>2015-06-23 14:18:16.428 21515 LOG Starting pgqd 3.2.6
-2015-06-23 14:18:16.431 21517 LOG auto-detecting dbs ...
-2015-06-23 14:18:16.432 21517 ERROR connection error: PQconnectStart
-2015-06-23 14:18:16.432 21517 ERROR libpq: could not connect to server: No such file or directory
-                Is the server running locally and accepting
-                connections on Unix domain socket "/var/run/postgresql/.s.PGSQL.5456"?</ProgramListing>
-
-                    아래와 같이 해결을 해주어야 한다.
-                    </para>
-
-                    <para>
-                        <ProgramListing><prompt>localhost</prompt> $ <userinput><command>[sudo ]mkdir /var/run/postgresql/</command></userinput>
-<prompt>localhost</prompt> $ <userinput><command>[sudo ]chown postgres.postgres /var/run/postgresql/</command></userinput>
-<prompt>localhost</prompt> $ <userinput><command>[sudo ]ln -s /tmp/.s.PGSQL.5456 /var/run/postgresql/.s.PGSQL.5456</command></userinput></ProgramListing>
-                    </para>
-
-                    <para>
-                        Ticker를 다시 동작 시킨 후 로그 파일을 다시 확인하면 정상 동작하는 것을 확인 할 수 있다.
-                    </para>
-
-                    <tip>
-                        <para>
-                            해당 에러가 발생하는 이유는 Linux마다 <filename>.s.PGSQL.5456</filename>의 생성 위치가 다르기 때문이다.
-                        </para>
-                    </tip>
-                </sect3>
             </sect2>
 
             <sect2 id="skytools-make-queue">

@@ -28,7 +28,7 @@ CONTENT="text/html; charset=UTF-8"><META
 name="viewport"
 content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width"><META
 NAME="creation"
-CONTENT="2015-06-26T06:33:42"></HEAD
+CONTENT="2015-06-29T00:19:12"></HEAD
 ><BODY
 CLASS="SECT1"
 ><DIV
@@ -223,7 +223,7 @@ CLASS="PROMPT"
 CLASS="USERINPUT"
 ><TT
 CLASS="COMMAND"
->ps -ef | grep postgres</TT
+>ps -ef | grep pgqd</TT
 ></KBD
 >
 <SAMP
@@ -251,85 +251,6 @@ CLASS="PROGRAMLISTING"
 2015-06-24 08:38:24.189 25249 LOG {ticks: 30, maint: 0, retry: 0}</PRE
 ><P>
                 </P
-><DIV
-CLASS="SECT3"
-><H3
-CLASS="SECT3"
-><A
-NAME="SKYTOOLS-ERR"
->3.2.1.1. 에러 해결</A
-></H3
-><P
->                        <TT
-CLASS="FILENAME"
->log_filename.log</TT
->파일을 열어 봤을 때 에러 문구가 다음과 같이 나온다면,
-
-                        </P><PRE
-CLASS="PROGRAMLISTING"
->2015-06-23 14:18:16.428 21515 LOG Starting pgqd 3.2.6
-2015-06-23 14:18:16.431 21517 LOG auto-detecting dbs ...
-2015-06-23 14:18:16.432 21517 ERROR connection error: PQconnectStart
-2015-06-23 14:18:16.432 21517 ERROR libpq: could not connect to server: No such file or directory
-                Is the server running locally and accepting
-                connections on Unix domain socket "/var/run/postgresql/.s.PGSQL.5456"?</PRE
-><P>
-
-                    아래와 같이 해결을 해주어야 한다.
-                    </P
-><P
->                        </P><PRE
-CLASS="PROGRAMLISTING"
-><SAMP
-CLASS="PROMPT"
->localhost</SAMP
-> $ <KBD
-CLASS="USERINPUT"
-><TT
-CLASS="COMMAND"
->[sudo ]mkdir /var/run/postgresql/</TT
-></KBD
->
-<SAMP
-CLASS="PROMPT"
->localhost</SAMP
-> $ <KBD
-CLASS="USERINPUT"
-><TT
-CLASS="COMMAND"
->[sudo ]chown postgres.postgres /var/run/postgresql/</TT
-></KBD
->
-<SAMP
-CLASS="PROMPT"
->localhost</SAMP
-> $ <KBD
-CLASS="USERINPUT"
-><TT
-CLASS="COMMAND"
->[sudo ]ln -s /tmp/.s.PGSQL.5456 /var/run/postgresql/.s.PGSQL.5456</TT
-></KBD
-></PRE
-><P>
-                    </P
-><P
->                        Ticker를 다시 동작 시킨 후 로그 파일을 다시 확인하면 정상 동작하는 것을 확인 할 수 있다.
-                    </P
-><DIV
-CLASS="TIP"
-><BLOCKQUOTE
-CLASS="TIP"
-><P
-><B
->작은 정보: </B
->                            해당 에러가 발생하는 이유는 Linux마다 <TT
-CLASS="FILENAME"
->.s.PGSQL.5456</TT
->의 생성 위치가 다르기 때문이다.
-                        </P
-></BLOCKQUOTE
-></DIV
-></DIV
 ></DIV
 ><DIV
 CLASS="SECT2"

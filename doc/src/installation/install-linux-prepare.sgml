@@ -1,12 +1,15 @@
 <sect2 id="install-linux-prepare">
  <title>설치 전 준비사항</title>
- <para>Agens SQL을 설치하기에 앞서 다음과 같은 사항이 준비되어 있어야 한다.</para>
+ <para><productname>Agens SQL</productname>을 설치하기에 앞서 다음과 같은 사항이 준비되어 있어야 한다.</para>
     <itemizedlist>
         <listitem>
-            <para>Agens SQL 인스톨러를 실행시키기 위한 Java JRE(Java Runtime Environment)가 설치되어 있어야 한다.</para>
+            <para><productname>Agens SQL</productname> 인스톨러를 실행시키기 위한 Java JRE(Java Runtime Environment)가 설치되어 있어야 한다.</para>
         </listitem>
         <listitem>
-            <para>Agens SQL를 관리하기 위한 OS User가 생성 되어 있어야 한다. Agens SQL은 OS User의 이름을 'agens'로 사용할 것을 권장한다.</para>
+            <para><productname>Agens SQL</productname>를 관리하기 위한 OS User가 생성 되어 있어야 한다. <productname>Agens SQL</productname>은 OS User의 이름을 '<literal>agens</literal>'로 사용할 것을 권장한다.</para>
+        </listitem>
+        <listitem>
+          <para><productname>Agens SQL</productname>를 관리하기 위한 OS User로 접속한 상태에서 <xref linkend="techSheet" >를 참고하여 <productname>Agens SQL</productname> 홈페이지에서 본인의 지원 플랫폼 및 운영체제에 맞는 인스톨러를 다운로드 받는다. (<ulink url="http://www.agens.co.kr/downloads">http://www.agens.co.kr/downloads/</ulink>)</para>
         </listitem>
     </itemizedlist>
 

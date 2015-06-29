@@ -9,11 +9,10 @@ CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
 REV="MADE"
 HREF="mailto:pgsql-docs@postgresql.org"><LINK
 REL="HOME"
-TITLE="Agens SQL 1.0 문서"
 HREF="index.html"><LINK
 REL="UP"
-TITLE="Installation"
-HREF="installation.html"><LINK
+TITLE="시작하기"
+HREF="start.html"><LINK
 REL="PREVIOUS"
 TITLE="Windows"
 HREF="install-window.html"><LINK
@@ -28,7 +27,7 @@ CONTENT="text/html; charset=UTF-8"><META
 name="viewport"
 content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width"><META
 NAME="creation"
-CONTENT="2015-06-26T04:52:31"></HEAD
+CONTENT="2015-06-29T00:18:42"></HEAD
 ><BODY
 CLASS="CHAPTER"
 ><DIV
@@ -46,7 +45,7 @@ ALIGN="center"
 VALIGN="bottom"
 ><A
 HREF="index.html"
->Agens SQL 1.0 문서</A
+></A
 ></TH
 ></TR
 ><TR
@@ -65,7 +64,7 @@ WIDTH="10%"
 ALIGN="left"
 VALIGN="top"
 ><A
-HREF="installation.html"
+HREF="start.html"
 ACCESSKEY="U"
 >위로</A
 ></TD
@@ -150,6 +149,30 @@ CLASS="FILENAME"
 >postgres</TT
 > 프로세스는 서버 호스트에서 항상 실행되고 있으면서, 클라이언트의 접속 요청을 처리해서 새로운 하위 서버 프로세스를 만드는 역할을 한다.
    </P
+><P
+>    postgres 프로세스는 pg_ctl이라는 명령어를 통해서 컨트롤 할 수 있으며 다음과 같은 명령어를 통해 프로세스를 생성할 수 있다.
+    </P><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="PROMPT"
+>$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>pg_ctl -D /path/to/Agens/pgsql/data -l /path/to/Agens/pgsql/data/server_log.txt start</KBD
+></PRE
+><P>
+    pg_ctl 명령어에 대한 자세한 사용법은 다음 명령어를 통해서 확인할 수 있다.
+    </P><PRE
+CLASS="SCREEN"
+><SAMP
+CLASS="PROMPT"
+>$ </SAMP
+><KBD
+CLASS="USERINPUT"
+>pg_ctl --help</KBD
+></PRE
+><P>
+   </P
 ></DIV
 ><DIV
 CLASS="NAVFOOTER"
@@ -201,7 +224,7 @@ WIDTH="34%"
 ALIGN="center"
 VALIGN="top"
 ><A
-HREF="installation.html"
+HREF="start.html"
 ACCESSKEY="U"
 >위로</A
 ></TD
