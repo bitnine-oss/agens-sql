@@ -2111,7 +2111,7 @@ TITLE GSSAPI 인증
 PRIMARY GSSAPI
 /INDEXTERM
 INDEXTERM auth-methods.html#SSPI-AUTH
-INDEXPOINT auth-methods.html#AEN6002
+INDEXPOINT auth-methods.html#AEN6003
 TITLE SSPI 인증
 significance NORMAL
 ZONE auth-methods.html#SSPI-AUTH
@@ -2119,19 +2119,19 @@ TITLE SSPI 인증
 PRIMARY SSPI
 /INDEXTERM
 INDEXTERM auth-methods.html#AUTH-IDENT
-INDEXPOINT auth-methods.html#AEN6041
+INDEXPOINT auth-methods.html#AEN6043
 TITLE Ident 인증
 significance NORMAL
 PRIMARY ident
 /INDEXTERM
 INDEXTERM auth-methods.html#AUTH-PEER
-INDEXPOINT auth-methods.html#AEN6074
+INDEXPOINT auth-methods.html#AEN6076
 TITLE 피어(peer) 인증
 significance NORMAL
 PRIMARY 피어
 /INDEXTERM
 INDEXTERM auth-methods.html#AUTH-LDAP
-INDEXPOINT auth-methods.html#AEN6096
+INDEXPOINT auth-methods.html#AEN6098
 TITLE LDAP 인증
 significance NORMAL
 ZONE auth-methods.html#AUTH-LDAP
@@ -2139,7 +2139,7 @@ TITLE LDAP 인증
 PRIMARY LDAP
 /INDEXTERM
 INDEXTERM auth-methods.html#AUTH-RADIUS
-INDEXPOINT auth-methods.html#AEN6204
+INDEXPOINT auth-methods.html#AEN6207
 TITLE RADIUS 인증
 significance NORMAL
 ZONE auth-methods.html#AUTH-RADIUS
@@ -2147,7 +2147,7 @@ TITLE RADIUS 인증
 PRIMARY RADIUS
 /INDEXTERM
 INDEXTERM auth-methods.html#AUTH-CERT
-INDEXPOINT auth-methods.html#AEN6246
+INDEXPOINT auth-methods.html#AEN6249
 TITLE 인증서 인증
 significance NORMAL
 ZONE auth-methods.html#AUTH-CERT
@@ -2155,7 +2155,7 @@ TITLE 인증서 인증
 PRIMARY 인증서
 /INDEXTERM
 INDEXTERM auth-methods.html#AUTH-PAM
-INDEXPOINT auth-methods.html#AEN6261
+INDEXPOINT auth-methods.html#AEN6264
 TITLE PAM 인증
 significance NORMAL
 ZONE auth-methods.html#AUTH-PAM
@@ -2163,7 +2163,7 @@ TITLE PAM 인증
 PRIMARY PAM
 /INDEXTERM
 INDEXTERM database-roles.html
-INDEXPOINT database-roles.html#AEN6307
+INDEXPOINT database-roles.html#AEN6310
 TITLE 데이터베이스 role
 significance NORMAL
 ZONE database-roles.html
@@ -2171,7 +2171,7 @@ TITLE 데이터베이스 role
 PRIMARY role
 /INDEXTERM
 INDEXTERM database-roles.html
-INDEXPOINT database-roles.html#AEN6309
+INDEXPOINT database-roles.html#AEN6312
 TITLE 데이터베이스 role
 significance NORMAL
 ZONE database-roles.html
@@ -2179,76 +2179,76 @@ TITLE 데이터베이스 role
 PRIMARY 사용자
 /INDEXTERM
 INDEXTERM database-roles.html
-INDEXPOINT database-roles.html#AEN6311
+INDEXPOINT database-roles.html#AEN6314
 TITLE 데이터베이스 role
 significance NORMAL
 PRIMARY CREATE ROLE
 /INDEXTERM
 INDEXTERM database-roles.html
-INDEXPOINT database-roles.html#AEN6313
+INDEXPOINT database-roles.html#AEN6316
 TITLE 데이터베이스 role
 significance NORMAL
 PRIMARY DROP ROLE
 /INDEXTERM
 INDEXTERM database-roles.html
-INDEXPOINT database-roles.html#AEN6322
+INDEXPOINT database-roles.html#AEN6325
 TITLE 데이터베이스 role
 significance NORMAL
 PRIMARY createuser
 /INDEXTERM
 INDEXTERM database-roles.html
-INDEXPOINT database-roles.html#AEN6324
+INDEXPOINT database-roles.html#AEN6327
 TITLE 데이터베이스 role
 significance NORMAL
 PRIMARY dropuser
 /INDEXTERM
 INDEXTERM role-attributes.html
-INDEXPOINT role-attributes.html#AEN6351
+INDEXPOINT role-attributes.html#AEN6354
 TITLE role 속성
 significance NORMAL
 PRIMARY 로그인 권한
 /INDEXTERM
 INDEXTERM role-attributes.html
-INDEXPOINT role-attributes.html#AEN6366
+INDEXPOINT role-attributes.html#AEN6369
 TITLE role 속성
 significance NORMAL
 PRIMARY 수퍼유저
 /INDEXTERM
 INDEXTERM role-attributes.html
-INDEXPOINT role-attributes.html#AEN6374
+INDEXPOINT role-attributes.html#AEN6377
 TITLE role 속성
 significance NORMAL
 PRIMARY 데이터베이스
 SECONDARY 생성 권한
 /INDEXTERM
 INDEXTERM role-attributes.html
-INDEXPOINT role-attributes.html#AEN6383
+INDEXPOINT role-attributes.html#AEN6386
 TITLE role 속성
 significance NORMAL
 PRIMARY role
 SECONDARY 생성 권한
 /INDEXTERM
 INDEXTERM role-attributes.html
-INDEXPOINT role-attributes.html#AEN6394
+INDEXPOINT role-attributes.html#AEN6397
 TITLE role 속성
 significance NORMAL
 PRIMARY role
 SECONDARY 복제 초기화 권한
 /INDEXTERM
 INDEXTERM role-attributes.html
-INDEXPOINT role-attributes.html#AEN6404
+INDEXPOINT role-attributes.html#AEN6407
 TITLE role 속성
 significance NORMAL
 PRIMARY 패스워드
 /INDEXTERM
 INDEXTERM role-attributes.html
-INDEXPOINT role-attributes.html#AEN6414
+INDEXPOINT role-attributes.html#AEN6417
 TITLE role 속성
 significance NORMAL
 PRIMARY ALTER ROLE
 /INDEXTERM
 INDEXTERM role-membership.html
-INDEXPOINT role-membership.html#AEN6430
+INDEXPOINT role-membership.html#AEN6433
 TITLE role 멤버십
 significance NORMAL
 ZONE role-membership.html
@@ -2257,7 +2257,7 @@ PRIMARY role
 SECONDARY 멤버십 in
 /INDEXTERM
 INDEXTERM managing-databases.html
-INDEXPOINT managing-databases.html#AEN6503
+INDEXPOINT managing-databases.html#AEN6506
 TITLE 데이터베이스 관리
 significance NORMAL
 ZONE managing-databases.html
@@ -2265,7 +2265,7 @@ TITLE 데이터베이스 관리
 PRIMARY 데이터베이스
 /INDEXTERM
 INDEXTERM manage-ag-overview.html
-INDEXPOINT manage-ag-overview.html#AEN6511
+INDEXPOINT manage-ag-overview.html#AEN6514
 TITLE 개요
 significance NORMAL
 ZONE manage-ag-overview.html
@@ -2273,125 +2273,125 @@ TITLE 개요
 PRIMARY 스키마
 /INDEXTERM
 INDEXTERM manage-ag-createdb.html
-INDEXPOINT manage-ag-createdb.html#AEN6533
+INDEXPOINT manage-ag-createdb.html#AEN6536
 TITLE 데이터베이스 생성
 significance NORMAL
 PRIMARY CREATE DATABASE
 /INDEXTERM
 INDEXTERM manage-ag-createdb.html
-INDEXPOINT manage-ag-createdb.html#AEN6551
+INDEXPOINT manage-ag-createdb.html#AEN6554
 TITLE 데이터베이스 생성
 significance NORMAL
 PRIMARY postgres
 /INDEXTERM
 INDEXTERM manage-ag-createdb.html
-INDEXPOINT manage-ag-createdb.html#AEN6557
+INDEXPOINT manage-ag-createdb.html#AEN6560
 TITLE 데이터베이스 생성
 significance NORMAL
 PRIMARY template1
 /INDEXTERM
 INDEXTERM manage-ag-createdb.html
-INDEXPOINT manage-ag-createdb.html#AEN6565
+INDEXPOINT manage-ag-createdb.html#AEN6568
 TITLE 데이터베이스 생성
 significance NORMAL
 PRIMARY createdb
 /INDEXTERM
 INDEXTERM manage-ag-templatedbs.html
-INDEXPOINT manage-ag-templatedbs.html#AEN6588
+INDEXPOINT manage-ag-templatedbs.html#AEN6591
 TITLE 템플릿 데이터베이스
 significance NORMAL
 PRIMARY template1
 /INDEXTERM
 INDEXTERM manage-ag-templatedbs.html
-INDEXPOINT manage-ag-templatedbs.html#AEN6596
+INDEXPOINT manage-ag-templatedbs.html#AEN6599
 TITLE 템플릿 데이터베이스
 significance NORMAL
 PRIMARY template0
 /INDEXTERM
 INDEXTERM manage-ag-templatedbs.html
-INDEXPOINT manage-ag-templatedbs.html#AEN6628
+INDEXPOINT manage-ag-templatedbs.html#AEN6631
 TITLE 템플릿 데이터베이스
 significance NORMAL
 PRIMARY pg_database
 /INDEXTERM
 INDEXTERM manage-ag-dropdb.html
-INDEXPOINT manage-ag-dropdb.html#AEN6671
+INDEXPOINT manage-ag-dropdb.html#AEN6674
 TITLE 데이터베이스 소멸
 significance NORMAL
 PRIMARY DROP DATABASE
 /INDEXTERM
 INDEXTERM manage-ag-dropdb.html
-INDEXPOINT manage-ag-dropdb.html#AEN6680
+INDEXPOINT manage-ag-dropdb.html#AEN6683
 TITLE 데이터베이스 소멸
 significance NORMAL
 PRIMARY dropdb
 /INDEXTERM
 INDEXTERM manage-ag-tablespaces.html
-INDEXPOINT manage-ag-tablespaces.html#AEN6687
-TITLE Tablespaces
+INDEXPOINT manage-ag-tablespaces.html#AEN6690
+TITLE 테이블스페이스
 significance NORMAL
 ZONE manage-ag-tablespaces.html
-TITLE Tablespaces
+TITLE 테이블스페이스
 PRIMARY 테이블스페이스
 /INDEXTERM
 INDEXTERM manage-ag-tablespaces.html
-INDEXPOINT manage-ag-tablespaces.html#AEN6698
-TITLE Tablespaces
+INDEXPOINT manage-ag-tablespaces.html#AEN6701
+TITLE 테이블스페이스
 significance NORMAL
 PRIMARY CREATE TABLESPACE
 /INDEXTERM
 INDEXTERM locale.html
-INDEXPOINT locale.html#AEN6756
+INDEXPOINT locale.html#AEN6760
 TITLE 로케일(Locale) 지원
 significance NORMAL
 ZONE locale.html
 TITLE 로케일(Locale) 지원
 PRIMARY 로케일
 /INDEXTERM
-INDEXTERM locale.html#AEN6839
-INDEXPOINT locale.html#AEN6846
+INDEXTERM locale.html#AEN6843
+INDEXPOINT locale.html#AEN6850
 TITLE 동작
 significance NORMAL
 PRIMARY ORDER BY
 SECONDARY 및 로케일
 /INDEXTERM
-INDEXTERM locale.html#AEN6839
-INDEXPOINT locale.html#AEN6854
+INDEXTERM locale.html#AEN6843
+INDEXPOINT locale.html#AEN6858
 TITLE 동작
 significance NORMAL
 PRIMARY upper
 SECONDARY 및 로케일
 /INDEXTERM
-INDEXTERM locale.html#AEN6839
-INDEXPOINT locale.html#AEN6857
+INDEXTERM locale.html#AEN6843
+INDEXPOINT locale.html#AEN6861
 TITLE 동작
 significance NORMAL
 PRIMARY lower
 SECONDARY 및 로케일
 /INDEXTERM
-INDEXTERM locale.html#AEN6839
-INDEXPOINT locale.html#AEN6864
+INDEXTERM locale.html#AEN6843
+INDEXPOINT locale.html#AEN6868
 TITLE 동작
 significance NORMAL
 PRIMARY LIKE
 SECONDARY 및 로케일
 /INDEXTERM
-INDEXTERM locale.html#AEN6839
-INDEXPOINT locale.html#AEN6867
+INDEXTERM locale.html#AEN6843
+INDEXPOINT locale.html#AEN6871
 TITLE 동작
 significance NORMAL
 PRIMARY 정규식 표현
 SECONDARY 및 로케일
 /INDEXTERM
-INDEXTERM locale.html#AEN6839
-INDEXPOINT locale.html#AEN6873
+INDEXTERM locale.html#AEN6843
+INDEXPOINT locale.html#AEN6877
 TITLE 동작
 significance NORMAL
 PRIMARY to_char
 SECONDARY 및 로케일
 /INDEXTERM
 INDEXTERM collation.html
-INDEXPOINT collation.html#AEN6908
+INDEXPOINT collation.html#AEN6912
 TITLE 콜레이션 지원
 significance NORMAL
 ZONE collation.html
@@ -2399,7 +2399,7 @@ TITLE 콜레이션 지원
 PRIMARY 콜레이션
 /INDEXTERM
 INDEXTERM multibyte.html
-INDEXPOINT multibyte.html#AEN7014
+INDEXPOINT multibyte.html#AEN7018
 TITLE 문자 집합 지원
 significance NORMAL
 ZONE multibyte.html
@@ -2407,7 +2407,7 @@ TITLE 문자 집합 지원
 PRIMARY 문자 집합
 /INDEXTERM
 INDEXTERM maintenance.html
-INDEXPOINT maintenance.html#AEN7827
+INDEXPOINT maintenance.html#AEN7831
 TITLE 정기적인 데이터베이스 관리 작업들
 significance NORMAL
 ZONE maintenance.html
@@ -2415,7 +2415,7 @@ TITLE 정기적인 데이터베이스 관리 작업들
 PRIMARY 관리
 /INDEXTERM
 INDEXTERM maintenance.html
-INDEXPOINT maintenance.html#AEN7829
+INDEXPOINT maintenance.html#AEN7833
 TITLE 정기적인 데이터베이스 관리 작업들
 significance NORMAL
 ZONE maintenance.html
@@ -2423,7 +2423,7 @@ TITLE 정기적인 데이터베이스 관리 작업들
 PRIMARY 정기 관리
 /INDEXTERM
 INDEXTERM routine-vacuuming.html
-INDEXPOINT routine-vacuuming.html#AEN7852
+INDEXPOINT routine-vacuuming.html#AEN7856
 TITLE 정기적인 Vacuum 작업
 significance NORMAL
 ZONE routine-vacuuming.html
@@ -2431,7 +2431,7 @@ TITLE 정기적인 Vacuum 작업
 PRIMARY vacuum
 /INDEXTERM
 INDEXTERM routine-vacuuming.html#VACUUM-FOR-SPACE-RECOVERY
-INDEXPOINT routine-vacuuming.html#AEN7898
+INDEXPOINT routine-vacuuming.html#AEN7902
 TITLE 디스크 여유 공간 확보
 significance NORMAL
 ZONE routine-vacuuming.html#VACUUM-FOR-SPACE-RECOVERY
@@ -2439,7 +2439,7 @@ TITLE 디스크 여유 공간 확보
 PRIMARY 디스크 여유 공간
 /INDEXTERM
 INDEXTERM routine-vacuuming.html#VACUUM-FOR-STATISTICS
-INDEXPOINT routine-vacuuming.html#AEN7932
+INDEXPOINT routine-vacuuming.html#AEN7936
 TITLE 실행계획 통계 정보 갱신
 significance NORMAL
 ZONE routine-vacuuming.html#VACUUM-FOR-STATISTICS
@@ -2448,7 +2448,7 @@ PRIMARY 통계 정보
 SECONDARY 쿼리 실행계획기
 /INDEXTERM
 INDEXTERM routine-vacuuming.html#VACUUM-FOR-STATISTICS
-INDEXPOINT routine-vacuuming.html#AEN7935
+INDEXPOINT routine-vacuuming.html#AEN7939
 TITLE 실행계획 통계 정보 갱신
 significance NORMAL
 ZONE routine-vacuuming.html#VACUUM-FOR-STATISTICS
@@ -2456,7 +2456,7 @@ TITLE 실행계획 통계 정보 갱신
 PRIMARY ANALYZE
 /INDEXTERM
 INDEXTERM routine-vacuuming.html#VACUUM-FOR-WRAPAROUND
-INDEXPOINT routine-vacuuming.html#AEN7964
+INDEXPOINT routine-vacuuming.html#AEN7968
 TITLE 트랜잭션 ID 겹침 오류 방지
 significance NORMAL
 ZONE routine-vacuuming.html#VACUUM-FOR-WRAPAROUND
@@ -2465,42 +2465,42 @@ PRIMARY 트랜잭션 ID
 SECONDARY 겹침
 /INDEXTERM
 INDEXTERM routine-vacuuming.html#VACUUM-FOR-WRAPAROUND
-INDEXPOINT routine-vacuuming.html#AEN7967
+INDEXPOINT routine-vacuuming.html#AEN7971
 TITLE 트랜잭션 ID 겹침 오류 방지
 significance NORMAL
 PRIMARY 겹침
 SECONDARY 트랜잭션 ID
 /INDEXTERM
 INDEXTERM routine-vacuuming.html#VACUUM-FOR-MULTIXACT-WRAPAROUND
-INDEXPOINT routine-vacuuming.html#AEN8061
+INDEXPOINT routine-vacuuming.html#AEN8065
 TITLE 다중 트랜잭션과 겹침
 significance NORMAL
-PRIMARY MultiXactId
+PRIMARY 다중 트랜잭션 ID
 /INDEXTERM
 INDEXTERM routine-vacuuming.html#VACUUM-FOR-MULTIXACT-WRAPAROUND
-INDEXPOINT routine-vacuuming.html#AEN8063
+INDEXPOINT routine-vacuuming.html#AEN8067
 TITLE 다중 트랜잭션과 겹침
 significance NORMAL
 PRIMARY 겹침
 SECONDARY 다중 트랜잭션
 /INDEXTERM
 INDEXTERM routine-vacuuming.html#AUTOVACUUM
-INDEXPOINT routine-vacuuming.html#AEN8079
+INDEXPOINT routine-vacuuming.html#AEN8083
 TITLE Autovacuum 데몬
 significance NORMAL
 PRIMARY autovacuum
 SECONDARY 일반 정보
 /INDEXTERM
 INDEXTERM routine-reindex.html
-INDEXPOINT routine-reindex.html#AEN8130
+INDEXPOINT routine-reindex.html#AEN8134
 TITLE 정기적인 인덱스 다시 만들기
 significance NORMAL
 ZONE routine-reindex.html
 TITLE 정기적인 인덱스 다시 만들기
-PRIMARY reindex
+PRIMARY 리인덱스
 /INDEXTERM
 INDEXTERM logfile-maintenance.html
-INDEXPOINT logfile-maintenance.html#AEN8140
+INDEXPOINT logfile-maintenance.html#AEN8144
 TITLE 로그 파일 관리
 significance NORMAL
 ZONE logfile-maintenance.html
@@ -2509,7 +2509,7 @@ PRIMARY 서버 로그
 SECONDARY 로그 파일 관리
 /INDEXTERM
 INDEXTERM backup.html
-INDEXPOINT backup.html#AEN8187
+INDEXPOINT backup.html#AEN8191
 TITLE 백업과 복원
 significance NORMAL
 ZONE backup.html
@@ -2517,40 +2517,24 @@ TITLE 백업과 복원
 PRIMARY 백업
 /INDEXTERM
 INDEXTERM continuous-archiving.html
-INDEXPOINT continuous-archiving.html#AEN8397
-TITLE 아카이브 모드 백업(Continuous Archiving)과, 특정시점 복구(Point-in-Time Recovery, PITR)
+INDEXPOINT continuous-archiving.html#AEN8401
+TITLE 아카이브 모드 백업(Continuous Archiving)과, (Point-in-Time Recovery, PITR)
 significance NORMAL
 ZONE backup.html
 TITLE 백업과 복원
 PRIMARY 아카이브 모드 백업
 /INDEXTERM
 INDEXTERM continuous-archiving.html
-INDEXPOINT continuous-archiving.html#AEN8399
-TITLE 아카이브 모드 백업(Continuous Archiving)과, 특정시점 복구(Point-in-Time Recovery, PITR)
-significance NORMAL
-ZONE backup.html
-TITLE 백업과 복원
-PRIMARY Continuous Archiving
-/INDEXTERM
-INDEXTERM continuous-archiving.html
-INDEXPOINT continuous-archiving.html#AEN8401
-TITLE 아카이브 모드 백업(Continuous Archiving)과, 특정시점 복구(Point-in-Time Recovery, PITR)
+INDEXPOINT continuous-archiving.html#AEN8403
+TITLE 아카이브 모드 백업(Continuous Archiving)과, (Point-in-Time Recovery, PITR)
 significance NORMAL
 ZONE backup.html
 TITLE 백업과 복원
 PRIMARY 특정시점 복구
 /INDEXTERM
 INDEXTERM continuous-archiving.html
-INDEXPOINT continuous-archiving.html#AEN8403
-TITLE 아카이브 모드 백업(Continuous Archiving)과, 특정시점 복구(Point-in-Time Recovery, PITR)
-significance NORMAL
-ZONE backup.html
-TITLE 백업과 복원
-PRIMARY Point-in-Time Recovery
-/INDEXTERM
-INDEXTERM continuous-archiving.html
 INDEXPOINT continuous-archiving.html#AEN8405
-TITLE 아카이브 모드 백업(Continuous Archiving)과, 특정시점 복구(Point-in-Time Recovery, PITR)
+TITLE 아카이브 모드 백업(Continuous Archiving)과, (Point-in-Time Recovery, PITR)
 significance NORMAL
 ZONE backup.html
 TITLE 백업과 복원
@@ -2568,82 +2552,46 @@ INDEXTERM high-availability.html
 INDEXPOINT high-availability.html#AEN8747
 TITLE 고가용성, 부하 분산, 복제
 significance NORMAL
-PRIMARY high availability
+PRIMARY 고가용성
 /INDEXTERM
 INDEXTERM high-availability.html
 INDEXPOINT high-availability.html#AEN8749
 TITLE 고가용성, 부하 분산, 복제
 significance NORMAL
-PRIMARY failover
+PRIMARY 장애처리
 /INDEXTERM
 INDEXTERM high-availability.html
 INDEXPOINT high-availability.html#AEN8751
 TITLE 고가용성, 부하 분산, 복제
 significance NORMAL
-PRIMARY replication
+PRIMARY 리플리케이션
 /INDEXTERM
 INDEXTERM high-availability.html
 INDEXPOINT high-availability.html#AEN8753
 TITLE 고가용성, 부하 분산, 복제
 significance NORMAL
-PRIMARY load balancing
+PRIMARY 로드 밸런싱
 /INDEXTERM
 INDEXTERM high-availability.html
 INDEXPOINT high-availability.html#AEN8755
 TITLE 고가용성, 부하 분산, 복제
 significance NORMAL
-PRIMARY clustering
+PRIMARY 부하 분산
 /INDEXTERM
 INDEXTERM high-availability.html
 INDEXPOINT high-availability.html#AEN8757
 TITLE 고가용성, 부하 분산, 복제
 significance NORMAL
-PRIMARY data partitioning
+PRIMARY 클러스터링
 /INDEXTERM
 INDEXTERM high-availability.html
 INDEXPOINT high-availability.html#AEN8759
 TITLE 고가용성, 부하 분산, 복제
 significance NORMAL
-PRIMARY 고가용성
-/INDEXTERM
-INDEXTERM high-availability.html
-INDEXPOINT high-availability.html#AEN8761
-TITLE 고가용성, 부하 분산, 복제
-significance NORMAL
-PRIMARY 장애처리
-/INDEXTERM
-INDEXTERM high-availability.html
-INDEXPOINT high-availability.html#AEN8763
-TITLE 고가용성, 부하 분산, 복제
-significance NORMAL
-PRIMARY 리플리케이션
-/INDEXTERM
-INDEXTERM high-availability.html
-INDEXPOINT high-availability.html#AEN8765
-TITLE 고가용성, 부하 분산, 복제
-significance NORMAL
-PRIMARY 로드 밸런싱
-/INDEXTERM
-INDEXTERM high-availability.html
-INDEXPOINT high-availability.html#AEN8767
-TITLE 고가용성, 부하 분산, 복제
-significance NORMAL
-PRIMARY 부하 분산
-/INDEXTERM
-INDEXTERM high-availability.html
-INDEXPOINT high-availability.html#AEN8769
-TITLE 고가용성, 부하 분산, 복제
-significance NORMAL
-PRIMARY 클러스터링
-/INDEXTERM
-INDEXTERM high-availability.html
-INDEXPOINT high-availability.html#AEN8771
-TITLE 고가용성, 부하 분산, 복제
-significance NORMAL
 PRIMARY 복제
 /INDEXTERM
 INDEXTERM warm-standby.html
-INDEXPOINT warm-standby.html#AEN8975
+INDEXPOINT warm-standby.html#AEN8963
 TITLE 로그 전달(Log-Shipping) 대기 서버
 significance NORMAL
 ZONE high-availability.html
@@ -2651,7 +2599,7 @@ TITLE 고가용성, 부하 분산, 복제
 PRIMARY warm standby
 /INDEXTERM
 INDEXTERM warm-standby.html
-INDEXPOINT warm-standby.html#AEN8977
+INDEXPOINT warm-standby.html#AEN8965
 TITLE 로그 전달(Log-Shipping) 대기 서버
 significance NORMAL
 ZONE high-availability.html
@@ -2659,23 +2607,23 @@ TITLE 고가용성, 부하 분산, 복제
 PRIMARY PITR standby
 /INDEXTERM
 INDEXTERM warm-standby.html
-INDEXPOINT warm-standby.html#AEN8979
+INDEXPOINT warm-standby.html#AEN8967
 TITLE 로그 전달(Log-Shipping) 대기 서버
 significance NORMAL
 ZONE high-availability.html
 TITLE 고가용성, 부하 분산, 복제
-PRIMARY standby server
+PRIMARY 대기 서버
 /INDEXTERM
 INDEXTERM warm-standby.html
-INDEXPOINT warm-standby.html#AEN8981
+INDEXPOINT warm-standby.html#AEN8969
 TITLE 로그 전달(Log-Shipping) 대기 서버
 significance NORMAL
 ZONE high-availability.html
 TITLE 고가용성, 부하 분산, 복제
-PRIMARY log shipping
+PRIMARY 로그 운송
 /INDEXTERM
 INDEXTERM warm-standby.html
-INDEXPOINT warm-standby.html#AEN8983
+INDEXPOINT warm-standby.html#AEN8971
 TITLE 로그 전달(Log-Shipping) 대기 서버
 significance NORMAL
 ZONE high-availability.html
@@ -2683,7 +2631,7 @@ TITLE 고가용성, 부하 분산, 복제
 PRIMARY witness server
 /INDEXTERM
 INDEXTERM warm-standby.html
-INDEXPOINT warm-standby.html#AEN8985
+INDEXPOINT warm-standby.html#AEN8973
 TITLE 로그 전달(Log-Shipping) 대기 서버
 significance NORMAL
 ZONE high-availability.html
@@ -2691,7 +2639,7 @@ TITLE 고가용성, 부하 분산, 복제
 PRIMARY STONITH
 /INDEXTERM
 INDEXTERM warm-standby.html#STREAMING-REPLICATION
-INDEXPOINT warm-standby.html#AEN9041
+INDEXPOINT warm-standby.html#AEN9030
 TITLE 스트리밍 복제
 significance NORMAL
 ZONE high-availability.html
@@ -2699,22 +2647,22 @@ TITLE 고가용성, 부하 분산, 복제
 PRIMARY 스트리밍 복제
 /INDEXTERM
 INDEXTERM warm-standby.html#STREAMING-REPLICATION-SLOTS
-INDEXPOINT warm-standby.html#AEN9098
+INDEXPOINT warm-standby.html#AEN9087
 TITLE 리플리케이션 슬롯
 significance NORMAL
 PRIMARY 리플리케이션 슬롯
 SECONDARY 스트리밍 리플리케이션
 /INDEXTERM
 INDEXTERM warm-standby.html#CASCADING-REPLICATION
-INDEXPOINT warm-standby.html#AEN9121
+INDEXPOINT warm-standby.html#AEN9110
 TITLE 순차적 복제
 significance NORMAL
 ZONE high-availability.html
 TITLE 고가용성, 부하 분산, 복제
-PRIMARY Cascading Replication
+PRIMARY 순차적 복제
 /INDEXTERM
 INDEXTERM warm-standby.html#CASCADING-REPLICATION
-INDEXPOINT warm-standby.html#AEN9123
+INDEXPOINT warm-standby.html#AEN9112
 TITLE 순차적 복제
 significance NORMAL
 ZONE high-availability.html
@@ -2722,7 +2670,7 @@ TITLE 고가용성, 부하 분산, 복제
 PRIMARY 순차적 복제
 /INDEXTERM
 INDEXTERM warm-standby.html#SYNCHRONOUS-REPLICATION
-INDEXPOINT warm-standby.html#AEN9139
+INDEXPOINT warm-standby.html#AEN9128
 TITLE 동기식 복제
 significance NORMAL
 ZONE high-availability.html
@@ -2730,7 +2678,7 @@ TITLE 고가용성, 부하 분산, 복제
 PRIMARY 동기식 복제
 /INDEXTERM
 INDEXTERM warm-standby.html#SYNCHRONOUS-REPLICATION
-INDEXPOINT warm-standby.html#AEN9141
+INDEXPOINT warm-standby.html#AEN9130
 TITLE 동기식 복제
 significance NORMAL
 ZONE high-availability.html
@@ -2738,15 +2686,15 @@ TITLE 고가용성, 부하 분산, 복제
 PRIMARY Synchronous Replication
 /INDEXTERM
 INDEXTERM hot-standby.html
-INDEXPOINT hot-standby.html#AEN9262
+INDEXPOINT hot-standby.html#AEN9251
 TITLE 상시 대기
 significance NORMAL
 ZONE high-availability.html
 TITLE 고가용성, 부하 분산, 복제
-PRIMARY Hot Standby
+PRIMARY 핫 스탠바이
 /INDEXTERM
 INDEXTERM hot-standby.html
-INDEXPOINT hot-standby.html#AEN9264
+INDEXPOINT hot-standby.html#AEN9253
 TITLE 상시 대기
 significance NORMAL
 ZONE high-availability.html
@@ -2754,7 +2702,7 @@ TITLE 고가용성, 부하 분산, 복제
 PRIMARY 상시 대기
 /INDEXTERM
 INDEXTERM recovery-config.html
-INDEXPOINT recovery-config.html#AEN9557
+INDEXPOINT recovery-config.html#AEN9545
 TITLE 복구 환경설정
 significance NORMAL
 PRIMARY 환경설정
@@ -2762,97 +2710,97 @@ SECONDARY 복구
 TERTIARY 대기 서버 (standby server)
 /INDEXTERM
 INDEXTERM recovery-config.html
-INDEXPOINT recovery-config.html#AEN9563
+INDEXPOINT recovery-config.html#AEN9551
 TITLE 복구 환경설정
 significance NORMAL
 PRIMARY recovery.conf
 /INDEXTERM
 INDEXTERM archive-recovery-settings.html
-INDEXPOINT archive-recovery-settings.html#AEN9579
+INDEXPOINT archive-recovery-settings.html#AEN9567
 TITLE 아카이브 복구 설정
 significance NORMAL
 PRIMARY restore_command 복구 매개변수
 /INDEXTERM
 INDEXTERM archive-recovery-settings.html
-INDEXPOINT archive-recovery-settings.html#AEN9597
+INDEXPOINT archive-recovery-settings.html#AEN9585
 TITLE 아카이브 복구 설정
 significance NORMAL
 PRIMARY archive_cleanup_command 복구 매개변수
 /INDEXTERM
 INDEXTERM archive-recovery-settings.html
-INDEXPOINT archive-recovery-settings.html#AEN9613
+INDEXPOINT archive-recovery-settings.html#AEN9601
 TITLE 아카이브 복구 설정
 significance NORMAL
 PRIMARY recovery_end_command 복구 매개변수
 /INDEXTERM
 INDEXTERM recovery-target-settings.html
-INDEXPOINT recovery-target-settings.html#AEN9627
+INDEXPOINT recovery-target-settings.html#AEN9615
 TITLE 복구 시점 설정
 significance NORMAL
 PRIMARY recovery_target recovery parameter
 /INDEXTERM
 INDEXTERM recovery-target-settings.html
-INDEXPOINT recovery-target-settings.html#AEN9638
+INDEXPOINT recovery-target-settings.html#AEN9626
 TITLE 복구 시점 설정
 significance NORMAL
 PRIMARY recovery_target_name 복구 매개변수
 /INDEXTERM
 INDEXTERM recovery-target-settings.html
-INDEXPOINT recovery-target-settings.html#AEN9649
+INDEXPOINT recovery-target-settings.html#AEN9637
 TITLE 복구 시점 설정
 significance NORMAL
 PRIMARY recovery_target_time 복구 매개변수
 /INDEXTERM
 INDEXTERM recovery-target-settings.html
-INDEXPOINT recovery-target-settings.html#AEN9659
+INDEXPOINT recovery-target-settings.html#AEN9647
 TITLE 복구 시점 설정
 significance NORMAL
 PRIMARY recovery_target_xid 복구 매개변수
 /INDEXTERM
 INDEXTERM recovery-target-settings.html
-INDEXPOINT recovery-target-settings.html#AEN9669
+INDEXPOINT recovery-target-settings.html#AEN9657
 TITLE 복구 시점 설정
 significance NORMAL
 PRIMARY recovery_target_inclusive 복구 매개변수
 /INDEXTERM
 INDEXTERM recovery-target-settings.html
-INDEXPOINT recovery-target-settings.html#AEN9680
+INDEXPOINT recovery-target-settings.html#AEN9668
 TITLE 복구 시점 설정
 significance NORMAL
 PRIMARY recovery_target_timeline 복구 매개변수
 /INDEXTERM
 INDEXTERM recovery-target-settings.html
-INDEXPOINT recovery-target-settings.html#AEN9690
+INDEXPOINT recovery-target-settings.html#AEN9678
 TITLE 복구 시점 설정
 significance NORMAL
 PRIMARY pause_at_recovery_target 복구 매개변수
 /INDEXTERM
 INDEXTERM standby-settings.html
-INDEXPOINT standby-settings.html#AEN9705
+INDEXPOINT standby-settings.html#AEN9693
 TITLE 대기 서버 설정
 significance NORMAL
 PRIMARY standby_mode 복구 매개변수
 /INDEXTERM
 INDEXTERM standby-settings.html
-INDEXPOINT standby-settings.html#AEN9718
+INDEXPOINT standby-settings.html#AEN9706
 TITLE 대기 서버 설정
 significance NORMAL
 PRIMARY primary_conninfo 복구 매개변수
 /INDEXTERM
 INDEXTERM standby-settings.html
-INDEXPOINT standby-settings.html#AEN9738
+INDEXPOINT standby-settings.html#AEN9726
 TITLE 대기 서버 설정
 significance NORMAL
 PRIMARY trigger_file 복구 매개변수
 /INDEXTERM
 INDEXTERM standby-settings.html
-INDEXPOINT standby-settings.html#AEN9750
+INDEXPOINT standby-settings.html#AEN9738
 TITLE 대기 서버 설정
 significance NORMAL
 PRIMARY recovery_min_apply_delay recovery parameter
 /INDEXTERM
 INDEXTERM monitoring.html
-INDEXPOINT monitoring.html#AEN9763
+INDEXPOINT monitoring.html#AEN9751
 TITLE 데이터베이스 성능 모니터링
 significance NORMAL
 ZONE monitoring.html
@@ -2861,7 +2809,7 @@ PRIMARY 모니터링
 SECONDARY 데이터베이스 서버
 /INDEXTERM
 INDEXTERM monitoring.html
-INDEXPOINT monitoring.html#AEN9766
+INDEXPOINT monitoring.html#AEN9754
 TITLE 데이터베이스 성능 모니터링
 significance NORMAL
 ZONE monitoring.html
@@ -2870,7 +2818,7 @@ PRIMARY 데이터베이스 활동
 SECONDARY 모니터링
 /INDEXTERM
 INDEXTERM monitoring-ps.html
-INDEXPOINT monitoring-ps.html#AEN9779
+INDEXPOINT monitoring-ps.html#AEN9767
 TITLE 표준 유닉스 도구들
 significance NORMAL
 ZONE monitoring-ps.html
@@ -2879,7 +2827,7 @@ PRIMARY ps
 SECONDARY 프로세스 살펴 보기
 /INDEXTERM
 INDEXTERM monitoring-stats.html
-INDEXPOINT monitoring-stats.html#AEN9809
+INDEXPOINT monitoring-stats.html#AEN9797
 TITLE 통계 수집기
 significance NORMAL
 ZONE monitoring-stats.html
@@ -2887,199 +2835,199 @@ TITLE 통계 수집기
 PRIMARY 통계
 /INDEXTERM
 INDEXTERM monitoring-stats.html#MONITORING-STATS-VIEWS
-INDEXPOINT monitoring-stats.html#AEN9856
+INDEXPOINT monitoring-stats.html#AEN9844
 TITLE 수집된 통계 정보 보기
 significance NORMAL
 PRIMARY pg_stat_activity
 /INDEXTERM
 INDEXTERM monitoring-stats.html#MONITORING-STATS-VIEWS
-INDEXPOINT monitoring-stats.html#AEN9862
+INDEXPOINT monitoring-stats.html#AEN9850
 TITLE 수집된 통계 정보 보기
 significance NORMAL
 PRIMARY pg_stat_archiver
 /INDEXTERM
 INDEXTERM monitoring-stats.html#MONITORING-STATS-VIEWS
-INDEXPOINT monitoring-stats.html#AEN9868
+INDEXPOINT monitoring-stats.html#AEN9856
 TITLE 수집된 통계 정보 보기
 significance NORMAL
 PRIMARY pg_stat_bgwriter
 /INDEXTERM
 INDEXTERM monitoring-stats.html#MONITORING-STATS-VIEWS
-INDEXPOINT monitoring-stats.html#AEN9874
+INDEXPOINT monitoring-stats.html#AEN9862
 TITLE 수집된 통계 정보 보기
 significance NORMAL
 PRIMARY pg_stat_database
 /INDEXTERM
 INDEXTERM monitoring-stats.html#MONITORING-STATS-VIEWS
-INDEXPOINT monitoring-stats.html#AEN9880
+INDEXPOINT monitoring-stats.html#AEN9868
 TITLE 수집된 통계 정보 보기
 significance NORMAL
 PRIMARY pg_stat_all_tables
 /INDEXTERM
 INDEXTERM monitoring-stats.html#MONITORING-STATS-VIEWS
-INDEXPOINT monitoring-stats.html#AEN9886
+INDEXPOINT monitoring-stats.html#AEN9874
 TITLE 수집된 통계 정보 보기
 significance NORMAL
 PRIMARY pg_stat_sys_tables
 /INDEXTERM
 INDEXTERM monitoring-stats.html#MONITORING-STATS-VIEWS
-INDEXPOINT monitoring-stats.html#AEN9893
+INDEXPOINT monitoring-stats.html#AEN9881
 TITLE 수집된 통계 정보 보기
 significance NORMAL
 PRIMARY pg_stat_user_tables
 /INDEXTERM
 INDEXTERM monitoring-stats.html#MONITORING-STATS-VIEWS
-INDEXPOINT monitoring-stats.html#AEN9900
+INDEXPOINT monitoring-stats.html#AEN9888
 TITLE 수집된 통계 정보 보기
 significance NORMAL
 PRIMARY pg_stat_xact_all_tables
 /INDEXTERM
 INDEXTERM monitoring-stats.html#MONITORING-STATS-VIEWS
-INDEXPOINT monitoring-stats.html#AEN9909
+INDEXPOINT monitoring-stats.html#AEN9897
 TITLE 수집된 통계 정보 보기
 significance NORMAL
 PRIMARY pg_stat_xact_sys_tables
 /INDEXTERM
 INDEXTERM monitoring-stats.html#MONITORING-STATS-VIEWS
-INDEXPOINT monitoring-stats.html#AEN9916
+INDEXPOINT monitoring-stats.html#AEN9904
 TITLE 수집된 통계 정보 보기
 significance NORMAL
 PRIMARY pg_stat_xact_user_tables
 /INDEXTERM
 INDEXTERM monitoring-stats.html#MONITORING-STATS-VIEWS
-INDEXPOINT monitoring-stats.html#AEN9923
+INDEXPOINT monitoring-stats.html#AEN9911
 TITLE 수집된 통계 정보 보기
 significance NORMAL
 PRIMARY pg_stat_all_indexes
 /INDEXTERM
 INDEXTERM monitoring-stats.html#MONITORING-STATS-VIEWS
-INDEXPOINT monitoring-stats.html#AEN9929
+INDEXPOINT monitoring-stats.html#AEN9917
 TITLE 수집된 통계 정보 보기
 significance NORMAL
 PRIMARY pg_stat_sys_indexes
 /INDEXTERM
 INDEXTERM monitoring-stats.html#MONITORING-STATS-VIEWS
-INDEXPOINT monitoring-stats.html#AEN9936
+INDEXPOINT monitoring-stats.html#AEN9924
 TITLE 수집된 통계 정보 보기
 significance NORMAL
 PRIMARY pg_stat_user_indexes
 /INDEXTERM
 INDEXTERM monitoring-stats.html#MONITORING-STATS-VIEWS
-INDEXPOINT monitoring-stats.html#AEN9943
+INDEXPOINT monitoring-stats.html#AEN9931
 TITLE 수집된 통계 정보 보기
 significance NORMAL
 PRIMARY pg_statio_all_tables
 /INDEXTERM
 INDEXTERM monitoring-stats.html#MONITORING-STATS-VIEWS
-INDEXPOINT monitoring-stats.html#AEN9949
+INDEXPOINT monitoring-stats.html#AEN9937
 TITLE 수집된 통계 정보 보기
 significance NORMAL
 PRIMARY pg_statio_sys_tables
 /INDEXTERM
 INDEXTERM monitoring-stats.html#MONITORING-STATS-VIEWS
-INDEXPOINT monitoring-stats.html#AEN9956
+INDEXPOINT monitoring-stats.html#AEN9944
 TITLE 수집된 통계 정보 보기
 significance NORMAL
 PRIMARY pg_statio_user_tables
 /INDEXTERM
 INDEXTERM monitoring-stats.html#MONITORING-STATS-VIEWS
-INDEXPOINT monitoring-stats.html#AEN9963
+INDEXPOINT monitoring-stats.html#AEN9951
 TITLE 수집된 통계 정보 보기
 significance NORMAL
 PRIMARY pg_statio_all_indexes
 /INDEXTERM
 INDEXTERM monitoring-stats.html#MONITORING-STATS-VIEWS
-INDEXPOINT monitoring-stats.html#AEN9969
+INDEXPOINT monitoring-stats.html#AEN9957
 TITLE 수집된 통계 정보 보기
 significance NORMAL
 PRIMARY pg_statio_sys_indexes
 /INDEXTERM
 INDEXTERM monitoring-stats.html#MONITORING-STATS-VIEWS
-INDEXPOINT monitoring-stats.html#AEN9976
+INDEXPOINT monitoring-stats.html#AEN9964
 TITLE 수집된 통계 정보 보기
 significance NORMAL
 PRIMARY pg_statio_user_indexes
 /INDEXTERM
 INDEXTERM monitoring-stats.html#MONITORING-STATS-VIEWS
-INDEXPOINT monitoring-stats.html#AEN9983
+INDEXPOINT monitoring-stats.html#AEN9971
 TITLE 수집된 통계 정보 보기
 significance NORMAL
 PRIMARY pg_statio_all_sequences
 /INDEXTERM
 INDEXTERM monitoring-stats.html#MONITORING-STATS-VIEWS
-INDEXPOINT monitoring-stats.html#AEN9989
+INDEXPOINT monitoring-stats.html#AEN9977
 TITLE 수집된 통계 정보 보기
 significance NORMAL
 PRIMARY pg_statio_sys_sequences
 /INDEXTERM
 INDEXTERM monitoring-stats.html#MONITORING-STATS-VIEWS
-INDEXPOINT monitoring-stats.html#AEN9996
+INDEXPOINT monitoring-stats.html#AEN9984
 TITLE 수집된 통계 정보 보기
 significance NORMAL
 PRIMARY pg_statio_user_sequences
 /INDEXTERM
 INDEXTERM monitoring-stats.html#MONITORING-STATS-VIEWS
-INDEXPOINT monitoring-stats.html#AEN10003
+INDEXPOINT monitoring-stats.html#AEN9991
 TITLE 수집된 통계 정보 보기
 significance NORMAL
 PRIMARY pg_stat_user_functions
 /INDEXTERM
 INDEXTERM monitoring-stats.html#MONITORING-STATS-VIEWS
-INDEXPOINT monitoring-stats.html#AEN10009
+INDEXPOINT monitoring-stats.html#AEN9997
 TITLE 수집된 통계 정보 보기
 significance NORMAL
 PRIMARY pg_stat_xact_user_functions
 /INDEXTERM
 INDEXTERM monitoring-stats.html#MONITORING-STATS-VIEWS
-INDEXPOINT monitoring-stats.html#AEN10018
+INDEXPOINT monitoring-stats.html#AEN10006
 TITLE 수집된 통계 정보 보기
 significance NORMAL
 PRIMARY pg_stat_replication
 /INDEXTERM
 INDEXTERM monitoring-stats.html#MONITORING-STATS-VIEWS
-INDEXPOINT monitoring-stats.html#AEN10024
+INDEXPOINT monitoring-stats.html#AEN10012
 TITLE 수집된 통계 정보 보기
 significance NORMAL
 PRIMARY pg_stat_database_conflicts
 /INDEXTERM
 INDEXTERM monitoring-stats.html#MONITORING-STATS-FUNCTIONS
-INDEXPOINT monitoring-stats.html#AEN11064
+INDEXPOINT monitoring-stats.html#AEN11052
 TITLE 통계 함수들
 significance NORMAL
 PRIMARY pg_stat_get_activity
 /INDEXTERM
 INDEXTERM monitoring-stats.html#MONITORING-STATS-FUNCTIONS
-INDEXPOINT monitoring-stats.html#AEN11075
+INDEXPOINT monitoring-stats.html#AEN11063
 TITLE 통계 함수들
 significance NORMAL
 PRIMARY pg_stat_clear_snapshot
 /INDEXTERM
 INDEXTERM monitoring-stats.html#MONITORING-STATS-FUNCTIONS
-INDEXPOINT monitoring-stats.html#AEN11084
+INDEXPOINT monitoring-stats.html#AEN11072
 TITLE 통계 함수들
 significance NORMAL
 PRIMARY pg_stat_reset
 /INDEXTERM
 INDEXTERM monitoring-stats.html#MONITORING-STATS-FUNCTIONS
-INDEXPOINT monitoring-stats.html#AEN11093
+INDEXPOINT monitoring-stats.html#AEN11081
 TITLE 통계 함수들
 significance NORMAL
 PRIMARY pg_stat_reset_shared
 /INDEXTERM
 INDEXTERM monitoring-stats.html#MONITORING-STATS-FUNCTIONS
-INDEXPOINT monitoring-stats.html#AEN11104
+INDEXPOINT monitoring-stats.html#AEN11092
 TITLE 통계 함수들
 significance NORMAL
 PRIMARY pg_stat_reset_single_table_counters
 /INDEXTERM
 INDEXTERM monitoring-stats.html#MONITORING-STATS-FUNCTIONS
-INDEXPOINT monitoring-stats.html#AEN11113
+INDEXPOINT monitoring-stats.html#AEN11101
 TITLE 통계 함수들
 significance NORMAL
 PRIMARY pg_stat_reset_single_function_counters
 /INDEXTERM
 INDEXTERM monitoring-locks.html
-INDEXPOINT monitoring-locks.html#AEN11212
+INDEXPOINT monitoring-locks.html#AEN11200
 TITLE 잠금 보기
 significance NORMAL
 ZONE monitoring-locks.html
@@ -3088,7 +3036,7 @@ PRIMARY 잠금
 SECONDARY 모니터링
 /INDEXTERM
 INDEXTERM dynamic-trace.html
-INDEXPOINT dynamic-trace.html#AEN11228
+INDEXPOINT dynamic-trace.html#AEN11216
 TITLE Dynamic Tracing
 significance NORMAL
 ZONE dynamic-trace.html
@@ -3096,7 +3044,7 @@ TITLE Dynamic Tracing
 PRIMARY DTrace
 /INDEXTERM
 INDEXTERM disk-usage.html
-INDEXPOINT disk-usage.html#AEN11576
+INDEXPOINT disk-usage.html#AEN11564
 TITLE 디스크 사용량 결정
 significance NORMAL
 ZONE disk-usage.html
@@ -3104,7 +3052,7 @@ TITLE 디스크 사용량 결정
 PRIMARY 디스크 사용량
 /INDEXTERM
 INDEXTERM wal-intro.html
-INDEXPOINT wal-intro.html#AEN11703
+INDEXPOINT wal-intro.html#AEN11691
 TITLE Write-Ahead 로깅(WAL)
 significance NORMAL
 ZONE wal.html
@@ -3112,38 +3060,38 @@ TITLE 안정성 및 Write-Ahead 로그
 PRIMARY WAL
 /INDEXTERM
 INDEXTERM wal-intro.html
-INDEXPOINT wal-intro.html#AEN11705
+INDEXPOINT wal-intro.html#AEN11693
 TITLE Write-Ahead 로깅(WAL)
 significance NORMAL
 PRIMARY 트랜잭션 로그
 SEE WAL
 /INDEXTERM
 INDEXTERM wal-async-commit.html
-INDEXPOINT wal-async-commit.html#AEN11725
+INDEXPOINT wal-async-commit.html#AEN11713
 TITLE 비동기 커밋
 significance NORMAL
 PRIMARY 비동기 커밋
 /INDEXTERM
 INDEXTERM wal-async-commit.html
-INDEXPOINT wal-async-commit.html#AEN11727
+INDEXPOINT wal-async-commit.html#AEN11715
 TITLE 비동기 커밋
 significance NORMAL
 PRIMARY 비동기 커밋
 /INDEXTERM
 INDEXTERM wal-configuration.html
-INDEXPOINT wal-configuration.html#AEN11768
+INDEXPOINT wal-configuration.html#AEN11756
 TITLE WAL 환경 설정
 significance NORMAL
 PRIMARY 체크포인트
 /INDEXTERM
 INDEXTERM wal-configuration.html
-INDEXPOINT wal-configuration.html#AEN11798
+INDEXPOINT wal-configuration.html#AEN11786
 TITLE WAL 환경 설정
 significance NORMAL
 PRIMARY 재시작포인트
 /INDEXTERM
 INDEXTERM wal-internals.html
-INDEXPOINT wal-internals.html#AEN11864
+INDEXPOINT wal-internals.html#AEN11852
 TITLE WAL 인터널
 significance NORMAL
 PRIMARY disk drive

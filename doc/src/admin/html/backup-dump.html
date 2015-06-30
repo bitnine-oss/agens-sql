@@ -28,7 +28,7 @@ CONTENT="text/html; charset=UTF-8"><META
 name="viewport"
 content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width"><META
 NAME="creation"
-CONTENT="2015-06-29T09:12:38"></HEAD
+CONTENT="2015-06-30T08:52:27"></HEAD
 ><BODY
 CLASS="SECT1"
 ><DIV
@@ -144,7 +144,7 @@ CLASS="APPLICATION"
 >pg_dump</SPAN
 > 프로그램은 여느 <SPAN
 CLASS="PRODUCTNAME"
->Agens SQL</SPAN
+>PostgreSQL</SPAN
 >
    클라이언트 응용 프로그램과 같다(특히 잘 만들어진).
    이 말은 원격 데이터베이스 서버에 대해서 
@@ -220,7 +220,7 @@ CLASS="ENVAR"
 ><P
 >   다른 <SPAN
 CLASS="PRODUCTNAME"
->Agens SQL</SPAN
+>PostgreSQL</SPAN
 > 클라이언트 응용 프로그램과 
    마찬가지로 <SPAN
 CLASS="APPLICATION"
@@ -683,7 +683,7 @@ CLASS="COMMAND"
 CLASS="COMMAND"
 >split</TT
 > 명령은 표준 입력(stdin)으로 들어오는 내용을 지정한 크기로 나누어서 파일로 저장하는 기능을 제공한다.
-     다음은 1MB 크기로 나눠서 덤프 파일을 생성하는 예제다:
+     다음은 1MB 크기로 나눠서 덤프 파일을 생성하는 예제다.
 
 </P><PRE
 CLASS="PROGRAMLISTING"
@@ -753,7 +753,7 @@ CLASS="REPLACEABLE"
 > &gt; <TT
 CLASS="REPLACEABLE"
 ><I
->filename</I
+>파일명</I
 ></TT
 ></PRE
 ><P>
@@ -777,7 +777,7 @@ CLASS="REPLACEABLE"
 > <TT
 CLASS="REPLACEABLE"
 ><I
->filename</I
+>파일명</I
 ></TT
 ></PRE
 ><P>
@@ -803,7 +803,8 @@ CLASS="APPLICATION"
 CLASS="APPLICATION"
 >pg_dump</SPAN
 >의 병렬 모드를 사용하면 된다. 
-     그러면 테이블들을 동시에 덤프한다. 병렬 처리 수준은 <TT
+     그러면 테이블들을 동시에 덤프한다. 
+     병렬 처리 수준은 <TT
 CLASS="COMMAND"
 >-j</TT
 > 매개변수로 조절할 수 있다. 병렬적 덤프는 “디렉토리” 아카이브 형식에만 지원된다.
@@ -832,7 +833,8 @@ CLASS="REPLACEABLE"
 CLASS="COMMAND"
 >pg_restore -j</TT
 >를 이용해서 병렬적 덤프를 복구할 수 있다. 
-     이 방식은 “사용자 정의” 혹은 “디렉터리” 아카이브 모드의 아카이브에서 가능하며 <TT
+     이 방식은 “사용자 정의” 혹은 “디렉터리” 아카이브 모드의 아카이브에서 가능하며 
+     <TT
 CLASS="COMMAND"
 >pg_dump -j</TT
 >로 만들어지지 않았어도 상관없다.

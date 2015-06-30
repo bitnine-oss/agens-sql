@@ -28,7 +28,7 @@ CONTENT="text/html; charset=UTF-8"><META
 name="viewport"
 content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width"><META
 NAME="creation"
-CONTENT="2015-06-29T09:12:38"></HEAD
+CONTENT="2015-06-30T08:52:27"></HEAD
 ><BODY
 CLASS="SECT1"
 ><DIV
@@ -151,7 +151,7 @@ HREF="warm-standby.html#STREAMING-REPLICATION"
    <TT
 CLASS="VARNAME"
 >archive_timeout</TT
-> 환경설정값을 몇 초 정도로 짧게 
+> 값을 몇 초 정도로 짧게 
    지정해 자주 사용하는 WAL 파일을 바꾸고 그것을 전송하면 
    되겠지만 그 파일의 크기가 16MB이기 때문에 잦은 WAL 파일 전송 작업으로
    네트워크 사용량이 증가할 것이다.
@@ -194,7 +194,7 @@ NAME="STANDBY-PLANNING"
         테이블스페이스 문제를 고려했을 때만 보아도 
         운영 서버에서 CREATE TABLESPACE 명령으로
         테이블스페이스를 조작할 일이 생겼을 때 
-        대기 서버에서도 똑 같은 작업이 정상적으로 진행되려면 
+        대기 서버에서도 똑같은 작업이 정상적으로 진행되려면 
         운영 서버와 같은 디렉토리 구조를 가지고 있어야한다.
     물론 운영체제 전체를 운영하는 입장에서 봤을 때 
         하드웨어와 운영체제도 똑같은 사양이면 보다 쉽게 운영할 수 있을 것이다.
@@ -209,12 +209,16 @@ CLASS="PRODUCTNAME"
 >Agens SQL</SPAN
 > 서버 간은 구현이 불가능하다.
         디스크 자료 저장 포맷이 바뀔 경우에, 
-        Agens SQL 개발 그룹에서는 메이저 버전을 바꾸어 출시하는 것이 
+        <SPAN
+CLASS="PRODUCTNAME"
+>Agens SQL</SPAN
+> 개발 그룹에서는 메이저 버전을 바꾸어 출시하는 것이 
         정책이기 때문이다. 물론 마이너 버전의 서로 다른 경우는 복제 
         환경을 구축해도 잘 작동할 것이다. 이렇게 서로 마이너 버전이 다른 경우
         해결 하기 힘든 예상치 못한 문제가 발생할 수도 있기 때문에, 
         가능하면 운영 서버와 대기 서버의 버전을 최대한 같은 것을 사용하는 것을 권장한다.
-        마이너 버전 업데이트가 필요하면 이 작업을 할 때 가장 좋은 순서는 먼저 대기 서버 쪽을 업데이트해서 옛 버전의 WAL 파일을 잘 적용할 수 있는지
+        마이너 버전 업데이트가 필요하면 이 작업을 할 때 가장 좋은 순서는 먼저 
+        대기 서버 쪽을 업데이트해서 옛 버전의 WAL 파일을 잘 적용할 수 있는지
         부터 확인하고 운영 서버를 업데이트하는 것이다.
    </P
 ></DIV
@@ -254,17 +258,20 @@ CLASS="VARNAME"
         적용할 파일이 없으면 <TT
 CLASS="VARNAME"
 >restore_command</TT
-> 설정값에 지정된 
-        명령은 실패로 끝나야한다. 복구 환경이 스트리밍 복제 방식이면 운영 서버 쪽으로 접속 해서 
-        운영 서버가 데이터베이스 연결을 통해 보내는 트랜잭션들을 자신의 <TT
+> 설정값에 지정된 명령은 실패로 끝나야한다. 
+        복구 환경이 스트리밍 복제 방식이면 운영 서버 쪽으로 접속 해서 
+        운영 서버가 데이터베이스 연결을 통해 보내는 트랜잭션들을 자신의 
+        <TT
 CLASS="FILENAME"
 >pg_xlog</TT
 > 디렉토리 내 해당 WAL 로그 파일에 추가한다.
-        그 다음부터는 서버가 알아서 해당 작업을 수행하고 커밋 되었다고 기록하고, 체크포인트 작업을 하는 등 일련의 자료 변경 작업을 수행한다.
+        그 다음부터는 서버가 알아서 해당 작업을 수행하고 커밋 되었다고 기록하고, 
+        체크포인트 작업을 하는 등 일련의 자료 변경 작업을 수행한다.
         반면, 복구 환경이 warm standy 방식이면 <TT
 CLASS="VARNAME"
 >restore_command</TT
-> 설정값에 지정된 명령이 실패로 끝난 경우 원하는 WAL 세그먼트 파일이 새롭게 생길 때까지 기다렸다가 생겼을 때 
+> 설정값에 
+        지정된 명령이 실패로 끝난 경우 원하는 WAL 세그먼트 파일이 새롭게 생길 때까지 기다렸다가 생겼을 때 
         다시 작업 하고 또 더 이상 없으면 실패로 끝나면서 대기하는 작업을 반복한다.
         이 반복 작업은 서버가 중지되거나, 대기 작업을 이제 그만 하고 스스로 독립된 
         운영 서버 역할을 하라고 알려주는 트리거 파일이 생기기 전까지 계속 반복된다.
@@ -418,7 +425,8 @@ CLASS="VARNAME"
         왜냐하면, 운영 서버 장애가 발생하면 이 대기 서버가 운영 서버 역할을 해야하기 때문이다.
    </P
 ><P
->    운영 서버에서 넘겨 받은 WAL 파일을 사용하면, archive cleanup command 설정으로 이미 대기 서버에 반영이 완료된 파일을 지워서, 디스크 공간을 확보 할 수도 있다.
+>    운영 서버에서 넘겨 받은 WAL 파일을 사용하면, archive cleanup 명령으로 이미 대기 서버에 반영이 완료된 파일을 지워서, 
+    디스크 공간을 확보 할 수도 있다.
                 이 설정값으로 <SPAN
 CLASS="APPLICATION"
 >pg_archivecleanup</SPAN
@@ -452,7 +460,7 @@ archive_cleanup_command = 'pg_archivecleanup /path/to/archive %r'</PRE
         운영 서버의 <TT
 CLASS="VARNAME"
 >max_wal_senders</TT
-> 환경 설정값으로
+> 값으로
         이 대기 서버 모두가 동시에 접속 할 수 있도록 충분한 연결을 확보해야한다.
    </P
 ></DIV
@@ -488,7 +496,7 @@ HREF="warm-standby.html#SYNCHRONOUS-REPLICATION"
         <TT
 CLASS="VARNAME"
 >archive_timeout</TT
-> 설정값을 짧게 해서 자료 손실을 줄일 수 있다.
+> 값을 짧게 설정 해서 자료 손실을 줄일 수 있다.
    </P
 ><P
 >    파일 기반 로그 전달 방식을 함께 사용하지 않고, 
@@ -496,7 +504,7 @@ CLASS="VARNAME"
         운영 서버에서 반드시  <TT
 CLASS="VARNAME"
 >wal_keep_segments</TT
-> 환경설정값을 
+> 값을 
         지정해서, 아직 대기 서버로 반영되지 못한 WAL 파일을 남겨두는 최대 
         개수를 지정해 주어야한다. 운영 서버에는 WAL 파일을 재활용하기 때문에 
         대기 서버의 중지 시간이 길어져 이 대기 서버로 반영되지 못한 WAL 파일이 
@@ -550,11 +558,11 @@ HREF="warm-standby.html#STREAMING-REPLICATION-AUTHENTICATION"
 >    또한 운영 서버 입장에서 클라이언트의 TCP 연결이 끊겼을 경우 
         빠르게 그 소켓을 정리해서, TCP 연결을 원할하게 하기 위해 
         tcp keepalives idle, tcp keepalives interval,
-        tcp keepalives count 설정값을 조정할 수도 있다.
+        tcp keepalives count 값을 조정할 수도 있다.
    </P
 ><P
 >    또한 대기 서버의 최대 동시 연결수도 지정해야한다.
-    (max wal senders 환경설정값 항목을 참조).
+    (max wal senders 항목을 참조).
    </P
 ><P
 >    대기서버는 먼저 운영 서버에서 넘겨 받은 WAL 세그먼트 파일을 모두 
@@ -738,7 +746,8 @@ NAME="STREAMING-REPLICATION-SLOTS"
 >9.2.6. 리플리케이션 슬롯</A
 ></H2
 ><P
->    리플리케이션 슬롯은 모든 대기 서버가 WAL 세그먼트를 받을 때까지 마스터 서버가 WAL 세그먼트를 삭제하지 않게 해주고, 대기 서버와의 연결이 끊어져도 마스터 서버가 로우를 보존하게 해서 
+>    리플리케이션 슬롯은 모든 대기 서버가 WAL 세그먼트를 받을 때까지 마스터 서버가 
+    WAL 세그먼트를 삭제하지 않게 해주고, 대기 서버와의 연결이 끊어져도 마스터 서버가 로우를 보존하게 해서 
     <A
 HREF="hot-standby.html#HOT-STANDBY-CONFLICT"
 >복구 충돌</A
@@ -747,7 +756,8 @@ HREF="hot-standby.html#HOT-STANDBY-CONFLICT"
 ><P
 >    리플리케이션 슬롯을 이용하는 대신 wal keep segments를 쓰거나, 
     archive command를 사용할 때 아카이브에 세그먼트들을 저장해서 이전 WAL 세그먼트 삭제를 방지할 수 있다.
-    리플리케이션 슬롯은 필요한 세그먼트의 개수만큼만 보관하는 반면에 이 방법은 필요 이상의 WAL 세그먼트를 보관하는 경우가 종종 있다는 것이 단점이다. 
+    리플리케이션 슬롯은 필요한 세그먼트의 개수만큼만 보관하는 반면에 이 방법은 필요 이상의 WAL 세그먼트를 보관하는 경우가 
+    종종 있다는 것이 단점이다. 
     장점은 <TT
 CLASS="LITERAL"
 >pg_xlog</TT
@@ -755,7 +765,9 @@ CLASS="LITERAL"
    </P
 ><P
 >    유사한 방법으로, hot standby feedback
-    방식과 vacuum defer cleanup-age 방식은 vacuum이 삭제한 해당 로우를 보존하는데, hot standby feedback 방식은 대기 서버가 연결되어 있지 않을 때는 보존할 수 없고, vacuum defer cleanup age 방식은 큰 값으로 지정해서 보존한다. 
+    방식과 vacuum defer cleanup-age 방식은 vacuum이 삭제한 해당 로우를 보존하는데, 
+    hot standby feedback 방식은 대기 서버가 연결되어 있지 않을 때는 보존할 수 없고, 
+    vacuum defer cleanup age 방식은 큰 값으로 지정해서 보존한다. 
     리플리케이션 슬롯은 이 같은 제한이 없다. 
    </P
 ><DIV
@@ -807,7 +819,8 @@ postgres=# SELECT * FROM pg_replication_slots;
      대기 서버가 슬롯을 쓰도록 설정할 때 대기 서버의 <TT
 CLASS="FILENAME"
 >recovery.conf</TT
-> 파일에서  <TT
+> 파일에서 
+     <TT
 CLASS="VARNAME"
 >primary_slot_name</TT
 >을 설정해야 한다. 아래는 간단한 예제이다.
@@ -829,7 +842,7 @@ NAME="CASCADING-REPLICATION"
 >9.2.7. 순차적 복제</A
 ></H2
 ><P
->    순차적 복제 cascading replication 기능은 대기 서버가 
+>    순차적 복제(cascading replication) 기능은 대기 서버가 
     마치 이어 달리기처럼 다른 대기 서버의
     스트리밍 복제를 할 수 있도록 하는 것이다.
     이 기능은 스트리밍 복제에 필요한 운영 서버의 부하를 최소화할 수 있다.
@@ -880,7 +893,7 @@ CLASS="LITERAL"
 ><P
 >    순차적 복제 기능을 사용하려면, 업스트림 서버 쪽에서는 
     기본적인 복제 기능을 위해 운영 서버 쪽에서 설정했던 것을 
-    그대로 설정하며 (max wal senders,hot standby 설정값 조정하고,
+    그대로 설정하며 (max wal senders,hot standby 값 조정하고,
     호스트 기반 인증 설정을 한다), 다운스트림 대기 서버는 기존 대기서버 설정과 같이
     하면서 <TT
 CLASS="VARNAME"
@@ -902,8 +915,8 @@ NAME="SYNCHRONOUS-REPLICATION"
 CLASS="PRODUCTNAME"
 >Agens SQL</SPAN
 > 스트리밍 복제 기능은 
-        기본이 비동기식이다. 이 말은 
-        운영 서버가 장애로 멈춰, 대기 서버가 운영 서버로 역할 전환 작업(failover, 장애처리)을 
+        기본이 비동기식이다. 이 말은 운영 서버가 장애로 멈춰, 
+        대기 서버가 운영 서버로 역할 전환 작업(failover, 장애처리)을 
         할 때, 운영 서버와 대기 서버 사이 자료 동기화에 지연이 있을 시 그 만큼의 자료를 잃어버린다는 뜻이다.
    </P
 ><P
@@ -943,11 +956,11 @@ NAME="SYNCHRONOUS-REPLICATION-CONFIG"
 ><P
 >    이미 복제 기능을 사용하고 있는데, 
         동기식 복제 방식으로 변경하려면, synchronous standby names 
-        설정값을 비워두지 않으면 된다. 
+        값을 비워두지 않으면 된다. 
         <TT
 CLASS="VARNAME"
 >synchronous_commit</TT
-> 설정값도 <TT
+> 값도 <TT
 CLASS="LITERAL"
 >on</TT
 >이어야하지만, 
@@ -966,7 +979,7 @@ HREF="runtime-config-replication.html#RUNTIME-CONFIG-REPLICATION-MASTER"
         <TT
 CLASS="VARNAME"
 >synchronous_standby_names</TT
-> 설정값은 쉼표 구분 여러 개의 
+> 값은 쉼표 구분 여러 개의 
         대기 서버 이름을 지정할 수 있으며, 여기 등록되지 않은 대기 서버는 
         동기식 복제를 하지 않는다.
         <TT
@@ -985,13 +998,13 @@ CLASS="VARNAME"
         <TT
 CLASS="VARNAME"
 >wal_receiver_status_interval</TT
-> 환경설정 값이 0으로
+> 값이 0으로
         지정되어 있지 않으면 운영 서버로 작업을 완료했다고 메시지를 보낸다.
         대기 서버 가운데 운영 서버에서 <TT
 CLASS="VARNAME"
 >synchronous_standby_names</TT
 >
-        환경설정 값에 지정한 첫번째 대기 서버가 보내는 응답을 확인 해서
+        값에 지정한 첫번째 대기 서버가 보내는 응답을 확인 해서
         대기 서버에서 WAL 레코드 복제를 완벽하게 했다고 운영 서버는 판단한다.
         여기서 언급한 환경설정 매개변수들이 대기 서버의 동기화 방식에 대한 
         설정에 관계된 것들이다.
@@ -1004,7 +1017,7 @@ CLASS="VARNAME"
 >    <TT
 CLASS="VARNAME"
 >synchronous_commit</TT
-> 설정값을 <TT
+>값을 <TT
 CLASS="LITERAL"
 >remote_write</TT
 >로 하면, 
@@ -1141,15 +1154,15 @@ CLASS="LITERAL"
         어떤 대기 서버가 그 작업을 아직 하지 않았으면,  
         그 작업부터 진행할 것이기 때문에 자료 손실은 없을 것이다. 
         응용 프로그램 입장에서는 이런 상황이 발생했으면,
-        - 커밋 명령이 성공적으로 끝나기 전에 데이터베이스 연결이 끊겼다면 - 
+        (커밋 명령이 성공적으로 끝나기 전에 데이터베이스 연결이 끊겼다면)
         재연결시 반드시 해당 작업으로 자료가 정상적으로 
-        반영되었는지 확인해야할 필요가 있다.
+        반영되었는지 확인해야 할 필요가 있다.
    </P
 ><P
 >    <TT
 CLASS="VARNAME"
 >synchronous_standby_names</TT
-> 환경 변수값에 등록된 모든 
+> 값에 등록된 모든 
         대기 서버들이 모두 커밋 완료 응답을 보내지 않아 운영 서버의 커밋 작업이
         멈춰 있는 상태이면, 이 변수의 값을 빈문자열('')로 지정하고, 
         환경 설정을 다시 적용해서 운영 서버를 정상화 할 수 있다.

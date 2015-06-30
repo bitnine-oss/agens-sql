@@ -31,16 +31,16 @@
   <primaryie>겹침
   </primaryie>
   <secondaryie>다중 트랜잭션,
-    <ulink url="routine-vacuuming.html#VACUUM-FOR-MULTIXACT-WRAPAROUND" role="AEN8063">다중 트랜잭션과 겹침</ulink>
+    <ulink url="routine-vacuuming.html#VACUUM-FOR-MULTIXACT-WRAPAROUND" role="AEN8067">다중 트랜잭션과 겹침</ulink>
   </secondaryie>
   <secondaryie>트랜잭션 ID,
-    <ulink url="routine-vacuuming.html#VACUUM-FOR-WRAPAROUND" role="AEN7967">트랜잭션 ID 겹침 오류 방지</ulink>
+    <ulink url="routine-vacuuming.html#VACUUM-FOR-WRAPAROUND" role="AEN7971">트랜잭션 ID 겹침 오류 방지</ulink>
   </secondaryie>
 </indexentry>
 
 <indexentry>
   <primaryie>고가용성,
-    <ulink url="high-availability.html" role="AEN8759">고가용성, 부하 분산, 복제</ulink>
+    <ulink url="high-availability.html" role="AEN8747">고가용성, 부하 분산, 복제</ulink>
   </primaryie>
 </indexentry>
 
@@ -63,6 +63,18 @@
 </indexentry>
 
 <indexentry>
+  <primaryie>다중 트랜잭션 ID,
+    <ulink url="routine-vacuuming.html#VACUUM-FOR-MULTIXACT-WRAPAROUND" role="AEN8065">다중 트랜잭션과 겹침</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>대기 서버,
+    <ulink url="high-availability.html" role="high-availability">고가용성, 부하 분산, 복제</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
   <primaryie>데드록
   </primaryie>
   <secondaryie>timeout during,
@@ -81,7 +93,7 @@
     <ulink url="managing-databases.html" role="managing-databases">데이터베이스 관리</ulink>
   </primaryie>
   <secondaryie>생성 권한,
-    <ulink url="role-attributes.html" role="AEN6374">role 속성</ulink>
+    <ulink url="role-attributes.html" role="AEN6377">role 속성</ulink>
   </secondaryie>
 </indexentry>
 
@@ -118,14 +130,20 @@
 </indexentry>
 
 <indexentry>
+  <primaryie>로그 운송,
+    <ulink url="high-availability.html" role="high-availability">고가용성, 부하 분산, 복제</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
   <primaryie>로그인 권한,
-    <ulink url="role-attributes.html" role="AEN6351">role 속성</ulink>
+    <ulink url="role-attributes.html" role="AEN6354">role 속성</ulink>
   </primaryie>
 </indexentry>
 
 <indexentry>
   <primaryie>로드 밸런싱,
-    <ulink url="high-availability.html" role="AEN8765">고가용성, 부하 분산, 복제</ulink>
+    <ulink url="high-availability.html" role="AEN8753">고가용성, 부하 분산, 복제</ulink>
   </primaryie>
 </indexentry>
 
@@ -144,8 +162,14 @@
 </indexentry>
 
 <indexentry>
+  <primaryie>리인덱스,
+    <ulink url="routine-reindex.html" role="routine-reindex">정기적인 인덱스 다시 만들기</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
   <primaryie>리플리케이션,
-    <ulink url="high-availability.html" role="AEN8763">고가용성, 부하 분산, 복제</ulink>
+    <ulink url="high-availability.html" role="AEN8751">고가용성, 부하 분산, 복제</ulink>
   </primaryie>
 </indexentry>
 
@@ -153,7 +177,7 @@
   <primaryie>리플리케이션 슬롯
   </primaryie>
   <secondaryie>스트리밍 리플리케이션,
-    <ulink url="warm-standby.html#STREAMING-REPLICATION-SLOTS" role="AEN9098">리플리케이션 슬롯</ulink>
+    <ulink url="warm-standby.html#STREAMING-REPLICATION-SLOTS" role="AEN9087">리플리케이션 슬롯</ulink>
   </secondaryie>
 </indexentry>
 
@@ -187,7 +211,7 @@
 
 <indexentry>
   <primaryie>복제,
-    <ulink url="high-availability.html" role="AEN8771">고가용성, 부하 분산, 복제</ulink>
+    <ulink url="high-availability.html" role="AEN8759">고가용성, 부하 분산, 복제</ulink>
   </primaryie>
 </indexentry>
 
@@ -201,13 +225,13 @@
 
 <indexentry>
   <primaryie>부하 분산,
-    <ulink url="high-availability.html" role="AEN8767">고가용성, 부하 분산, 복제</ulink>
+    <ulink url="high-availability.html" role="AEN8755">고가용성, 부하 분산, 복제</ulink>
   </primaryie>
 </indexentry>
 
 <indexentry>
   <primaryie>비동기 커밋,
-    <ulink url="wal-async-commit.html" role="AEN11725">비동기 커밋</ulink>
+    <ulink url="wal-async-commit.html" role="AEN11713">비동기 커밋</ulink>
   </primaryie>
 </indexentry>
 
@@ -258,7 +282,7 @@
 
 <indexentry>
   <primaryie>수퍼유저,
-    <ulink url="role-attributes.html" role="AEN6366">role 속성</ulink>
+    <ulink url="role-attributes.html" role="AEN6369">role 속성</ulink>
   </primaryie>
 </indexentry>
 
@@ -338,13 +362,13 @@
 
 <indexentry>
   <primaryie>장애처리,
-    <ulink url="high-availability.html" role="AEN8761">고가용성, 부하 분산, 복제</ulink>
+    <ulink url="high-availability.html" role="AEN8749">고가용성, 부하 분산, 복제</ulink>
   </primaryie>
 </indexentry>
 
 <indexentry>
   <primaryie>재시작포인트,
-    <ulink url="wal-configuration.html" role="AEN11798">WAL 환경 설정</ulink>
+    <ulink url="wal-configuration.html" role="AEN11786">WAL 환경 설정</ulink>
   </primaryie>
 </indexentry>
 
@@ -352,7 +376,7 @@
   <primaryie>정규식 표현
   </primaryie>
   <secondaryie>및 로케일,
-    <ulink url="locale.html#AEN6839" role="AEN6867">동작</ulink>
+    <ulink url="locale.html#AEN6843" role="AEN6871">동작</ulink>
   </secondaryie>
 </indexentry>
 
@@ -382,7 +406,7 @@
 
 <indexentry>
   <primaryie>체크포인트,
-    <ulink url="wal-configuration.html" role="AEN11768">WAL 환경 설정</ulink>
+    <ulink url="wal-configuration.html" role="AEN11756">WAL 환경 설정</ulink>
   </primaryie>
 </indexentry>
 
@@ -403,7 +427,7 @@
 
 <indexentry>
   <primaryie>클러스터링,
-    <ulink url="high-availability.html" role="AEN8769">고가용성, 부하 분산, 복제</ulink>
+    <ulink url="high-availability.html" role="AEN8757">고가용성, 부하 분산, 복제</ulink>
   </primaryie>
 </indexentry>
 
@@ -433,7 +457,7 @@
 
 <indexentry>
   <primaryie>테이블스페이스,
-    <ulink url="manage-ag-tablespaces.html" role="manage-ag-tablespaces">Tablespaces</ulink>
+    <ulink url="manage-ag-tablespaces.html" role="manage-ag-tablespaces">테이블스페이스</ulink>
   </primaryie>
   <secondaryie>임시,
     <ulink url="runtime-config-client.html#RUNTIME-CONFIG-CLIENT-STATEMENT" role="AEN4175">문 동작</ulink>
@@ -476,7 +500,7 @@
 
 <indexentry>
   <primaryie>패스워드,
-    <ulink url="role-attributes.html" role="AEN6404">role 속성</ulink>
+    <ulink url="role-attributes.html" role="AEN6407">role 속성</ulink>
   </primaryie>
   <secondaryie>슈퍼유저의,
     <ulink url="creating-cluster.html" role="AEN95">데이터베이스 클러스터 생성</ulink>
@@ -494,7 +518,13 @@
 
 <indexentry>
   <primaryie>피어,
-    <ulink url="auth-methods.html#AUTH-PEER" role="AEN6074">피어(peer) 인증</ulink>
+    <ulink url="auth-methods.html#AUTH-PEER" role="AEN6076">피어(peer) 인증</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>핫 스탠바이,
+    <ulink url="high-availability.html" role="high-availability">고가용성, 부하 분산, 복제</ulink>
   </primaryie>
 </indexentry>
 
@@ -512,7 +542,7 @@
   <secondaryie>복구
   </secondaryie>
   <tertiaryie>대기 서버 (standby server),
-    <ulink url="recovery-config.html" role="AEN9557">복구 환경설정</ulink>
+    <ulink url="recovery-config.html" role="AEN9545">복구 환경설정</ulink>
   </tertiaryie>
 </indexentry>
 
@@ -547,7 +577,7 @@
 
 <indexentry>
   <primaryie>ALTER ROLE,
-    <ulink url="role-attributes.html" role="AEN6414">role 속성</ulink>
+    <ulink url="role-attributes.html" role="AEN6417">role 속성</ulink>
   </primaryie>
 </indexentry>
 
@@ -565,7 +595,7 @@
 
 <indexentry>
   <primaryie>archive_cleanup_command 복구 매개변수,
-    <ulink url="archive-recovery-settings.html" role="AEN9597">아카이브 복구 설정</ulink>
+    <ulink url="archive-recovery-settings.html" role="AEN9585">아카이브 복구 설정</ulink>
   </primaryie>
 </indexentry>
 
@@ -603,7 +633,7 @@
   <primaryie>autovacuum
   </primaryie>
   <secondaryie>일반 정보,
-    <ulink url="routine-vacuuming.html#AUTOVACUUM" role="AEN8079">Autovacuum 데몬</ulink>
+    <ulink url="routine-vacuuming.html#AUTOVACUUM" role="AEN8083">Autovacuum 데몬</ulink>
   </secondaryie>
   <secondaryie>환경 설정 매개변수s,
     <ulink url="runtime-config-autovacuum.html" role="AEN3945">자동 Vacuuming</ulink>
@@ -743,12 +773,6 @@
 <indexdiv><title>C</title>
 
 <indexentry>
-  <primaryie>Cascading Replication,
-    <ulink url="high-availability.html" role="high-availability">고가용성, 부하 분산, 복제</ulink>
-  </primaryie>
-</indexentry>
-
-<indexentry>
   <primaryie>character set,
     <ulink url="runtime-config-client.html#RUNTIME-CONFIG-CLIENT-FORMAT" role="AEN4510">로케일(locale) 및 형식 지정</ulink>,
     <ulink url="runtime-config-preset.html" role="AEN5068">프리셋 옵션</ulink>
@@ -798,12 +822,6 @@
 </indexentry>
 
 <indexentry>
-  <primaryie>clustering,
-    <ulink url="high-availability.html" role="AEN8755">고가용성, 부하 분산, 복제</ulink>
-  </primaryie>
-</indexentry>
-
-<indexentry>
   <primaryie>commit_delay 환경 설정 매개변수,
     <ulink url="runtime-config-wal.html#RUNTIME-CONFIG-WAL-SETTINGS" role="AEN2393">설정</ulink>
   </primaryie>
@@ -828,12 +846,6 @@
 </indexentry>
 
 <indexentry>
-  <primaryie>Continuous Archiving,
-    <ulink url="backup.html" role="backup">백업과 복원</ulink>
-  </primaryie>
-</indexentry>
-
-<indexentry>
   <primaryie>cpu_index_tuple_cost 환경 설정 매개변수,
     <ulink url="runtime-config-query.html#RUNTIME-CONFIG-QUERY-CONSTANTS" role="AEN2883">플래너 비용 상수</ulink>
   </primaryie>
@@ -853,31 +865,31 @@
 
 <indexentry>
   <primaryie>CREATE DATABASE,
-    <ulink url="manage-ag-createdb.html" role="AEN6533">데이터베이스 생성</ulink>
+    <ulink url="manage-ag-createdb.html" role="AEN6536">데이터베이스 생성</ulink>
   </primaryie>
 </indexentry>
 
 <indexentry>
   <primaryie>CREATE ROLE,
-    <ulink url="database-roles.html" role="AEN6311">데이터베이스 role</ulink>
+    <ulink url="database-roles.html" role="AEN6314">데이터베이스 role</ulink>
   </primaryie>
 </indexentry>
 
 <indexentry>
   <primaryie>CREATE TABLESPACE,
-    <ulink url="manage-ag-tablespaces.html" role="AEN6698">Tablespaces</ulink>
+    <ulink url="manage-ag-tablespaces.html" role="AEN6701">테이블스페이스</ulink>
   </primaryie>
 </indexentry>
 
 <indexentry>
   <primaryie>createdb,
-    <ulink url="manage-ag-createdb.html" role="AEN6565">데이터베이스 생성</ulink>
+    <ulink url="manage-ag-createdb.html" role="AEN6568">데이터베이스 생성</ulink>
   </primaryie>
 </indexentry>
 
 <indexentry>
   <primaryie>createuser,
-    <ulink url="database-roles.html" role="AEN6322">데이터베이스 role</ulink>
+    <ulink url="database-roles.html" role="AEN6325">데이터베이스 role</ulink>
   </primaryie>
 </indexentry>
 
@@ -889,12 +901,6 @@
 
 </indexdiv>
 <indexdiv><title>D</title>
-
-<indexentry>
-  <primaryie>data partitioning,
-    <ulink url="high-availability.html" role="AEN8757">고가용성, 부하 분산, 복제</ulink>
-  </primaryie>
-</indexentry>
 
 <indexentry>
   <primaryie>data_checksums 환경 설정 매개변수,
@@ -1006,31 +1012,31 @@
 
 <indexentry>
   <primaryie>disk drive,
-    <ulink url="wal-internals.html" role="AEN11864">WAL 인터널</ulink>
+    <ulink url="wal-internals.html" role="AEN11852">WAL 인터널</ulink>
   </primaryie>
 </indexentry>
 
 <indexentry>
   <primaryie>DROP DATABASE,
-    <ulink url="manage-ag-dropdb.html" role="AEN6671">데이터베이스 소멸</ulink>
+    <ulink url="manage-ag-dropdb.html" role="AEN6674">데이터베이스 소멸</ulink>
   </primaryie>
 </indexentry>
 
 <indexentry>
   <primaryie>DROP ROLE,
-    <ulink url="database-roles.html" role="AEN6313">데이터베이스 role</ulink>
+    <ulink url="database-roles.html" role="AEN6316">데이터베이스 role</ulink>
   </primaryie>
 </indexentry>
 
 <indexentry>
   <primaryie>dropdb,
-    <ulink url="manage-ag-dropdb.html" role="AEN6680">데이터베이스 소멸</ulink>
+    <ulink url="manage-ag-dropdb.html" role="AEN6683">데이터베이스 소멸</ulink>
   </primaryie>
 </indexentry>
 
 <indexentry>
   <primaryie>dropuser,
-    <ulink url="database-roles.html" role="AEN6324">데이터베이스 role</ulink>
+    <ulink url="database-roles.html" role="AEN6327">데이터베이스 role</ulink>
   </primaryie>
 </indexentry>
 
@@ -1173,12 +1179,6 @@
 <indexdiv><title>F</title>
 
 <indexentry>
-  <primaryie>failover,
-    <ulink url="high-availability.html" role="AEN8749">고가용성, 부하 분산, 복제</ulink>
-  </primaryie>
-</indexentry>
-
-<indexentry>
   <primaryie>floating-point
   </primaryie>
   <secondaryie>디스플레이,
@@ -1288,18 +1288,6 @@
 </indexentry>
 
 <indexentry>
-  <primaryie>high availability,
-    <ulink url="high-availability.html" role="AEN8747">고가용성, 부하 분산, 복제</ulink>
-  </primaryie>
-</indexentry>
-
-<indexentry>
-  <primaryie>Hot Standby,
-    <ulink url="high-availability.html" role="high-availability">고가용성, 부하 분산, 복제</ulink>
-  </primaryie>
-</indexentry>
-
-<indexentry>
   <primaryie>hot_standby 환경 설정 매개변수,
     <ulink url="runtime-config-replication.html#RUNTIME-CONFIG-REPLICATION-STANDBY" role="AEN2636">대기 서버</ulink>
   </primaryie>
@@ -1330,7 +1318,7 @@
 
 <indexentry>
   <primaryie>ident,
-    <ulink url="auth-methods.html#AUTH-IDENT" role="AEN6041">Ident 인증</ulink>
+    <ulink url="auth-methods.html#AUTH-IDENT" role="AEN6043">Ident 인증</ulink>
   </primaryie>
 </indexentry>
 
@@ -1491,7 +1479,7 @@
   <primaryie>LIKE
   </primaryie>
   <secondaryie>및 로케일,
-    <ulink url="locale.html#AEN6839" role="AEN6864">동작</ulink>
+    <ulink url="locale.html#AEN6843" role="AEN6868">동작</ulink>
   </secondaryie>
 </indexentry>
 
@@ -1510,12 +1498,6 @@
 </indexentry>
 
 <indexentry>
-  <primaryie>load balancing,
-    <ulink url="high-availability.html" role="AEN8753">고가용성, 부하 분산, 복제</ulink>
-  </primaryie>
-</indexentry>
-
-<indexentry>
   <primaryie>locale,
     <ulink url="creating-cluster.html" role="AEN108">데이터베이스 클러스터 생성</ulink>
   </primaryie>
@@ -1530,12 +1512,6 @@
 <indexentry>
   <primaryie>lock_timeout 환경 설정 매개변수,
     <ulink url="runtime-config-client.html#RUNTIME-CONFIG-CLIENT-STATEMENT" role="AEN4280">문 동작</ulink>
-  </primaryie>
-</indexentry>
-
-<indexentry>
-  <primaryie>log shipping,
-    <ulink url="high-availability.html" role="high-availability">고가용성, 부하 분산, 복제</ulink>
   </primaryie>
 </indexentry>
 
@@ -1711,7 +1687,7 @@
   <primaryie>lower
   </primaryie>
   <secondaryie>및 로케일,
-    <ulink url="locale.html#AEN6839" role="AEN6857">동작</ulink>
+    <ulink url="locale.html#AEN6843" role="AEN6861">동작</ulink>
   </secondaryie>
 </indexentry>
 
@@ -1820,12 +1796,6 @@
   </primaryie>
 </indexentry>
 
-<indexentry>
-  <primaryie>MultiXactId,
-    <ulink url="routine-vacuuming.html#VACUUM-FOR-MULTIXACT-WRAPAROUND" role="AEN8061">다중 트랜잭션과 겹침</ulink>
-  </primaryie>
-</indexentry>
-
 </indexdiv>
 <indexdiv><title>N</title>
 
@@ -1870,7 +1840,7 @@
   <primaryie>ORDER BY
   </primaryie>
   <secondaryie>및 로케일,
-    <ulink url="locale.html#AEN6839" role="AEN6846">동작</ulink>
+    <ulink url="locale.html#AEN6843" role="AEN6850">동작</ulink>
   </secondaryie>
 </indexentry>
 
@@ -1907,7 +1877,7 @@
 
 <indexentry>
   <primaryie>pause_at_recovery_target 복구 매개변수,
-    <ulink url="recovery-target-settings.html" role="AEN9690">복구 시점 설정</ulink>
+    <ulink url="recovery-target-settings.html" role="AEN9678">복구 시점 설정</ulink>
   </primaryie>
 </indexentry>
 
@@ -1926,7 +1896,7 @@
 
 <indexentry>
   <primaryie>pg_database,
-    <ulink url="manage-ag-templatedbs.html" role="AEN6628">템플릿 데이터베이스</ulink>
+    <ulink url="manage-ag-templatedbs.html" role="AEN6631">템플릿 데이터베이스</ulink>
   </primaryie>
 </indexentry>
 
@@ -1952,193 +1922,193 @@
 
 <indexentry>
   <primaryie>pg_statio_all_indexes,
-    <ulink url="monitoring-stats.html#MONITORING-STATS-VIEWS" role="AEN9963">수집된 통계 정보 보기</ulink>
+    <ulink url="monitoring-stats.html#MONITORING-STATS-VIEWS" role="AEN9951">수집된 통계 정보 보기</ulink>
   </primaryie>
 </indexentry>
 
 <indexentry>
   <primaryie>pg_statio_all_sequences,
-    <ulink url="monitoring-stats.html#MONITORING-STATS-VIEWS" role="AEN9983">수집된 통계 정보 보기</ulink>
+    <ulink url="monitoring-stats.html#MONITORING-STATS-VIEWS" role="AEN9971">수집된 통계 정보 보기</ulink>
   </primaryie>
 </indexentry>
 
 <indexentry>
   <primaryie>pg_statio_all_tables,
-    <ulink url="monitoring-stats.html#MONITORING-STATS-VIEWS" role="AEN9943">수집된 통계 정보 보기</ulink>
+    <ulink url="monitoring-stats.html#MONITORING-STATS-VIEWS" role="AEN9931">수집된 통계 정보 보기</ulink>
   </primaryie>
 </indexentry>
 
 <indexentry>
   <primaryie>pg_statio_sys_indexes,
-    <ulink url="monitoring-stats.html#MONITORING-STATS-VIEWS" role="AEN9969">수집된 통계 정보 보기</ulink>
+    <ulink url="monitoring-stats.html#MONITORING-STATS-VIEWS" role="AEN9957">수집된 통계 정보 보기</ulink>
   </primaryie>
 </indexentry>
 
 <indexentry>
   <primaryie>pg_statio_sys_sequences,
-    <ulink url="monitoring-stats.html#MONITORING-STATS-VIEWS" role="AEN9989">수집된 통계 정보 보기</ulink>
+    <ulink url="monitoring-stats.html#MONITORING-STATS-VIEWS" role="AEN9977">수집된 통계 정보 보기</ulink>
   </primaryie>
 </indexentry>
 
 <indexentry>
   <primaryie>pg_statio_sys_tables,
-    <ulink url="monitoring-stats.html#MONITORING-STATS-VIEWS" role="AEN9949">수집된 통계 정보 보기</ulink>
+    <ulink url="monitoring-stats.html#MONITORING-STATS-VIEWS" role="AEN9937">수집된 통계 정보 보기</ulink>
   </primaryie>
 </indexentry>
 
 <indexentry>
   <primaryie>pg_statio_user_indexes,
-    <ulink url="monitoring-stats.html#MONITORING-STATS-VIEWS" role="AEN9976">수집된 통계 정보 보기</ulink>
+    <ulink url="monitoring-stats.html#MONITORING-STATS-VIEWS" role="AEN9964">수집된 통계 정보 보기</ulink>
   </primaryie>
 </indexentry>
 
 <indexentry>
   <primaryie>pg_statio_user_sequences,
-    <ulink url="monitoring-stats.html#MONITORING-STATS-VIEWS" role="AEN9996">수집된 통계 정보 보기</ulink>
+    <ulink url="monitoring-stats.html#MONITORING-STATS-VIEWS" role="AEN9984">수집된 통계 정보 보기</ulink>
   </primaryie>
 </indexentry>
 
 <indexentry>
   <primaryie>pg_statio_user_tables,
-    <ulink url="monitoring-stats.html#MONITORING-STATS-VIEWS" role="AEN9956">수집된 통계 정보 보기</ulink>
+    <ulink url="monitoring-stats.html#MONITORING-STATS-VIEWS" role="AEN9944">수집된 통계 정보 보기</ulink>
   </primaryie>
 </indexentry>
 
 <indexentry>
   <primaryie>pg_stat_activity,
-    <ulink url="monitoring-stats.html#MONITORING-STATS-VIEWS" role="AEN9856">수집된 통계 정보 보기</ulink>
+    <ulink url="monitoring-stats.html#MONITORING-STATS-VIEWS" role="AEN9844">수집된 통계 정보 보기</ulink>
   </primaryie>
 </indexentry>
 
 <indexentry>
   <primaryie>pg_stat_all_indexes,
-    <ulink url="monitoring-stats.html#MONITORING-STATS-VIEWS" role="AEN9923">수집된 통계 정보 보기</ulink>
+    <ulink url="monitoring-stats.html#MONITORING-STATS-VIEWS" role="AEN9911">수집된 통계 정보 보기</ulink>
   </primaryie>
 </indexentry>
 
 <indexentry>
   <primaryie>pg_stat_all_tables,
-    <ulink url="monitoring-stats.html#MONITORING-STATS-VIEWS" role="AEN9880">수집된 통계 정보 보기</ulink>
-  </primaryie>
-</indexentry>
-
-<indexentry>
-  <primaryie>pg_stat_archiver,
-    <ulink url="monitoring-stats.html#MONITORING-STATS-VIEWS" role="AEN9862">수집된 통계 정보 보기</ulink>
-  </primaryie>
-</indexentry>
-
-<indexentry>
-  <primaryie>pg_stat_bgwriter,
     <ulink url="monitoring-stats.html#MONITORING-STATS-VIEWS" role="AEN9868">수집된 통계 정보 보기</ulink>
   </primaryie>
 </indexentry>
 
 <indexentry>
+  <primaryie>pg_stat_archiver,
+    <ulink url="monitoring-stats.html#MONITORING-STATS-VIEWS" role="AEN9850">수집된 통계 정보 보기</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
+  <primaryie>pg_stat_bgwriter,
+    <ulink url="monitoring-stats.html#MONITORING-STATS-VIEWS" role="AEN9856">수집된 통계 정보 보기</ulink>
+  </primaryie>
+</indexentry>
+
+<indexentry>
   <primaryie>pg_stat_clear_snapshot,
-    <ulink url="monitoring-stats.html#MONITORING-STATS-FUNCTIONS" role="AEN11075">통계 함수들</ulink>
+    <ulink url="monitoring-stats.html#MONITORING-STATS-FUNCTIONS" role="AEN11063">통계 함수들</ulink>
   </primaryie>
 </indexentry>
 
 <indexentry>
   <primaryie>pg_stat_database,
-    <ulink url="monitoring-stats.html#MONITORING-STATS-VIEWS" role="AEN9874">수집된 통계 정보 보기</ulink>
+    <ulink url="monitoring-stats.html#MONITORING-STATS-VIEWS" role="AEN9862">수집된 통계 정보 보기</ulink>
   </primaryie>
 </indexentry>
 
 <indexentry>
   <primaryie>pg_stat_database_conflicts,
-    <ulink url="monitoring-stats.html#MONITORING-STATS-VIEWS" role="AEN10024">수집된 통계 정보 보기</ulink>
+    <ulink url="monitoring-stats.html#MONITORING-STATS-VIEWS" role="AEN10012">수집된 통계 정보 보기</ulink>
   </primaryie>
 </indexentry>
 
 <indexentry>
   <primaryie>pg_stat_get_activity,
-    <ulink url="monitoring-stats.html#MONITORING-STATS-FUNCTIONS" role="AEN11064">통계 함수들</ulink>
+    <ulink url="monitoring-stats.html#MONITORING-STATS-FUNCTIONS" role="AEN11052">통계 함수들</ulink>
   </primaryie>
 </indexentry>
 
 <indexentry>
   <primaryie>pg_stat_replication,
-    <ulink url="monitoring-stats.html#MONITORING-STATS-VIEWS" role="AEN10018">수집된 통계 정보 보기</ulink>
+    <ulink url="monitoring-stats.html#MONITORING-STATS-VIEWS" role="AEN10006">수집된 통계 정보 보기</ulink>
   </primaryie>
 </indexentry>
 
 <indexentry>
   <primaryie>pg_stat_reset,
-    <ulink url="monitoring-stats.html#MONITORING-STATS-FUNCTIONS" role="AEN11084">통계 함수들</ulink>
+    <ulink url="monitoring-stats.html#MONITORING-STATS-FUNCTIONS" role="AEN11072">통계 함수들</ulink>
   </primaryie>
 </indexentry>
 
 <indexentry>
   <primaryie>pg_stat_reset_shared,
-    <ulink url="monitoring-stats.html#MONITORING-STATS-FUNCTIONS" role="AEN11093">통계 함수들</ulink>
+    <ulink url="monitoring-stats.html#MONITORING-STATS-FUNCTIONS" role="AEN11081">통계 함수들</ulink>
   </primaryie>
 </indexentry>
 
 <indexentry>
   <primaryie>pg_stat_reset_single_function_counters,
-    <ulink url="monitoring-stats.html#MONITORING-STATS-FUNCTIONS" role="AEN11113">통계 함수들</ulink>
+    <ulink url="monitoring-stats.html#MONITORING-STATS-FUNCTIONS" role="AEN11101">통계 함수들</ulink>
   </primaryie>
 </indexentry>
 
 <indexentry>
   <primaryie>pg_stat_reset_single_table_counters,
-    <ulink url="monitoring-stats.html#MONITORING-STATS-FUNCTIONS" role="AEN11104">통계 함수들</ulink>
+    <ulink url="monitoring-stats.html#MONITORING-STATS-FUNCTIONS" role="AEN11092">통계 함수들</ulink>
   </primaryie>
 </indexentry>
 
 <indexentry>
   <primaryie>pg_stat_sys_indexes,
-    <ulink url="monitoring-stats.html#MONITORING-STATS-VIEWS" role="AEN9929">수집된 통계 정보 보기</ulink>
+    <ulink url="monitoring-stats.html#MONITORING-STATS-VIEWS" role="AEN9917">수집된 통계 정보 보기</ulink>
   </primaryie>
 </indexentry>
 
 <indexentry>
   <primaryie>pg_stat_sys_tables,
-    <ulink url="monitoring-stats.html#MONITORING-STATS-VIEWS" role="AEN9886">수집된 통계 정보 보기</ulink>
+    <ulink url="monitoring-stats.html#MONITORING-STATS-VIEWS" role="AEN9874">수집된 통계 정보 보기</ulink>
   </primaryie>
 </indexentry>
 
 <indexentry>
   <primaryie>pg_stat_user_functions,
-    <ulink url="monitoring-stats.html#MONITORING-STATS-VIEWS" role="AEN10003">수집된 통계 정보 보기</ulink>
+    <ulink url="monitoring-stats.html#MONITORING-STATS-VIEWS" role="AEN9991">수집된 통계 정보 보기</ulink>
   </primaryie>
 </indexentry>
 
 <indexentry>
   <primaryie>pg_stat_user_indexes,
-    <ulink url="monitoring-stats.html#MONITORING-STATS-VIEWS" role="AEN9936">수집된 통계 정보 보기</ulink>
+    <ulink url="monitoring-stats.html#MONITORING-STATS-VIEWS" role="AEN9924">수집된 통계 정보 보기</ulink>
   </primaryie>
 </indexentry>
 
 <indexentry>
   <primaryie>pg_stat_user_tables,
-    <ulink url="monitoring-stats.html#MONITORING-STATS-VIEWS" role="AEN9893">수집된 통계 정보 보기</ulink>
+    <ulink url="monitoring-stats.html#MONITORING-STATS-VIEWS" role="AEN9881">수집된 통계 정보 보기</ulink>
   </primaryie>
 </indexentry>
 
 <indexentry>
   <primaryie>pg_stat_xact_all_tables,
-    <ulink url="monitoring-stats.html#MONITORING-STATS-VIEWS" role="AEN9900">수집된 통계 정보 보기</ulink>
+    <ulink url="monitoring-stats.html#MONITORING-STATS-VIEWS" role="AEN9888">수집된 통계 정보 보기</ulink>
   </primaryie>
 </indexentry>
 
 <indexentry>
   <primaryie>pg_stat_xact_sys_tables,
-    <ulink url="monitoring-stats.html#MONITORING-STATS-VIEWS" role="AEN9909">수집된 통계 정보 보기</ulink>
+    <ulink url="monitoring-stats.html#MONITORING-STATS-VIEWS" role="AEN9897">수집된 통계 정보 보기</ulink>
   </primaryie>
 </indexentry>
 
 <indexentry>
   <primaryie>pg_stat_xact_user_functions,
-    <ulink url="monitoring-stats.html#MONITORING-STATS-VIEWS" role="AEN10009">수집된 통계 정보 보기</ulink>
+    <ulink url="monitoring-stats.html#MONITORING-STATS-VIEWS" role="AEN9997">수집된 통계 정보 보기</ulink>
   </primaryie>
 </indexentry>
 
 <indexentry>
   <primaryie>pg_stat_xact_user_tables,
-    <ulink url="monitoring-stats.html#MONITORING-STATS-VIEWS" role="AEN9916">수집된 통계 정보 보기</ulink>
+    <ulink url="monitoring-stats.html#MONITORING-STATS-VIEWS" role="AEN9904">수집된 통계 정보 보기</ulink>
   </primaryie>
 </indexentry>
 
@@ -2161,14 +2131,8 @@
 </indexentry>
 
 <indexentry>
-  <primaryie>Point-in-Time Recovery,
-    <ulink url="backup.html" role="backup">백업과 복원</ulink>
-  </primaryie>
-</indexentry>
-
-<indexentry>
   <primaryie>postgres,
-    <ulink url="manage-ag-createdb.html" role="AEN6551">데이터베이스 생성</ulink>
+    <ulink url="manage-ag-createdb.html" role="AEN6554">데이터베이스 생성</ulink>
   </primaryie>
 </indexentry>
 
@@ -2198,7 +2162,7 @@
 
 <indexentry>
   <primaryie>primary_conninfo 복구 매개변수,
-    <ulink url="standby-settings.html" role="AEN9718">대기 서버 설정</ulink>
+    <ulink url="standby-settings.html" role="AEN9706">대기 서버 설정</ulink>
   </primaryie>
 </indexentry>
 
@@ -2236,67 +2200,55 @@
 
 <indexentry>
   <primaryie>recovery.conf,
-    <ulink url="recovery-config.html" role="AEN9563">복구 환경설정</ulink>
+    <ulink url="recovery-config.html" role="AEN9551">복구 환경설정</ulink>
   </primaryie>
 </indexentry>
 
 <indexentry>
   <primaryie>recovery_end_command 복구 매개변수,
-    <ulink url="archive-recovery-settings.html" role="AEN9613">아카이브 복구 설정</ulink>
+    <ulink url="archive-recovery-settings.html" role="AEN9601">아카이브 복구 설정</ulink>
   </primaryie>
 </indexentry>
 
 <indexentry>
   <primaryie>recovery_min_apply_delay recovery parameter,
-    <ulink url="standby-settings.html" role="AEN9750">대기 서버 설정</ulink>
+    <ulink url="standby-settings.html" role="AEN9738">대기 서버 설정</ulink>
   </primaryie>
 </indexentry>
 
 <indexentry>
   <primaryie>recovery_target recovery parameter,
-    <ulink url="recovery-target-settings.html" role="AEN9627">복구 시점 설정</ulink>
+    <ulink url="recovery-target-settings.html" role="AEN9615">복구 시점 설정</ulink>
   </primaryie>
 </indexentry>
 
 <indexentry>
   <primaryie>recovery_target_inclusive 복구 매개변수,
-    <ulink url="recovery-target-settings.html" role="AEN9669">복구 시점 설정</ulink>
+    <ulink url="recovery-target-settings.html" role="AEN9657">복구 시점 설정</ulink>
   </primaryie>
 </indexentry>
 
 <indexentry>
   <primaryie>recovery_target_name 복구 매개변수,
-    <ulink url="recovery-target-settings.html" role="AEN9638">복구 시점 설정</ulink>
+    <ulink url="recovery-target-settings.html" role="AEN9626">복구 시점 설정</ulink>
   </primaryie>
 </indexentry>
 
 <indexentry>
   <primaryie>recovery_target_time 복구 매개변수,
-    <ulink url="recovery-target-settings.html" role="AEN9649">복구 시점 설정</ulink>
+    <ulink url="recovery-target-settings.html" role="AEN9637">복구 시점 설정</ulink>
   </primaryie>
 </indexentry>
 
 <indexentry>
   <primaryie>recovery_target_timeline 복구 매개변수,
-    <ulink url="recovery-target-settings.html" role="AEN9680">복구 시점 설정</ulink>
+    <ulink url="recovery-target-settings.html" role="AEN9668">복구 시점 설정</ulink>
   </primaryie>
 </indexentry>
 
 <indexentry>
   <primaryie>recovery_target_xid 복구 매개변수,
-    <ulink url="recovery-target-settings.html" role="AEN9659">복구 시점 설정</ulink>
-  </primaryie>
-</indexentry>
-
-<indexentry>
-  <primaryie>reindex,
-    <ulink url="routine-reindex.html" role="routine-reindex">정기적인 인덱스 다시 만들기</ulink>
-  </primaryie>
-</indexentry>
-
-<indexentry>
-  <primaryie>replication,
-    <ulink url="high-availability.html" role="AEN8751">고가용성, 부하 분산, 복제</ulink>
+    <ulink url="recovery-target-settings.html" role="AEN9647">복구 시점 설정</ulink>
   </primaryie>
 </indexentry>
 
@@ -2308,7 +2260,7 @@
 
 <indexentry>
   <primaryie>restore_command 복구 매개변수,
-    <ulink url="archive-recovery-settings.html" role="AEN9579">아카이브 복구 설정</ulink>
+    <ulink url="archive-recovery-settings.html" role="AEN9567">아카이브 복구 설정</ulink>
   </primaryie>
 </indexentry>
 
@@ -2320,10 +2272,10 @@
     <ulink url="role-membership.html" role="role-membership">role 멤버십</ulink>
   </secondaryie>
   <secondaryie>복제 초기화 권한,
-    <ulink url="role-attributes.html" role="AEN6394">role 속성</ulink>
+    <ulink url="role-attributes.html" role="AEN6397">role 속성</ulink>
   </secondaryie>
   <secondaryie>생성 권한,
-    <ulink url="role-attributes.html" role="AEN6383">role 속성</ulink>
+    <ulink url="role-attributes.html" role="AEN6386">role 속성</ulink>
   </secondaryie>
 </indexentry>
 
@@ -2532,14 +2484,8 @@
 </indexentry>
 
 <indexentry>
-  <primaryie>standby server,
-    <ulink url="high-availability.html" role="high-availability">고가용성, 부하 분산, 복제</ulink>
-  </primaryie>
-</indexentry>
-
-<indexentry>
   <primaryie>standby_mode 복구 매개변수,
-    <ulink url="standby-settings.html" role="AEN9705">대기 서버 설정</ulink>
+    <ulink url="standby-settings.html" role="AEN9693">대기 서버 설정</ulink>
   </primaryie>
 </indexentry>
 
@@ -2648,14 +2594,14 @@
 
 <indexentry>
   <primaryie>template0,
-    <ulink url="manage-ag-templatedbs.html" role="AEN6596">템플릿 데이터베이스</ulink>
+    <ulink url="manage-ag-templatedbs.html" role="AEN6599">템플릿 데이터베이스</ulink>
   </primaryie>
 </indexentry>
 
 <indexentry>
   <primaryie>template1,
-    <ulink url="manage-ag-createdb.html" role="AEN6557">데이터베이스 생성</ulink>,
-    <ulink url="manage-ag-templatedbs.html" role="AEN6588">템플릿 데이터베이스</ulink>
+    <ulink url="manage-ag-createdb.html" role="AEN6560">데이터베이스 생성</ulink>,
+    <ulink url="manage-ag-templatedbs.html" role="AEN6591">템플릿 데이터베이스</ulink>
   </primaryie>
 </indexentry>
 
@@ -2698,7 +2644,7 @@
   <primaryie>to_char
   </primaryie>
   <secondaryie>및 로케일,
-    <ulink url="locale.html#AEN6839" role="AEN6873">동작</ulink>
+    <ulink url="locale.html#AEN6843" role="AEN6877">동작</ulink>
   </secondaryie>
 </indexentry>
 
@@ -2796,7 +2742,7 @@
 
 <indexentry>
   <primaryie>trigger_file 복구 매개변수,
-    <ulink url="standby-settings.html" role="AEN9738">대기 서버 설정</ulink>
+    <ulink url="standby-settings.html" role="AEN9726">대기 서버 설정</ulink>
   </primaryie>
 </indexentry>
 
@@ -2839,7 +2785,7 @@
   <primaryie>upper
   </primaryie>
   <secondaryie>및 로케일,
-    <ulink url="locale.html#AEN6839" role="AEN6854">동작</ulink>
+    <ulink url="locale.html#AEN6843" role="AEN6858">동작</ulink>
   </secondaryie>
 </indexentry>
 

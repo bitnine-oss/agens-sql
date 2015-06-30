@@ -4099,7 +4099,7 @@ I/O 타이밍 정보는 BUFFERS 옵션이 사용되는 경우 및 pg_stat_statem
 이 매개변수는 <filename>postgresql.conf</> 파일 또는 서버 커맨드 라인에서만 설정 가능하다.
  </para>
  <para>
-이 매개변수가 비활성화된 경우 필요시 시스템이 autovacuum 프로세스를 실행하여 트랜잭션 ID 랩어라운드를 방지한다. 자세한 내용은 <xref
+이 매개변수가 비활성화된 경우 필요시 시스템이 autovacuum 프로세스를 실행하여 트랜잭션 ID 겹침을 방지한다. 자세한 내용은 <xref
 linkend="vacuum-for-wraparound">을 참조 바란다.
  </para>
 </listitem>
@@ -4221,9 +4221,9 @@ linkend="vacuum-for-wraparound">을 참조 바란다.
 </term>
 <listitem>
  <para>
-테이블 내 트랜잭션 ID 랩어라운드를 방지하기 위해 <command>VACUUM</> 명령을 강제로 실행하기 전에 
+테이블 내 트랜잭션 ID 겹침을 방지하기 위해 <command>VACUUM</> 명령을 강제로 실행하기 전에 
 테이블의 <structname>pg_class</>.<structfield>relfrozenxid</> 필드가 도달할 수 있는 연령(트랜잭션에서)을 지정한다. 
-autovacuum이 달리 비활성화된 경우에도 시스템은 랩어라운드를 방지하기 위해 autovacuum 프로세스를 실행한다는 점에 유의해야 한다.
+autovacuum이 달리 비활성화된 경우에도 시스템은 겹침을 방지하기 위해 autovacuum 프로세스를 실행한다는 점에 유의해야 한다.
  </para>
 
  <para>
@@ -4242,9 +4242,9 @@ Vacuum은 <filename>pg_clog</> 서브 디렉토리에서 오래된 파일도 제
 </term>
 <listitem>
  <para>
-테이블 내 multixact ID 랩어라운드를 방지하기 위해 <command>VACUUM</> 명령을 강제하기 전에 
+테이블 내 multixact ID 겹침을 방지하기 위해 <command>VACUUM</> 명령을 강제하기 전에 
 테이블의 <structname>pg_class</>.<structfield>relminmxid</> 필드가 도달할 수 있는 연령(multixacts에서)을 지정한다. 
-autovacuum이 달리 비활성화된 경우에도 시스템은 랩어라운드를 방지하기 위해 autovacuum 프로세스를 실행한다는 점에 유의해야 한다.
+autovacuum이 달리 비활성화된 경우에도 시스템은 겹침을 방지하기 위해 autovacuum 프로세스를 실행한다는 점에 유의해야 한다.
  </para>
 
  <para>
@@ -4584,7 +4584,7 @@ FOR UPDATE</>) 및 암시적으로 획득한 잠금에 모두 적용된다.
 <command>VACUUM</>은 테이블의 <structname>pg_class</>.<structfield>relfrozenxid</> 필드가 이 설정에서 지정된 연령에 
 도달한 경우 전체 테이블 스캔을 수행한다. 기본값은 1억 5천만 트랜잭션이다. 
 사용자는 이 값을 0 ~ 20억 중 아무거나 설정할 수 있지만 <command>VACUUM</>은 유효 값을 
-<xref linkend="guc-autovacuum-freeze-max-age">의 95%로 슬며시 제한하므로 랩어라운드 방지 
+<xref linkend="guc-autovacuum-freeze-max-age">의 95%로 슬며시 제한하므로 겹침 방지 
 autovacuum이 테이블에서 실행되기 주기적으로 직접 <command>VACUUM</>할 수 있다. 
 자세한 내용은 <xref linkend="vacuum-for-wraparound">을 참조 바란다.
  </para>
@@ -4619,7 +4619,7 @@ autovacuum이 테이블에서 실행되기 주기적으로 직접 <command>VACUU
 <command>VACUUM</>은 테이블의 <structname>pg_class</>.<structfield>relminmxid</> 필드가 이 설정에서 지정된 연령에 도달한 경우 
 전체 테이블 스캔을 수행한다. 기본값은 1억 5천만 다중 트랜잭션이다. 
 사용자는 이 값을 0 ~ 20억 중 아무거나 설정할 수 있지만 <command>VACUUM</>은 유효 값을 
-<xref linkend="guc-autovacuum-multixact-freeze-max-age">의 95%로 슬며시 제한하므로 랩어라운드 방지가 테이블에서 실행되기 전에 
+<xref linkend="guc-autovacuum-multixact-freeze-max-age">의 95%로 슬며시 제한하므로 겹침 방지가 테이블에서 실행되기 전에 
 주기적으로 직접 <command>VACUUM</>할 수 있다. 
 자세한 내용은 <xref linkend="vacuum-for-multixact-wraparound">을 참조 바란다.
  </para>
@@ -5388,7 +5388,7 @@ SQL 표준은 포함할 자식 테이블이 필요하므로, <literal>off</> 설
 <listitem>
  <para>
 이것은 거대(large) 테이블의 순차 스캔을 허용하여 서로를 동기화하므로 동시 스캔은 동일한 시간에 동일한 블록을 읽고 I/O 작업 부하를 공유한다. 
-이것이 활성화되면 스캔이 테이블 중간에서 시작되며, 이미 진행 중인 스캔 활동과 동기화되도록 모든 행을 끝까지 <quote>랩어라운드</>한다. 
+이것이 활성화되면 스캔이 테이블 중간에서 시작되며, 이미 진행 중인 스캔 활동과 동기화되도록 모든 행을 끝까지 <quote>겹치게</>한다. 
 이것은 결과적으로 <literal>ORDER BY</> 절이 없는 쿼리에 의해 리턴된 행 정렬에서 예측 불가능한 변경으로 이어진다. 
 이 매개변수를 <literal>off</>로 설정하면 순차 스캔이 항상 테이블 초반에 시작되는 8.3 이전의 동작이 보장된다. 
 기본값은 <literal>on</>이다.

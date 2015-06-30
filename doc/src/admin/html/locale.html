@@ -28,7 +28,7 @@ CONTENT="text/html; charset=UTF-8"><META
 name="viewport"
 content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width"><META
 NAME="creation"
-CONTENT="2015-06-29T09:12:38"></HEAD
+CONTENT="2015-06-30T08:52:27"></HEAD
 ><BODY
 CLASS="SECT1"
 ><DIV
@@ -116,7 +116,7 @@ CLASS="SECT2"
 ><H2
 CLASS="SECT2"
 ><A
-NAME="AEN6762"
+NAME="AEN6766"
 >6.1.1. 개요</A
 ></H2
 ><P
@@ -137,7 +137,7 @@ CLASS="OPTION"
 CLASS="COMMAND"
 >initdb</TT
 > 명령을 실행하여 어떤 로케일(locale)이 사용되는지 정확히 알 수 있다. 
-    예를 들면:
+    예를 들면,
 </P><PRE
 CLASS="SCREEN"
 >initdb --locale=sv_SE</PRE
@@ -195,7 +195,7 @@ CLASS="INFORMALTABLE"
 ><P
 ></P
 ><A
-NAME="AEN6783"
+NAME="AEN6787"
 ></A
 ><TABLE
 BORDER="1"
@@ -291,8 +291,8 @@ CLASS="LITERAL"
 > 및 <TT
 CLASS="LITERAL"
 >LC_CTYPE</TT
->이 이러한 카테고리이다. 이것은 인덱스 정렬 순서에 영향을 미치므로 고정된 상태로 유지되어야 하며, 
-    그렇지 않을 경우 텍스트 칼럼의 인덱스가 손상을 입게 된다. 
+>이 이러한 카테고리이다. 
+    이것은 인덱스 정렬 순서에 영향을 미치므로 고정된 상태로 유지되어야 하며, 그렇지 않을 경우 텍스트 칼럼의 인덱스가 손상을 입게 된다. 
     (그러나 <A
 HREF="collation.html"
 >6.2절</A
@@ -300,13 +300,15 @@ HREF="collation.html"
     이 카테고리의 기본값은 <TT
 CLASS="COMMAND"
 >initdb</TT
->가 실행 중에 결정되고 이 값은 <TT
+>가 실행 중에 결정되고 
+    이 값은 <TT
 CLASS="COMMAND"
 >CREATE DATABASE</TT
 > 명령에서 지정되지 않았을 경우 새 데이터베이스를 생성할 때 사용된다.
    </P
 ><P
->    다른 로케일 카테고리는 로케일(locale) 카테고리와 이름이 동일한 서버 환경 설정 매개 변수를 설정함으로써 필요할 때마다 변경 가능하다(자세한 내용은 <A
+>    다른 로케일 카테고리는 로케일(locale) 카테고리와 이름이 동일한 서버 환경 설정 매개 변수를 설정함으로써 
+    필요할 때마다 변경 가능하다(자세한 내용은 <A
 HREF="runtime-config-client.html#RUNTIME-CONFIG-CLIENT-FORMAT"
 >2.11.2절</A
 > 참조). 
@@ -334,7 +336,7 @@ CLASS="NOTE"
 ><P
 ><B
 >참고: </B
->     실행 환경에서 로케일(locale) 상속에 대해 언급할 때 이것은 대부분의 운영 체제에서 다음을 의미한다: 
+>     실행 환경에서 로케일(locale) 상속에 대해 언급할 때 이것은 대부분의 운영 체제에서 다음을 의미한다.
      콜레이션이라는 지정된 로케일(locale) 카테고리의 경우 설정할 것을 찾을 때까지 
      <TT
 CLASS="ENVAR"
@@ -352,7 +354,8 @@ CLASS="LITERAL"
 >이다.
     </P
 ><P
->     메시지 언어 설정을 위해 일부 메시지 로컬라이제이션 라이브러리도 다른 모든 로케일(locale) 설정을 오버라이드하는 환경 변수 <TT
+>     메시지 언어 설정을 위해 일부 메시지 로컬라이제이션 라이브러리도 다른 모든 로케일(locale) 설정을 오버라이드하는 환경 변수 
+     <TT
 CLASS="ENVAR"
 >LANGUAGE</TT
 >를 살펴본다. 
@@ -379,7 +382,7 @@ CLASS="SECT2"
 ><H2
 CLASS="SECT2"
 ><A
-NAME="AEN6839"
+NAME="AEN6843"
 >6.1.2. 동작</A
 ></H2
 ><P
@@ -470,7 +473,8 @@ CLASS="LITERAL"
 > 절을 사용한 인덱스를 <SPAN
 CLASS="PRODUCTNAME"
 >Agens SQL</SPAN
->이 이용하려면 몇 가지 커스텀 연산자 클래스가 존재해야 한다. 
+>이 이용하려면 
+    몇 가지 커스텀 연산자 클래스가 존재해야 한다. 
     이것은 로케일(locale) 비교 규칙은 무시하면서 엄격한 문자별 비교를 수행하는 인덱스의 생성을 허용한다. 
     다른 방법은 <A
 HREF="collation.html"
@@ -486,7 +490,7 @@ CLASS="SECT2"
 ><H2
 CLASS="SECT2"
 ><A
-NAME="AEN6889"
+NAME="AEN6893"
 >6.1.3. 문제</A
 ></H2
 ><P
@@ -514,7 +518,8 @@ CLASS="ENVAR"
 > 및 <TT
 CLASS="ENVAR"
 >LC_MONETARY</TT
->를 비롯한 다른 로케일(locale) 설정은 서버가 시작된 환경에 의해 처음 결정되고, 상황에 따라 바뀔 수 있다. 
+>를 비롯한 다른 로케일(locale) 설정은 서버가 시작된 환경에 의해 처음 결정되고, 
+    상황에 따라 바뀔 수 있다. 
     <TT
 CLASS="COMMAND"
 >SHOW</TT
@@ -534,11 +539,11 @@ CLASS="PRODUCTNAME"
     해당 애플리케이션의 작성자는 에러 코드 스키마를 대신 활용하는 것이 좋다.
    </P
 ><P
->    메시지 번역 카탈로그를 유지하려면 <SPAN
+>    <SPAN
 CLASS="PRODUCTNAME"
 >Agens SQL</SPAN
->이 선호된 언어로 표시되도록 개발하는 자원 봉사자들의 노력이 필요하다. 
-    원하는 언어로 된 메시지가 현재 없거나 번역이 완전하지 않을 수 있기 때문에 사용자들의 개발 협조를 기다리고 있다.
+>의 메시지 번역 카탈로그를 선호하는 언어로 개발하려면 노력이 필요하다.
+    원하는 언어로 된 메시지가 현재 없거나 번역이 완전하지 않을 수 있기 때문에 개발 협조를 구하고 있다.
    </P
 ></DIV
 ></DIV

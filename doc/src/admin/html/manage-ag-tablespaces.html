@@ -2,7 +2,7 @@
 <HTML
 ><HEAD
 ><TITLE
->Tablespaces</TITLE
+>테이블스페이스</TITLE
 ><META
 NAME="GENERATOR"
 CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
@@ -28,7 +28,7 @@ CONTENT="text/html; charset=UTF-8"><META
 name="viewport"
 content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width"><META
 NAME="creation"
-CONTENT="2015-06-29T09:12:38"></HEAD
+CONTENT="2015-06-30T08:52:27"></HEAD
 ><BODY
 CLASS="SECT1"
 ><DIV
@@ -95,13 +95,14 @@ CLASS="SECT1"
 CLASS="SECT1"
 ><A
 NAME="MANAGE-AG-TABLESPACES"
->5.6. Tablespaces</A
+>5.6. 테이블스페이스</A
 ></H1
 ><P
 >   <SPAN
 CLASS="PRODUCTNAME"
 >Agens SQL</SPAN
->의 테이블스페이스는 데이터베이스 관리자가 데이터베이스 객체를 나타내는 파일을 저장할 수 있는 파일 시스템의 위치를 정의할 수 있게 한다. 
+>의 테이블스페이스는 데이터베이스 관리자가 데이터베이스 객체를 나타내는 파일을 저장할 수 있는 
+   파일 시스템의 위치를 정의할 수 있게 한다. 
    생성된 경우 테이블스페이스는 데이터베이스 객체 생성 시 이름으로 참조가 가능하다.
   </P
 ><P
@@ -110,7 +111,8 @@ CLASS="PRODUCTNAME"
 >Agens SQL</SPAN
 > 설치의 디스크 레이아웃을 제어할 수 있다. 
    이것은 최소 2가지 방법으로 활용할 수 있다. 
-   첫째, 클러스터가 초기화된 파티션 또는 볼륨 공간이 소진되고 확장이 불가능한 경우, 다른 파티션에 테이블스페이스를 생성하고 시스템이 재인식될 때까지 사용할 수 있다.
+   첫째, 클러스터가 초기화된 파티션 또는 볼륨 공간이 소진되고 확장이 불가능한 경우, 
+   다른 파티션에 테이블스페이스를 생성하고 시스템이 재인식될 때까지 사용할 수 있다.
   </P
 ><P
 >   두 번째, 테이블스페이스는 관리자가 성능 최적화를 위해 데이터베이스 객체의 사용 패턴에 대한 지식을 사용할 수 있게 한다. 
@@ -136,7 +138,8 @@ ALIGN="CENTER"
 ><TD
 ALIGN="LEFT"
 ><P
->     Agens SQL 주 데이터 디렉토리 외부에 배치했더라도 테이블스페이스는 데이터베이스 클러스터 내부에 속해 있기 때문에 데이터 파일 자동 수집으로 처리되어서는 <SPAN
+>     Agens SQL 주 데이터 디렉토리 외부에 배치했더라도 테이블스페이스는 데이터베이스 클러스터 내부에 속해 있기 때문에 
+     데이터 파일 자동 수집으로 처리되어서는 <SPAN
 CLASS="emphasis"
 ><I
 CLASS="EMPHASIS"
@@ -171,7 +174,8 @@ CLASS="NOTE"
 ><P
 ><B
 >참고: </B
->    논리적 파일 시스템 내에서 개별 파일의 위치를 사용자가 제어할 수 없기 때문에 논리적 파일 시스템당 테이블스페이스를 2개 이상 만들 수 있는 지점이 일반적으로 많지 않다. 
+>    논리적 파일 시스템 내에서 개별 파일의 위치를 사용자가 제어할 수 없기 때문에 논리적 파일 시스템당 테이블스페이스를 
+    2개 이상 만들 수 있는 지점이 일반적으로 많지 않다. 
     그러나 <SPAN
 CLASS="PRODUCTNAME"
 >Agens SQL</SPAN
@@ -181,7 +185,8 @@ CLASS="PRODUCTNAME"
 ></BLOCKQUOTE
 ></DIV
 ><P
->   테이블스페이스 자체는 데이터베이스 수퍼유저로 생성해야 하지만, 생성한 후에는 일반 데이터베이스 사용자가 이 데이터베이스를 사용하도록 할 수 있다. 
+>   테이블스페이스 자체는 데이터베이스 수퍼유저로 생성해야 하지만, 
+   생성한 후에는 일반 데이터베이스 사용자가 이 데이터베이스를 사용하도록 할 수 있다. 
    이렇게 하려면 <TT
 CLASS="LITERAL"
 >CREATE</TT
@@ -212,7 +217,8 @@ CREATE TABLE foo(i int);</PRE
    <TT
 CLASS="VARNAME"
 >default_tablespace</TT
->가 비어 있는 string 이외의 것으로 설정되면 이것은 명시적이지 않은 <TT
+>가 비어 있는 string 이외의 것으로 설정되면 이것은 명시적이지 않은 
+   <TT
 CLASS="COMMAND"
 >CREATE TABLE</TT
 > 및 <TT
@@ -244,7 +250,8 @@ CLASS="VARNAME"
    테이블스페이스를 지정하지 않고 데이터베이스를 생성하면, 복사했던 템플릿 데이터베이스와 동일한 테이블스페이스를 사용한다.
   </P
 ><P
->   데이터베이스 클러스터가 초기화되면 테이블스페이스 2개가 자동으로 생성된다. <TT
+>   데이터베이스 클러스터가 초기화되면 테이블스페이스 2개가 자동으로 생성된다. 
+   <TT
 CLASS="LITERAL"
 >pg_global</TT
 > 테이블스페이스는 공유 시스템 카탈로그에 사용된다. 
@@ -257,10 +264,10 @@ CLASS="LITERAL"
 > 및 <TT
 CLASS="LITERAL"
 >template0</TT
-> 데이터베이스의 기본 테이블스페이스이다(따라서, <TT
+> 데이터베이스의 기본 테이블스페이스이다
+   (따라서, <TT
 CLASS="COMMAND"
->CREATE
-   DATABASE</TT
+>CREATE DATABASE</TT
 >의 <TT
 CLASS="LITERAL"
 >TABLESPACE</TT
@@ -306,7 +313,11 @@ CLASS="FILENAME"
 >$PGDATA/pg_tblspc</TT
 >에는 클러스터에 저장된 비 내장 테이블스페이스 각각을 가리키는 심볼릭 링크가 포함되어 있다. 
    권장 사항은 아니지만, 이 링크를 재정의하여 테이블스페이스의 레이아웃을 조정할 수도 있다. 
-   이 작업은 어떤 경우에서든 서버 실행 중에 해야 한다. PostgreSQL 9.1 이전 버전에서는 <TT
+   이 작업은 어떤 경우에서든 서버 실행 중에 해야 한다. <SPAN
+CLASS="PRODUCTNAME"
+>PostgreSQL</SPAN
+> 9.1 이전 버전에서는 
+   <TT
 CLASS="STRUCTNAME"
 >pg_tablespace</TT
 > 카탈로그를 새 위치로 업그레이드해야 한다. 

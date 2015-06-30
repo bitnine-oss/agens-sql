@@ -28,7 +28,7 @@ CONTENT="text/html; charset=UTF-8"><META
 name="viewport"
 content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width"><META
 NAME="creation"
-CONTENT="2015-06-29T09:12:38"></HEAD
+CONTENT="2015-06-30T08:52:27"></HEAD
 ><BODY
 CLASS="SECT1"
 ><DIV
@@ -157,7 +157,7 @@ CLASS="LITERAL"
                 실패했을 경우에는 0이 아니여야한다.
                 서버가 이 명령을 통해 보관하고 있지 않는 파일을 사용하려고 
                 할 때, 이 명령은 반드시 리턴 값으로 0 아닌 값으로 종료되어야한다.
-        다음은 일반적인 사례다:
+        다음은 일반적인 사례다.
 </P><PRE
 CLASS="PROGRAMLISTING"
 >restore_command = 'cp /mnt/server/archivedir/%f "%p"'
@@ -200,7 +200,7 @@ CLASS="LITERAL"
             pg archivecleanup 확장 모듈로 설치되는 명령을 사용한다.
                 (이 명령은 파일을 지우는 작업을 하기 때문에 단독 대기 서버 환경일 경우에만 
                 사용하는 것이 좋다.)
-                사용법은 다음과 같다:
+                사용법은 다음과 같다.
 </P><PRE
 CLASS="PROGRAMLISTING"
 >archive_cleanup_command = 'pg_archivecleanup /mnt/server/archivedir %r'</PRE

@@ -16,7 +16,7 @@ CONTENT="text/html; charset=UTF-8"><META
 name="viewport"
 content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width"><META
 NAME="creation"
-CONTENT="2015-06-29T09:12:37"></HEAD
+CONTENT="2015-06-30T08:52:26"></HEAD
 ><BODY
 CLASS="BOOK"
 ><DIV
@@ -438,7 +438,7 @@ HREF="#MANAGE-AG-DROPDB"
 ><DT
 >5.6. <A
 HREF="#MANAGE-AG-TABLESPACES"
->Tablespaces</A
+>테이블스페이스</A
 ></DT
 ></DL
 ></DD
@@ -513,7 +513,7 @@ HREF="#BACKUP-FILE"
 ><DT
 >8.3. <A
 HREF="#CONTINUOUS-ARCHIVING"
->아카이브 모드 백업(Continuous Archiving)과, 특정시점 복구(Point-in-Time Recovery, PITR)</A
+>아카이브 모드 백업(Continuous Archiving)과, (Point-in-Time Recovery, PITR)</A
 ></DT
 ></DL
 ></DD
@@ -11875,7 +11875,7 @@ CLASS="FILENAME"
 > 파일 또는 서버 커맨드 라인에서만 설정 가능하다.
  </P
 ><P
->이 매개변수가 비활성화된 경우 필요시 시스템이 autovacuum 프로세스를 실행하여 트랜잭션 ID 랩어라운드를 방지한다. 자세한 내용은 <A
+>이 매개변수가 비활성화된 경우 필요시 시스템이 autovacuum 프로세스를 실행하여 트랜잭션 ID 겹침을 방지한다. 자세한 내용은 <A
 HREF="#VACUUM-FOR-WRAPAROUND"
 >7.1.5절</A
 >을 참조 바란다.
@@ -12074,7 +12074,7 @@ CLASS="TYPE"
 >)&#13;</DT
 ><DD
 ><P
->테이블 내 트랜잭션 ID 랩어라운드를 방지하기 위해 <TT
+>테이블 내 트랜잭션 ID 겹침을 방지하기 위해 <TT
 CLASS="COMMAND"
 >VACUUM</TT
 > 명령을 강제로 실행하기 전에 
@@ -12085,7 +12085,7 @@ CLASS="STRUCTNAME"
 CLASS="STRUCTFIELD"
 >relfrozenxid</TT
 > 필드가 도달할 수 있는 연령(트랜잭션에서)을 지정한다. 
-autovacuum이 달리 비활성화된 경우에도 시스템은 랩어라운드를 방지하기 위해 autovacuum 프로세스를 실행한다는 점에 유의해야 한다.
+autovacuum이 달리 비활성화된 경우에도 시스템은 겹침을 방지하기 위해 autovacuum 프로세스를 실행한다는 점에 유의해야 한다.
  </P
 ><P
 >Vacuum은 <TT
@@ -12112,7 +12112,7 @@ CLASS="TYPE"
 >)&#13;</DT
 ><DD
 ><P
->테이블 내 multixact ID 랩어라운드를 방지하기 위해 <TT
+>테이블 내 multixact ID 겹침을 방지하기 위해 <TT
 CLASS="COMMAND"
 >VACUUM</TT
 > 명령을 강제하기 전에 
@@ -12123,7 +12123,7 @@ CLASS="STRUCTNAME"
 CLASS="STRUCTFIELD"
 >relminmxid</TT
 > 필드가 도달할 수 있는 연령(multixacts에서)을 지정한다. 
-autovacuum이 달리 비활성화된 경우에도 시스템은 랩어라운드를 방지하기 위해 autovacuum 프로세스를 실행한다는 점에 유의해야 한다.
+autovacuum이 달리 비활성화된 경우에도 시스템은 겹침을 방지하기 위해 autovacuum 프로세스를 실행한다는 점에 유의해야 한다.
  </P
 ><P
 >Vacuuming multixacts는 <TT
@@ -12720,7 +12720,7 @@ CLASS="COMMAND"
 <A
 HREF="#GUC-AUTOVACUUM-FREEZE-MAX-AGE"
 >autovacuum_freeze_max_age</A
->의 95%로 슬며시 제한하므로 랩어라운드 방지 
+>의 95%로 슬며시 제한하므로 겹침 방지 
 autovacuum이 테이블에서 실행되기 주기적으로 직접 <TT
 CLASS="COMMAND"
 >VACUUM</TT
@@ -12794,7 +12794,7 @@ CLASS="COMMAND"
 <A
 HREF="#GUC-AUTOVACUUM-MULTIXACT-FREEZE-MAX-AGE"
 >autovacuum_multixact_freeze_max_age</A
->의 95%로 슬며시 제한하므로 랩어라운드 방지가 테이블에서 실행되기 전에 
+>의 95%로 슬며시 제한하므로 겹침 방지가 테이블에서 실행되기 전에 
 주기적으로 직접 <TT
 CLASS="COMMAND"
 >VACUUM</TT
@@ -14206,7 +14206,7 @@ CLASS="TYPE"
 >이것은 거대(large) 테이블의 순차 스캔을 허용하여 서로를 동기화하므로 동시 스캔은 동일한 시간에 동일한 블록을 읽고 I/O 작업 부하를 공유한다. 
 이것이 활성화되면 스캔이 테이블 중간에서 시작되며, 이미 진행 중인 스캔 활동과 동기화되도록 모든 행을 끝까지 <SPAN
 CLASS="QUOTE"
->"랩어라운드"</SPAN
+>"겹치게"</SPAN
 >한다. 
 이것은 결과적으로 <TT
 CLASS="LITERAL"
@@ -15746,8 +15746,10 @@ NAME="CLIENT-AUTHENTICATION"
 >클라이언트 애플리케이션이 데이터베이스 서버에 연결하는 경우 어떤 <SPAN
 CLASS="PRODUCTNAME"
 >Agens SQL</SPAN
-> 데이터베이스 사용자 이름으로 연결할 것인지 지정하는데, 이것은 특정 사용자로 Unix 컴퓨터에 로그인하는 것과 매우 유사하다. 
-SQL 환경 내에서 사용 중인 데이터베이스 사용자 이름은 데이터베이스 개체에 대한 액세스 권한을 결정한다. 자세한 내용은 <A
+> 
+데이터베이스 사용자 이름으로 연결할 것인지 지정하는데, 이것은 특정 사용자로 Unix 컴퓨터에 로그인하는 것과 매우 유사하다. 
+SQL 환경 내에서 사용 중인 데이터베이스 사용자 이름은 데이터베이스 개체에 대한 액세스 권한을 결정한다. 
+자세한 내용은 <A
 HREF="#USER-MANAG"
 >4장</A
 >을 참고 바란다. 따라서 연결 가능한 데이터베이스 사용자를 제한하는 것이 중요하다.
@@ -15768,7 +15770,7 @@ CLASS="PRODUCTNAME"
 >은 실제로 <SPAN
 CLASS="QUOTE"
 >"role"</SPAN
-> 면에서 권한을 관리한다. 
+>로 권한을 관리한다. 
 이 장에서는 <I
 CLASS="FIRSTTERM"
 >데이터베이스 사용자</I
@@ -15802,7 +15804,8 @@ CLASS="PRODUCTNAME"
 >Agens SQL</SPAN
 > 데이터베이스 사용자 이름은 서버가 실행되는 운영 체제의 사용자 이름과 논리적으로 별개이다. 
 특정 서버의 모든 사용자도 서버 머신에 계정을 가질 수 있지만 운영 체제 사용자 이름과 일치하는 데이터베이스 사용자 이름을 할당하는 것이 합당하다. 
-그러나, 원격 연결을 수용하는 서버에는 로컬 운영 체제 계정이 없는 데이터베이스 사용자가 다수일 수 있으며, 이런 경우 데이터베이스 사용자 이름과 OS 사용자 이름을 연결 짓는 것은 불필요하다.
+그러나, 원격 연결을 수용하는 서버에는 로컬 운영 체제 계정이 없는 데이터베이스 사용자가 다수일 수 있으며, 
+이런 경우 데이터베이스 사용자 이름과 OS 사용자 이름을 연결 짓는 것은 불필요하다.
  </P
 ><DIV
 CLASS="SECT1"
@@ -15819,7 +15822,8 @@ CLASS="FILENAME"
 > 클라이언트 인증은 전통적으로 이름이 <TT
 CLASS="FILENAME"
 >pg_hba.conf</TT
->이고 데이터베이스 클러스터의 데이터 디렉토리에 저장되는 환경 설정 파일로 제어된다. (<ACRONYM
+>이고 데이터베이스 클러스터의 데이터 디렉토리에 저장되는 
+ 환경 설정 파일로 제어된다. (<ACRONYM
 CLASS="ACRONYM"
 >HBA</ACRONYM
 >는 호스트 기반 인증(host-based authentication)의 약어이다.) 
@@ -15829,24 +15833,30 @@ CLASS="FILENAME"
 > 파일은 데이터 디렉토리가 <TT
 CLASS="COMMAND"
 >initdb</TT
->로 초기화될 때 설치된다. 인증 환경 설정 파일을 다른 곳에 배치하는 것도 가능하다. hba_file 환경 설정 파일을 참조 바란다.</P
+>로 초기화될 때 설치된다. 
+ 인증 환경 설정 파일을 다른 곳에 배치하는 것도 가능하다. hba_file 환경 설정 파일을 참조 바란다.</P
 ><P
 > <TT
 CLASS="FILENAME"
 >pg_hba.conf</TT
-> 파일의 일반 형식은 한 줄당 하나씩 있는 레코드 세트이다. 빈 줄은 무시된다. <TT
+> 파일의 일반 형식은 한 줄당 하나씩 있는 레코드의 집합이다. 
+ 빈 줄은 무시된다. <TT
 CLASS="LITERAL"
 >#</TT
-> 주석 문자 뒤의 텍스트도 무시된다. 레코드는 줄을 바꿔서 이어질 수 없다. 레코드는 여러 개의 필드로 구성되며, 공백 및/또는 탭으로 구분된다. 
- 필드 값에 큰 따옴표를 사용하면 필드에 공백을 포함할 수 있다. 데이터베이스 또는 사용자, 주소 필드의 키워드에 따옴표를 사용하면(예: <TT
+> 주석 문자 뒤의 텍스트도 무시된다. 레코드는 줄을 바꿔서 이어질 수 없다. 
+ 레코드는 여러 개의 필드로 구성되며, 공백 및/또는 탭으로 구분된다. 
+ 필드 값에 큰 따옴표를 사용하면 필드에 공백을 포함할 수 있다. 
+ 데이터베이스 또는 사용자, 주소 필드의 키워드에 따옴표를 사용하면(예: <TT
 CLASS="LITERAL"
 >all</TT
 > 또는 <TT
 CLASS="LITERAL"
 >replication</TT
->) 단어는 자체의 특수한 의미를 상실하고 해당 이름의 데이터베이스, 사용자 또는 호스트와 일치하게 된다.</P
+>) 
+ 단어는 자체의 특수한 의미를 상실하고 해당 이름의 데이터베이스 또는 사용자, 호스트와 일치하게 된다.</P
 ><P
-> 각 레코드는 이러한 매개 변수와 일치하는 연결에 사용되는 연결 유형 및 클라이언트 IP 주소 범위(연결 유형에 해당하는 경우), 데이터베이스 이름, 사용자 이름, 인증 방법을 지정한다. 
+> 각 레코드는 이러한 매개 변수와 일치하는 연결에 사용되는 연결 유형 및 클라이언트 IP 주소 범위(연결 유형에 해당하는 경우), 
+ 데이터베이스 이름, 사용자 이름, 인증 방법을 지정한다. 
  연결 타입 및 클라이언트 주소, 요청된 데이터베이스, 사용자 이름이 일치하는 첫 번째 레코드는 인증을 수행할 때 사용된다. 
  <SPAN
 CLASS="QUOTE"
@@ -15854,7 +15864,8 @@ CLASS="QUOTE"
 > 또는 <SPAN
 CLASS="QUOTE"
 >"백업"</SPAN
->은 없다. 레코드 하나가 선택되고 인증이 실패한 경우 다음 레코드는 인증되지 않는다. 
+>은 없다. 
+ 레코드 하나가 선택되고 인증이 실패한 경우 다음 레코드는 인증되지 않는다. 
  일치하는 레코드가 없으면 액세스가 거부된다.</P
 ><P
 > 레코드는 다음 7가지 형식 중 하나이다.
@@ -16087,7 +16098,8 @@ CLASS="LITERAL"
 ></DT
 ><DD
 ><P
-> 이 레코드는 Unix 도메인 소켓을 사용한 연결 시도와 일치한다. 이러한 유형의 레코드 없이 Unix 도메인 소켓 연결은 불가능 하다.</P
+> 이 레코드는 Unix 도메인 소켓을 사용한 연결 시도와 일치한다. 
+ 이러한 유형의 레코드 없이 Unix 도메인 소켓 연결은 불가능 하다.</P
 ></DD
 ><DT
 ><TT
@@ -16254,13 +16266,15 @@ CLASS="REPLACEABLE"
 ></DT
 ><DD
 ><P
-> 이 레코드와 일치하는 클라이언트 머신 주소를 지정한다. 이 필드는 호스트 이름, IP 주소 범위 또는 아래 설명된 특수 키워드 중 하나를 포함할 수 있다.</P
+> 이 레코드와 일치하는 클라이언트 머신 주소를 지정한다. 
+ 이 필드는 호스트 이름, IP 주소 범위 또는 아래 설명된 특수 키워드 중 하나를 포함할 수 있다.</P
 ><P
 > IP 주소는 <ACRONYM
 CLASS="ACRONYM"
 >CIDR</ACRONYM
 > 마스크 길이의, 점으로 구분된 십진수(dotted decimal) 표준 표기법으로 지정된다. 
- 마스크 길이는 일치해야 하는 클라이언트 IP 주소의 상위 비트 수를 나타낸다. 이것의 오른쪽에 있는 비트는 주어진 IP 주소에서 0이어야 한다. 
+ 마스크 길이는 일치해야 하는 클라이언트 IP 주소의 상위 비트 수를 나타낸다. 
+ 이것의 오른쪽에 있는 비트는 주어진 IP 주소에서 0이어야 한다. 
  IP 주소 및 <TT
 CLASS="LITERAL"
 >/</TT
@@ -16310,13 +16324,18 @@ CLASS="LITERAL"
 >samenet</TT
 >을 쓸 수도 있다.</P
 ><P
-> 호스트 이름이 지정된 경우(IP 주소가 아니거나 특수 키워드가 호스트 이름으로 처리되는 모든 것) 해당 이름은 클라이언트 IP 주소의 역방향 이름 분석 결과와 비교된다(예: DNS가 사용되는 경우 역방향 DNS 조회). 호스트 이름 비교는 대소문자를 구분하지 않는다. 
- 일치하는 호스트 이름이 있는 경우, 호스트 이름을 순방향 이름 분석(예: 순방향 DNS 조회)해서 클라이언트의 IP 주소와 동일한지 검사한다. 양방향으로 일치할 경우 항목이 일치하는 것으로 간주된다. 
+> 호스트 이름이 지정된 경우(IP 주소가 아니거나 특수 키워드가 호스트 이름으로 처리되는 모든 것) 
+ 해당 이름은 클라이언트 IP 주소의 역방향 이름 분석 결과와 비교된다(예: DNS가 사용되는 경우 역방향 DNS 조회). 
+ 호스트 이름 비교는 대소문자를 구분하지 않는다. 
+ 일치하는 호스트 이름이 있는 경우, 호스트 이름을 순방향 이름 분석(예: 순방향 DNS 조회)해서 클라이언트의 IP 주소와 동일한지 검사한다. 
+ 양방향으로 일치할 경우 항목이 일치하는 것으로 간주된다. 
  (<TT
 CLASS="FILENAME"
 >pg_hba.conf</TT
->에서 사용되는 호스트 이름은 클라이언트 IP 주소의 주소-이름 분석(address-to-name resolution)이 리턴한 것이어야 하며, 리턴된 값이 아니면 일치할 수 없다.)
- 일부 호스트 이름 데이터베이스는 IP 주소를 호스트 이름 여러 개와 연결하는 것을 허용하지만, IP 주소를 분석하도록 요청된 경우 운영 체제는 호스트 이름을 하나만 리턴한다.</P
+>에서 사용되는 호스트 이름은 클라이언트 IP 주소의 주소-이름 분석(address-to-name resolution)이 리턴한 것이어야 
+ 하며, 리턴된 값이 아니면 일치할 수 없다.)
+ 일부 호스트 이름 데이터베이스는 IP 주소를 호스트 이름 여러 개와 연결하는 것을 허용하지만, 
+ IP 주소를 분석하도록 요청된 경우 운영 체제는 호스트 이름을 하나만 리턴한다.</P
 ><P
 > 점(<TT
 CLASS="LITERAL"
@@ -16328,7 +16347,8 @@ CLASS="LITERAL"
 >은 <TT
 CLASS="LITERAL"
 >foo.example.com</TT
->과 일치하게 된다(<TT
+>과 일치하게 된다
+ (<TT
 CLASS="LITERAL"
 >example.com</TT
 >만으로는 일치하지 않음).</P
@@ -16888,7 +16908,8 @@ CLASS="REPLACEABLE"
 ></TT
 > 매개 변수에서 지정된다.</P
 ><P
-> 사용자 이름 맵은 ident 맵 파일에서 정의되며, 기본적으로 이름은 <TT
+> 사용자 이름 맵은 ident 맵 파일에서 정의되며, 
+ 기본적으로 이름은 <TT
 CLASS="FILENAME"
 >pg_ident.conf</TT
 >이며 클러스터의 데이터 디렉토리에 저장된다. 
@@ -16915,7 +16936,8 @@ CLASS="REPLACEABLE"
  주석 및 공백은 <TT
 CLASS="FILENAME"
 >pg_hba.conf</TT
->에서와 동일하게 처리된다. <TT
+>에서와 동일하게 처리된다. 
+ <TT
 CLASS="REPLACEABLE"
 ><I
 >map-name</I
@@ -16999,7 +17021,8 @@ CLASS="LITERAL"
 > <TT
 CLASS="FILENAME"
 >pg_ident.conf</TT
-> 파일은 시작 시 및 메인 서버 프로세스가 <SPAN
+> 파일은 시작 시 및 메인 서버 프로세스가 
+ <SPAN
 CLASS="SYSTEMITEM"
 >SIGHUP</SPAN
 > 신호를 수신했을 때 읽혀진다.
@@ -17024,7 +17047,8 @@ CLASS="FILENAME"
 > 파일이 <A
 HREF="#EXAMPLE-PG-IDENT.CONF"
 >예 3-2</A
->에 나와 있다. 이 예제에서 운영 체제 사용자 이름인 <TT
+>에 나와 있다. 
+ 이 예제에서 운영 체제 사용자 이름인 <TT
 CLASS="LITERAL"
 >bryanh</TT
 > 또는 <TT
@@ -17033,7 +17057,8 @@ CLASS="LITERAL"
 >, <TT
 CLASS="LITERAL"
 >robert</TT
->가 없는 192.168 네트워크에서 로그인한 사용자는 액세스 권한을 부여 받지 못한다. 
+>가 없는 192.168 네트워크에서 로그인한 사용자는 
+ 액세스 권한을 부여 받지 못한다. 
  Unix 사용자 <TT
 CLASS="LITERAL"
 >robert</TT
@@ -17046,14 +17071,16 @@ CLASS="PRODUCTNAME"
 > 사용자인 <TT
 CLASS="LITERAL"
 >bob</TT
->으로 연결을 시도하는 경우에만 액세스가 허용된다. 
+>으로 연결을 
+ 시도하는 경우에만 액세스가 허용된다. 
  <TT
 CLASS="LITERAL"
 >ann</TT
 >은 <TT
 CLASS="LITERAL"
 >ann</TT
->으로 연결할 때만 허용된다. 사용자 <TT
+>으로 연결할 때만 허용된다. 
+ 사용자 <TT
 CLASS="LITERAL"
 >bryanh</TT
 >은 <TT
@@ -17127,8 +17154,8 @@ CLASS="LITERAL"
 ><TT
 CLASS="LITERAL"
 >trust</TT
-> 인증은 단일 사용자 워크스테이션에 대한 로컬 연결 시 적절하며, 매우 편리하다. 다중 사용자 머신에서는 일반적으로 적절하지 
-<SPAN
+> 인증은 단일 사용자 워크스테이션에 대한 로컬 연결 시 적절하며, 매우 편리하다. 
+다중 사용자 머신에서는 일반적으로 적절하지 <SPAN
 CLASS="emphasis"
 ><I
 CLASS="EMPHASIS"
@@ -17157,7 +17184,8 @@ CLASS="VARNAME"
 > 환경 설정 매개 변수를 설정하여 소켓 파일을 적절히 제한된 디렉토리에 배치할 수 있다.
  </P
 ><P
->파일 시스템 권한 설정은 Unix 소켓 연결 시에만 유용하다. 로컬 TCP/IP 연결은 파일 시스템 권한에 의해 제한되지 않는다. 
+>파일 시스템 권한 설정은 Unix 소켓 연결 시에만 유용하다. 
+로컬 TCP/IP 연결은 파일 시스템 권한에 의해 제한되지 않는다. 
 따라서 로컬 보안을 위해 파일 시스템 권한을 사용하려면 <TT
 CLASS="LITERAL"
 >host ... 127.0.0.1 ...</TT
@@ -17206,7 +17234,8 @@ CLASS="LITERAL"
 > 및 <TT
 CLASS="LITERAL"
 >password</TT
->이다. 패스워드가 전송될 때 각각 MD5 해시 및 일반 텍스트로 전송되는 점을 
+>이다. 
+패스워드가 전송될 때 각각 MD5 해시 및 일반 텍스트로 전송되는 점을 
 제외하고 두 방법은 유사하게 작동된다.
  </P
 ><P
@@ -17382,7 +17411,8 @@ CLASS="VARNAME"
 보안상의 이유로, 시스템 키탭 파일에 대한 권한을 여는 것보다는 <SPAN
 CLASS="PRODUCTNAME"
 >Agens SQL</SPAN
-> 서버에 대해 별개의 키탭을 사용하는 것이 바람직하다.
+> 서버에 대해 별개의 키탭을 사용하는 것이 
+바람직하다.
  </P
 ><P
 >키탭 파일은 Kerberos 소프트웨어에 의해 생성된다. 자세한 내용은 Kerberos 문서를 참조 바란다. 다음 예시는 MIT 호환 Kerberos 5 구현에 대한 것이다.
@@ -17416,7 +17446,8 @@ CLASS="LITERAL"
 보안 규칙 <TT
 CLASS="LITERAL"
 >fred/users.example.com@EXAMPLE.COM</TT
->의 연결도 허용하려면 <A
+>의 연결도 허용하려면 
+<A
 HREF="#AUTH-USERNAME-MAPS"
 >3.2절</A
 >에 설명된 대로 사용자 이름 맵을 사용해야 한다.
@@ -17438,11 +17469,16 @@ CLASS="LITERAL"
 ></DT
 ><DD
 ><P
->1로 설정되면 인증된 사용자 보안 규칙의 영역 이름이 사용자 이름 맵핑을 통해 전달되는 시스템 사용자 이름에 포함된다(<A
+>1로 설정되면 인증된 사용자 보안 규칙의 영역 이름이 사용자 이름 맵핑을 통해 전달되는 시스템 사용자 이름에 포함된다
+(<A
 HREF="#AUTH-USERNAME-MAPS"
 >3.2절</A
 >). 이것은 복수의 영역(realm)에서 사용자를 처리할 때 유용하다. 
-기본값은 0이지만(시스템 사용자 이름의 영역에 포함되지 않음을 뜻함), 향후 Agens SQL 버전에서는 1로 바뀔 수도 있다. 사용자는 업그레이드할 때 이슈를 피하기 위해 0을 명시적으로 설정할 수 있다.
+기본값은 0이지만(시스템 사용자 이름의 영역에 포함되지 않음을 뜻함), 향후 <SPAN
+CLASS="PRODUCTNAME"
+>Agens SQL</SPAN
+> 버전에서는 1로 바뀔 수도 있다. 
+사용자는 업그레이드할 때 이슈를 피하기 위해 0을 명시적으로 설정할 수 있다.
  </P
 ></DD
 ><DT
@@ -17507,7 +17543,8 @@ CLASS="PRODUCTNAME"
 >는 단일 사인온(sign-on)의 보안 인증을 위한 <SPAN
 CLASS="PRODUCTNAME"
 >Windows</SPAN
-> 기술이다. <SPAN
+> 기술이다. 
+<SPAN
 CLASS="PRODUCTNAME"
 >Agens SQL</SPAN
 >은 <TT
@@ -17527,7 +17564,8 @@ CLASS="PRODUCTNAME"
 > 인증은 서버와 클라이언트가 모두 <SPAN
 CLASS="PRODUCTNAME"
 >Windows</SPAN
->를 사용하는 경우에만 작동되고, <SPAN
+>를 사용하는 경우에만 작동되고, 
+<SPAN
 CLASS="PRODUCTNAME"
 >GSSAPI</SPAN
 >를 사용할 수 있는 경우에는 비 Windows에서 작동된다.
@@ -17539,7 +17577,8 @@ CLASS="PRODUCTNAME"
 > 인증 사용 중에는 <SPAN
 CLASS="PRODUCTNAME"
 >SSPI</SPAN
->가 <SPAN
+>가 
+<SPAN
 CLASS="PRODUCTNAME"
 >GSSAPI</SPAN
 >와 동일한 방식으로 작동된다. 
@@ -17565,11 +17604,16 @@ CLASS="LITERAL"
 ></DT
 ><DD
 ><P
->1로 설정되면 인증된 사용자 보안 규칙의 영역(realm) 이름이 사용자 이름 맵핑을 통해 전달되는 시스템 사용자 이름에 포함된다(<A
+>1로 설정되면 인증된 사용자 보안 규칙의 영역(realm) 이름이 사용자 이름 맵핑을 통해 전달되는 시스템 사용자 이름에 포함된다
+(<A
 HREF="#AUTH-USERNAME-MAPS"
 >3.2절</A
 >). 이것은 복수의 영역(realm)에서 사용자를 처리할 때 유용하다.
-기본값은 0이지만(시스템 사용자 이름의 영역에 포함되지 않음을 뜻함), 향후 Agens SQL 버전에서는 1로 바뀔 수도 있다. 사용자는 업그레이드할 때 이슈를 피하기 위해 0을 명시적으로 설정할 수 있다.
+기본값은 0이지만(시스템 사용자 이름의 영역에 포함되지 않음을 뜻함), 향후 <SPAN
+CLASS="PRODUCTNAME"
+>Agens SQL</SPAN
+> 버전에서는 1로 바뀔 수도 있다. 
+사용자는 업그레이드할 때 이슈를 피하기 위해 0을 명시적으로 설정할 수 있다.
  </P
 ></DD
 ><DT
@@ -17657,7 +17701,8 @@ HREF="#AUTH-USERNAME-MAPS"
 ><SPAN
 CLASS="QUOTE"
 >"신분확인 프로토콜(Identification Protocol)"</SPAN
->은 RFC 1413에 설명되어 있다. 실제로 모든 Unix 류의 운영 체제에는 기본적으로 TCP 포트 113에서 listen하는 ident 서버가 내장되어 있다. 
+>은 RFC 1413에 설명되어 있다. 
+실제로 모든 Unix 류의 운영 체제에는 기본적으로 TCP 포트 113에서 listen하는 ident 서버가 내장되어 있다. 
 ident 서버의 기본적인 기능은, <SPAN
 CLASS="QUOTE"
 >"당신의 포트 <TT
@@ -17670,7 +17715,8 @@ CLASS="REPLACEABLE"
 ><I
 >Y</I
 ></TT
->에 연결되는 연결을 초기화한 사용자는 누구인가?"</SPAN
+>에 
+연결되는 연결을 초기화한 사용자는 누구인가?"</SPAN
 > 같은 질문에 응답하는 것이다. 
 실제 연결이 성립되면 <SPAN
 CLASS="PRODUCTNAME"
@@ -17685,14 +17731,17 @@ CLASS="REPLACEABLE"
 ><I
 >Y</I
 ></TT
->를 모두 알고 있으므로 연결 클라이언트의 호스트에 대한 정보를 ident 서버에서 얻을 수 있으며, 주어진 연결에서 운영 체제 사용자를 판단할 수 있다.
+>를 모두 알고 있으므로 
+연결 클라이언트의 호스트에 대한 정보를 ident 서버에서 얻을 수 있으며, 주어진 연결에서 운영 체제 사용자를 판단할 수 있다.
  </P
 ><P
->이 방법의 단점은 클라이언트의 무결성에 따라 달라진다. 클라이언트 머신을 신뢰할 수 없거나 손상된 경우 공격자(attacker)는 포트 113에서 프로그램을 실행하고, 선택한 사용자 이름으로 리턴할 수 있다. 
-따라서 인증 방법은 각 클라이언트 머신이 엄격하게 제어되고, 데이터베이스 및 시스템 관리자의 협력이 긴밀하게 이뤄지는 폐쇄된 네트워크의 경우에만 적합하다. 즉, 사용자는 ident 서버가 실행되는 머신을 신뢰해야 한다. 
+>이 방법의 단점은 클라이언트의 무결성에 따라 달라진다. 클라이언트 머신을 신뢰할 수 없거나 손상된 경우 
+공격자(attacker)는 포트 113에서 프로그램을 실행하고, 선택한 사용자 이름으로 리턴할 수 있다. 
+따라서 인증 방법은 각 클라이언트 머신이 엄격하게 제어되고, 데이터베이스 및 시스템 관리자의 협력이 긴밀하게 이뤄지는 
+폐쇄된 네트워크의 경우에만 적합하다. 즉, 사용자는 ident 서버가 실행되는 머신을 신뢰해야 한다. 
 다음 경고에 유의해야 한다.
 <A
-NAME="AEN6065"
+NAME="AEN6067"
 ></A
 ><TABLE
 BORDER="0"
@@ -17708,7 +17757,7 @@ VALIGN="TOP"
 ><TD
 VALIGN="TOP"
 ><P
->신분확인 프로토콜은 인증 또는 액세스 제어 프로토콜로 사용할 수 없다(The Identification Protocol is not intended as an authorization or access control protocol).
+>신분확인 프로토콜은 인증 또는 액세스 제어 프로토콜로 사용할 수 없다.
  </P
 ></TD
 ><TD
@@ -17737,7 +17786,8 @@ WIDTH="10%"
 <SPAN
 CLASS="PRODUCTNAME"
 >Agens SQL</SPAN
->는 실제 사용자 이름을 결정하기 위해 리턴된 string의 암호를 해제할 방법이 없으므로 ident 서버에서 <SPAN
+>는 실제 사용자 이름을 결정하기 위해 리턴된 string의 암호를 해제할 방법이 없으므로 
+ident 서버에서 <SPAN
 CLASS="PRODUCTNAME"
 >Agens SQL</SPAN
 >을 사용하는 경우에는 이 옵션을 사용해서는 <SPAN
@@ -17758,7 +17808,8 @@ NAME="AUTH-PEER"
 >3.3.6. 피어(peer) 인증</A
 ></H3
 ><P
->피어(peer) 인증 방법은 클라이언트의 운영 체제 사용자 이름을 커널로부터 획득하고, 허용된 데이터베이스 사용자 이름으로 사용함으로써 작동된다(선택적 사용자 이름 맵핑 사용). 
+>피어(peer) 인증 방법은 클라이언트의 운영 체제 사용자 이름을 커널로부터 획득하고, 
+허용된 데이터베이스 사용자 이름으로 사용함으로써 작동된다(선택적 사용자 이름 맵핑 사용). 
 이 방법은 로컬 연결에만 지원된다.
  </P
 ><P
@@ -17795,10 +17846,11 @@ HREF="#AUTH-USERNAME-MAPS"
 >피어(Peer) 인증은 <CODE
 CLASS="FUNCTION"
 >getpeereid()</CODE
-> 함수, <TT
+> 함수 또는 <TT
 CLASS="SYMBOL"
 >SO_PEERCRED</TT
-> 소켓 매개 변수 또는 유사 메커니즘이 제공되는 운영 체제에서만 사용할 수 있다. 현재 <SPAN
+> 소켓 매개 변수, 유사 메커니즘이 제공되는 
+운영 체제에서만 사용할 수 있다. 현재 <SPAN
 CLASS="SYSTEMITEM"
 >Linux</SPAN
 >가 포함되며, 
@@ -17826,11 +17878,13 @@ NAME="AUTH-LDAP"
 >이 인증 방법은 패스워드 검증 방법으로 LDAP를 사용할 때 외에는 <TT
 CLASS="LITERAL"
 >password</TT
->와 유사하게 작동된다. LDAP는 사용자 이름/패스워드 쌍을 검증할 때에만 사용된다. 
+>와 유사하게 작동된다. 
+LDAP는 사용자 이름/패스워드 쌍을 검증할 때에만 사용된다. 
 따라서 LDAP를 인증에 사용하기 전에 사용자가 데이터베이스에 존재해야 한다.
  </P
 ><P
->LDAP 인증은 2가지 모드로 수행할 수 있다. 간단한 바인딩 모드라고 하는 첫 번째 방법은 서버가 <TT
+>LDAP 인증은 2가지 모드로 수행할 수 있다. 
+간단한 바인딩 모드라고 하는 첫 번째 방법은 서버가 <TT
 CLASS="REPLACEABLE"
 ><I
 >prefix</I
@@ -17845,16 +17899,18 @@ CLASS="REPLACEABLE"
 ><I
 >suffix</I
 ></TT
->로 구성된 고유한 이름에 바인딩하는 것이다. 
+>로 구성된 
+고유한 이름에 바인딩하는 것이다. 
 일반적으로 <TT
 CLASS="REPLACEABLE"
 ><I
 >prefix</I
 ></TT
-> 매개 변수는 Active Directory 환경에서 <TT
+> 매개 변수는 활성 디렉토리(Active Directory) 환경에서 <TT
 CLASS="LITERAL"
 >cn=</TT
-> 또는 <TT
+> 또는 
+<TT
 CLASS="REPLACEABLE"
 ><I
 >DOMAIN</I
@@ -17862,12 +17918,13 @@ CLASS="REPLACEABLE"
 ><TT
 CLASS="LITERAL"
 >\</TT
->을 지정하는 데 사용된다. <TT
+>을 지정하는 데 사용된다. 
+<TT
 CLASS="REPLACEABLE"
 ><I
 >suffix</I
 ></TT
->는 비 Active Directory 환경의 나머지 부분을 지정할 때 사용된다.
+>는 비 활성 디렉토리(Active Directory) 환경의 나머지 부분을 지정할 때 사용된다.
  </P
 ><P
 >검색+바인딩 모드라고 하는 두 번째 모드에서 서버는 <TT
@@ -17880,8 +17937,10 @@ CLASS="REPLACEABLE"
 ><I
 >ldapbindpasswd</I
 ></TT
->로 지정 및 고정된 사용자 이름과 패스워드를 사용하여 LDAP 디렉토리에 먼저 바인딩한 다음, 데이터베이스에 로그인하려는 사용자를 검색한다. 
-사용자 및 패스워드가 설정되지 않은 경우 디렉토리에 익명으로 바인딩이 시도된다. <TT
+>로 지정 및 
+고정된 사용자 이름과 패스워드를 사용하여 LDAP 디렉토리에 먼저 바인딩한 다음, 데이터베이스에 로그인하려는 사용자를 검색한다. 
+사용자 및 패스워드가 설정되지 않은 경우 디렉토리에 익명으로 바인딩이 시도된다. 
+<TT
 CLASS="REPLACEABLE"
 ><I
 >ldapbasedn</I
@@ -17892,8 +17951,10 @@ CLASS="REPLACEABLE"
 >ldapsearchattribute</I
 ></TT
 >와 정확히 일치하는 것을 찾는다. 
-이 검색에서 사용자를 찾으면, 서버는 연결을 끊고 로그인이 올바른지 검증하기 위해 클라이언트에서 지정된 패스워드를 사용하여 이 사용자로 디렉토리에 다시 바인딩한다. 
-이 모드는 Apache mod_authnz_ldap 및 pam_ldap 같은 다른 소프트웨어의 LDAP 인증 스키마에서 사용되는 것과 동일하다. 이 방법은 사용자 객체들이 디렉토리에 있을 경우 더 유연하게 작용하지만 두 LDAP 서버 연결을 분리시킨다.
+이 검색에서 사용자를 찾으면, 서버는 연결을 끊고 로그인이 올바른지 검증하기 위해 클라이언트에서 지정된 패스워드를 사용하여 
+이 사용자로 디렉토리에 다시 바인딩한다. 
+이 모드는 Apache mod_authnz_ldap 및 pam_ldap 같은 다른 소프트웨어의 LDAP 인증 스키마에서 사용되는 것과 동일하다. 
+이 방법은 사용자 객체들이 디렉토리에 있을 경우 더 유연하게 작용하지만 두 LDAP 서버 연결을 분리시킨다.
  </P
 ><P
 >다음 구성 옵션이 양쪽 모드에 사용된다.
@@ -18009,7 +18070,8 @@ CLASS="LITERAL"
 ></DT
 ><DD
 ><P
-> 검색+바인딩 인증 수행 시 검색에서 사용자 이름에 대해 일치하는 속성. 속성이 지정되지 않으면 <TT
+> 검색+바인딩 인증 수행 시 검색에서 사용자 이름에 대해 일치하는 속성. 
+ 속성이 지정되지 않으면 <TT
 CLASS="LITERAL"
 >uid</TT
 > 속성이 사용된다.</P
@@ -18081,7 +18143,8 @@ CLASS="LITERAL"
 > 외에도 <TT
 CLASS="LITERAL"
 >ldaptls</TT
-> 옵션을 사용해야 한다. <TT
+> 옵션을 사용해야 한다. 
+ <TT
 CLASS="LITERAL"
 >ldaps</TT
 > URL 스키마(다이렉트 SSL 연결)는 지원되지 않는다.</P
@@ -18104,11 +18167,14 @@ CLASS="PROGRAMLISTING"
 데이터베이스 사용자 <TT
 CLASS="LITERAL"
 >someuser</TT
->로 데이터베이스 서버에 연결이 요청된 경우 Agens SQL은 DN <TT
+>로 데이터베이스 서버에 연결이 요청된 경우 <SPAN
+CLASS="PRODUCTNAME"
+>Agens SQL</SPAN
+>은 
+DN <TT
 CLASS="LITERAL"
->cn=someuser, dc=example,
-dc=net</TT
-> 및 클라이언트에서 제공된 패스워드를 사용하여 LDAP 서버에 바인딩을 시도한다. 
+>cn=someuser 및 dc=example, dc=net</TT
+>, 클라이언트에서 제공된 패스워드를 사용하여 LDAP 서버에 바인딩을 시도한다. 
 해당 연결이 성공하면 데이터베이스 액세스가 허용된다.
  </P
 ><P
@@ -18168,7 +18234,8 @@ NAME="AUTH-RADIUS"
 CLASS="LITERAL"
 >password</TT
 >와 유사하게 작동된다. 
-RADIUS는 사용자 이름/패스워드 쌍을 검증할 때에만 사용된다. 따라서 RADIUS를 인증에 사용하기 전에 사용자가 데이터베이스에 존재해야 한다.
+RADIUS는 사용자 이름/패스워드 쌍을 검증할 때에만 사용된다. 
+따라서 RADIUS를 인증에 사용하기 전에 사용자가 데이터베이스에 존재해야 한다.
  </P
 ><P
 >RADIUS 인증을 사용 중인 경우 구성된 RADIUS 서버로 액세스 요청(Access Request) 메시지가 전송된다. 
@@ -18218,7 +18285,8 @@ CLASS="LITERAL"
 ></DT
 ><DD
 ><P
-> 보안을 유지하면서 RADIUS 서버와 통신할 때 사용되는 공유 시크릿. 이것은 Agens SQL 및 RADIUS 서버에서 값이 정확하게 동일해야 한다. 
+> 보안을 유지하면서 RADIUS 서버와 통신할 때 사용되는 공유 시크릿. 
+ 이것은 Agens SQL 및 RADIUS 서버에서 값이 정확하게 동일해야 한다. 
  최소 16자의 string이 권장된다. 이 매개 변수는 필수이다.
  </P><DIV
 CLASS="NOTE"
@@ -18382,8 +18450,7 @@ CLASS="FILENAME"
 CLASS="PRODUCTNAME"
 >Agens SQL</SPAN
 > 서버는 root가 아닌 다른 사용자로 시작되므로 
- 인증이 실패한다. 
- 단, PAM이 LDAP 또는 다른 인증 방법을 사용하도록 설정된 경우 실행되지 않는다.</P
+ 인증이 실패한다. 단, PAM이 LDAP 또는 다른 인증 방법을 사용하도록 설정된 경우 실행되지 않는다.</P
 ></BLOCKQUOTE
 ></DIV
 ></DIV
@@ -19156,15 +19223,19 @@ CLASS="QUOTE"
 CLASS="LITERAL"
 >pg_database</TT
 >처럼 전체 클러스터에 속하고 클러스터 내의 각 데이터베이스에서 접근 가능한 시스템 카탈로그는 몇 개 있다.) 
-   좀 더 정확하게 말하면 데이터베이스는 스키마의 컬렉션이며, 스키마에는 테이블, 함수 등이 포함된다. 따라서 전체 구조는 서버, 데이터베이스, 스키마, 테이블(또는 함수 같이 종류가 다른 일부 객체)로 구성된다.
+   좀 더 정확하게 말하면 데이터베이스는 스키마의 컬렉션이며, 스키마에는 테이블, 함수 등이 포함된다. 
+   따라서 전체 구조는 서버, 데이터베이스, 스키마, 테이블(또는 함수 같이 종류가 다른 일부 객체)로 구성된다.
   </P
 ><P
->   데이터베이스 서버에 연결하는 경우 클라이언트는 연결하려는 데이터베이스 이름을 연결을 요청할 때 지정해야 한다. 연결당 데이터베이스를 하나 이상 접근할 수도 있다. 
-   단, 애플리케이션은 동일한 데이터베이스 또는 다른 데이터베이스에 대해 열리는 연결 수에 제한되지 않는다. 데이터베이스는 물리적으로 구분되며 접근 제어는 연결 수준에서 관리된다. 
+>   데이터베이스 서버에 연결하는 경우 클라이언트는 연결하려는 데이터베이스 이름을 연결을 요청할 때 지정해야 한다. 
+   연결당 데이터베이스를 하나 이상 접근할 수도 있다. 
+   단, 애플리케이션은 동일한 데이터베이스 또는 다른 데이터베이스에 대해 열리는 연결 수에 제한되지 않는다. 
+   데이터베이스는 물리적으로 구분되며 접근 제어는 연결 수준에서 관리된다. 
    한 <SPAN
 CLASS="PRODUCTNAME"
 >Agens SQL</SPAN
-> 서버 인스턴스가 서로 인식하지 못하는 프로젝트 또는 사용자를 수용하는 경우, 두 가지를 별도의 데이터베이스에 두는 것이 좋다. 
+> 서버 인스턴스가 서로 인식하지 못하는 프로젝트 또는 사용자를 수용하는 경우, 
+   두 가지를 별도의 데이터베이스에 두는 것이 좋다. 
    프로젝트 또는 사용자가 서로 연관되어 있고 서로의 자원을 사용해야 하는 경우에는 두 가지를 동일한 데이터베이스에 두고 스키마는 분리해야 한다. 
    스키마는 순전히 논리적 구조이며 권한 시스템이 관리하는 대상에 접근할 수 있는 사용자이다. 
   </P
@@ -19175,7 +19246,8 @@ CLASS="COMMAND"
 > 명령(<A
 HREF="#MANAGE-AG-CREATEDB"
 >5.2절</A
-> 참조)으로 생성되고 DROP DATABASE 명령(<A
+> 참조)으로 생성되고 
+   DROP DATABASE 명령(<A
 HREF="#MANAGE-AG-DROPDB"
 >5.5절</A
 > 참조)으로 소멸된다. 
@@ -19249,7 +19321,8 @@ CLASS="REPLACEABLE"
 >은 <ACRONYM
 CLASS="ACRONYM"
 >SQL</ACRONYM
-> 식별자에 대한 일반 규칙을 따른다. 현재 role은 자동으로 새 데이터베이스의 소유자가 된다. 
+> 식별자에 대한 일반 규칙을 따른다. 
+   현재 role은 자동으로 새 데이터베이스의 소유자가 된다. 
    나중에 데이터베이스를 삭제하는 것은 데이터베이스 소유자의 권한이다(소유자가 달라도 데이터베이스의 모든 객체가 삭제됨).
   </P
 ><P
@@ -19262,7 +19335,8 @@ HREF="#ROLE-ATTRIBUTES"
 >   CREATE DATABASE<TT
 CLASS="COMMAND"
 >CREATE DATABASE</TT
-> 명령을 실행하려면 데이터베이스 서버에 연결해야 하는데, 주어진 사이트에서 <SPAN
+> 명령을 실행하려면 데이터베이스 서버에 연결해야 하는데, 
+   주어진 사이트에서 <SPAN
 CLASS="emphasis"
 ><I
 CLASS="EMPHASIS"
@@ -19329,7 +19403,8 @@ CLASS="REPLACEABLE"
    <TT
 CLASS="COMMAND"
 >createdb</TT
->는 마법이 아니다. 이것은 <TT
+>는 마법이 아니다. 
+   이것은 <TT
 CLASS="LITERAL"
 >postgres</TT
 > 데이터베이스에 연결하고 위에서 설명한 대로 정확하게 <TT
@@ -19356,7 +19431,8 @@ HREF="#CLIENT-AUTHENTICATION"
 ></BLOCKQUOTE
 ></DIV
 ><P
->   다른 사용자를 위한 데이터베이스를 생성하고, 그 사용자를 새 데이터베이스의 소유자로 만들면, 해당 사용자가 스스로 새 데이터베이스를 환경 설정 및 관리할 수 있다. 
+>   다른 사용자를 위한 데이터베이스를 생성하고, 그 사용자를 새 데이터베이스의 소유자로 만들면, 
+   해당 사용자가 스스로 새 데이터베이스를 환경 설정 및 관리할 수 있다. 
    이렇게 하려면 SQL 환경에서 다음 명령 중 하나를 사용해야 한다.
 </P><PRE
 CLASS="PROGRAMLISTING"
@@ -19402,14 +19478,16 @@ NAME="MANAGE-AG-TEMPLATEDBS"
 >   <TT
 CLASS="COMMAND"
 >CREATE DATABASE</TT
->는 실제로 기존 데이터베이스를 복사한다. 기본적으로 <TT
+>는 실제로 기존 데이터베이스를 복사한다. 
+   기본적으로 <TT
 CLASS="LITERAL"
 >template1</TT
 >이라는 표준 시스템 데이터베이스를 복사한다. 
    따라서 해당 데이터베이스는 새 데이터베이스를 만드는 <SPAN
 CLASS="QUOTE"
 >"템플릿"</SPAN
->이다. 객체를 <TT
+>이다. 
+   객체를 <TT
 CLASS="LITERAL"
 >template1</TT
 >에 추가하면, 이 객체는 나중에 생성된 사용자 데이터베이스로 복사된다. 
@@ -19420,7 +19498,8 @@ CLASS="LITERAL"
 >에서 프로시저 언어 <SPAN
 CLASS="APPLICATION"
 >PL/Perl</SPAN
->을 설치하는 경우 해당 데이터베이스를 생성할 때 추가적인 작업 없이 사용자 데이터베이스가 자동으로 사용 가능하게 된다.
+>을 설치하는 경우 
+   해당 데이터베이스를 생성할 때 추가적인 작업 없이 사용자 데이터베이스가 자동으로 사용 가능하게 된다.
   </P
 ><P
 >   <TT
@@ -19448,7 +19527,8 @@ CLASS="LITERAL"
 >을 복사하도록 <TT
 CLASS="COMMAND"
 >CREATE DATABASE</TT
->를 실행하면 <TT
+>를 실행하면 
+   <TT
 CLASS="LITERAL"
 >template1</TT
 >에서 사이트-로컬 추가가 없는 <SPAN
@@ -19462,7 +19542,8 @@ CLASS="LITERAL"
    나중에 <TT
 CLASS="LITERAL"
 >template1</TT
->에 추가되었을 수도 있는 객체와 충돌 없이 덤프된 데이터베이스를 올바르게 재생성 하도록 처녀 데이터베이스에서 덤프 스크립트를 복원해야 한다.
+>에 추가되었을 수도 있는 객체와 충돌 없이 덤프된 데이터베이스를 올바르게 재생성 하도록 
+   처녀 데이터베이스에서 덤프 스크립트를 복원해야 한다.
   </P
 ><P
 >   <TT
@@ -19474,11 +19555,11 @@ CLASS="LITERAL"
 >을 복사하는 일반적인 다른 이유는 <TT
 CLASS="LITERAL"
 >template1</TT
->의 복사는 동일한 설정을 사용해야 하지만 <TT
+>의 복사는 
+   동일한 설정을 사용해야 하지만 <TT
 CLASS="LITERAL"
 >template0</TT
->을 복사하는 경우에는 
-   새 인코딩 및 로케일(locale) 설정을 지정할 수 있기 때문이다. 
+>을 복사하는 경우에는 새 인코딩 및 로케일(locale) 설정을 지정할 수 있기 때문이다. 
    <TT
 CLASS="LITERAL"
 >template1</TT
@@ -19514,7 +19595,8 @@ CLASS="REPLACEABLE"
    또는 쉘에서 다음을 사용해야 한다.
   </P
 ><P
->   템플릿 데이터베이스를 추가적으로 생성하는 것이 가능하며, <TT
+>   템플릿 데이터베이스를 추가적으로 생성하는 것이 가능하며, 
+   <TT
 CLASS="COMMAND"
 >CREATE DATABASE</TT
 >의 경우 템플릿 이름을 지정하면 클러스터의 데이터베이스를 복사할 수도 있다. 
@@ -19524,7 +19606,8 @@ CLASS="QUOTE"
 CLASS="COMMAND"
 >COPY DATABASE</TT
 >"</SPAN
->가 범용으로 사용되는 기능이 아니라는 점을 이해해야 한다. 이러한 제한은 복사 중인 소스 데이터베이스에 다른 세션을 연결할 수 없다는 것을 의미한다. 
+>가 범용으로 사용되는 기능이 아니라는 점을 이해해야 한다. 
+   이러한 제한은 복사 중인 소스 데이터베이스에 다른 세션을 연결할 수 없다는 것을 의미한다. 
    시작 시 다른 연결이 존재하면 <TT
 CLASS="COMMAND"
 >CREATE DATABASE</TT
@@ -19537,7 +19620,8 @@ CLASS="LITERAL"
 >에는 <TT
 CLASS="LITERAL"
 >datistemplate</TT
-> 칼럼 및 <TT
+> 칼럼 
+   및 <TT
 CLASS="LITERAL"
 >datallowconn</TT
 > 칼럼의 두 가지 유용한 플래그가 존재한다. 
@@ -19556,7 +19640,8 @@ CLASS="LITERAL"
    <TT
 CLASS="LITERAL"
 >datallowconn</TT
->이 false인 경우 해당 데이터베이스에 대한 새로운 연결이 허용되지 않는다(단, 플래그를 false로 설정해도 기존 세션은 중단되지 않는다). 
+>이 false인 경우 해당 데이터베이스에 대한 새로운 연결이 허용되지 않는다
+   (단, 플래그를 false로 설정해도 기존 세션은 중단되지 않는다). 
    <TT
 CLASS="LITERAL"
 >template0</TT
@@ -19594,14 +19679,16 @@ CLASS="LITERAL"
 >이 <TT
 CLASS="COMMAND"
 >CREATE DATABASE</TT
->의 기본 소스 데이터베이스 이름이라는 사실 외에는 특별한 상태를 나타내지 않는다. 
+>의 
+    기본 소스 데이터베이스 이름이라는 사실 외에는 특별한 상태를 나타내지 않는다. 
     예를 들면, <TT
 CLASS="LITERAL"
 >template1</TT
 >를 삭제하고 부작용 없이 <TT
 CLASS="LITERAL"
 >template0</TT
->으로 재생성 가능하다. 이러한 작업 과정은 <TT
+>으로 재생성 가능하다. 
+    이러한 작업 과정은 <TT
 CLASS="LITERAL"
 >template1</TT
 >에 잘못 추가한 것이 많을 경우에 좋다.
@@ -19649,11 +19736,12 @@ CLASS="PRODUCTNAME"
 >   예를 들면, 주어진 데이터베이스에 대해 <ACRONYM
 CLASS="ACRONYM"
 >GEQO</ACRONYM
-> 옵티마이저를 비활성화하려는 경우 대개는 모든 데이터베이스에 대해 비활성화해야 하거나 모든 연결 클라이언트가 신중하게 <TT
+> 옵티마이저를 비활성화하려는 경우 
+   대개는 모든 데이터베이스에 대해 비활성화해야 하거나 모든 연결 클라이언트가 신중하게 <TT
 CLASS="LITERAL"
->SET geqo
-   TO off</TT
->를 실행하는지 확인해야 한다. 
+>SET geqo TO off</TT
+>를 
+   실행하는지 확인해야 한다. 
    특정 데이터베이스 내에서 이 설정을 기본값으로 설정하려면 다음 명령을 실행해야 한다.
 </P><PRE
 CLASS="PROGRAMLISTING"
@@ -19672,8 +19760,7 @@ CLASS="REPLACEABLE"
 ><I
 >dbname</I
 ></TT
-> RESET
-   <TT
+> RESET<TT
 CLASS="REPLACEABLE"
 ><I
 >varname</I
@@ -19702,7 +19789,8 @@ CLASS="REPLACEABLE"
 >;</PRE
 ><P>
    데이터베이스 소유자 또는 수퍼유저만 데이터베이스를 삭제할 수 있다. 
-   데이터베이스를 삭제하면 데이터베이스에 포함된 모든 객체가 삭제된다. 데이터베이스 소멸은 실행 취소가 불가능하다.
+   데이터베이스를 삭제하면 데이터베이스에 포함된 모든 객체가 삭제된다. 
+   데이터베이스 소멸은 실행 취소가 불가능하다.
   </P
 ><P
 >   삭제 대상 데이터베이스에 연결된 상태에서는 <TT
@@ -19741,13 +19829,14 @@ CLASS="SECT1"
 CLASS="SECT1"
 ><A
 NAME="MANAGE-AG-TABLESPACES"
->5.6. Tablespaces</A
+>5.6. 테이블스페이스</A
 ></H2
 ><P
 >   <SPAN
 CLASS="PRODUCTNAME"
 >Agens SQL</SPAN
->의 테이블스페이스는 데이터베이스 관리자가 데이터베이스 객체를 나타내는 파일을 저장할 수 있는 파일 시스템의 위치를 정의할 수 있게 한다. 
+>의 테이블스페이스는 데이터베이스 관리자가 데이터베이스 객체를 나타내는 파일을 저장할 수 있는 
+   파일 시스템의 위치를 정의할 수 있게 한다. 
    생성된 경우 테이블스페이스는 데이터베이스 객체 생성 시 이름으로 참조가 가능하다.
   </P
 ><P
@@ -19756,7 +19845,8 @@ CLASS="PRODUCTNAME"
 >Agens SQL</SPAN
 > 설치의 디스크 레이아웃을 제어할 수 있다. 
    이것은 최소 2가지 방법으로 활용할 수 있다. 
-   첫째, 클러스터가 초기화된 파티션 또는 볼륨 공간이 소진되고 확장이 불가능한 경우, 다른 파티션에 테이블스페이스를 생성하고 시스템이 재인식될 때까지 사용할 수 있다.
+   첫째, 클러스터가 초기화된 파티션 또는 볼륨 공간이 소진되고 확장이 불가능한 경우, 
+   다른 파티션에 테이블스페이스를 생성하고 시스템이 재인식될 때까지 사용할 수 있다.
   </P
 ><P
 >   두 번째, 테이블스페이스는 관리자가 성능 최적화를 위해 데이터베이스 객체의 사용 패턴에 대한 지식을 사용할 수 있게 한다. 
@@ -19782,7 +19872,8 @@ ALIGN="CENTER"
 ><TD
 ALIGN="LEFT"
 ><P
->     Agens SQL 주 데이터 디렉토리 외부에 배치했더라도 테이블스페이스는 데이터베이스 클러스터 내부에 속해 있기 때문에 데이터 파일 자동 수집으로 처리되어서는 <SPAN
+>     Agens SQL 주 데이터 디렉토리 외부에 배치했더라도 테이블스페이스는 데이터베이스 클러스터 내부에 속해 있기 때문에 
+     데이터 파일 자동 수집으로 처리되어서는 <SPAN
 CLASS="emphasis"
 ><I
 CLASS="EMPHASIS"
@@ -19817,7 +19908,8 @@ CLASS="NOTE"
 ><P
 ><B
 >참고: </B
->    논리적 파일 시스템 내에서 개별 파일의 위치를 사용자가 제어할 수 없기 때문에 논리적 파일 시스템당 테이블스페이스를 2개 이상 만들 수 있는 지점이 일반적으로 많지 않다. 
+>    논리적 파일 시스템 내에서 개별 파일의 위치를 사용자가 제어할 수 없기 때문에 논리적 파일 시스템당 테이블스페이스를 
+    2개 이상 만들 수 있는 지점이 일반적으로 많지 않다. 
     그러나 <SPAN
 CLASS="PRODUCTNAME"
 >Agens SQL</SPAN
@@ -19827,7 +19919,8 @@ CLASS="PRODUCTNAME"
 ></BLOCKQUOTE
 ></DIV
 ><P
->   테이블스페이스 자체는 데이터베이스 수퍼유저로 생성해야 하지만, 생성한 후에는 일반 데이터베이스 사용자가 이 데이터베이스를 사용하도록 할 수 있다. 
+>   테이블스페이스 자체는 데이터베이스 수퍼유저로 생성해야 하지만, 
+   생성한 후에는 일반 데이터베이스 사용자가 이 데이터베이스를 사용하도록 할 수 있다. 
    이렇게 하려면 <TT
 CLASS="LITERAL"
 >CREATE</TT
@@ -19858,7 +19951,8 @@ CREATE TABLE foo(i int);</PRE
    <TT
 CLASS="VARNAME"
 >default_tablespace</TT
->가 비어 있는 string 이외의 것으로 설정되면 이것은 명시적이지 않은 <TT
+>가 비어 있는 string 이외의 것으로 설정되면 이것은 명시적이지 않은 
+   <TT
 CLASS="COMMAND"
 >CREATE TABLE</TT
 > 및 <TT
@@ -19890,7 +19984,8 @@ CLASS="VARNAME"
    테이블스페이스를 지정하지 않고 데이터베이스를 생성하면, 복사했던 템플릿 데이터베이스와 동일한 테이블스페이스를 사용한다.
   </P
 ><P
->   데이터베이스 클러스터가 초기화되면 테이블스페이스 2개가 자동으로 생성된다. <TT
+>   데이터베이스 클러스터가 초기화되면 테이블스페이스 2개가 자동으로 생성된다. 
+   <TT
 CLASS="LITERAL"
 >pg_global</TT
 > 테이블스페이스는 공유 시스템 카탈로그에 사용된다. 
@@ -19903,10 +19998,10 @@ CLASS="LITERAL"
 > 및 <TT
 CLASS="LITERAL"
 >template0</TT
-> 데이터베이스의 기본 테이블스페이스이다(따라서, <TT
+> 데이터베이스의 기본 테이블스페이스이다
+   (따라서, <TT
 CLASS="COMMAND"
->CREATE
-   DATABASE</TT
+>CREATE DATABASE</TT
 >의 <TT
 CLASS="LITERAL"
 >TABLESPACE</TT
@@ -19952,7 +20047,11 @@ CLASS="FILENAME"
 >$PGDATA/pg_tblspc</TT
 >에는 클러스터에 저장된 비 내장 테이블스페이스 각각을 가리키는 심볼릭 링크가 포함되어 있다. 
    권장 사항은 아니지만, 이 링크를 재정의하여 테이블스페이스의 레이아웃을 조정할 수도 있다. 
-   이 작업은 어떤 경우에서든 서버 실행 중에 해야 한다. PostgreSQL 9.1 이전 버전에서는 <TT
+   이 작업은 어떤 경우에서든 서버 실행 중에 해야 한다. <SPAN
+CLASS="PRODUCTNAME"
+>PostgreSQL</SPAN
+> 9.1 이전 버전에서는 
+   <TT
 CLASS="STRUCTNAME"
 >pg_tablespace</TT
 > 카탈로그를 새 위치로 업그레이드해야 한다. 
@@ -19981,8 +20080,9 @@ CLASS="PRODUCTNAME"
 ></P><UL
 ><LI
 ><P
->      운영 체제의 로케일(locale) 기능을 사용하여 로케일별(locale-specific) 콜레이션 순서, 숫자 형식 설정, 
-      메시지 번역 및 기타 이것은 <A
+>      운영 체제의 로케일별(locale-specific) 콜레이션 순서 및 숫자 형식 설정, 
+      메시지 번역, 기타 로케일(locale) 기능을 사용.
+      이것은 <A
 HREF="#LOCALE"
 >6.1절</A
 > 및 <A
@@ -20030,7 +20130,7 @@ CLASS="SECT2"
 ><HR><H3
 CLASS="SECT2"
 ><A
-NAME="AEN6762"
+NAME="AEN6766"
 >6.1.1. 개요</A
 ></H3
 ><P
@@ -20051,7 +20151,7 @@ CLASS="OPTION"
 CLASS="COMMAND"
 >initdb</TT
 > 명령을 실행하여 어떤 로케일(locale)이 사용되는지 정확히 알 수 있다. 
-    예를 들면:
+    예를 들면,
 </P><PRE
 CLASS="SCREEN"
 >initdb --locale=sv_SE</PRE
@@ -20109,7 +20209,7 @@ CLASS="INFORMALTABLE"
 ><P
 ></P
 ><A
-NAME="AEN6783"
+NAME="AEN6787"
 ></A
 ><TABLE
 BORDER="1"
@@ -20205,8 +20305,8 @@ CLASS="LITERAL"
 > 및 <TT
 CLASS="LITERAL"
 >LC_CTYPE</TT
->이 이러한 카테고리이다. 이것은 인덱스 정렬 순서에 영향을 미치므로 고정된 상태로 유지되어야 하며, 
-    그렇지 않을 경우 텍스트 칼럼의 인덱스가 손상을 입게 된다. 
+>이 이러한 카테고리이다. 
+    이것은 인덱스 정렬 순서에 영향을 미치므로 고정된 상태로 유지되어야 하며, 그렇지 않을 경우 텍스트 칼럼의 인덱스가 손상을 입게 된다. 
     (그러나 <A
 HREF="#COLLATION"
 >6.2절</A
@@ -20214,13 +20314,15 @@ HREF="#COLLATION"
     이 카테고리의 기본값은 <TT
 CLASS="COMMAND"
 >initdb</TT
->가 실행 중에 결정되고 이 값은 <TT
+>가 실행 중에 결정되고 
+    이 값은 <TT
 CLASS="COMMAND"
 >CREATE DATABASE</TT
 > 명령에서 지정되지 않았을 경우 새 데이터베이스를 생성할 때 사용된다.
    </P
 ><P
->    다른 로케일 카테고리는 로케일(locale) 카테고리와 이름이 동일한 서버 환경 설정 매개 변수를 설정함으로써 필요할 때마다 변경 가능하다(자세한 내용은 <A
+>    다른 로케일 카테고리는 로케일(locale) 카테고리와 이름이 동일한 서버 환경 설정 매개 변수를 설정함으로써 
+    필요할 때마다 변경 가능하다(자세한 내용은 <A
 HREF="#RUNTIME-CONFIG-CLIENT-FORMAT"
 >2.11.2절</A
 > 참조). 
@@ -20248,7 +20350,7 @@ CLASS="NOTE"
 ><P
 ><B
 >참고: </B
->     실행 환경에서 로케일(locale) 상속에 대해 언급할 때 이것은 대부분의 운영 체제에서 다음을 의미한다: 
+>     실행 환경에서 로케일(locale) 상속에 대해 언급할 때 이것은 대부분의 운영 체제에서 다음을 의미한다.
      콜레이션이라는 지정된 로케일(locale) 카테고리의 경우 설정할 것을 찾을 때까지 
      <TT
 CLASS="ENVAR"
@@ -20266,7 +20368,8 @@ CLASS="LITERAL"
 >이다.
     </P
 ><P
->     메시지 언어 설정을 위해 일부 메시지 로컬라이제이션 라이브러리도 다른 모든 로케일(locale) 설정을 오버라이드하는 환경 변수 <TT
+>     메시지 언어 설정을 위해 일부 메시지 로컬라이제이션 라이브러리도 다른 모든 로케일(locale) 설정을 오버라이드하는 환경 변수 
+     <TT
 CLASS="ENVAR"
 >LANGUAGE</TT
 >를 살펴본다. 
@@ -20293,7 +20396,7 @@ CLASS="SECT2"
 ><HR><H3
 CLASS="SECT2"
 ><A
-NAME="AEN6839"
+NAME="AEN6843"
 >6.1.2. 동작</A
 ></H3
 ><P
@@ -20384,7 +20487,8 @@ CLASS="LITERAL"
 > 절을 사용한 인덱스를 <SPAN
 CLASS="PRODUCTNAME"
 >Agens SQL</SPAN
->이 이용하려면 몇 가지 커스텀 연산자 클래스가 존재해야 한다. 
+>이 이용하려면 
+    몇 가지 커스텀 연산자 클래스가 존재해야 한다. 
     이것은 로케일(locale) 비교 규칙은 무시하면서 엄격한 문자별 비교를 수행하는 인덱스의 생성을 허용한다. 
     다른 방법은 <A
 HREF="#COLLATION"
@@ -20400,7 +20504,7 @@ CLASS="SECT2"
 ><HR><H3
 CLASS="SECT2"
 ><A
-NAME="AEN6889"
+NAME="AEN6893"
 >6.1.3. 문제</A
 ></H3
 ><P
@@ -20428,7 +20532,8 @@ CLASS="ENVAR"
 > 및 <TT
 CLASS="ENVAR"
 >LC_MONETARY</TT
->를 비롯한 다른 로케일(locale) 설정은 서버가 시작된 환경에 의해 처음 결정되고, 상황에 따라 바뀔 수 있다. 
+>를 비롯한 다른 로케일(locale) 설정은 서버가 시작된 환경에 의해 처음 결정되고, 
+    상황에 따라 바뀔 수 있다. 
     <TT
 CLASS="COMMAND"
 >SHOW</TT
@@ -20448,11 +20553,11 @@ CLASS="PRODUCTNAME"
     해당 애플리케이션의 작성자는 에러 코드 스키마를 대신 활용하는 것이 좋다.
    </P
 ><P
->    메시지 번역 카탈로그를 유지하려면 <SPAN
+>    <SPAN
 CLASS="PRODUCTNAME"
 >Agens SQL</SPAN
->이 선호된 언어로 표시되도록 개발하는 자원 봉사자들의 노력이 필요하다. 
-    원하는 언어로 된 메시지가 현재 없거나 번역이 완전하지 않을 수 있기 때문에 사용자들의 개발 협조를 기다리고 있다.
+>의 메시지 번역 카탈로그를 선호하는 언어로 개발하려면 노력이 필요하다.
+    원하는 언어로 된 메시지가 현재 없거나 번역이 완전하지 않을 수 있기 때문에 개발 협조를 구하고 있다.
    </P
 ></DIV
 ></DIV
@@ -20479,7 +20584,7 @@ CLASS="SECT2"
 ><HR><H3
 CLASS="SECT2"
 ><A
-NAME="AEN6913"
+NAME="AEN6917"
 >6.2.1. 개념</A
 ></H3
 ><P
@@ -20495,7 +20600,8 @@ CLASS="TYPE"
 >char</TT
 >이다. 
     사용자 정의된 베이스 타입은 콜레이션 가능으로 표시될 수 있으며, 콜레이션 가능한 데이터 타입의 도메인도 콜레이션이 가능하다.) 
-    표현식이 칼럼 참조인 경우 표현식의 콜레이션은 칼럼이 정의한 콜레이션이다. 표현식이 상수인 경우 콜레이션은 상수 데이터 타입의 기본 콜레이션이다. 
+    표현식이 칼럼 참조인 경우 표현식의 콜레이션은 칼럼이 정의한 콜레이션이다. 
+    표현식이 상수인 경우 콜레이션은 상수 데이터 타입의 기본 콜레이션이다. 
     좀 더 복잡한 표현식의 콜레이션은 아래 설명대로 입력 콜레이션으로부터 결정된다.
    </P
 ><P
@@ -20511,14 +20617,15 @@ CLASS="QUOTE"
     이것은, 예를 들면 <TT
 CLASS="LITERAL"
 >ORDER BY</TT
-> 절 및 함수 또는  <TT
+> 절 및 함수 또는 <TT
 CLASS="LITERAL"
 >&lt;</TT
 > 같은 연산자 호출을 사용할 때 결정된다. 
     <TT
 CLASS="LITERAL"
 >ORDER BY</TT
-> 절에 적용되는 콜레이션은 단순히 정렬 키의 콜레이션이다. 함수 또는 연산자 호출에 적용되는 콜레이션은 아래 설명된 인자로부터 결정된다. 
+> 절에 적용되는 콜레이션은 단순히 정렬 키의 콜레이션이다. 
+    함수 또는 연산자 호출에 적용되는 콜레이션은 아래 설명된 인자로부터 결정된다. 
     비교 연산자 외에, 콜레이션은 <CODE
 CLASS="FUNCTION"
 >lower</CODE
@@ -20592,7 +20699,8 @@ CLASS="PROGRAMLISTING"
     이 구문에서 <TT
 CLASS="LITERAL"
 >&lt;</TT
-> 비교는, 표현식이 명시적으로 결정된 콜레이션을 기본 콜레이션과 결합하기 때문에 <TT
+> 비교는, 표현식이 명시적으로 결정된 콜레이션을 기본 콜레이션과 결합하기 때문에 
+    <TT
 CLASS="LITERAL"
 >de_DE</TT
 > 규칙에 따라 수행된다. 
@@ -20616,7 +20724,8 @@ CLASS="STRUCTFIELD"
 > 및 <TT
 CLASS="STRUCTFIELD"
 >b</TT
-> 칼럼의 암시적 콜레이션이 충돌하므로 어떤 콜레이션을 적용할 것인지 파서로 결정할 수 없다. 
+> 칼럼의 암시적 콜레이션이 충돌하므로 
+    어떤 콜레이션을 적용할 것인지 파서로 결정할 수 없다. 
     <TT
 CLASS="LITERAL"
 >&lt;</TT
@@ -20677,7 +20786,7 @@ CLASS="SECT2"
 ><HR><H3
 CLASS="SECT2"
 ><A
-NAME="AEN6961"
+NAME="AEN6965"
 >6.2.2. 콜레이션 관리</A
 ></H3
 ><P
@@ -20688,7 +20797,8 @@ CLASS="SYMBOL"
 > 및 <TT
 CLASS="SYMBOL"
 >LC_CTYPE</TT
-> 조합에 맵핑한다. (이름이 암시하듯 콜레이션의 주요 목적은 정렬 순서를 제어하는 <TT
+> 조합에 맵핑한다. 
+    (이름이 암시하듯 콜레이션의 주요 목적은 정렬 순서를 제어하는 <TT
 CLASS="SYMBOL"
 >LC_COLLATE</TT
 >를 설정하는 것이다. 
@@ -20706,7 +20816,8 @@ CLASS="SYMBOL"
     또한 콜레이션은 문자 집합 인코딩에 연결된다(<A
 HREF="#MULTIBYTE"
 >6.3절</A
-> 참조). 다른 인코딩으로 동일한 콜레이션 이름이 존재할 수도 있다.
+> 참조). 
+    다른 인코딩으로 동일한 콜레이션 이름이 존재할 수도 있다.
    </P
 ><P
 >    모든 플랫폼에서 이름이 <TT
@@ -20758,11 +20869,13 @@ CLASS="QUOTE"
 >    운영 체제가 단일 프로그램(<CODE
 CLASS="FUNCTION"
 >newlocale</CODE
-> 및 관련 함수) 내에서 복수의 로케일(locale)을 사용하는 지원을 제공하는 경우 데이터베이스 클러스터가 초기화되면, 
+> 및 관련 함수) 내에서 복수의 로케일(locale)을 사용하는 지원을 제공하는 경우 
+    데이터베이스 클러스터가 초기화되면, 
     <TT
 CLASS="COMMAND"
 >initdb</TT
->는 당시에 운영 체제에서 찾은 모든 로케일(locale)에 따라 콜레이션으로 시스템 카탈로그 <TT
+>는 당시에 운영 체제에서 찾은 모든 로케일(locale)에 따라 콜레이션으로 
+    시스템 카탈로그 <TT
 CLASS="LITERAL"
 >pg_collation</TT
 >을 채운다. 
@@ -20779,7 +20892,8 @@ CLASS="SYMBOL"
 > 및 <TT
 CLASS="SYMBOL"
 >LC_CTYPE</TT
->가 둘 다 <TT
+>가 
+    둘 다 <TT
 CLASS="LITERAL"
 >de_DE.utf8</TT
 >로 설정된 
@@ -20809,7 +20923,8 @@ CLASS="SYMBOL"
 >LC_CTYPE</TT
 >에 대한 값이 서로 다른 콜레이션이 필요한 경우 
     CREATE COLLATION 명령을 사용하여 새로운 콜레이션을 생성할 수도 있다. 
-    또한 해당 명령으로 기존 콜레이션에서 새 콜레이션을 생성할 수도 있으며, 이것은 애플리케이션에서 운영 체제로부터 독립된 콜레이션 이름을 사용할 때 유용하다.
+    또한 해당 명령으로 기존 콜레이션에서 새 콜레이션을 생성할 수도 있으며, 
+    이것은 애플리케이션에서 운영 체제로부터 독립된 콜레이션 이름을 사용할 때 유용하다.
    </P
 ><P
 >    특정한 데이터베이스 내에서 데이터베이스의 인코딩을 사용하는 콜레이션만 중요하다. 
@@ -20820,8 +20935,10 @@ CLASS="LITERAL"
     따라서 <TT
 CLASS="LITERAL"
 >de_DE</TT
-> 같이 일부만 추려낸 콜레이션 이름은 전역적으로는 고유하지 않더라도 지정된 데이터베이스 내에서는 고유한 것으로 간주될 수 있다. 
-    데이터베이스 인코딩을 다른 것으로 변경하기로 결정한 경우 변경 사항이 적은 추려낸 콜레이션 이름을 사용하는 것이 권장한다. 
+> 같이 일부만 추려낸 콜레이션 이름은 전역적으로는 고유하지 않더라도 
+    지정된 데이터베이스 내에서는 고유한 것으로 간주될 수 있다. 
+    데이터베이스 인코딩을 다른 것으로 변경하기로 결정한 경우 
+    변경 사항이 적은 추려낸 콜레이션 이름을 사용하는 것이 권장한다. 
     그러나 <TT
 CLASS="LITERAL"
 >default</TT
@@ -20866,7 +20983,8 @@ NAME="MULTIBYTE"
 >   <SPAN
 CLASS="PRODUCTNAME"
 >Agens SQL</SPAN
->에서 지원하는 문자 집합을 사용하면 ISO 8859 같은 싱글바이트 문자 집합 및 <ACRONYM
+>에서 지원하는 문자 집합을 사용하면 ISO 8859 같은 싱글바이트 문자 집합 
+   및 <ACRONYM
 CLASS="ACRONYM"
 >EUC</ACRONYM
 >(Extended Unix Code), UTF-8, 뮬 내부코드 같은 
@@ -20886,7 +21004,8 @@ CLASS="PRODUCTNAME"
 >   하지만, 각 데이터베이스 문자 집합은 데이터베이스의 <TT
 CLASS="ENVAR"
 >LC_CTYPE</TT
->(문자 분류) 및 <TT
+>(문자 분류) 및 
+   <TT
 CLASS="ENVAR"
 >LC_COLLATE</TT
 >(string 정렬 순서) 로케일(locale) 설정과 호환되어야 한다는 제약 사항이 있다.
@@ -20896,7 +21015,8 @@ CLASS="LITERAL"
 > 또는 <TT
 CLASS="LITERAL"
 >POSIX</TT
-> 로케일(locale)의 경우 임의의 문자 집합이 허용되지만, 다른 로케일(locale)의 경우 올바르게 작동되는 문자 집합은 하나밖에 없다. 
+> 로케일(locale)의 경우 임의의 문자 집합이 허용되지만, 
+   다른 로케일(locale)의 경우 올바르게 작동되는 문자 집합은 하나밖에 없다. 
    (그러나 Windows의 경우 UTF-8 인코딩은 모든 로케일(locale)에서 사용할 수 있다.)
   </P
 ><DIV
@@ -21814,7 +21934,8 @@ CLASS="PRODUCTNAME"
 > JDBC 드라이버는 <TT
 CLASS="LITERAL"
 >MULE_INTERNAL</TT
-> 및 <TT
+> 및 
+      <TT
 CLASS="LITERAL"
 >LATIN6</TT
 >, <TT
@@ -21855,7 +21976,7 @@ CLASS="SECT2"
 ><HR><H3
 CLASS="SECT2"
 ><A
-NAME="AEN7437"
+NAME="AEN7441"
 >6.3.2. 문자 집합 설정</A
 ></H3
 ><P
@@ -21891,7 +22012,8 @@ CLASS="OPTION"
 > 옵션을 지정하지 않으면 <TT
 CLASS="COMMAND"
 >initdb</TT
->는 지정되었거나 기본 로케일(locale)을 기반으로 사용할 적정 인코딩을 결정하려고 한다.
+>는 지정되었거나 
+기본 로케일(locale)을 기반으로 사용할 적정 인코딩을 결정하려고 한다.
     </P
 ><P
 >     인코딩이 선택한 로케일(locale)과 호환되는 경우 사용자는 기본값이 아닌 인코딩을 데이터베이스 생성 시에 지정할 수 있다.
@@ -21905,7 +22027,8 @@ CLASS="LITERAL"
 > 및 로케일(locale) <TT
 CLASS="LITERAL"
 >ko_KR</TT
->을 사용하는 <TT
+>을 사용하는 
+     <TT
 CLASS="LITERAL"
 >korean</TT
 >이라는 데이터베이스를 생성한다. 
@@ -21990,11 +22113,11 @@ CLASS="LITERAL"
 >또는 <TT
 CLASS="LITERAL"
 >POSIX</TT
->가 아니더라도 수퍼유저가 <TT
+>가 아니더라도 
+      수퍼유저가 <TT
 CLASS="LITERAL"
 >SQL_ASCII</TT
-> 인코딩을 사용하여 
-      데이터베이스를 생성하는 것을 가능하게 한다. 
+> 인코딩을 사용하여 데이터베이스를 생성하는 것을 가능하게 한다. 
       위에서 명시한 대로, SQL_ASCII는 데이터베이스에 저장된 데이터가 특정한 인코딩을 강제로 갖게 하지 않으므로 
       <TT
 CLASS="LITERAL"
@@ -22010,7 +22133,7 @@ CLASS="SECT2"
 ><HR><H3
 CLASS="SECT2"
 ><A
-NAME="AEN7475"
+NAME="AEN7479"
 >6.3.3. 서버와 클라이언트 간 자동 문자 집합 변환</A
 ></H3
 ><P
@@ -23132,7 +23255,7 @@ CLASS="SECT2"
 ><HR><H3
 CLASS="SECT2"
 ><A
-NAME="AEN7802"
+NAME="AEN7806"
 >6.3.4. 추가 자료</A
 ></H3
 ><P
@@ -23222,7 +23345,8 @@ CLASS="APPLICATION"
 >이나 윈도우즈의 <SPAN
 CLASS="APPLICATION"
 >작업 스케줄러</SPAN
-> 같은 프로그램을 이용해서 그 작업을 등록해서 주기적으로 실행하면 된다. 
+> 같은 프로그램을 이용해서 
+   그 작업을 등록해서 주기적으로 실행하면 된다. 
    물론, 이런 작업 스크립트를 작성 하는 일과 그 작업이 정상적으로 실행 되었는지를 확인하는 일은 데이터베이스 관리자의 몫이다.
   </P
 ><P
@@ -23232,9 +23356,7 @@ CLASS="APPLICATION"
    <A
 HREF="#BACKUP"
 >8장</A
->에서 소개하고 있다. (데이터베이스 관리자들 사이 
-   흔한 농담으로 테이블을 날려 먹는 관리자는 용서 할 수 있어도,
-   백업 관리를 하지 않는 관리자는 용서할 수 없다고 한다.)
+>에서 소개하고 있다.
   </P
 ><P
 >   또 다른 중요한 정기적인 관리 작업은 데이터베이스 <SPAN
@@ -23312,10 +23434,12 @@ HREF="#AUTOVACUUM"
 >7.1.6절</A
 >에서 자세히 소개한다. 
    autovacuum 관련 환경 설정값을 바꾸어서 그 데몬의 동작 상태를 
-   조절 할 수 있다. 또한 일부 데이터베이스 관리자는 <TT
+   조절 할 수 있다. 
+   또한 일부 데이터베이스 관리자는 <TT
 CLASS="COMMAND"
 >VACUUM</TT
-> 명령을 직접 실행하는 것이 데이터베이스를 효율적으로 사용할 수 있다고 판단해서, <SPAN
+> 명령을 직접 실행하는 것이 
+   데이터베이스를 효율적으로 사용할 수 있다고 판단해서, <SPAN
 CLASS="APPLICATION"
 >cron</SPAN
 >
@@ -23888,11 +24012,10 @@ CLASS="QUOTE"
 CLASS="COMMAND"
 >VACUUM</TT
 > 명령으로 한다.
-    (이 작업을 자료 프리징(data freezing)이라고 한다.)
+    (이 작업을 자료 동결(data freezing)이라고 한다.)
    </P
 ><P
->    vacuum-freeze-min-age
-    환경 변수는 <TT
+>    vacuum-freeze-min-age 환경 변수는 <TT
 CLASS="LITERAL"
 >FrozenXID</TT
 >로 바꾸기 전 얼마나 
@@ -24277,7 +24400,8 @@ NAME="VACUUM-FOR-MULTIXACT-WRAPAROUND"
 >    <I
 CLASS="FIRSTTERM"
 >다중 트랜잭션 ID</I
-> 는 다중 트랜잭션 수행시 로우를 잠금 하는데 쓰인다. 잠금 정보를 저장할 수 있는 튜플 헤더 공간은 제한되어 있기 때문에 
+> 는 다중 트랜잭션 수행시 로우를 잠금 하는데 쓰인다. 
+    잠금 정보를 저장할 수 있는 튜플 헤더 공간은 제한되어 있기 때문에 
     여러 트랜잭션이 한 로우를 잠금하면<SPAN
 CLASS="QUOTE"
 >"다중 트랜잭션 ID"</SPAN
@@ -24285,7 +24409,8 @@ CLASS="QUOTE"
     다중 트랜잭션 ID에 포함된 트랜잭션 ID 정보는 <TT
 CLASS="FILENAME"
 >pg_multixact</TT
-> 하위 디렉토리에 따로 저장되고, 다중 트랜잭션 ID만 튜플 헤더의 <TT
+> 하위 디렉토리에 따로 저장되고, 
+    다중 트랜잭션 ID만 튜플 헤더의 <TT
 CLASS="STRUCTFIELD"
 >xmax</TT
 > 필드로 나타난다.
@@ -24506,7 +24631,6 @@ CLASS="FILENAME"
 >postgresql.conf</TT
 >
     파일에서 지정한다. 하지만 각 테이블 별로도 개별 지정이 가능하다.
-    이 부분에 대한 것은 Storage Parameters에서 자세히 다룬다.
     이 값들이 각 테이블 별로 지정 되면, 그 테이블에 대해서는 서버 전역으로 설정된 값이 무시된다.
     autovacuum에 대한 환경 설정 매개변수들의 자세한 설명은 
     <A
@@ -24582,7 +24706,7 @@ NAME="ROUTINE-REINDEX"
   </P
 ><P
 >   완전히 빈 B-트리 인덱스 페이지는 재사용 하지만,
-   해당 페이지에 몇몇 자료를 남기고 대부분 자료가 지워지면 
+   해당 페이지에 일부 자료를 남기고 대부분 자료가 지워지면 
    그 인덱스는 전체적으로 과도한 디스크 영역을 사용하게 된다.
    (이것을 인덱스 팽창(index bloating)이라고 한다. )
    이런 경우 이 인덱스는 검색에서 디스크 읽기 비용이 최적화 된 인덱스보다
@@ -24945,7 +25069,7 @@ CLASS="APPLICATION"
 >pg_dump</SPAN
 > 프로그램은 여느 <SPAN
 CLASS="PRODUCTNAME"
->Agens SQL</SPAN
+>PostgreSQL</SPAN
 >
    클라이언트 응용 프로그램과 같다(특히 잘 만들어진).
    이 말은 원격 데이터베이스 서버에 대해서 
@@ -25021,7 +25145,7 @@ CLASS="ENVAR"
 ><P
 >   다른 <SPAN
 CLASS="PRODUCTNAME"
->Agens SQL</SPAN
+>PostgreSQL</SPAN
 > 클라이언트 응용 프로그램과 
    마찬가지로 <SPAN
 CLASS="APPLICATION"
@@ -25484,7 +25608,7 @@ CLASS="COMMAND"
 CLASS="COMMAND"
 >split</TT
 > 명령은 표준 입력(stdin)으로 들어오는 내용을 지정한 크기로 나누어서 파일로 저장하는 기능을 제공한다.
-     다음은 1MB 크기로 나눠서 덤프 파일을 생성하는 예제다:
+     다음은 1MB 크기로 나눠서 덤프 파일을 생성하는 예제다.
 
 </P><PRE
 CLASS="PROGRAMLISTING"
@@ -25554,7 +25678,7 @@ CLASS="REPLACEABLE"
 > &gt; <TT
 CLASS="REPLACEABLE"
 ><I
->filename</I
+>파일명</I
 ></TT
 ></PRE
 ><P>
@@ -25578,7 +25702,7 @@ CLASS="REPLACEABLE"
 > <TT
 CLASS="REPLACEABLE"
 ><I
->filename</I
+>파일명</I
 ></TT
 ></PRE
 ><P>
@@ -25604,7 +25728,8 @@ CLASS="APPLICATION"
 CLASS="APPLICATION"
 >pg_dump</SPAN
 >의 병렬 모드를 사용하면 된다. 
-     그러면 테이블들을 동시에 덤프한다. 병렬 처리 수준은 <TT
+     그러면 테이블들을 동시에 덤프한다. 
+     병렬 처리 수준은 <TT
 CLASS="COMMAND"
 >-j</TT
 > 매개변수로 조절할 수 있다. 병렬적 덤프는 “디렉토리” 아카이브 형식에만 지원된다.
@@ -25633,7 +25758,8 @@ CLASS="REPLACEABLE"
 CLASS="COMMAND"
 >pg_restore -j</TT
 >를 이용해서 병렬적 덤프를 복구할 수 있다. 
-     이 방식은 “사용자 정의” 혹은 “디렉터리” 아카이브 모드의 아카이브에서 가능하며 <TT
+     이 방식은 “사용자 정의” 혹은 “디렉터리” 아카이브 모드의 아카이브에서 가능하며 
+     <TT
 CLASS="COMMAND"
 >pg_dump -j</TT
 >로 만들어지지 않았어도 상관없다.
@@ -25726,14 +25852,14 @@ CLASS="FILENAME"
 >   파일 시스템 기반 백업에서 또 하나 고려해야할 사항은 
    파일 시스템이 <SPAN
 CLASS="QUOTE"
->"완전한 스냅샷(consistent snapshot)"</SPAN
+>"일관적인(consistent) 스냅샷"</SPAN
 > 기능을 제공한다면,
    (그리고, 이 기능이 신뢰성이 있다면)
    이 기능을 사용할 때 주의 해야한다는 점이다.
    이 파일 시스템 스냅샷 기능을 이용한 전형적인 백업 방법은
    먼저 <SPAN
 CLASS="QUOTE"
->"현 시점 스냅샷 frozen snapshot"</SPAN
+>"동결된(frozen) 스냅샷"</SPAN
 >을 만들고, 
    백업 장치로 모든 데이터 클러스터 모든 파일(위에서 언급했듯이, 부분 파일을 백업하는 것은 
    의미가 없다)을 복사하고, 잠긴 스냅샷을 푸는 방식으로 진행된다.
@@ -25754,7 +25880,7 @@ CLASS="COMMAND"
    다른 파티션을 사용한다면 데이터베이스 서버가 사용하는 모든 
    파일 시스템에 대해서 동시에 <SPAN
 CLASS="QUOTE"
->"현 시점 스냅샷 frozen snapshot"</SPAN
+>"동결된(frozen) 스냅샷"</SPAN
 >을
    <SPAN
 CLASS="emphasis"
@@ -25785,7 +25911,7 @@ CLASS="APPLICATION"
 >rsync</SPAN
 > 응용 프로그램을 이용하는 방법이다.
    작업은 두 단계로 진행 된다. 
-   먼저 서버가 실행 중 일 때, 자료를 모두 동기화 하고, 
+   먼저 서버가 실행 중일 때, 자료를 모두 동기화 하고, 
    그 다음에 서버를 중지하고 한 번 더 동기화를 한다.
    이렇게 하면, 서버가 중지 되면서 변경된 파일만 동기화를 하기 때문에 
    서버 중지 시간을 최소화 할 수 있다.
@@ -25807,7 +25933,7 @@ CLASS="SECT1"
 CLASS="SECT1"
 ><A
 NAME="CONTINUOUS-ARCHIVING"
->8.3. 아카이브 모드 백업(Continuous Archiving)과, 특정시점 복구(Point-in-Time Recovery, PITR)</A
+>8.3. 아카이브 모드 백업(Continuous Archiving)과, (Point-in-Time Recovery, PITR)</A
 ></H2
 ><P
 >   <SPAN
@@ -25823,10 +25949,10 @@ CLASS="FILENAME"
 >pg_xlog/</TT
 >
    디렉토리에서 관리하고 있다.
-   이 로그는 데이터베이스의 데이터 파일에 대한 모든 조작 기록을 
+   이 로그는 데이터베이스의 데이터 파일에 대한 모든 수정 기록을 
    보관하고 있다. 이 로그를 만드는 가장 첫번째 이유는
    서버가 갑자기 중지되었을 경우 미처 데이터 파일에 
-   적용하지 못한 작업(checkpoint 작업이 안된)을 이 로그에서 읽어서 
+   적용하지 못한 작업(체크포인트 작업이 안된)을 이 로그에서 읽어서 
    그대로 <SPAN
 CLASS="QUOTE"
 >"다시 실행해서"</SPAN
@@ -25957,7 +26083,8 @@ CLASS="FIRSTTERM"
 >로 
     나눠서 저장한다. 이 하나의 WAL 파일은 기본적으로 16MB 크기의 파일이다(이 크기는 서버를 컴파일 할 때 결정된다).
     이 파일명은 WAL 순서에 따른 해당 번호를 사용한다.
-    WAL 아카이브 파일을 만들지 않도록 설정하면 이 파일은 몇 개만 만들어지며, 이것 가운데 더이상 사용하지 않는 로그 파일을 찾아서 <SPAN
+    WAL 아카이브 파일을 만들지 않도록 설정하면 이 파일은 몇 개만 만들어지며, 
+    이것 가운데 더이상 사용하지 않는 로그 파일을 찾아서 <SPAN
 CLASS="QUOTE"
 >"재사용"</SPAN
 >한다.
@@ -25986,7 +26113,7 @@ CLASS="LITERAL"
     백업 솔루션의 명령을 쓸 수도 있다. 이 부분은 전적으로 관리자 몫이다.
    </P
 ><P
->    WAL 아카이브 파일을 만들려면, wal level 환경설정 매개변수의 값으로
+>    WAL 아카이브 파일을 만들려면, 환경설정 매개변수 wal level의 값으로
     <TT
 CLASS="LITERAL"
 >archive</TT
@@ -25994,11 +26121,11 @@ CLASS="LITERAL"
 CLASS="LITERAL"
 >hot_standby</TT
 >)를 지정한다.
-    그 다음 archive mode 환경설정 매개변수 값에는 <TT
+    그 다음 환경설정 매개변수 archive mode 값에는 <TT
 CLASS="LITERAL"
 >on</TT
 >,
-    archive command 환경설정 매개변수 값에는 적당한 시스템 명령어를 지정한다. 
+    환경설정 매개변수 archive command 값에는 적당한 시스템 명령어를 지정한다. 
     이 설정은 모두 <TT
 CLASS="FILENAME"
 >postgresql.conf</TT
@@ -26032,8 +26159,8 @@ archive_command = 'copy "%p" "C:\\server\\archivedir\\%f"'  # Windows</PRE
 CLASS="FILENAME"
 >/mnt/server/archivedir</TT
 > 디렉토리로 이름을 똑같게 해서 복사하는 설정이다.
-    위 예제는 Unix와 Windows 운영체제에 대한 한 예제일 뿐이다. 실제 설정은 해당하는 운영체제에 맞게
-    변경 되어야한다.
+    위 예제는 Unix와 Windows 운영체제에 대한 한 예제일 뿐이다. 
+    실제 설정은 해당하는 운영체제에 맞게 변경 되어야한다.
     <TT
 CLASS="LITERAL"
 >%p</TT
@@ -26155,14 +26282,14 @@ HREF="#RUNTIME-CONFIG-FILE-LOCATIONS"
 > 항목을 참조하라.
    </P
 ><P
->    아카이브 명령은 WAL 파일 가운데 서버에 모두 반영된(rollback되거나 commit 되어 checkpoint 작업이 끝난) 파일에 대해서 실행된다.
+>    아카이브 명령은 WAL 파일 가운데 서버에 모두 반영된(롤백되거나 커밋 되어 체크포인트 작업이 끝난) 파일에 대해서 실행된다.
     즉, 작업량이 아주 적은 데이터베이스의 경우라면 아카이브 명령이 실행되는 간격이 아주 길어진다. 
     이 간격에서 데이터베이스 장애가 생기면 자료 손실이 그 간격 동안 생기게 되므로 WAL 세그먼트 파일의 모든 
     내용이 처리되기 전에 특정 시간이 지나면 강제로 아카이브 명령을 사용해서 
     이 세그먼트 파일을 따로 저장해야 하는데, 이는 <TT
 CLASS="VARNAME"
 >archive_timeout</TT
-> 환경설정 값을 
+> 값을 
     짧게 지정하면 된다. 이 설정값을 너무 짧게 잡으면 디스크 공간을 낭비하는 
     단점이 생긴다. 일반적으로 이 설정값은 분 단위가 적당하다.
    </P
@@ -26177,10 +26304,11 @@ CLASS="FUNCTION"
 >    <TT
 CLASS="VARNAME"
 >wal_level</TT
-> 환경설정값을 <TT
+> 값을 <TT
 CLASS="LITERAL"
 >minimal</TT
->로 설정하게 되면 이 WAL 로그를 따로 보관해서 그것을 기반으로 복원 하는 기능을 사용할 수 없다. 
+>로 설정하게 되면 이 WAL 로그를 따로 보관해서 
+    그것을 기반으로 복원 하는 기능을 사용할 수 없다. 
     이 설정을 사용하면 WAL 파일에 복원 관련 정보를 보관하지 않기 때문이다. 
     그렇기 때문에 <TT
 CLASS="VARNAME"
@@ -26201,7 +26329,8 @@ CLASS="LITERAL"
     그러면 <TT
 CLASS="VARNAME"
 >archive_command</TT
-> 설정값이 다시 WAL 파일을 복사하는 작업을 하기 전까지 <TT
+> 설정값이 다시 WAL 파일을 복사하는 작업을 하기 전까지 
+    <TT
 CLASS="FILENAME"
 >pg_xlog/</TT
 > 디렉토리에 계속 남아있게 된다.
@@ -26225,8 +26354,8 @@ HREF="#BACKUP-LOWLEVEL-BASE-BACKUP"
 > 참조)
    </P
 ><P
->   베이스 백업을 만드는 데 걸리는 시간은 우려할 필요가 없다. 하지만 
-   운영 서버가 <TT
+>   베이스 백업을 만드는 데 걸리는 시간은 우려할 필요가 없다. 
+   하지만 운영 서버가 <TT
 CLASS="VARNAME"
 >full_page_writes</TT
 > 비활성화 상태로 운영 되고 있으면, 
@@ -26294,7 +26423,7 @@ TYPE="1"
 ></LI
 ><LI
 ><P
->    해당 데이터베이스에 슈퍼유저로 접속해서 다음 명령을 실행한다:
+>    해당 데이터베이스에 슈퍼유저로 접속해서 다음 명령을 실행한다.
 </P><PRE
 CLASS="PROGRAMLISTING"
 >SELECT pg_start_backup('라벨');</PRE
@@ -26320,7 +26449,8 @@ CLASS="FILENAME"
     <CODE
 CLASS="FUNCTION"
 >pg_start_backup</CODE
-> 함수의 실행 결과가 오류를 발생시키면 그에 적합한 조치를 취해야겠지만 오류를 내지 않으면 이 작업의 내부 작업에 대해서는 신경쓰지 않아도 된다.
+> 함수의 실행 결과가 오류를 발생시키면 그에 적합한 조치를 취해야겠지만 
+    오류를 내지 않으면 이 작업의 내부 작업에 대해서는 신경쓰지 않아도 된다.
     </P
 ><P
 >         기본적으로, <CODE
@@ -26591,11 +26721,12 @@ CLASS="FUNCTION"
 CLASS="FUNCTION"
 >pg_stop_backup</CODE
 > 함수가 실행될 때, 해당 디렉토리에서는 삭제 되고 
-        WAL 세그먼트 파일 백업 처리와 같은 방식으로 보관된다.  즉, 베이스 백업본에는 
-        반드시 이 <TT
+        WAL 세그먼트 파일 백업 처리와 같은 방식으로 보관된다.  
+        즉, 베이스 백업본에는 반드시 이 <TT
 CLASS="FILENAME"
 >backup_label</TT
-> 파일이 있게 된다. 베이스 백업이 완료되면 실행 되는 서버 쪽에서는 이 파일이
+> 파일이 있게 된다. 
+        베이스 백업이 완료되면 실행 되는 서버 쪽에서는 이 파일이
         없어야하고, 백업본에는 이 파일이 있는 것이 정상이다.
         만일 그렇지 않다면, 해당 베이스 백업은 비정상적으로 처리된 것이다.
         따라서 백업 도중 데이터베이스 서버가 중지 되어 버린 경우 이 점을 감안해서 베이스 백업본을 사용할 수 있는지를 판단해야한다.
@@ -26642,8 +26773,8 @@ TYPE="1"
 ></LI
 ><LI
 ><P
->         만일 시스템의 디스크 공간이 넉넉하면, 
-         데이터베이스 클러스터 디렉토리 전체 및 관련된 사용자 정의 테이블스페이스의 파일들, 필요한 WAL 세그먼트 파일들을 모두 임시 장소에 복사해야 한다.
+>         만일 시스템의 디스크 공간이 넉넉하면, 데이터베이스 클러스터 디렉토리 전체 및 관련된 사용자 정의 테이블스페이스의 파일들과 
+         필요한 WAL 세그먼트 파일들을 모두 임시 장소에 복사해야 한다.
          이 작업을 기존에 운영 중이던 시스템에서 하려면, 적어도 두 배 이상의 디스크 공간이 필요하게 된다. 
          이런 여유 공간이 없으면 적어도 기존 데이터베이스 서버의 클러스터 디렉토리 안에 있는 
          <TT
@@ -26699,8 +26830,8 @@ CLASS="FILENAME"
          2단계에서 복사해 둔 <TT
 CLASS="FILENAME"
 >pg_xlog/</TT
-> 내의 파일들을 복구하려는 곳으로 복사한다. (옮기지 말고 복사하길 권한다. 아직 복구가 
-         완벽하게 이루어지지 않았기 때문에, 복사가 안전하다.)
+> 내의 파일들을 복구하려는 곳으로 복사한다. 
+         (옮기지 말고 복사하길 권한다. 아직 복구가 완벽하게 이루어지지 않았기 때문에, 복사가 안전하다.)
     </P
 ></LI
 ><LI
@@ -26897,13 +27028,13 @@ HREF="#RECOVERY-TARGET-SETTINGS"
         지정해서 원하는 지점에서 복구 작업을 중지할 수도 있다. 
         이 지점을 <SPAN
 CLASS="QUOTE"
->"recovery target"</SPAN
+>"복구 타겟(recovery target)"</SPAN
 >이라고 한다.
         이 기능은 미숙한 데이터베이스 관리자가 실수로 중요 테이블을 삭제하는 것 같은 
         운영상 실수에 대한 복구를 지원하는데 유용하다.
         <SPAN
 CLASS="QUOTE"
->"recovery target"</SPAN
+>"복구 타겟"</SPAN
 >은 특정 시각으로 지정할 수도 있고 
         관리자가 미리 지정한 어떤 문자열일 수도 있고 
         특정 트랜잭션 ID로 지정할 수도 있다.
@@ -26923,7 +27054,7 @@ CLASS="NOTE"
 CLASS="FUNCTION"
 >pg_stop_backup</CODE
 > 명령이 실행된 시간보다 늦은 시점으로 지정해야 한다.
-          베이스 백업 - 데이터 클러스터 파일들을 파일 시스템 차원으로 백업하고 있었던 시간대로 복구할 수는 없다. 
+          베이스 백업을 사용해서 데이터 클러스터 파일들을 파일 시스템 차원으로 백업하고 있었던 시간대로 복구할 수는 없다. 
           이 작업이 필요하면 이전 베이스 백업 자료와 해당 WAL 백업 파일들이 필요하다.
      </P
 ></BLOCKQUOTE
@@ -26932,14 +27063,15 @@ CLASS="FUNCTION"
 >    만일 WAL 파일 자체에 문제가 있으면 정상적으로 처리한 트랜잭션까지만 적용되고 복구 작업을 멈추고, 서버도 중지된다. 
     이런 경우에는 문제가 발생한 시점을 파악해서 처음부터 다시 그 시점 전까지만 <SPAN
 CLASS="QUOTE"
->"recovery target"</SPAN
+>"복구 타겟"</SPAN
 > 으로 지정해서 복구한다.
     복구 작업 도중 외부적인 영향으로 작업이 중지 되면 (시스템 리부팅, disk full, .... 이런 이유들) 문제의 원인을 해결해야 한다. 
     그리고나서 단순히 서버를 재실행하면 복구 작업을 이어서 계속 진행한다. 복구 작업은 일반 실행환경에서의 체크 포인트 작업과 같이 재실행된다.
     내부적으로 <TT
 CLASS="FILENAME"
 >pg_control</TT
-> 파일을 주기적으로 갱신해서 이미 반영된 로그들에 대해서는 더이상 재작업을 하지 않도록 하기 때문에 중복처리에 대한 염려는 안해도 된다.
+> 파일을 주기적으로 갱신해서 이미 반영된 로그들에 대해서는 더이상 재작업을 하지 않도록 하기 때문에 
+    중복처리에 대한 염려는 안해도 된다.
    </P
 ></DIV
 ><DIV
@@ -27073,7 +27205,8 @@ CLASS="APPLICATION"
           베이스 백업을 받는 것이다. pg basebackup을 호출할 때 <TT
 CLASS="LITERAL"
 >-X</TT
-> 매개변수를 쓰면 사용되는 트랜잭션 로그 전체가 백업에 자동으로 쓰이고, 그 이상의 작업은 필요 없다. 
+> 매개변수를 쓰면 사용되는 트랜잭션 로그 전체가 
+          백업에 자동으로 쓰이고, 그 이상의 작업은 필요 없다. 
      </P
 ><P
 >          백업 파일을 복사하는데 보다 유연한 방법이 필요한 경우, 
@@ -27103,7 +27236,7 @@ CLASS="EMPHASIS"
 >스위치 파일</I
 ></SPAN
 >이 있는 경우에 한해서 그 파일을 다른 곳에도 보관할 수 있도록
-          설정하면 된다. 다음은 이 설정의 예제다:
+          설정하면 된다. 다음은 이 설정의 예제다.
 </P><PRE
 CLASS="PROGRAMLISTING"
 >archive_command = 'test ! -f /var/lib/pgsql/backup_in_progress || (test ! -f /var/lib/pgsql/archive/%f &amp;&amp; cp %p /var/lib/pgsql/archive/%f)'</PRE
@@ -27160,7 +27293,7 @@ CLASS="APPLICATION"
           <SPAN
 CLASS="APPLICATION"
 >gzip</SPAN
-> 프로그램을 이용해서 더 압축할 수도 있다:
+> 프로그램을 이용해서 더 압축할 수도 있다.
 </P><PRE
 CLASS="PROGRAMLISTING"
 >archive_command = 'pg_compresslog %p - | gzip &gt; /var/lib/pgsql/archive/%f'</PRE
@@ -27171,7 +27304,7 @@ CLASS="APPLICATION"
 > 프로그램과 <SPAN
 CLASS="APPLICATION"
 >pg_decompresslog</SPAN
-> 프로그램을 다음과 같이 사용한다:
+> 프로그램을 다음과 같이 사용한다.
 </P><PRE
 CLASS="PROGRAMLISTING"
 >restore_command = 'gunzip &lt; /mnt/server/archivedir/%f | pg_decompresslog - %p'</PRE
@@ -27254,13 +27387,13 @@ CLASS="LITERAL"
 ></LI
 ><LI
 ><P
->                 WAL 파일 복사(전송, 다른 곳에 따로 보관하는 것)의 가장 안전하고 확실한 방법
-                 - 실패 했을 경우 재시도에 대한 정책, 복구를 빠르게 하기 위한 이중 백업 등
+>         WAL 파일 복사(전송, 다른 곳에 따로 보관하는 것)의 가장 안전하고 확실한 방법
+         - 실패 했을 경우 재시도에 대한 정책, 복구를 빠르게 하기 위한 이중 백업 등
         </P
 ></LI
 ><LI
 ><P
->                 다른 백업, 복구 소프트웨어를 사용할 때의 인터페이스 문제
+>         다른 백업, 복구 소프트웨어를 사용할 때의 인터페이스 문제
         </P
 ></LI
 ><LI
@@ -27291,7 +27424,7 @@ NAME="CONTINUOUS-ARCHIVING-CAVEATS"
 ><LI
 ><P
 >     해시 인덱스 작업에 대한 기록은 WAL 로그에 포함되지 않는다.
-     그래서 이런 인덱스들에 대해서는 대기(standby) 서버(복원 서버)에서
+     그래서 이런 인덱스들에 대해서는 대기 서버(복원 서버)에서
      삽입, 갱신 작업을 하지 않는다. 다시 말하면, 이렇게 제대로 반영되지 않은
      인덱스 때문에 원하는 결과가 출력되지 않을 수 있다.
      만일 해시 인덱스를 사용하고 있으면 복원 작업이 끝난 뒤에 수동으로 
@@ -27318,7 +27451,8 @@ NAME="CONTINUOUS-ARCHIVING-CAVEATS"
      그 테이블스페이스에 있던 원본 파일을 손상 할 수도 있으며 
      다른 호스트에서 테이블스페이스의 실제 디렉토리가 없어서 
      원본 자료를 손실할 수도 있다.
-     이 문제를 피해갈 수 있는 가장 좋은 방법은 일단 테이블스페이스를 만들거나 삭제할 경우에는 반드시 그 다음에 베이스 백업본을 만들어 두는 것이다.
+     이 문제를 피해갈 수 있는 가장 좋은 방법은 일단 테이블스페이스를 만들거나 삭제할 경우에는 
+     반드시 그 다음에 베이스 백업본을 만들어 두는 것이다.
     </P
 ></LI
 ></UL
@@ -27332,9 +27466,9 @@ CLASS="ACRONYM"
     페이지 스냅샷을 많이 포함하고 있어 그 크기가 상당히 크다는 점이다.
     이 페이지 스냅샷 기법은 서버가 갑자기 중지될 경우와 해당 디스크 페이지가
     부분적으로 기록되었을 경우 그 페이지를 안전하게 복구 하기 위해서 도입되었다. 
-    물론 사용하고 있는 하드웨어와 소프트웨어에 따라 이런 부분적인 디스크 페이지 기록으로 인한 오류가 미비하거나 무시할 정도인 
-    경우도 있다. 이럴 경우, full page writes 환경변수 값을
-    off로 설정하면, 이 로그 전체 크기를 많이 줄일 수 있다.
+    물론 사용하고 있는 하드웨어와 소프트웨어에 따라 이런 부분적인 디스크 페이지 
+    기록으로 인한 오류가 미비하거나 무시할 정도인 경우도 있다. 
+    이럴 경우, full page writes 환경변수 값을 off로 설정하면, 이 로그 전체 크기를 많이 줄일 수 있다.
     이 환경변수값을 off로 설정해도 PITR 기능을 사용할 수 있다.
     또한 <TT
 CLASS="VARNAME"
@@ -27359,19 +27493,19 @@ NAME="HIGH-AVAILABILITY"
 ><P
 >  데이터베이스 서버는 하나의 운영 서버에서 장애가 생기면, 
   대기 서버가 빠르게 운영 서버로 운영될 수 있도록 구축할 수 있다.
-  이것을 고가용성 high availability 이라고 한다.
+  이것을 고가용성이라고 한다.
   또한, 여러 대의 똑같은 자료를 사용하는 서버를 동시에 운영해서, 
   서버 부하를 분산해서 운영할 수도 있다.
-  이것을 부하 분산 load balancing 이라고 한다.
+  이것을 부하 분산(load balancing)이라고 한다.
   단순하게 이상적으로만 생각한다면 데이터베이스 서버도 별 문제 없이 
   여러 대의 같은 서버가 운영될 수 있을 것이다.
   정적인 웹 페이지를 제공하는 웹 서버라면 여러 대의 웹 서버를 구축해서
-  여러 웹 블로우져 요청에 동시에 해당 페이지를 제공해서 
+  여러 웹 브라우저 요청에 동시에 해당 페이지를 제공해서 
   부하를 분산하는 작업은 그리 어려운 일이 아니다.
   하지만 데이터베이스가 읽기 전용 형태로 서비스 되는 경우는 
   극히 드물다. 또한 하나의 요청에 내부적으로 자료를 읽고 쓰는 작업이 
   복잡하게 얽혀 있어 쓰기 작업은 다른 서버에서 그 변경된 자료를 
-  읽는 서비스까지 제공해야하기 때문에 자료의 일관성 - 자료 정합성이라고 한다 - 을
+  읽는 서비스까지 제공해야하기 때문에 자료의 일관성(자료 정합성이라고 함)을
   유지하는 작업이 꽤 난해한 작업이다.
  </P
 ><P
@@ -27396,7 +27530,7 @@ CLASS="FIRSTTERM"
 CLASS="FIRSTTERM"
 >슬래이브</I
 > 서버라고 한다. 
-  마스터 서버의 장애로 운영 제어권을 대기 서버로 남기기 전까지 
+  마스터 서버의 장애로 운영 제어권을 대기 서버로 넘기기 전까지 
   대기 서버를 사용할 없는 환경을 <I
 CLASS="FIRSTTERM"
 >warm standby</I
@@ -27415,7 +27549,7 @@ CLASS="FIRSTTERM"
   처리하는 방식이다. 이렇게 구현되면, 부하를 분산할 수 있으며, 
   하나의 서버에서 장애가 발생되어도 자료의 정합성은 유지될 수 있다. 
   문제는 서버 자료 동기화 방식을 비동기식으로 처리한다면, 
-  동기화 작업에 지연이 생긴 상황에서 한 서버에서 장애가 발생하면, 
+  동기화 작업에 지연이 생긴 상황에서 한 서버에서 장애가 발생했을 때
   자료 손실이 있을 수 있다.
   비동기방식을 사용하는 경우는 서버간 통신이 아주 느린 경우에 사용한다.
  </P
@@ -27510,7 +27644,7 @@ CLASS="ACRONYM"
         데이터베이스 서버 전체를 대상으로 한다. 부분만 복제할 수 없다.
     </P
 ><P
->         대기 서버를 구축하려면, WAL 내용을 대기 서버로 전달해야하 하는데, 
+>         대기 서버를 구축하려면, WAL 내용을 대기 서버로 전달해야 하는데, 
          그 전달하는 방법으로 파일 기반 로그 복사(log shipping)를 하는 
          방식(<A
 HREF="#WARM-STANDBY"
@@ -27579,9 +27713,9 @@ CLASS="FUNCTION"
          운영-대기 서버 형태로 구축해서 자료 변경은 반드시 운영 서버에서만 
          일어나도록 미들웨어나 응용프로그램 사용하는 것이다. 또 한 가지 주의할 
          사항은 한 서버에서 트랜잭션이 시작되어 커밋되었을 때, 
-         다른 모든 서버에서도 모두 커밋되어야 그 트랜잭션이 유효하다고 
+         다른 모든 서버에서도 모두 커밋되어야 그 트랜잭션이 유효하게 
          처리되어야한다. 특정 서버에서 롤백되면, 그 트랜잭션은 모든 서버에서 
-         롤백되어야한다. 이것을 구현하기 위해서는 미들웨어가 2중 커밋 two-phase commit
+         롤백되어야한다. 이것을 구현하기 위해서는 미들웨어가 이중 커밋(two-phase commit)
          을 이용할 것이다 (PREPARE TRANSACTION, COMMIT PREPARED 명령).
          이 방식을 이용하는 제품으로는 <SPAN
 CLASS="PRODUCTNAME"
@@ -27616,7 +27750,7 @@ CLASS="PRODUCTNAME"
          자료 변경이 빈번한 환경이면 
          단독 운영 서버 구축 환경 보다 성능이 더 떨어질 수 있다.
          읽기 전용 작업이라면 어느 서버에서도 작업할 수 있다.
-         서버간 통신 작업 비용을 줄이기 위해서, 몇 시스템은 
+         서버간 통신 작업 비용을 줄이기 위해서, 일부 시스템은 
          공유 디스크를 사용하기도 한다. 
          자료 관리 입장에서 본다면 이 방식이 가장 이상적인 
          방식이다. 하나의 자료 결과에 대해서도 서버간 자료가 공유되기 때문에 
@@ -27945,7 +28079,7 @@ ALIGN="CENTER"
 ></TABLE
 ></DIV
 ><P
->  위에서 소개한 해별 방법 외에도 아래와 같은 방법도 있다:
+>  위에서 소개한 해별 방법 외에도 아래와 같은 방법도 있다.
  </P
 ><P
 ></P
@@ -28048,7 +28182,7 @@ HREF="#STREAMING-REPLICATION"
    <TT
 CLASS="VARNAME"
 >archive_timeout</TT
-> 환경설정값을 몇 초 정도로 짧게 
+> 값을 몇 초 정도로 짧게 
    지정해 자주 사용하는 WAL 파일을 바꾸고 그것을 전송하면 
    되겠지만 그 파일의 크기가 16MB이기 때문에 잦은 WAL 파일 전송 작업으로
    네트워크 사용량이 증가할 것이다.
@@ -28091,7 +28225,7 @@ NAME="STANDBY-PLANNING"
         테이블스페이스 문제를 고려했을 때만 보아도 
         운영 서버에서 CREATE TABLESPACE 명령으로
         테이블스페이스를 조작할 일이 생겼을 때 
-        대기 서버에서도 똑 같은 작업이 정상적으로 진행되려면 
+        대기 서버에서도 똑같은 작업이 정상적으로 진행되려면 
         운영 서버와 같은 디렉토리 구조를 가지고 있어야한다.
     물론 운영체제 전체를 운영하는 입장에서 봤을 때 
         하드웨어와 운영체제도 똑같은 사양이면 보다 쉽게 운영할 수 있을 것이다.
@@ -28106,12 +28240,16 @@ CLASS="PRODUCTNAME"
 >Agens SQL</SPAN
 > 서버 간은 구현이 불가능하다.
         디스크 자료 저장 포맷이 바뀔 경우에, 
-        Agens SQL 개발 그룹에서는 메이저 버전을 바꾸어 출시하는 것이 
+        <SPAN
+CLASS="PRODUCTNAME"
+>Agens SQL</SPAN
+> 개발 그룹에서는 메이저 버전을 바꾸어 출시하는 것이 
         정책이기 때문이다. 물론 마이너 버전의 서로 다른 경우는 복제 
         환경을 구축해도 잘 작동할 것이다. 이렇게 서로 마이너 버전이 다른 경우
         해결 하기 힘든 예상치 못한 문제가 발생할 수도 있기 때문에, 
         가능하면 운영 서버와 대기 서버의 버전을 최대한 같은 것을 사용하는 것을 권장한다.
-        마이너 버전 업데이트가 필요하면 이 작업을 할 때 가장 좋은 순서는 먼저 대기 서버 쪽을 업데이트해서 옛 버전의 WAL 파일을 잘 적용할 수 있는지
+        마이너 버전 업데이트가 필요하면 이 작업을 할 때 가장 좋은 순서는 먼저 
+        대기 서버 쪽을 업데이트해서 옛 버전의 WAL 파일을 잘 적용할 수 있는지
         부터 확인하고 운영 서버를 업데이트하는 것이다.
    </P
 ></DIV
@@ -28151,17 +28289,20 @@ CLASS="VARNAME"
         적용할 파일이 없으면 <TT
 CLASS="VARNAME"
 >restore_command</TT
-> 설정값에 지정된 
-        명령은 실패로 끝나야한다. 복구 환경이 스트리밍 복제 방식이면 운영 서버 쪽으로 접속 해서 
-        운영 서버가 데이터베이스 연결을 통해 보내는 트랜잭션들을 자신의 <TT
+> 설정값에 지정된 명령은 실패로 끝나야한다. 
+        복구 환경이 스트리밍 복제 방식이면 운영 서버 쪽으로 접속 해서 
+        운영 서버가 데이터베이스 연결을 통해 보내는 트랜잭션들을 자신의 
+        <TT
 CLASS="FILENAME"
 >pg_xlog</TT
 > 디렉토리 내 해당 WAL 로그 파일에 추가한다.
-        그 다음부터는 서버가 알아서 해당 작업을 수행하고 커밋 되었다고 기록하고, 체크포인트 작업을 하는 등 일련의 자료 변경 작업을 수행한다.
+        그 다음부터는 서버가 알아서 해당 작업을 수행하고 커밋 되었다고 기록하고, 
+        체크포인트 작업을 하는 등 일련의 자료 변경 작업을 수행한다.
         반면, 복구 환경이 warm standy 방식이면 <TT
 CLASS="VARNAME"
 >restore_command</TT
-> 설정값에 지정된 명령이 실패로 끝난 경우 원하는 WAL 세그먼트 파일이 새롭게 생길 때까지 기다렸다가 생겼을 때 
+> 설정값에 
+        지정된 명령이 실패로 끝난 경우 원하는 WAL 세그먼트 파일이 새롭게 생길 때까지 기다렸다가 생겼을 때 
         다시 작업 하고 또 더 이상 없으면 실패로 끝나면서 대기하는 작업을 반복한다.
         이 반복 작업은 서버가 중지되거나, 대기 작업을 이제 그만 하고 스스로 독립된 
         운영 서버 역할을 하라고 알려주는 트리거 파일이 생기기 전까지 계속 반복된다.
@@ -28315,7 +28456,8 @@ CLASS="VARNAME"
         왜냐하면, 운영 서버 장애가 발생하면 이 대기 서버가 운영 서버 역할을 해야하기 때문이다.
    </P
 ><P
->    운영 서버에서 넘겨 받은 WAL 파일을 사용하면, archive cleanup command 설정으로 이미 대기 서버에 반영이 완료된 파일을 지워서, 디스크 공간을 확보 할 수도 있다.
+>    운영 서버에서 넘겨 받은 WAL 파일을 사용하면, archive cleanup 명령으로 이미 대기 서버에 반영이 완료된 파일을 지워서, 
+    디스크 공간을 확보 할 수도 있다.
                 이 설정값으로 <SPAN
 CLASS="APPLICATION"
 >pg_archivecleanup</SPAN
@@ -28349,7 +28491,7 @@ archive_cleanup_command = 'pg_archivecleanup /path/to/archive %r'</PRE
         운영 서버의 <TT
 CLASS="VARNAME"
 >max_wal_senders</TT
-> 환경 설정값으로
+> 값으로
         이 대기 서버 모두가 동시에 접속 할 수 있도록 충분한 연결을 확보해야한다.
    </P
 ></DIV
@@ -28385,7 +28527,7 @@ HREF="#SYNCHRONOUS-REPLICATION"
         <TT
 CLASS="VARNAME"
 >archive_timeout</TT
-> 설정값을 짧게 해서 자료 손실을 줄일 수 있다.
+> 값을 짧게 설정 해서 자료 손실을 줄일 수 있다.
    </P
 ><P
 >    파일 기반 로그 전달 방식을 함께 사용하지 않고, 
@@ -28393,7 +28535,7 @@ CLASS="VARNAME"
         운영 서버에서 반드시  <TT
 CLASS="VARNAME"
 >wal_keep_segments</TT
-> 환경설정값을 
+> 값을 
         지정해서, 아직 대기 서버로 반영되지 못한 WAL 파일을 남겨두는 최대 
         개수를 지정해 주어야한다. 운영 서버에는 WAL 파일을 재활용하기 때문에 
         대기 서버의 중지 시간이 길어져 이 대기 서버로 반영되지 못한 WAL 파일이 
@@ -28447,11 +28589,11 @@ HREF="#STREAMING-REPLICATION-AUTHENTICATION"
 >    또한 운영 서버 입장에서 클라이언트의 TCP 연결이 끊겼을 경우 
         빠르게 그 소켓을 정리해서, TCP 연결을 원할하게 하기 위해 
         tcp keepalives idle, tcp keepalives interval,
-        tcp keepalives count 설정값을 조정할 수도 있다.
+        tcp keepalives count 값을 조정할 수도 있다.
    </P
 ><P
 >    또한 대기 서버의 최대 동시 연결수도 지정해야한다.
-    (max wal senders 환경설정값 항목을 참조).
+    (max wal senders 항목을 참조).
    </P
 ><P
 >    대기서버는 먼저 운영 서버에서 넘겨 받은 WAL 세그먼트 파일을 모두 
@@ -28635,7 +28777,8 @@ NAME="STREAMING-REPLICATION-SLOTS"
 >9.2.6. 리플리케이션 슬롯</A
 ></H3
 ><P
->    리플리케이션 슬롯은 모든 대기 서버가 WAL 세그먼트를 받을 때까지 마스터 서버가 WAL 세그먼트를 삭제하지 않게 해주고, 대기 서버와의 연결이 끊어져도 마스터 서버가 로우를 보존하게 해서 
+>    리플리케이션 슬롯은 모든 대기 서버가 WAL 세그먼트를 받을 때까지 마스터 서버가 
+    WAL 세그먼트를 삭제하지 않게 해주고, 대기 서버와의 연결이 끊어져도 마스터 서버가 로우를 보존하게 해서 
     <A
 HREF="#HOT-STANDBY-CONFLICT"
 >복구 충돌</A
@@ -28644,7 +28787,8 @@ HREF="#HOT-STANDBY-CONFLICT"
 ><P
 >    리플리케이션 슬롯을 이용하는 대신 wal keep segments를 쓰거나, 
     archive command를 사용할 때 아카이브에 세그먼트들을 저장해서 이전 WAL 세그먼트 삭제를 방지할 수 있다.
-    리플리케이션 슬롯은 필요한 세그먼트의 개수만큼만 보관하는 반면에 이 방법은 필요 이상의 WAL 세그먼트를 보관하는 경우가 종종 있다는 것이 단점이다. 
+    리플리케이션 슬롯은 필요한 세그먼트의 개수만큼만 보관하는 반면에 이 방법은 필요 이상의 WAL 세그먼트를 보관하는 경우가 
+    종종 있다는 것이 단점이다. 
     장점은 <TT
 CLASS="LITERAL"
 >pg_xlog</TT
@@ -28652,7 +28796,9 @@ CLASS="LITERAL"
    </P
 ><P
 >    유사한 방법으로, hot standby feedback
-    방식과 vacuum defer cleanup-age 방식은 vacuum이 삭제한 해당 로우를 보존하는데, hot standby feedback 방식은 대기 서버가 연결되어 있지 않을 때는 보존할 수 없고, vacuum defer cleanup age 방식은 큰 값으로 지정해서 보존한다. 
+    방식과 vacuum defer cleanup-age 방식은 vacuum이 삭제한 해당 로우를 보존하는데, 
+    hot standby feedback 방식은 대기 서버가 연결되어 있지 않을 때는 보존할 수 없고, 
+    vacuum defer cleanup age 방식은 큰 값으로 지정해서 보존한다. 
     리플리케이션 슬롯은 이 같은 제한이 없다. 
    </P
 ><DIV
@@ -28704,7 +28850,8 @@ postgres=# SELECT * FROM pg_replication_slots;
      대기 서버가 슬롯을 쓰도록 설정할 때 대기 서버의 <TT
 CLASS="FILENAME"
 >recovery.conf</TT
-> 파일에서  <TT
+> 파일에서 
+     <TT
 CLASS="VARNAME"
 >primary_slot_name</TT
 >을 설정해야 한다. 아래는 간단한 예제이다.
@@ -28726,7 +28873,7 @@ NAME="CASCADING-REPLICATION"
 >9.2.7. 순차적 복제</A
 ></H3
 ><P
->    순차적 복제 cascading replication 기능은 대기 서버가 
+>    순차적 복제(cascading replication) 기능은 대기 서버가 
     마치 이어 달리기처럼 다른 대기 서버의
     스트리밍 복제를 할 수 있도록 하는 것이다.
     이 기능은 스트리밍 복제에 필요한 운영 서버의 부하를 최소화할 수 있다.
@@ -28777,7 +28924,7 @@ CLASS="LITERAL"
 ><P
 >    순차적 복제 기능을 사용하려면, 업스트림 서버 쪽에서는 
     기본적인 복제 기능을 위해 운영 서버 쪽에서 설정했던 것을 
-    그대로 설정하며 (max wal senders,hot standby 설정값 조정하고,
+    그대로 설정하며 (max wal senders,hot standby 값 조정하고,
     호스트 기반 인증 설정을 한다), 다운스트림 대기 서버는 기존 대기서버 설정과 같이
     하면서 <TT
 CLASS="VARNAME"
@@ -28799,8 +28946,8 @@ NAME="SYNCHRONOUS-REPLICATION"
 CLASS="PRODUCTNAME"
 >Agens SQL</SPAN
 > 스트리밍 복제 기능은 
-        기본이 비동기식이다. 이 말은 
-        운영 서버가 장애로 멈춰, 대기 서버가 운영 서버로 역할 전환 작업(failover, 장애처리)을 
+        기본이 비동기식이다. 이 말은 운영 서버가 장애로 멈춰, 
+        대기 서버가 운영 서버로 역할 전환 작업(failover, 장애처리)을 
         할 때, 운영 서버와 대기 서버 사이 자료 동기화에 지연이 있을 시 그 만큼의 자료를 잃어버린다는 뜻이다.
    </P
 ><P
@@ -28840,11 +28987,11 @@ NAME="SYNCHRONOUS-REPLICATION-CONFIG"
 ><P
 >    이미 복제 기능을 사용하고 있는데, 
         동기식 복제 방식으로 변경하려면, synchronous standby names 
-        설정값을 비워두지 않으면 된다. 
+        값을 비워두지 않으면 된다. 
         <TT
 CLASS="VARNAME"
 >synchronous_commit</TT
-> 설정값도 <TT
+> 값도 <TT
 CLASS="LITERAL"
 >on</TT
 >이어야하지만, 
@@ -28863,7 +29010,7 @@ HREF="#RUNTIME-CONFIG-REPLICATION-MASTER"
         <TT
 CLASS="VARNAME"
 >synchronous_standby_names</TT
-> 설정값은 쉼표 구분 여러 개의 
+> 값은 쉼표 구분 여러 개의 
         대기 서버 이름을 지정할 수 있으며, 여기 등록되지 않은 대기 서버는 
         동기식 복제를 하지 않는다.
         <TT
@@ -28882,13 +29029,13 @@ CLASS="VARNAME"
         <TT
 CLASS="VARNAME"
 >wal_receiver_status_interval</TT
-> 환경설정 값이 0으로
+> 값이 0으로
         지정되어 있지 않으면 운영 서버로 작업을 완료했다고 메시지를 보낸다.
         대기 서버 가운데 운영 서버에서 <TT
 CLASS="VARNAME"
 >synchronous_standby_names</TT
 >
-        환경설정 값에 지정한 첫번째 대기 서버가 보내는 응답을 확인 해서
+        값에 지정한 첫번째 대기 서버가 보내는 응답을 확인 해서
         대기 서버에서 WAL 레코드 복제를 완벽하게 했다고 운영 서버는 판단한다.
         여기서 언급한 환경설정 매개변수들이 대기 서버의 동기화 방식에 대한 
         설정에 관계된 것들이다.
@@ -28901,7 +29048,7 @@ CLASS="VARNAME"
 >    <TT
 CLASS="VARNAME"
 >synchronous_commit</TT
-> 설정값을 <TT
+>값을 <TT
 CLASS="LITERAL"
 >remote_write</TT
 >로 하면, 
@@ -29038,15 +29185,15 @@ CLASS="LITERAL"
         어떤 대기 서버가 그 작업을 아직 하지 않았으면,  
         그 작업부터 진행할 것이기 때문에 자료 손실은 없을 것이다. 
         응용 프로그램 입장에서는 이런 상황이 발생했으면,
-        - 커밋 명령이 성공적으로 끝나기 전에 데이터베이스 연결이 끊겼다면 - 
+        (커밋 명령이 성공적으로 끝나기 전에 데이터베이스 연결이 끊겼다면)
         재연결시 반드시 해당 작업으로 자료가 정상적으로 
-        반영되었는지 확인해야할 필요가 있다.
+        반영되었는지 확인해야 할 필요가 있다.
    </P
 ><P
 >    <TT
 CLASS="VARNAME"
 >synchronous_standby_names</TT
-> 환경 변수값에 등록된 모든 
+> 값에 등록된 모든 
         대기 서버들이 모두 커밋 완료 응답을 보내지 않아 운영 서버의 커밋 작업이
         멈춰 있는 상태이면, 이 변수의 값을 빈문자열('')로 지정하고, 
         환경 설정을 다시 적용해서 운영 서버를 정상화 할 수 있다.
@@ -29091,7 +29238,7 @@ NAME="WARM-STANDBY-FAILOVER"
    </P
 ><P
 >    대기 서버가 장애일 경우는 운영 서버에 영향을 주지 않기 때문에 
-        이 작업이 필요 없다.  그냥 재실행 할 수 있으면 그렇게 하면 되고, 
+        이 작업이 필요 없다. 그냥 재실행 할 수 있으면 그렇게 하면 되고, 
         재구축이 필요하면, 대기 서버 구축 방법에 따라 진행하면 된다.
         대기 서버는 실행 순서에 따라 자동으로 운영 서버와 동기화를 할 것이다.
    </P
@@ -29137,7 +29284,7 @@ CLASS="PRODUCTNAME"
         대기 서버로 실행해야하기 때문에, 꽤 많은 시간을 운영 서버 혼자 감당해야한다.
         운영적인 입장에서는 이런 경우 어떻게 최소한의 비용으로 빠르게 
         대기 서버를 구축할 것인가도 준비해야한다. 
-        비용이 넉넉하다면, 제 3의 대기 서버를 준비해 두었다가, 
+        비용이 넉넉하다면, 제 3의 대기 서버를 준비해 두었다가 
         이런 상황에서 대기 서버로 작동할 수 있도록 한다.
    </P
 ><P
@@ -29214,7 +29361,7 @@ CLASS="VARNAME"
         운영 서버에서 만들어진 WAL 파일은 그것들이 만들어지는 순서에 따라 
         그대로 대기 서버로 반영 되어야한다는 점이다. 또한 반영 하는 작업은 
         반드시 직렬화 되어서 한 번에 하나의 파일만 적용해야한다.
-        대기 서버에서 쿼리를 사용할 수 있게 설정 하면, (Hot Standby)
+        대기 서버에서 쿼리를 사용할 수 있게 설정 하면(Hot Standby 참조), 
         WAL 파일 적용 간격에 차이 때문에 자료가 정확하게 운영 서버와 같지 
         않다는 점도 기억해야한다. 
         이 대기 서버로의 자료 반영 지연 현상을 줄이려면, 
@@ -29273,7 +29420,7 @@ CLASS="LITERAL"
 >    <TT
 CLASS="VARNAME"
 >restore_command</TT
-> 설정값으로 사용될 프로그램의 의사코드는 다음과 같다:
+> 설정값으로 사용될 프로그램의 의사코드는 다음과 같다.
 </P><PRE
 CLASS="PROGRAMLISTING"
 >triggered = false;
@@ -29298,7 +29445,7 @@ if (!triggered)
         꽤 중요한 부분이다. 이 또한 <TT
 CLASS="VARNAME"
 >restore_command</TT
-> 설정값으로 지정하는 
+> 값으로 지정하는 
         명령어에서 담당한다.
         단순하게 이 명령어의 리턴값이 0 아닌 값으로 종료되면 된다.
         0 아닌 값으로 종료되는 상황은 
@@ -29379,10 +29526,13 @@ CLASS="FILENAME"
 ><P>
    </P
 ><P
->    복구 작업은 WAL 아카이브를 읽기 전용으로 처리하여, WAL 파일이 대기 서버 시스템에 복사 되면 테이프로 WAL 파일이 복사되어 데이터베이스 대기 서버가 동시에 읽을 수 있다. 이와 같이 대기 서버는 재난 복구를 목적으로 파일을 장기간 저장하면서 동시에 고가용성을 구현할 수 있다.
+>    복구 작업은 WAL 아카이브를 읽기 전용으로 처리하여, WAL 파일이 대기 서버 시스템에 복사 되면 테이프로 WAL 
+    파일이 복사되어 데이터베이스 대기 서버가 동시에 읽을 수 있다. 
+    이와 같이 대기 서버는 재난 복구를 목적으로 파일을 장기간 저장하면서 동시에 고가용성을 구현할 수 있다.
    </P
 ><P
->    테스트를 목적으로 운영 서버와 대기 서버를 같은 시스템에서 실행할 수 있다. 이 작업은 server robustness를 개선하지 않기 때문에 고가용성이라 하지 않는다. 
+>    테스트를 목적으로 운영 서버와 대기 서버를 같은 시스템에서 실행할 수 있다. 
+    이 작업은 server robustness를 개선하지 않기 때문에 고가용성이라 하지 않는다. 
    </P
 ></DIV
 ><DIV
@@ -29394,20 +29544,25 @@ NAME="WARM-STANDBY-RECORD"
 >9.4.2. 레코드 기반의 로그 전달</A
 ></H3
 ><P
->    레코드 기반으로 로그를 전달하는 것도 가능한데, 사용자가 직접 개발을 해야 된다. 또, 전체 WAL 파일이 전달됐을 때에는 hot standby 쿼리에만 변경 사항이 보인다. 
+>    레코드 기반으로 로그를 전달하는 것도 가능한데, 사용자가 직접 개발을 해야 된다. 
+    또, 전체 WAL 파일이 전달됐을 때에는 hot standby 쿼리에만 변경 사항이 보인다. 
    </P
 ><P
 >    <CODE
 CLASS="FUNCTION"
 >pg_xlogfile_name_offset()</CODE
 > 함수
-    를 호출해서 파일명과 현재 마지막 WAL의 정확한 바이트 오프셋을 구할 수 있다. pg_xlogfile_name_offset 함수는 WAL 파일에 직접 접근할 수 있고 WAL 파일 마지막 데이터를 대기 서버에 복사할 수 있다. 
-    이 방법을 쓰면 데이터 손실은 프로그램을 복사하는 폴링(polling) 순환 시기에 발생하는데, 손실은 매우 적고, 부분적으로 사용되는 세그먼트 파일을 강제로 아카이빙할 때 낭비하는 대역폭은 없다. 
+    를 호출해서 파일명과 현재 마지막 WAL의 정확한 바이트 오프셋을 구할 수 있다. 
+    pg_xlogfile_name_offset 함수는 WAL 파일에 직접 접근할 수 있고 WAL 파일 마지막 데이터를 대기 서버에 복사할 수 있다. 
+    이 방법을 쓰면 데이터 손실은 프로그램을 복사하는 폴링(polling) 순환 시기에 발생하는데, 
+    손실은 매우 적고, 부분적으로 사용되는 세그먼트 파일을 강제로 아카이빙할 때 낭비하는 대역폭은 없다. 
     대기 서버의 <TT
 CLASS="VARNAME"
 >restore_command</TT
-> 스크립트는 전체 WAL 파일을 다루므로, 점차적으로 복사된 데이터는 보통 대기 서버에서 사용할 수 없다. 이 데이터는 운영 서버가 죽었을 때만 사용되는데, 
-    마지막 WAL 파일 부분이 대기 서버에 쓰이게 된다. 이 프로세스를 정확하게 실행하려면 데이터 복사 프로그램과 <TT
+> 스크립트는 전체 WAL 파일을 다루므로, 점차적으로 
+    복사된 데이터는 보통 대기 서버에서 사용할 수 없다. 이 데이터는 운영 서버가 죽었을 때만 사용되는데, 
+    마지막 WAL 파일 부분이 대기 서버에 쓰이게 된다. 이 프로세스를 정확하게 실행하려면 
+    데이터 복사 프로그램과 <TT
 CLASS="VARNAME"
 >restore_command</TT
 > 스크립트의 조합이 필요하다.
@@ -29416,7 +29571,8 @@ CLASS="VARNAME"
 >    <SPAN
 CLASS="PRODUCTNAME"
 >PostgreSQL</SPAN
-> 9.0 버전 이상은 스트리밍 리플리케이션(<A
+> 9.0 버전 이상은 스트리밍 리플리케이션
+    (<A
 HREF="#STREAMING-REPLICATION"
 >9.2.5절</A
 >을 참조)으로 편리하게 할 수 있다.
@@ -29432,7 +29588,7 @@ NAME="HOT-STANDBY"
 >9.5. 상시 대기</A
 ></H2
 ><P
->    여기서 말하는 상시 대기 Hot Standby란 그 서버가 아카이브 파일로 
+>    여기서 말하는 상시 대기 핫 스탠바이란 그 서버가 아카이브 파일로 
     복구 작업을 하고 있거나 대기 모드로 있을 때도 클라이언트가 
     그 서버로 접속할 수 있으며, 읽기 전용 쿼리를 실행할 수 있는 것을
     말한다.
@@ -29457,15 +29613,19 @@ NAME="HOT-STANDBY-USERS"
 >9.5.1. 사용자 측면 개요</A
 ></H3
 ><P
->    대기 서버에서 hot standby 매개변수의 값이 true로 설정되면, 복구 작업으로 시스템이 일관성 있는 상태가 되었을 때 연결을 허용하게 된다. 모든 연결은 무조건 읽기 전용이다. 임시 테이블도 쓰기를 허용하지 않는다. 
+>    대기 서버에서 hot standby 값이 true로 설정되면, 
+    복구 작업으로 시스템이 일관성 있는 상태가 되었을 때 연결을 허용하게 된다. 
+    모든 연결은 무조건 읽기 전용이다. 임시 테이블도 쓰기를 허용하지 않는다. 
    </P
 ><P
->    운영 서버에 있는 데이터는 대기 서버로 올 때까지 시간이 걸리므로 운영서버와 대기 서버 간 지연이 생긴다. 따라서 운영 서버와 대기 서버에 거의 동시에 같은 쿼리를 수행하는 것은 다른 결과를 가져올 수 있다. 
+>    운영 서버에 있는 데이터는 대기 서버로 올 때까지 시간이 걸리므로 운영서버와 대기 서버 간 지연이 생긴다. 
+    따라서 운영 서버와 대기 서버에 거의 동시에 같은 쿼리를 수행하는 것은 다른 결과를 가져올 수 있다. 
     대기 서버의 데이터가 운영 서버와 <I
 CLASS="FIRSTTERM"
 >결국 일치</I
 >할 것이라고 판단 된다.
-    트랜잭션에 커밋된 레코드가 대기 서버에서 리플레이되면, 트랜잭션 변경 사항이 스냅샷에 보인다. 스냅샷은 각 쿼리 혹은 트랜잭션이 시작될 때 찍히는데, 현재 트랜잭션의 고립 수준에 따라 다르다. 
+    트랜잭션에 커밋된 레코드가 대기 서버에서 리플레이되면, 트랜잭션 변경 사항이 스냅샷에 보인다. 
+    스냅샷은 각 쿼리 혹은 트랜잭션이 시작될 때 찍히는데, 현재 트랜잭션의 고립 수준에 따라 다르다. 
    </P
 ><P
 >    hot standby에서 시작된 트랜잭션은 아래 명령어들을 수행할 수 있다.
@@ -29566,8 +29726,7 @@ CLASS="COMMAND"
 >       <TT
 CLASS="COMMAND"
 >LOCK TABLE</TT
->(
-       <TT
+>(<TT
 CLASS="LITERAL"
 >ACCESS SHARE</TT
 >, <TT
@@ -29609,8 +29768,8 @@ CLASS="COMMAND"
 ><P>
    </P
 ><P
->    hot standby에서 시작된 트랜잭션은 트랜잭션 ID를 할당 받지 못하고 시스템 WAL에 쓰기 작업을 할 수 없다. 아래를 수행하면 에러 메시지를 남길 것이다.
-
+>    핫 스탠바이에서 시작된 트랜잭션은 트랜잭션 ID를 할당 받지 못하고 시스템 WAL에 쓰기 작업을 할 수 없다. 
+    아래를 수행하면 에러 메시지를 남길 것이다.
     <P
 ></P
 ></P><UL
@@ -29634,7 +29793,9 @@ CLASS="COMMAND"
 CLASS="COMMAND"
 >TRUNCATE</TT
 >.
-       복구하는 동안 트리거를 실행할 수는 없다. 임시 테이블도 마찬가지인데, 테이블 로우는 트랜잭션 ID 없이 읽거나 쓸 수 없기 때문이다. 이 기능은 아직 Hot Standby 환경에 구현되지 않았다.
+       복구하는 동안 트리거를 실행할 수는 없다. 임시 테이블도 마찬가지인데, 
+       테이블 로우는 트랜잭션 ID 없이 읽거나 쓸 수 없기 때문이다. 
+       이 기능은 아직 핫 스탠바이 환경에 구현되지 않았다.
       </P
 ></LI
 ><LI
@@ -29790,25 +29951,31 @@ CLASS="COMMAND"
 >, <TT
 CLASS="COMMAND"
 >UNLISTEN</TT
->, and
+>, 
     <TT
 CLASS="COMMAND"
 >NOTIFY</TT
->를 사용하기 때문에 Hot Standby 세션들이 정상적인 읽기 전용 세션보다 조금 더 엄격하게 작업해야 한다. 추후 버전에선 이런 점이 완화될 수도 있다.
+>를 사용하기 때문에 핫 스탠바이 세션들이 정상적인 읽기 전용 세션보다 조금 더 엄격하게 작업해야 한다. 
+    추후 버전에선 이런 점이 완화될 수도 있다.
    </P
 ><P
->    hot standby 시점에 <TT
+>    핫 스탠바이 시점에 <TT
 CLASS="VARNAME"
 >transaction_read_only</TT
-> 매개변수는 항상 true로 지속될 수 있다. 데이터베이스를 수정하려는 시도가 없는 한 hot standby 연결은 다른 데이터베이스 연결과 별반 다르지 않을 것이다. 
-    장애처리나 스위치오버가 발생하면 데이터베이스는 정상적인 프로세싱 모드로 전환된다. 세션은 서버 모드가 변경 돼도 연결된 상태를 유지한다. hot standby가 종료되면 읽기-쓰기 트랜잭션이 초기화될 수 있다(hot standby에서 시작된 세션조차도).
+> 매개변수는 항상 true로 지속될 수 있다. 
+    데이터베이스를 수정하려는 시도가 없는 한 hot standby 연결은 다른 데이터베이스 연결과 별반 다르지 않을 것이다. 
+    장애처리나 스위치오버가 발생하면 데이터베이스는 정상적인 프로세싱 모드로 전환된다. 
+    세션은 서버 모드가 변경 돼도 연결된 상태를 유지한다. hot standby가 종료되면 읽기-쓰기 트랜잭션이 초기화될 수 있다
+    (핫 스탠바이에서 시작된 세션조차도).
    </P
 ><P
 >    사용자는 <TT
 CLASS="COMMAND"
 >SHOW transaction_read_only</TT
->를 실행해서 읽기 전용 여부를 판별할 수 있다. 사용자는 함수 집합을 통해 대기 서버 정보에 접근할 수 있다. 
-    함수들을 사용해서 현재 데이터베이스와 연결된 프로그램을 쓸 수 있다. 복구 절차를 모니터링하거나 데이터베이스를 특정 상태로 복원하는 복잡한 프로그램을 쓸 수 있다.
+>를 실행해서 읽기 전용 여부를 판별할 수 있다. 
+    사용자는 함수 집합을 통해 대기 서버 정보에 접근할 수 있다. 
+    함수들을 사용해서 현재 데이터베이스와 연결된 프로그램을 쓸 수 있다. 
+    복구 절차를 모니터링하거나 데이터베이스를 특정 상태로 복원하는 복잡한 프로그램을 쓸 수 있다.
    </P
 ></DIV
 ><DIV
@@ -29842,7 +30009,7 @@ CLASS="EMPHASIS"
 >강한 충돌</I
 ></SPAN
 >이라고 한다.
-    사용자는 이런 충돌을 잘 이해해서 각 상황에 맞는 조치를 취해야 한다:
+    사용자는 이런 충돌을 잘 이해해서 각 상황에 맞는 조치를 취해야 한다.
 
       <P
 ></P
@@ -29896,12 +30063,15 @@ CLASS="ACRONYM"
 >    단독으로 운영 되는 서버라면, 이런 쿼리 충돌이 일어나지 않는다. 왜냐하면, 
     한 작업이 마무리 되기 전까지 그 작업과 관련된 다른 세션들의 작업들은 
     대기 상태가 되기 때문이다. 하지만 복제 환경에서 대기 서버는 이런 
-    대기를 제어 할 수 없다: 운영 서버에서 발생한 트랜잭션 로그를 
+    대기를 제어 할 수 없다. 운영 서버에서 발생한 트랜잭션 로그를 
     대기 서버가 반영 하도록 전해 받았다면, 그저 그 작업을 진행할 뿐이기 
     때문이다. 이 작업을 진행 할 때, 운영 서버의 다른 세션 상태를 고려할 수 
-    없기 때문이다. 물론 가장 완벽한 방법은 대기 서버까지도 모두 해당 트랜잭션 작업이 끝날 때까지 모든 세션(운영 서버의 세션과 대기 서버의 세션 모두)의 대기 상태를 유지 하는 것이지만, 
-    현실적으로 대기 서버와 운영 서버간의 연결을 완벽하게 보장한다는 것은 거의 불가능하기 때문에, 이런 방식은 오히려 운영 서버의 안정성을 더 떨어뜨린다. 
-    그래서, 이런 충돌이 발생했을 때 대기 서버는 충돌을 해결 하기 위한 별도의 처리 방식을 제공하고 있어야 하며, 이에 따라 몇가지 충돌 자동 해결 기능을 제공하고 있다.
+    없기 때문이다. 물론 가장 완벽한 방법은 대기 서버까지도 모두 해당 트랜잭션 작업이 끝날 때까지 모든 세션
+    (운영 서버의 세션과 대기 서버의 세션 모두)의 대기 상태를 유지 하는 것이지만, 
+    현실적으로 대기 서버와 운영 서버간의 연결을 완벽하게 보장한다는 것은 거의 불가능하기 때문에, 
+    이런 방식은 오히려 운영 서버의 안정성을 더 떨어뜨린다. 
+    그래서, 이런 충돌이 발생했을 때 대기 서버는 충돌을 해결 하기 위한 별도의 처리 방식을 제공하고 있어야 하며, 
+    이에 따라 몇가지 충돌 자동 해결 기능을 제공하고 있다.
    </P
 ><P
 >    그 한 예로 운영 서버에서 <TT
@@ -29926,7 +30096,7 @@ CLASS="COMMAND"
     그냥 대기 서버도 운영 서버 방식을 취하는 것이 바람직할 것이다.  하지만, 
     대기 서버의 조회 작업이 오래 지속된다면, 트랜잭션 로그 동기화는 그만큼 
     지연 될 것이고, 이에 따른 다른 객체들까지 영향을 받을 것이다. 
-    그래서, max-standby-archive-delay, max-standby-streaming-delay 환경 설정 매개변수로
+    그래서, max-standby-archive-delay, max-standby-streaming-delay로
     이런 최대 지연 시간을 지정해서 이 지연 시간을 넘기면 대기 서버의 작업을 
     중지 하도록 설정 한다.  이렇게 함으로써 최대한 대기 서버의 상태를 
     운영 서버와 같도록 한다. 이 두 환경 설정 매개변수는 아카이브 로그 파일 
@@ -29955,21 +30125,24 @@ CLASS="COMMAND"
     휴지 상태인 트랜잭션의 잠금이 충돌 원인일 때 충돌 세션은 종료된다(이 방법은 향후 바뀔 수 있음).
    </P
 ><P
->    취소된 쿼리는 바로 재시도한다(새 트랜잭션을 시작한 이후에만). 취소된 쿼리는 리플레이된 WAL 레코드에 의존하므로, 취소된 쿼리가 다시 실행되면 성공할 확률이 높다.
+>    취소된 쿼리는 바로 재시도한다(새 트랜잭션을 시작한 이후에만). 
+    취소된 쿼리는 리플레이된 WAL 레코드에 의존하므로, 취소된 쿼리가 다시 실행되면 성공할 확률이 높다.
    </P
 ><P
->    지연 매개변수는 WAL 데이터를 대기 서버가 수신한 이후 경과 시간을 뜻한다는 것을 기억해 두자. 대기 서버에 있는 쿼리에 대한 유예 기간은 지연 매개변수를 초과할 수 없다. 
+>    지연 매개변수는 WAL 데이터를 대기 서버가 수신한 이후 경과 시간을 뜻한다는 것을 기억해 두자. 
+    대기 서버에 있는 쿼리에 대한 유예 기간은 지연 매개변수를 초과할 수 없다. 
     이전 쿼리들이 완료되기를 기다리다가 혹은 업데이트 양이 너무 많아서 이미 뒤쳐진 상태이면 지연 매개변수보다 훨씬 작을 수도 있다. 
    </P
 ><P
 >    대기 서버 쿼리와 WAL 리플레이 충돌의 원인으로 가장 잘 알려진 것은 <SPAN
 CLASS="QUOTE"
->"조기 청소early cleanup"</SPAN
+>"조기 청소(early cleanup)"</SPAN
 >이다.  
     보통 <SPAN
 CLASS="PRODUCTNAME"
 >Agens SQL</SPAN
->에서는 MVCC 규칙에 따라 데이터의 가시성을 정하기 위해, 트랜잭션이 보지 않는 이전 로우 버전들을 청소할 수 있다. 
+>에서는 MVCC 규칙에 따라 데이터의 가시성을 정하기 위해, 
+    트랜잭션이 보지 않는 이전 로우 버전들을 청소할 수 있다. 
     하지만 이 규칙은 마스터에서 수행하는 트랜잭션에만 해당된다. 
     그러므로 마스터에서 청소하면 대기서버의 트랜잭션이 보고 있는 로우 버전들이 삭제될 수도 있다.
    </P
@@ -29981,14 +30154,15 @@ CLASS="COMMAND"
 >를 수동적으로 실행하면 로우가 업데이트되거나 삭제되지 않은 테이블에도 충돌을 일으킬 수 있다.
    </P
 ><P
->    운영 서버에서 정기적으로 대량 업데이트 된 테이블은 대기 서버에서 장시간 수행되는 쿼리를 급하게 취소할 수 있다. 이런 경우에 <TT
+>    운영 서버에서 정기적으로 대량 업데이트 된 테이블은 대기 서버에서 장시간 수행되는 쿼리를 급하게 취소할 수 있다. 
+    이런 경우에 <TT
 CLASS="VARNAME"
 >max_standby_archive_delay</TT
->나
-    <TT
+>나 <TT
 CLASS="VARNAME"
 >max_standby_streaming_delay</TT
->에 한정적인 값을 설정하면 <TT
+>에 한정적인 값을 설정하면 
+    <TT
 CLASS="VARNAME"
 >statement_timeout</TT
 >을 설정하는 것과 비슷한 역할을 한다.
@@ -29998,7 +30172,8 @@ CLASS="VARNAME"
     <TT
 CLASS="VARNAME"
 >hot_standby_feedback</TT
->매개변수를 설정하는 것인데, 최근 삭제된 로우들에 <TT
+>매개변수를 설정하는 것인데, 최근 삭제된 로우들에 
+    <TT
 CLASS="COMMAND"
 >VACUUM</TT
 >을 수행하는 것을 막아서 청소 충돌을 방지하는 것이다. 
@@ -30012,7 +30187,8 @@ CLASS="VARNAME"
    </P
 ><P
 >    또 다른 방법은 운영 서버에서 vacuum-defer-cleanup-age
-    를 증가시켜서 삭제된 로우가 평소보다 빨리 청소되는 것을 막는 것이다. <TT
+    를 증가시켜서 삭제된 로우가 평소보다 빨리 청소되는 것을 막는 것이다. 
+    <TT
 CLASS="VARNAME"
 >max_standby_streaming_delay</TT
 >를 높게 설정하지 않아도 대기 서버에서 쿼리들이 취소되기 전에 수행될 시간을 더 준다. 
@@ -30025,7 +30201,8 @@ CLASS="VARNAME"
 >    쿼리 취소 횟수와 취소 원인은 대기 서버의 <TT
 CLASS="STRUCTNAME"
 >pg_stat_database_conflicts</TT
-> 시스템 뷰로 확인할 수 있다. <TT
+> 시스템 뷰로 확인할 수 있다. 
+    <TT
 CLASS="STRUCTNAME"
 >pg_stat_database</TT
 > 시스템 뷰에는 요약 정보도 포함돼 있다.
@@ -30053,8 +30230,10 @@ CLASS="LITERAL"
     <TT
 CLASS="FILENAME"
 >recovery.conf</TT
-> 파일이 존재하면, 서버는 Hot Standby 모드로 실행될 것이다. 그러나 Hot Standby 접속이 허용되려면 시간이 꽤 걸릴 수도 있다. 
-    서버가 일관적으로 어떤 쿼리를 실행하기 위해 복구를 끝낼 때까지 연결을 수락하지 않기 때문이다. 이 시간 동안에 연결을 시도하는 클라이언트는 에러 메시지가 뜨면서 거부될 것이다. 
+> 파일이 존재하면, 서버는 Hot Standby 모드로 실행될 것이다. 
+    그러나 Hot Standby 접속이 허용되려면 시간이 꽤 걸릴 수도 있다. 
+    서버가 일관적으로 어떤 쿼리를 실행하기 위해 복구를 끝낼 때까지 연결을 수락하지 않기 때문이다. 
+    이 시간 동안에 연결을 시도하는 클라이언트는 에러 메시지가 뜨면서 거부될 것이다. 
     서버가 연결할 준비가 되었는지 확인하기 위해서는 애플리케이션 접속을 시도하는 루프를 돌거나 서버 로그에서 아래 메시지들을 찾아 볼 수 있다.
 
 </P><PRE
@@ -30074,7 +30253,8 @@ CLASS="VARNAME"
     <TT
 CLASS="LITERAL"
 >hot_standby</TT
->로 설정돼 있지 않을 때 쓰여진 WAL을 읽으면 hot standby를 켤 수 없다. 일관적인 상태는 아래 두 조건이 충족되면 지연될 수 있다.
+>로 설정돼 있지 않을 때 쓰여진 WAL을 읽으면 hot standby를 켤 수 없다. 
+    일관적인 상태는 아래 두 조건이 충족되면 지연될 수 있다.
 
       <P
 ></P
@@ -30091,14 +30271,17 @@ CLASS="LITERAL"
 ></LI
 ></UL
 ><P>
-    파일 기반의 로그 전달(“warm standby”)을 수행할 때 그 다음 WAL 파일이 도착할 때까지 기다려야 할 수도 있는데, 운영 서버에서 <TT
+    파일 기반의 로그 전달(“warm standby”)을 수행할 때 그 다음 WAL 파일이 도착할 때까지 기다려야 할 수도 있는데, 
+    운영 서버에서 <TT
 CLASS="VARNAME"
 >archive_timeout</TT
 >에 설정해 놓은 만큼 기다릴 수 있다. 
    </P
 ><P
->    대기 서버에서 설정한 일부 매개 변수들은 운영 서버에서 변경 되면 재설정되어야 한다. 이 매개변수들에 대한 대기 서버의 값은 운영 서버에서의 값보다 크거나 같다. 
-    이 매개변수들이 높게 설정돼 있지 않으면 대기 서버에서 실행할 수 없다. 높게 설정되면 서버가 복구하기 위해 재시작한다. 매개변수들은 다음과 같다.
+>    대기 서버에서 설정한 일부 매개 변수들은 운영 서버에서 변경 되면 재설정되어야 한다. 
+    이 매개변수들에 대한 대기 서버의 값은 운영 서버에서의 값보다 크거나 같다. 
+    이 매개변수들이 높게 설정돼 있지 않으면 대기 서버에서 실행할 수 없다. 
+    높게 설정되면 서버가 복구하기 위해 재시작한다. 매개변수들은 다음과 같다.
 
       <P
 ></P
@@ -30131,17 +30314,24 @@ CLASS="VARNAME"
 ><P>
    </P
 ><P
->    관리자가 max-standby-archive-delay와 max-standby-streaming-delay에 적절한 설정을 해주는 것이 중요하다. 최적의 설정 방법은 비즈니스 우선순위에 따라 다르다. 
-    예를 들어, 서버가 주로 고 가용성 서버로서의 임무를 맡으면 지연 값을 낮추는 것이 좋다. 극단적으로 0도 가능하다. 
-    대기 서버가 decision support 쿼리를 위한 추가적인 서버일 경우, 최대 지연 값을 장시간 혹은 쿼리가 끝날 때까지를 의미하는 -1로 설정할 수 있다.
+>    관리자가 max-standby-archive-delay와 max-standby-streaming-delay에 적절한 설정을 해주는 것이 중요하다. 
+    최적의 설정 방법은 비즈니스 우선순위에 따라 다르다. 
+    예를 들어, 서버가 주로 고 가용성 서버로서의 임무를 맡으면 지연 값을 낮추는 것이 좋다. 
+    극단적으로 0도 가능하다. 
+    대기 서버가 decision support 쿼리를 위한 추가적인 서버일 경우, 
+    최대 지연 값을 장시간 혹은 쿼리가 끝날 때까지를 의미하는 -1로 설정할 수 있다.
    </P
 ><P
->    운영 서버에 쓰인 “hint bits” 트랜잭션 상태는 WAL로그에 기록되지 않으므로 대기 서버의 데이터가 힌트를 재사용할 수도 있다. 그러므로 대기 서버는 모든 사용자가 읽기 권한만 있어도 디스크 쓰기를 수행할 것이다. 데이터 값 자체에는 어떤 변화도 생기지 않는다. 
-    사용자는 대용량의 정렬 임시 파일을 만들 수 있고, relcache 정보 파일을 재생성해서 hot standby mode일 때 데이터베이스의 어떤 부분도 읽기 전용이 아닌 상태로 만들 수 있다. 
+>    운영 서버에 쓰인 “hint bits” 트랜잭션 상태는 WAL로그에 기록되지 않으므로 대기 서버의 데이터가 힌트를 재사용할 수도 있다. 
+    그러므로 대기 서버는 모든 사용자가 읽기 권한만 있어도 디스크 쓰기를 수행할 것이다. 
+    데이터 값 자체에는 어떤 변화도 생기지 않는다. 
+    사용자는 대용량의 정렬 임시 파일을 만들 수 있고, 
+    relcache 정보 파일을 재생성해서 hot standby mode일 때 데이터베이스의 어떤 부분도 읽기 전용이 아닌 상태로 만들 수 있다. 
     <SPAN
 CLASS="APPLICATION"
 >dblink</SPAN
-> 모듈을 사용해서 원격 데이터 베이스에 쓰기작업을 하고 PL함수를 사용해서 데이터베이스 외부에서 다른 작업을 하는 것은 트랜잭션이 지역적으로 읽기 전용이라 하더라도 가능하다. 
+> 모듈을 사용해서 원격 데이터 베이스에 쓰기작업을 하고 
+    PL함수를 사용해서 데이터베이스 외부에서 다른 작업을 하는 것은 트랜잭션이 지역적으로 읽기 전용이라 하더라도 가능하다. 
    </P
 ><P
 >    아래 관리 명령어 타입들은 복구 모드일 때는 허용되지 않는다.
@@ -30197,7 +30387,8 @@ CLASS="COMMAND"
 >    몇 개의 명령어들은 운영 서버의 읽기 전용인 트랜잭션에만 해당된다는 것을 알아 두자.
    </P
 ><P
->    결론적으로 대기서버에 단독으로 존재하는 추가 인덱스들 혹은 통계치를 생성할 수는 없다. 위의 관리 명령어들이 필요할 때는 운영 서버에서 실행해야 하고, 변경 사항이 생기면 대기 서버에 전달 된다. 
+>    결론적으로 대기서버에 단독으로 존재하는 추가 인덱스들 혹은 통계치를 생성할 수는 없다. 
+    위의 관리 명령어들이 필요할 때는 운영 서버에서 실행해야 하고, 변경 사항이 생기면 대기 서버에 전달 된다. 
    </P
 ><P
 >    <CODE
@@ -30206,15 +30397,17 @@ CLASS="FUNCTION"
 >와 <CODE
 CLASS="FUNCTION"
 >pg_terminate_backend()</CODE
->는 사용자 백엔드에서 작동하지만, 복구 작업을 하는 스타트업Startup 프로세스에서는 작동하지 않는다. 
+>는 사용자 백엔드에서 작동하지만, 
+    복구 작업을 하는 스타트업 프로세스에서는 작동하지 않는다. 
     <TT
 CLASS="STRUCTNAME"
 >pg_stat_activity</TT
-> 는 스타트업 프로세스에 대한 엔트리를 보여주지 않고 활성화된 복구 트랜잭션은 보여주지 않는다. 결론적으로, <TT
+> 는 스타트업 프로세스에 대한 엔트리를 보여주지 않고 활성화된 복구 트랜잭션은 보여주지 않는다. 
+    결론적으로, <TT
 CLASS="STRUCTNAME"
 >pg_prepared_xacts</TT
->
-        는 복구 중에 항상 비어 있다. prepared transaction을 분석하고 싶으면, 운영 서버에 있는 <TT
+> 는 복구 중에 항상 비어 있다. 
+    prepared transaction을 분석하고 싶으면, 운영 서버에 있는 <TT
 CLASS="LITERAL"
 >pg_prepared_xacts</TT
 >을 보고 명령어를 실행해서 트랜잭션을 분석하자.
@@ -30223,15 +30416,12 @@ CLASS="LITERAL"
 >    <TT
 CLASS="STRUCTNAME"
 >pg_locks</TT
->는 백엔드가 사용하는 잠금을 보여준다. <TT
-CLASS="STRUCTNAME"
->pg_locks</TT
-> also shows
-    a virtual transaction managed by the Startup process that owns all
-    <TT
+>는 백엔드가 사용하는 잠금을 보여준다.
+    또, 복구 시 트랜잭션이 리플레이될 때, 스타트업 프로세스에 <TT
 CLASS="LITERAL"
 >AccessExclusiveLocks</TT
-> held by transactions being replayed by recovery.
+>이 적용되는데, 
+    이 프로세스가 관리하는 가상 트랜잭션을 보여준다.
     스타트업 프로세스는 데이터베이스를 변경할 때 잠금을 사용하지 않으므로 <TT
 CLASS="LITERAL"
 >AccessExclusiveLocks</TT
@@ -30248,12 +30438,13 @@ CLASS="PRODUCTNAME"
 > 플러그인 <SPAN
 CLASS="PRODUCTNAME"
 >check_pgsql</SPAN
-> 은 간단한 정보를 확인하기 때문에 작동한다. 
+>은 간단한 정보를 확인하기 때문에 작동한다. 
     <SPAN
 CLASS="PRODUCTNAME"
 >check_postgres</SPAN
 > 모니터링 스크립트는 일부 수치가 예상과 다르거나 혼동되기도 하지만 작동은 한다. 
-    예를 들어 vacuum은 대기 서버에서 작동하지 않으므로, 최근 vacuum 시간은 보존되지 않는다. 운영 서버에서 실행되는 vacuum은 대기 서버에 변경 사항을 전송한다.
+    예를 들어 vacuum은 대기 서버에서 작동하지 않으므로, 최근 vacuum 시간은 보존되지 않는다. 
+    운영 서버에서 실행되는 vacuum은 대기 서버에 변경 사항을 전송한다.
    </P
 ><P
 >    WAL 파일을 조절하는 명령어는 복구 중에 작동하지 않는데, 예를 들면 <CODE
@@ -30268,11 +30459,13 @@ CLASS="FUNCTION"
 >    동적으로 적재 가능한 모듈은 <TT
 CLASS="STRUCTNAME"
 >pg_stat_statements</TT
->를 포함해서 작동한다..
+>를 포함해서 작동한다.
    </P
 ><P
->    교착상태 감지와 같은 보조 잠금advisory lock은 복구 중에 정상적으로 작동한다. 보조 잠금은 WAL에 기록되지 않으므로, 운영 서버나 대기 서버에 있는 보조 잠금이 WAL 리플레이와 충돌할 수는 없다. 
-    운영 서버에서 보조 잠금을 획득하고 대기 서버에서 비슷한 보조 잠금을 만드는 것도 불가능하다. 보조 잠금이 획득된 서버에서만 보조 잠금을 쓸 수 있다.
+>    교착상태 감지와 같은 보조 잠금(advisory lock)은 복구 중에 정상적으로 작동한다. 
+    보조 잠금은 WAL에 기록되지 않으므로, 운영 서버나 대기 서버에 있는 보조 잠금이 WAL 리플레이와 충돌할 수는 없다. 
+    운영 서버에서 보조 잠금을 획득하고 대기 서버에서 비슷한 보조 잠금을 만드는 것도 불가능하다. 
+    보조 잠금이 획득된 서버에서만 보조 잠금을 쓸 수 있다.
    </P
 ><P
 >    <SPAN
@@ -30285,17 +30478,20 @@ CLASS="PRODUCTNAME"
 >, <SPAN
 CLASS="PRODUCTNAME"
 >Bucardo</SPAN
->같은 트리거 기반의 리플리케이션 시스템은 대기 서버에서 절대 실행될 수 없다. 대기 서버에 변경 사항이 전달되지 않는 한 운영 서버에서 잘 실행될 것이다. 
-    WAL 리플레이는 트리거 기반이 아니므로, 대기 서버에서 추가적인 데이터베이스 쓰기 작업을 요구하거나 트리거 쓰임에 의존하는 시스템에는 전달할 수 없다. 
+>같은 트리거 기반의 리플리케이션 시스템은 대기 서버에서 절대 실행될 수 없다. 
+    대기 서버에 변경 사항이 전달되지 않는 한 운영 서버에서 잘 실행될 것이다. 
+    WAL 리플레이는 트리거 기반이 아니므로, 대기 서버에서 추가적인 데이터베이스 쓰기 작업을 요구하거나 
+    트리거 사용에 의존하는 시스템에는 전달할 수 없다. 
    </P
 ><P
 >    새로운 OID들은 할당되지 않으나, <ACRONYM
 CLASS="ACRONYM"
 >UUID</ACRONYM
-> 생성자generator는 데이터베이스에 새로운 상태를 쓰지 않는 한 작동한다.
+> 생성자는 데이터베이스에 새로운 상태를 쓰지 않는 한 작동한다.
    </P
 ><P
->    현재 임시 테이블은 읽기 전용 트랜잭션 수행 중에 생성될 수 없으므로, 기존 스크립트들이 제대로 작동하지 않을 수도 있다. 이 제약은 향후 출시 버전에서 개선될 수 있다. 현재는 SQL 표준 준수와 기술적인 문제가 결합되어 있다. 
+>    현재 임시 테이블은 읽기 전용 트랜잭션 수행 중에 생성될 수 없으므로, 기존 스크립트들이 제대로 작동하지 않을 수도 있다. 
+    이 제약은 향후 버전에서 개선될 수 있다. 현재는 SQL 표준 준수와 기술적인 문제가 결합되어 있다. 
    </P
 ><P
 >    <TT
@@ -30306,7 +30502,8 @@ CLASS="COMMAND"
 CLASS="VARNAME"
 >temp_tablespaces</TT
 >로 테이블스페이스를 자주 사용할 수도 있다. 
-    테이블스페이스에 임시 파일이 있으면, 임시 파일을 제거하기 위해 실행 중인 쿼리들이 모두 취소된다. 그러면 테이블스페이스가 제거되어 WAL 리플레이가 계속 진행될 수 있다.
+    테이블스페이스에 임시 파일이 있으면, 임시 파일을 제거하기 위해 실행 중인 쿼리들이 모두 취소된다. 
+    그러면 테이블스페이스가 제거되어 WAL 리플레이가 계속 진행될 수 있다.
    </P
 ><P
 >    운영 서버에서 <TT
@@ -30320,40 +30517,47 @@ CLASS="COMMAND"
     이는 <TT
 CLASS="VARNAME"
 >max_standby_streaming_delay</TT
->와 상관 없이 바로 발생한다. <TT
+>와 상관 없이 바로 발생한다. 
+    <TT
 CLASS="COMMAND"
 >ALTER DATABASE ... RENAME</TT
 >은 사용자와의 연결을 끊지 않는다. 
     데이터베이스명에 의존하는 프로그램의 경우에는 혼동이 생길 수 있다.
    </P
 ><P
->    정상(미복원) 모드에서 사용자가 연결된 상태에서, 그 사용자에게 로그인 기능이 있는 role에 대해 <TT
+>    정상(미복원) 모드에서 사용자가 연결된 상태에서, 
+    그 사용자에게 로그인 기능이 있는 role에 대해 <TT
 CLASS="COMMAND"
 >DROP USER</TT
 >나 <TT
 CLASS="COMMAND"
 >DROP ROLE</TT
->을 실행하면 그 사용자에게는 아무 일도 일어나지 않는다. 
-    사용자의 연결 상태는 유지된다. 그러나 재연결은 불가능하다. 복구 시에도 마찬가지로, 운영 서버에서 
+>을 실행하면 
+    그 사용자에게는 아무 일도 일어나지 않는다. 
+    사용자의 연결 상태는 유지된다. 그러나 재연결은 불가능하다. 
+    복구 시에도 마찬가지로, 운영 서버에서 
     <TT
 CLASS="COMMAND"
 >DROP USER</TT
 >를 실행해도 대기 서버 사용자의 연결을 끊어지지 않는다. 
    </P
 ><P
->    statistics collector은 복구 중에 활성화 된다. 모든 스캔, 읽기, 블록, 인덱스 사용 등은 대기 서버에 정상적으로 기록된다. 
-    리플레이 과정은 운영 서버에서 반복되지 않으므로 insert를 리플레이 해도 pg_stat_user_tables의 Inserts 컬럼을 증가시키지 않는다. stats 파일은 복구 초기에 삭제되므로 운영 서버와 대기 서버의 stats은 다르다. 이것은 기능일 뿐 버그가 아니다.
+>    statistics collector은 복구 중에 활성화 된다. 
+    모든 스캔, 읽기, 블록, 인덱스 사용 등은 대기 서버에 정상적으로 기록된다. 
+    리플레이 과정은 운영 서버에서 반복되지 않으므로 insert를 리플레이 해도 pg_stat_user_tables의 Inserts 컬럼을 증가시키지 않는다. 
+    stats 파일은 복구 초기에 삭제되므로 운영 서버와 대기 서버의 stats은 다르다. 이것은 기능일 뿐 버그가 아니다.
    </P
 ><P
 >    Autovacuum은 복구 중에 비활성화 된다. 복구가 끝나면 정상적으로 작동한다.
    </P
 ><P
->    background writer는 복구 중에 활성화 되고, restartpoint를 수행 하고(운영 서버의 체크포인트와 비슷함), 정상적인 블록 청소 활동을 시작한다. 
+>    background writer는 복구 중에 활성화 되고, restartpoint를 수행 하고(운영 서버의 체크포인트와 비슷함), 
+    정상적인 블록 청소 활동을 시작한다. 
     또 대기 서버에 저장된 hint bit 정보에 대한 업데이트도 한다.
     <TT
 CLASS="COMMAND"
 >CHECKPOINT</TT
-> 명령어는 복구 중에 수행되는데, 새로운 체크포인트가 아닌 restartpoint를 수행한다.
+> 명령어는 복구 중에 수행되는데, 새로운 체크포인트가 아닌 재시작포인트(restartpoint)를 수행한다.
    </P
 ></DIV
 ><DIV
@@ -30395,7 +30599,7 @@ NAME="HOT-STANDBY-CAVEATS"
 >9.5.5. 주의사항</A
 ></H3
 ><P
->    Hot Standby에는 몇 가지 제약 사항이 있다. 이는 향후 출시 버전에서 개선될 수 있을 것이다.
+>    Hot Standby에는 몇 가지 제약 사항이 있다. 이는 향후 버전에서 개선될 수 있을 것이다.
 
   <P
 ></P
@@ -30407,14 +30611,20 @@ NAME="HOT-STANDBY-CAVEATS"
 ></LI
 ><LI
 ><P
->     트랜잭션을 실행하는 것에 대한 모든 정보는 스냅샷을 찍기 전에 필요하다. 부트랜잭션들을 많이 사용하는(현재는 64보다 많이 사용하는 경우를 가리킴) 트랜잭션은 가장 오래 걸리는 쓰기 트랜잭션이 끝날 때까지 읽기 전용 연결 시작을 늦출 것이다. 
+>     트랜잭션을 실행하는 것에 대한 모든 정보는 스냅샷을 찍기 전에 필요하다. 
+     부트랜잭션들을 많이 사용하는(현재는 64보다 많이 사용하는 경우를 가리킴) 트랜잭션은 
+     가장 오래 걸리는 쓰기 트랜잭션이 끝날 때까지 읽기 전용 연결 시작을 늦출 것이다. 
      이런 상황이 발생할 때는 서버 로그에 메시지가 전달된다.
     </P
 ></LI
 ><LI
 ><P
->    대기 서버 쿼리에서 유효한 starting point는 마스터 서버의 각 체크포인트에서 생성된다. 마스터 서버가 셧다운shutdown 상태일 때 대기 서버가 셧다운 되면, 운영 서버가 WAL의 starting point를 만들어야 하므로 Hot Standby에 재진입하는 것이 불가능 할 수도 있다. 
-    이런 상황은 별로 문제 되지 않는다. 운영 서버가 셧다운되어 사용 불가능한 경우는 보통 대기 서버가 새로운 운영 서버로 바뀌는 데 실패했기 때문이다. 운영 서버를 의도적으로 끈 경우, 대기 서버를 자연스럽게 새로운 운영 서버로 만드는 것도 표준 절차이다.
+>    대기 서버 쿼리에서 유효한 시작포인트(starting point)는 마스터 서버의 각 체크포인트에서 생성된다. 
+    마스터 서버가 셧다운 상태일 때 대기 서버가 셧다운 되면, 
+    운영 서버가 WAL의 시작포인트를 만들어야 하므로 핫 스탠바이에 재진입하는 것이 불가능 할 수도 있다. 
+    이런 상황은 별로 문제 되지 않는다. 
+    운영 서버가 셧다운되어 사용 불가능한 경우는 보통 대기 서버가 새로운 운영 서버로 바뀌는 데 실패했기 때문이다. 
+    운영 서버를 의도적으로 끈 경우, 대기 서버를 자연스럽게 새로운 운영 서버로 만드는 것도 표준 절차이다.
     </P
 ></LI
 ><LI
@@ -30422,10 +30632,12 @@ NAME="HOT-STANDBY-CAVEATS"
 >     복구 마지막 단계에서 prepared transaction이 사용한 <TT
 CLASS="LITERAL"
 >AccessExclusiveLocks</TT
->은 평소 잠금 테이블 엔트리 수의 두 배가 필요하다. <TT
+>은 평소 잠금 테이블 엔트리 수의 두 배가 필요하다. 
+     <TT
 CLASS="LITERAL"
 >AccessExclusiveLocks</TT
->이 필요한 동시적 prepared transaction을 여러 개 수행하거나 여러 <TT
+>이 필요한 동시적 prepared transaction을 여러 개 수행하거나 여러 
+     <TT
 CLASS="LITERAL"
 >AccessExclusiveLocks</TT
 >이 필요한 transaction을 수행하면 <TT
@@ -30438,13 +30650,14 @@ CLASS="VARNAME"
 >의 두 배도 좋다. <TT
 CLASS="VARNAME"
 >max_prepared_transactions</TT
->의 값이 0이면 이를 전혀 고려하지 않아도 된다. 
+>의 값이 0이면 
+     이를 전혀 고려하지 않아도 된다. 
     </P
 ></LI
 ><LI
 ><P
->     직렬형의 트랜잭션 고립 수준(Serializable transaction isolation level)은 hot standby에서 아직 사용할 수 없다.
-    트랜잭션을 hot standby 모드에서 serializable isolation level로 설정하면 에러가 발생한다. 
+>     직렬화 가능한 트랜잭션 고립 수준(Serializable transaction isolation level)은 핫 스탠바이에서 아직 사용할 수 없다.
+    트랜잭션을 핫 스탠바이 모드에서 직렬화 가능한 고립 수준을 설정하면 에러가 발생한다. 
     </P
 ></LI
 ></UL
@@ -30565,7 +30778,7 @@ CLASS="LITERAL"
                 실패했을 경우에는 0이 아니여야한다.
                 서버가 이 명령을 통해 보관하고 있지 않는 파일을 사용하려고 
                 할 때, 이 명령은 반드시 리턴 값으로 0 아닌 값으로 종료되어야한다.
-        다음은 일반적인 사례다:
+        다음은 일반적인 사례다.
 </P><PRE
 CLASS="PROGRAMLISTING"
 >restore_command = 'cp /mnt/server/archivedir/%f "%p"'
@@ -30608,7 +30821,7 @@ CLASS="LITERAL"
             pg archivecleanup 확장 모듈로 설치되는 명령을 사용한다.
                 (이 명령은 파일을 지우는 작업을 하기 때문에 단독 대기 서버 환경일 경우에만 
                 사용하는 것이 좋다.)
-                사용법은 다음과 같다:
+                사용법은 다음과 같다.
 </P><PRE
 CLASS="PROGRAMLISTING"
 >archive_cleanup_command = 'pg_archivecleanup /mnt/server/archivedir %r'</PRE
@@ -36979,82 +37192,82 @@ NAME="BOOKINDEX"
 ><P
 CLASS="INDEXDIV-QUICKLINKS"
 ><A
-HREF="#AEN11878"
+HREF="#AEN11866"
 >Symbols</A
 > | <A
-HREF="#AEN12131"
+HREF="#AEN12134"
 >A</A
 > | <A
-HREF="#AEN12215"
+HREF="#AEN12218"
 >B</A
 > | <A
-HREF="#AEN12244"
+HREF="#AEN12247"
 >C</A
 > | <A
-HREF="#AEN12319"
+HREF="#AEN12313"
 >D</A
 > | <A
-HREF="#AEN12405"
+HREF="#AEN12396"
 >E</A
 > | <A
-HREF="#AEN12461"
+HREF="#AEN12452"
 >F</A
 > | <A
-HREF="#AEN12485"
+HREF="#AEN12473"
 >G</A
 > | <A
-HREF="#AEN12517"
+HREF="#AEN12505"
 >H</A
 > | <A
-HREF="#AEN12541"
+HREF="#AEN12523"
 >I</A
 > | <A
-HREF="#AEN12588"
+HREF="#AEN12570"
 >J</A
 > | <A
-HREF="#AEN12593"
+HREF="#AEN12575"
 >K</A
 > | <A
-HREF="#AEN12601"
+HREF="#AEN12583"
 >L</A
 > | <A
-HREF="#AEN12741"
+HREF="#AEN12717"
 >M</A
 > | <A
-HREF="#AEN12794"
+HREF="#AEN12767"
 >N</A
 > | <A
-HREF="#AEN12808"
+HREF="#AEN12781"
 >O</A
 > | <A
-HREF="#AEN12824"
+HREF="#AEN12797"
 >P</A
 > | <A
-HREF="#AEN12989"
+HREF="#AEN12959"
 >Q</A
 > | <A
-HREF="#AEN12994"
+HREF="#AEN12964"
 >R</A
 > | <A
-HREF="#AEN13050"
+HREF="#AEN13014"
 >S</A
 > | <A
-HREF="#AEN13198"
+HREF="#AEN13159"
 >T</A
 > | <A
-HREF="#AEN13291"
+HREF="#AEN13252"
 >U</A
 > | <A
-HREF="#AEN13313"
+HREF="#AEN13274"
 >V</A
 > | <A
-HREF="#AEN13348"
+HREF="#AEN13309"
 >W</A
 > | <A
-HREF="#AEN13401"
+HREF="#AEN13362"
 >X</A
 > | <A
-HREF="#AEN13412"
+HREF="#AEN13373"
 >Z</A
 ></P
 ><DIV
@@ -37062,7 +37275,7 @@ CLASS="INDEXDIV"
 ><H2
 CLASS="INDEXDIV"
 ><A
-NAME="AEN11878"
+NAME="AEN11866"
 >Symbols</A
 ></H2
 ><DL
@@ -37128,6 +37341,20 @@ HREF="maintenance.html"
     <A
 HREF="creating-cluster.html#CREATING-CLUSTER-NFS"
 >네트워크 파일 시스템</A
+>
+  </DT
+><DT
+>다중 트랜잭션 ID,
+    <A
+HREF="routine-vacuuming.html#VACUUM-FOR-MULTIXACT-WRAPAROUND"
+>다중 트랜잭션과 겹침</A
+>
+  </DT
+><DT
+>대기 서버,
+    <A
+HREF="high-availability.html"
+>고가용성, 부하 분산, 복제</A
 >
   </DT
 ><DT
@@ -37226,6 +37453,13 @@ HREF="routine-vacuuming.html#VACUUM-FOR-SPACE-RECOVERY"
 >
   </DT
 ><DT
+>로그 운송,
+    <A
+HREF="high-availability.html"
+>고가용성, 부하 분산, 복제</A
+>
+  </DT
+><DT
 >로그인 권한,
     <A
 HREF="role-attributes.html"
@@ -37264,6 +37498,13 @@ HREF="kernel-resources.html#SYSVIPC"
 ></DD
 ></DL
 ></DD
+><DT
+>리인덱스,
+    <A
+HREF="routine-reindex.html"
+>정기적인 인덱스 다시 만들기</A
+>
+  </DT
 ><DT
 >리플리케이션,
     <A
@@ -37592,7 +37833,7 @@ HREF="wal-configuration.html"
 ><DT
 >및 로케일,
     <A
-HREF="locale.html#AEN6839"
+HREF="locale.html#AEN6843"
 >동작</A
 >
   </DT
@@ -37705,7 +37946,7 @@ HREF="runtime-config-client.html#RUNTIME-CONFIG-CLIENT-FORMAT"
 >테이블스페이스,
     <A
 HREF="manage-ag-tablespaces.html"
->Tablespaces</A
+>테이블스페이스</A
 >
   </DT
 ><DD
@@ -37830,6 +38071,13 @@ HREF="auth-methods.html#AUTH-PEER"
 >
   </DT
 ><DT
+>핫 스탠바이,
+    <A
+HREF="high-availability.html"
+>고가용성, 부하 분산, 복제</A
+>
+  </DT
+><DT
 >환경 설정
   </DT
 ><DD
@@ -37875,7 +38123,7 @@ CLASS="INDEXDIV"
 ><HR><H2
 CLASS="INDEXDIV"
 ><A
-NAME="AEN12131"
+NAME="AEN12134"
 >A</A
 ></H2
 ><DL
@@ -38101,7 +38349,7 @@ CLASS="INDEXDIV"
 ><HR><H2
 CLASS="INDEXDIV"
 ><A
-NAME="AEN12215"
+NAME="AEN12218"
 >B</A
 ></H2
 ><DL
@@ -38175,17 +38423,10 @@ CLASS="INDEXDIV"
 ><HR><H2
 CLASS="INDEXDIV"
 ><A
-NAME="AEN12244"
+NAME="AEN12247"
 >C</A
 ></H2
 ><DL
-><DT
->Cascading Replication,
-    <A
-HREF="high-availability.html"
->고가용성, 부하 분산, 복제</A
->
-  </DT
 ><DT
 >character set,
     <A
@@ -38247,13 +38488,6 @@ HREF="runtime-config-logging.html#RUNTIME-CONFIG-LOGGING-WHEN"
 >
   </DT
 ><DT
->clustering,
-    <A
-HREF="high-availability.html"
->고가용성, 부하 분산, 복제</A
->
-  </DT
-><DT
 >commit_delay 환경 설정 매개변수,
     <A
 HREF="runtime-config-wal.html#RUNTIME-CONFIG-WAL-SETTINGS"
@@ -38279,13 +38513,6 @@ HREF="runtime-config-file-locations.html"
     <A
 HREF="runtime-config-query.html#RUNTIME-CONFIG-QUERY-OTHER"
 >Other Planner Options</A
->
-  </DT
-><DT
->Continuous Archiving,
-    <A
-HREF="backup.html"
->백업과 복원</A
 >
   </DT
 ><DT
@@ -38327,7 +38554,7 @@ HREF="database-roles.html"
 >CREATE TABLESPACE,
     <A
 HREF="manage-ag-tablespaces.html"
->Tablespaces</A
+>테이블스페이스</A
 >
   </DT
 ><DT
@@ -38358,17 +38585,10 @@ CLASS="INDEXDIV"
 ><HR><H2
 CLASS="INDEXDIV"
 ><A
-NAME="AEN12319"
+NAME="AEN12313"
 >D</A
 ></H2
 ><DL
-><DT
->data partitioning,
-    <A
-HREF="high-availability.html"
->고가용성, 부하 분산, 복제</A
->
-  </DT
 ><DT
 >data_checksums 환경 설정 매개변수,
     <A
@@ -38565,7 +38785,7 @@ CLASS="INDEXDIV"
 ><HR><H2
 CLASS="INDEXDIV"
 ><A
-NAME="AEN12405"
+NAME="AEN12396"
 >E</A
 ></H2
 ><DL
@@ -38702,17 +38922,10 @@ CLASS="INDEXDIV"
 ><HR><H2
 CLASS="INDEXDIV"
 ><A
-NAME="AEN12461"
+NAME="AEN12452"
 >F</A
 ></H2
 ><DL
-><DT
->failover,
-    <A
-HREF="high-availability.html"
->고가용성, 부하 분산, 복제</A
->
-  </DT
 ><DT
 >floating-point
   </DT
@@ -38788,7 +39001,7 @@ CLASS="INDEXDIV"
 ><HR><H2
 CLASS="INDEXDIV"
 ><A
-NAME="AEN12485"
+NAME="AEN12473"
 >G</A
 ></H2
 ><DL
@@ -38871,7 +39084,7 @@ CLASS="INDEXDIV"
 ><HR><H2
 CLASS="INDEXDIV"
 ><A
-NAME="AEN12517"
+NAME="AEN12505"
 >H</A
 ></H2
 ><DL
@@ -38880,20 +39093,6 @@ NAME="AEN12517"
     <A
 HREF="runtime-config-file-locations.html"
 >파일 위치</A
->
-  </DT
-><DT
->high availability,
-    <A
-HREF="high-availability.html"
->고가용성, 부하 분산, 복제</A
->
-  </DT
-><DT
->Hot Standby,
-    <A
-HREF="high-availability.html"
->고가용성, 부하 분산, 복제</A
 >
   </DT
 ><DT
@@ -38942,7 +39141,7 @@ CLASS="INDEXDIV"
 ><HR><H2
 CLASS="INDEXDIV"
 ><A
-NAME="AEN12541"
+NAME="AEN12523"
 >I</A
 ></H2
 ><DL
@@ -39084,7 +39283,7 @@ CLASS="INDEXDIV"
 ><HR><H2
 CLASS="INDEXDIV"
 ><A
-NAME="AEN12588"
+NAME="AEN12570"
 >J</A
 ></H2
 ><DL
@@ -39102,7 +39301,7 @@ CLASS="INDEXDIV"
 ><HR><H2
 CLASS="INDEXDIV"
 ><A
-NAME="AEN12593"
+NAME="AEN12575"
 >K</A
 ></H2
 ><DL
@@ -39127,7 +39326,7 @@ CLASS="INDEXDIV"
 ><HR><H2
 CLASS="INDEXDIV"
 ><A
-NAME="AEN12601"
+NAME="AEN12583"
 >L</A
 ></H2
 ><DL
@@ -39188,7 +39387,7 @@ HREF="auth-methods.html#AUTH-LDAP"
 ><DT
 >및 로케일,
     <A
-HREF="locale.html#AEN6839"
+HREF="locale.html#AEN6843"
 >동작</A
 >
   </DT
@@ -39224,13 +39423,6 @@ HREF="runtime-config-connection.html#RUNTIME-CONFIG-CONNECTION-SETTINGS"
 >
   </DT
 ><DT
->load balancing,
-    <A
-HREF="high-availability.html"
->고가용성, 부하 분산, 복제</A
->
-  </DT
-><DT
 >locale,
     <A
 HREF="creating-cluster.html"
@@ -39249,13 +39441,6 @@ HREF="runtime-config-client.html#RUNTIME-CONFIG-CLIENT-PRELOAD"
     <A
 HREF="runtime-config-client.html#RUNTIME-CONFIG-CLIENT-STATEMENT"
 >문 동작</A
->
-  </DT
-><DT
->log shipping,
-    <A
-HREF="high-availability.html"
->고가용성, 부하 분산, 복제</A
 >
   </DT
 ><DT
@@ -39462,7 +39647,7 @@ HREF="runtime-config-logging.html#RUNTIME-CONFIG-LOGGING-WHERE"
 ><DT
 >및 로케일,
     <A
-HREF="locale.html#AEN6839"
+HREF="locale.html#AEN6843"
 >동작</A
 >
   </DT
@@ -39486,7 +39671,7 @@ CLASS="INDEXDIV"
 ><HR><H2
 CLASS="INDEXDIV"
 ><A
-NAME="AEN12741"
+NAME="AEN12717"
 >M</A
 ></H2
 ><DL
@@ -39602,13 +39787,6 @@ HREF="auth-methods.html#AUTH-PASSWORD"
 >패스워드 인증</A
 >
   </DT
-><DT
->MultiXactId,
-    <A
-HREF="routine-vacuuming.html#VACUUM-FOR-MULTIXACT-WRAPAROUND"
->다중 트랜잭션과 겹침</A
->
-  </DT
 ></DL
 ></DIV
 ><DIV
@@ -39616,7 +39794,7 @@ CLASS="INDEXDIV"
 ><HR><H2
 CLASS="INDEXDIV"
 ><A
-NAME="AEN12794"
+NAME="AEN12767"
 >N</A
 ></H2
 ><DL
@@ -39674,7 +39852,7 @@ CLASS="INDEXDIV"
 ><HR><H2
 CLASS="INDEXDIV"
 ><A
-NAME="AEN12808"
+NAME="AEN12781"
 >O</A
 ></H2
 ><DL
@@ -39715,7 +39893,7 @@ HREF="server-start.html"
 ><DT
 >및 로케일,
     <A
-HREF="locale.html#AEN6839"
+HREF="locale.html#AEN6843"
 >동작</A
 >
   </DT
@@ -39750,7 +39928,7 @@ CLASS="INDEXDIV"
 ><HR><H2
 CLASS="INDEXDIV"
 ><A
-NAME="AEN12824"
+NAME="AEN12797"
 >P</A
 ></H2
 ><DL
@@ -40096,13 +40274,6 @@ HREF="high-availability.html"
 >
   </DT
 ><DT
->Point-in-Time Recovery,
-    <A
-HREF="backup.html"
->백업과 복원</A
->
-  </DT
-><DT
 >postgres,
     <A
 HREF="manage-ag-createdb.html"
@@ -40169,7 +40340,7 @@ CLASS="INDEXDIV"
 ><HR><H2
 CLASS="INDEXDIV"
 ><A
-NAME="AEN12989"
+NAME="AEN12959"
 >Q</A
 ></H2
 ><DL
@@ -40187,7 +40358,7 @@ CLASS="INDEXDIV"
 ><HR><H2
 CLASS="INDEXDIV"
 ><A
-NAME="AEN12994"
+NAME="AEN12964"
 >R</A
 ></H2
 ><DL
@@ -40269,20 +40440,6 @@ HREF="recovery-target-settings.html"
 >
   </DT
 ><DT
->reindex,
-    <A
-HREF="routine-reindex.html"
->정기적인 인덱스 다시 만들기</A
->
-  </DT
-><DT
->replication,
-    <A
-HREF="high-availability.html"
->고가용성, 부하 분산, 복제</A
->
-  </DT
-><DT
 >restart_after_crash 환경 설정 매개변수,
     <A
 HREF="runtime-config-error-handling.html"
@@ -40347,7 +40504,7 @@ CLASS="INDEXDIV"
 ><HR><H2
 CLASS="INDEXDIV"
 ><A
-NAME="AEN13050"
+NAME="AEN13014"
 >S</A
 ></H2
 ><DL
@@ -40617,13 +40774,6 @@ HREF="runtime-config-compatible.html#RUNTIME-CONFIG-COMPATIBLE-VERSION"
 >
   </DT
 ><DT
->standby server,
-    <A
-HREF="high-availability.html"
->고가용성, 부하 분산, 복제</A
->
-  </DT
-><DT
 >standby_mode 복구 매개변수,
     <A
 HREF="standby-settings.html"
@@ -40747,7 +40897,7 @@ CLASS="INDEXDIV"
 ><HR><H2
 CLASS="INDEXDIV"
 ><A
-NAME="AEN13198"
+NAME="AEN13159"
 >T</A
 ></H2
 ><DL
@@ -40873,7 +41023,7 @@ HREF="runtime-config-client.html#RUNTIME-CONFIG-CLIENT-FORMAT"
 ><DT
 >및 로케일,
     <A
-HREF="locale.html#AEN6839"
+HREF="locale.html#AEN6843"
 >동작</A
 >
   </DT
@@ -41013,7 +41163,7 @@ CLASS="INDEXDIV"
 ><HR><H2
 CLASS="INDEXDIV"
 ><A
-NAME="AEN13291"
+NAME="AEN13252"
 >U</A
 ></H2
 ><DL
@@ -41071,7 +41221,7 @@ HREF="runtime-config-statistics.html#RUNTIME-CONFIG-STATISTICS-COLLECTOR"
 ><DT
 >및 로케일,
     <A
-HREF="locale.html#AEN6839"
+HREF="locale.html#AEN6843"
 >동작</A
 >
   </DT
@@ -41088,7 +41238,7 @@ CLASS="INDEXDIV"
 ><HR><H2
 CLASS="INDEXDIV"
 ><A
-NAME="AEN13313"
+NAME="AEN13274"
 >V</A
 ></H2
 ><DL
@@ -41176,7 +41326,7 @@ CLASS="INDEXDIV"
 ><HR><H2
 CLASS="INDEXDIV"
 ><A
-NAME="AEN13348"
+NAME="AEN13309"
 >W</A
 ></H2
 ><DL
@@ -41306,7 +41456,7 @@ CLASS="INDEXDIV"
 ><HR><H2
 CLASS="INDEXDIV"
 ><A
-NAME="AEN13401"
+NAME="AEN13362"
 >X</A
 ></H2
 ><DL
@@ -41338,7 +41488,7 @@ CLASS="INDEXDIV"
 ><HR><H2
 CLASS="INDEXDIV"
 ><A
-NAME="AEN13412"
+NAME="AEN13373"
 >Z</A
 ></H2
 ><DL

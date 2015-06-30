@@ -64,7 +64,7 @@
                 실패했을 경우에는 0이 아니여야한다.
                 서버가 이 명령을 통해 보관하고 있지 않는 파일을 사용하려고 
                 할 때, 이 명령은 반드시 리턴 값으로 0 아닌 값으로 종료되어야한다.
-        다음은 일반적인 사례다:
+        다음은 일반적인 사례다.
 <programlisting>
 restore_command = 'cp /mnt/server/archivedir/%f "%p"'
 restore_command = 'copy "C:\\server\\archivedir\\%f" "%p"'  # Windows
@@ -96,7 +96,7 @@ restore_command = 'copy "C:\\server\\archivedir\\%f" "%p"'  # Windows
             pg archivecleanup 확장 모듈로 설치되는 명령을 사용한다.
                 (이 명령은 파일을 지우는 작업을 하기 때문에 단독 대기 서버 환경일 경우에만 
                 사용하는 것이 좋다.)
-                사용법은 다음과 같다:
+                사용법은 다음과 같다.
 <programlisting>archive_cleanup_command = 'pg_archivecleanup /mnt/server/archivedir %r'</programlisting>
         다중 대기 서버 환경이라면, 이 WAL 정리 작업은 좀 더 복잡해지는데, 
                 이 부분은 관리자에게 맡긴다.

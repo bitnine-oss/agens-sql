@@ -2,7 +2,7 @@
 <HTML
 ><HEAD
 ><TITLE
->아카이브 모드 백업(Continuous Archiving)과, 특정시점 복구(Point-in-Time Recovery, PITR)</TITLE
+>아카이브 모드 백업(Continuous Archiving)과, (Point-in-Time Recovery, PITR)</TITLE
 ><META
 NAME="GENERATOR"
 CONTENT="Modular DocBook HTML Stylesheet Version 1.79"><LINK
@@ -28,7 +28,7 @@ CONTENT="text/html; charset=UTF-8"><META
 name="viewport"
 content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width"><META
 NAME="creation"
-CONTENT="2015-06-29T09:12:38"></HEAD
+CONTENT="2015-06-30T08:52:27"></HEAD
 ><BODY
 CLASS="SECT1"
 ><DIV
@@ -95,7 +95,7 @@ CLASS="SECT1"
 CLASS="SECT1"
 ><A
 NAME="CONTINUOUS-ARCHIVING"
->8.3. 아카이브 모드 백업(Continuous Archiving)과, 특정시점 복구(Point-in-Time Recovery, PITR)</A
+>8.3. 아카이브 모드 백업(Continuous Archiving)과, (Point-in-Time Recovery, PITR)</A
 ></H1
 ><P
 >   <SPAN
@@ -111,10 +111,10 @@ CLASS="FILENAME"
 >pg_xlog/</TT
 >
    디렉토리에서 관리하고 있다.
-   이 로그는 데이터베이스의 데이터 파일에 대한 모든 조작 기록을 
+   이 로그는 데이터베이스의 데이터 파일에 대한 모든 수정 기록을 
    보관하고 있다. 이 로그를 만드는 가장 첫번째 이유는
    서버가 갑자기 중지되었을 경우 미처 데이터 파일에 
-   적용하지 못한 작업(checkpoint 작업이 안된)을 이 로그에서 읽어서 
+   적용하지 못한 작업(체크포인트 작업이 안된)을 이 로그에서 읽어서 
    그대로 <SPAN
 CLASS="QUOTE"
 >"다시 실행해서"</SPAN
@@ -245,7 +245,8 @@ CLASS="FIRSTTERM"
 >로 
     나눠서 저장한다. 이 하나의 WAL 파일은 기본적으로 16MB 크기의 파일이다(이 크기는 서버를 컴파일 할 때 결정된다).
     이 파일명은 WAL 순서에 따른 해당 번호를 사용한다.
-    WAL 아카이브 파일을 만들지 않도록 설정하면 이 파일은 몇 개만 만들어지며, 이것 가운데 더이상 사용하지 않는 로그 파일을 찾아서 <SPAN
+    WAL 아카이브 파일을 만들지 않도록 설정하면 이 파일은 몇 개만 만들어지며, 
+    이것 가운데 더이상 사용하지 않는 로그 파일을 찾아서 <SPAN
 CLASS="QUOTE"
 >"재사용"</SPAN
 >한다.
@@ -274,7 +275,7 @@ CLASS="LITERAL"
     백업 솔루션의 명령을 쓸 수도 있다. 이 부분은 전적으로 관리자 몫이다.
    </P
 ><P
->    WAL 아카이브 파일을 만들려면, wal level 환경설정 매개변수의 값으로
+>    WAL 아카이브 파일을 만들려면, 환경설정 매개변수 wal level의 값으로
     <TT
 CLASS="LITERAL"
 >archive</TT
@@ -282,11 +283,11 @@ CLASS="LITERAL"
 CLASS="LITERAL"
 >hot_standby</TT
 >)를 지정한다.
-    그 다음 archive mode 환경설정 매개변수 값에는 <TT
+    그 다음 환경설정 매개변수 archive mode 값에는 <TT
 CLASS="LITERAL"
 >on</TT
 >,
-    archive command 환경설정 매개변수 값에는 적당한 시스템 명령어를 지정한다. 
+    환경설정 매개변수 archive command 값에는 적당한 시스템 명령어를 지정한다. 
     이 설정은 모두 <TT
 CLASS="FILENAME"
 >postgresql.conf</TT
@@ -320,8 +321,8 @@ archive_command = 'copy "%p" "C:\\server\\archivedir\\%f"'  # Windows</PRE
 CLASS="FILENAME"
 >/mnt/server/archivedir</TT
 > 디렉토리로 이름을 똑같게 해서 복사하는 설정이다.
-    위 예제는 Unix와 Windows 운영체제에 대한 한 예제일 뿐이다. 실제 설정은 해당하는 운영체제에 맞게
-    변경 되어야한다.
+    위 예제는 Unix와 Windows 운영체제에 대한 한 예제일 뿐이다. 
+    실제 설정은 해당하는 운영체제에 맞게 변경 되어야한다.
     <TT
 CLASS="LITERAL"
 >%p</TT
@@ -443,14 +444,14 @@ HREF="runtime-config-file-locations.html"
 > 항목을 참조하라.
    </P
 ><P
->    아카이브 명령은 WAL 파일 가운데 서버에 모두 반영된(rollback되거나 commit 되어 checkpoint 작업이 끝난) 파일에 대해서 실행된다.
+>    아카이브 명령은 WAL 파일 가운데 서버에 모두 반영된(롤백되거나 커밋 되어 체크포인트 작업이 끝난) 파일에 대해서 실행된다.
     즉, 작업량이 아주 적은 데이터베이스의 경우라면 아카이브 명령이 실행되는 간격이 아주 길어진다. 
     이 간격에서 데이터베이스 장애가 생기면 자료 손실이 그 간격 동안 생기게 되므로 WAL 세그먼트 파일의 모든 
     내용이 처리되기 전에 특정 시간이 지나면 강제로 아카이브 명령을 사용해서 
     이 세그먼트 파일을 따로 저장해야 하는데, 이는 <TT
 CLASS="VARNAME"
 >archive_timeout</TT
-> 환경설정 값을 
+> 값을 
     짧게 지정하면 된다. 이 설정값을 너무 짧게 잡으면 디스크 공간을 낭비하는 
     단점이 생긴다. 일반적으로 이 설정값은 분 단위가 적당하다.
    </P
@@ -465,10 +466,11 @@ CLASS="FUNCTION"
 >    <TT
 CLASS="VARNAME"
 >wal_level</TT
-> 환경설정값을 <TT
+> 값을 <TT
 CLASS="LITERAL"
 >minimal</TT
->로 설정하게 되면 이 WAL 로그를 따로 보관해서 그것을 기반으로 복원 하는 기능을 사용할 수 없다. 
+>로 설정하게 되면 이 WAL 로그를 따로 보관해서 
+    그것을 기반으로 복원 하는 기능을 사용할 수 없다. 
     이 설정을 사용하면 WAL 파일에 복원 관련 정보를 보관하지 않기 때문이다. 
     그렇기 때문에 <TT
 CLASS="VARNAME"
@@ -489,7 +491,8 @@ CLASS="LITERAL"
     그러면 <TT
 CLASS="VARNAME"
 >archive_command</TT
-> 설정값이 다시 WAL 파일을 복사하는 작업을 하기 전까지 <TT
+> 설정값이 다시 WAL 파일을 복사하는 작업을 하기 전까지 
+    <TT
 CLASS="FILENAME"
 >pg_xlog/</TT
 > 디렉토리에 계속 남아있게 된다.
@@ -513,8 +516,8 @@ HREF="continuous-archiving.html#BACKUP-LOWLEVEL-BASE-BACKUP"
 > 참조)
    </P
 ><P
->   베이스 백업을 만드는 데 걸리는 시간은 우려할 필요가 없다. 하지만 
-   운영 서버가 <TT
+>   베이스 백업을 만드는 데 걸리는 시간은 우려할 필요가 없다. 
+   하지만 운영 서버가 <TT
 CLASS="VARNAME"
 >full_page_writes</TT
 > 비활성화 상태로 운영 되고 있으면, 
@@ -582,7 +585,7 @@ TYPE="1"
 ></LI
 ><LI
 ><P
->    해당 데이터베이스에 슈퍼유저로 접속해서 다음 명령을 실행한다:
+>    해당 데이터베이스에 슈퍼유저로 접속해서 다음 명령을 실행한다.
 </P><PRE
 CLASS="PROGRAMLISTING"
 >SELECT pg_start_backup('라벨');</PRE
@@ -608,7 +611,8 @@ CLASS="FILENAME"
     <CODE
 CLASS="FUNCTION"
 >pg_start_backup</CODE
-> 함수의 실행 결과가 오류를 발생시키면 그에 적합한 조치를 취해야겠지만 오류를 내지 않으면 이 작업의 내부 작업에 대해서는 신경쓰지 않아도 된다.
+> 함수의 실행 결과가 오류를 발생시키면 그에 적합한 조치를 취해야겠지만 
+    오류를 내지 않으면 이 작업의 내부 작업에 대해서는 신경쓰지 않아도 된다.
     </P
 ><P
 >         기본적으로, <CODE
@@ -879,11 +883,12 @@ CLASS="FUNCTION"
 CLASS="FUNCTION"
 >pg_stop_backup</CODE
 > 함수가 실행될 때, 해당 디렉토리에서는 삭제 되고 
-        WAL 세그먼트 파일 백업 처리와 같은 방식으로 보관된다.  즉, 베이스 백업본에는 
-        반드시 이 <TT
+        WAL 세그먼트 파일 백업 처리와 같은 방식으로 보관된다.  
+        즉, 베이스 백업본에는 반드시 이 <TT
 CLASS="FILENAME"
 >backup_label</TT
-> 파일이 있게 된다. 베이스 백업이 완료되면 실행 되는 서버 쪽에서는 이 파일이
+> 파일이 있게 된다. 
+        베이스 백업이 완료되면 실행 되는 서버 쪽에서는 이 파일이
         없어야하고, 백업본에는 이 파일이 있는 것이 정상이다.
         만일 그렇지 않다면, 해당 베이스 백업은 비정상적으로 처리된 것이다.
         따라서 백업 도중 데이터베이스 서버가 중지 되어 버린 경우 이 점을 감안해서 베이스 백업본을 사용할 수 있는지를 판단해야한다.
@@ -930,8 +935,8 @@ TYPE="1"
 ></LI
 ><LI
 ><P
->         만일 시스템의 디스크 공간이 넉넉하면, 
-         데이터베이스 클러스터 디렉토리 전체 및 관련된 사용자 정의 테이블스페이스의 파일들, 필요한 WAL 세그먼트 파일들을 모두 임시 장소에 복사해야 한다.
+>         만일 시스템의 디스크 공간이 넉넉하면, 데이터베이스 클러스터 디렉토리 전체 및 관련된 사용자 정의 테이블스페이스의 파일들과 
+         필요한 WAL 세그먼트 파일들을 모두 임시 장소에 복사해야 한다.
          이 작업을 기존에 운영 중이던 시스템에서 하려면, 적어도 두 배 이상의 디스크 공간이 필요하게 된다. 
          이런 여유 공간이 없으면 적어도 기존 데이터베이스 서버의 클러스터 디렉토리 안에 있는 
          <TT
@@ -987,8 +992,8 @@ CLASS="FILENAME"
          2단계에서 복사해 둔 <TT
 CLASS="FILENAME"
 >pg_xlog/</TT
-> 내의 파일들을 복구하려는 곳으로 복사한다. (옮기지 말고 복사하길 권한다. 아직 복구가 
-         완벽하게 이루어지지 않았기 때문에, 복사가 안전하다.)
+> 내의 파일들을 복구하려는 곳으로 복사한다. 
+         (옮기지 말고 복사하길 권한다. 아직 복구가 완벽하게 이루어지지 않았기 때문에, 복사가 안전하다.)
     </P
 ></LI
 ><LI
@@ -1185,13 +1190,13 @@ HREF="recovery-target-settings.html"
         지정해서 원하는 지점에서 복구 작업을 중지할 수도 있다. 
         이 지점을 <SPAN
 CLASS="QUOTE"
->"recovery target"</SPAN
+>"복구 타겟(recovery target)"</SPAN
 >이라고 한다.
         이 기능은 미숙한 데이터베이스 관리자가 실수로 중요 테이블을 삭제하는 것 같은 
         운영상 실수에 대한 복구를 지원하는데 유용하다.
         <SPAN
 CLASS="QUOTE"
->"recovery target"</SPAN
+>"복구 타겟"</SPAN
 >은 특정 시각으로 지정할 수도 있고 
         관리자가 미리 지정한 어떤 문자열일 수도 있고 
         특정 트랜잭션 ID로 지정할 수도 있다.
@@ -1211,7 +1216,7 @@ CLASS="NOTE"
 CLASS="FUNCTION"
 >pg_stop_backup</CODE
 > 명령이 실행된 시간보다 늦은 시점으로 지정해야 한다.
-          베이스 백업 - 데이터 클러스터 파일들을 파일 시스템 차원으로 백업하고 있었던 시간대로 복구할 수는 없다. 
+          베이스 백업을 사용해서 데이터 클러스터 파일들을 파일 시스템 차원으로 백업하고 있었던 시간대로 복구할 수는 없다. 
           이 작업이 필요하면 이전 베이스 백업 자료와 해당 WAL 백업 파일들이 필요하다.
      </P
 ></BLOCKQUOTE
@@ -1220,14 +1225,15 @@ CLASS="FUNCTION"
 >    만일 WAL 파일 자체에 문제가 있으면 정상적으로 처리한 트랜잭션까지만 적용되고 복구 작업을 멈추고, 서버도 중지된다. 
     이런 경우에는 문제가 발생한 시점을 파악해서 처음부터 다시 그 시점 전까지만 <SPAN
 CLASS="QUOTE"
->"recovery target"</SPAN
+>"복구 타겟"</SPAN
 > 으로 지정해서 복구한다.
     복구 작업 도중 외부적인 영향으로 작업이 중지 되면 (시스템 리부팅, disk full, .... 이런 이유들) 문제의 원인을 해결해야 한다. 
     그리고나서 단순히 서버를 재실행하면 복구 작업을 이어서 계속 진행한다. 복구 작업은 일반 실행환경에서의 체크 포인트 작업과 같이 재실행된다.
     내부적으로 <TT
 CLASS="FILENAME"
 >pg_control</TT
-> 파일을 주기적으로 갱신해서 이미 반영된 로그들에 대해서는 더이상 재작업을 하지 않도록 하기 때문에 중복처리에 대한 염려는 안해도 된다.
+> 파일을 주기적으로 갱신해서 이미 반영된 로그들에 대해서는 더이상 재작업을 하지 않도록 하기 때문에 
+    중복처리에 대한 염려는 안해도 된다.
    </P
 ></DIV
 ><DIV
@@ -1361,7 +1367,8 @@ CLASS="APPLICATION"
           베이스 백업을 받는 것이다. pg basebackup을 호출할 때 <TT
 CLASS="LITERAL"
 >-X</TT
-> 매개변수를 쓰면 사용되는 트랜잭션 로그 전체가 백업에 자동으로 쓰이고, 그 이상의 작업은 필요 없다. 
+> 매개변수를 쓰면 사용되는 트랜잭션 로그 전체가 
+          백업에 자동으로 쓰이고, 그 이상의 작업은 필요 없다. 
      </P
 ><P
 >          백업 파일을 복사하는데 보다 유연한 방법이 필요한 경우, 
@@ -1391,7 +1398,7 @@ CLASS="EMPHASIS"
 >스위치 파일</I
 ></SPAN
 >이 있는 경우에 한해서 그 파일을 다른 곳에도 보관할 수 있도록
-          설정하면 된다. 다음은 이 설정의 예제다:
+          설정하면 된다. 다음은 이 설정의 예제다.
 </P><PRE
 CLASS="PROGRAMLISTING"
 >archive_command = 'test ! -f /var/lib/pgsql/backup_in_progress || (test ! -f /var/lib/pgsql/archive/%f &amp;&amp; cp %p /var/lib/pgsql/archive/%f)'</PRE
@@ -1448,7 +1455,7 @@ CLASS="APPLICATION"
           <SPAN
 CLASS="APPLICATION"
 >gzip</SPAN
-> 프로그램을 이용해서 더 압축할 수도 있다:
+> 프로그램을 이용해서 더 압축할 수도 있다.
 </P><PRE
 CLASS="PROGRAMLISTING"
 >archive_command = 'pg_compresslog %p - | gzip &gt; /var/lib/pgsql/archive/%f'</PRE
@@ -1459,7 +1466,7 @@ CLASS="APPLICATION"
 > 프로그램과 <SPAN
 CLASS="APPLICATION"
 >pg_decompresslog</SPAN
-> 프로그램을 다음과 같이 사용한다:
+> 프로그램을 다음과 같이 사용한다.
 </P><PRE
 CLASS="PROGRAMLISTING"
 >restore_command = 'gunzip &lt; /mnt/server/archivedir/%f | pg_decompresslog - %p'</PRE
@@ -1542,13 +1549,13 @@ CLASS="LITERAL"
 ></LI
 ><LI
 ><P
->                 WAL 파일 복사(전송, 다른 곳에 따로 보관하는 것)의 가장 안전하고 확실한 방법
-                 - 실패 했을 경우 재시도에 대한 정책, 복구를 빠르게 하기 위한 이중 백업 등
+>         WAL 파일 복사(전송, 다른 곳에 따로 보관하는 것)의 가장 안전하고 확실한 방법
+         - 실패 했을 경우 재시도에 대한 정책, 복구를 빠르게 하기 위한 이중 백업 등
         </P
 ></LI
 ><LI
 ><P
->                 다른 백업, 복구 소프트웨어를 사용할 때의 인터페이스 문제
+>         다른 백업, 복구 소프트웨어를 사용할 때의 인터페이스 문제
         </P
 ></LI
 ><LI
@@ -1579,7 +1586,7 @@ NAME="CONTINUOUS-ARCHIVING-CAVEATS"
 ><LI
 ><P
 >     해시 인덱스 작업에 대한 기록은 WAL 로그에 포함되지 않는다.
-     그래서 이런 인덱스들에 대해서는 대기(standby) 서버(복원 서버)에서
+     그래서 이런 인덱스들에 대해서는 대기 서버(복원 서버)에서
      삽입, 갱신 작업을 하지 않는다. 다시 말하면, 이렇게 제대로 반영되지 않은
      인덱스 때문에 원하는 결과가 출력되지 않을 수 있다.
      만일 해시 인덱스를 사용하고 있으면 복원 작업이 끝난 뒤에 수동으로 
@@ -1606,7 +1613,8 @@ NAME="CONTINUOUS-ARCHIVING-CAVEATS"
      그 테이블스페이스에 있던 원본 파일을 손상 할 수도 있으며 
      다른 호스트에서 테이블스페이스의 실제 디렉토리가 없어서 
      원본 자료를 손실할 수도 있다.
-     이 문제를 피해갈 수 있는 가장 좋은 방법은 일단 테이블스페이스를 만들거나 삭제할 경우에는 반드시 그 다음에 베이스 백업본을 만들어 두는 것이다.
+     이 문제를 피해갈 수 있는 가장 좋은 방법은 일단 테이블스페이스를 만들거나 삭제할 경우에는 
+     반드시 그 다음에 베이스 백업본을 만들어 두는 것이다.
     </P
 ></LI
 ></UL
@@ -1620,9 +1628,9 @@ CLASS="ACRONYM"
     페이지 스냅샷을 많이 포함하고 있어 그 크기가 상당히 크다는 점이다.
     이 페이지 스냅샷 기법은 서버가 갑자기 중지될 경우와 해당 디스크 페이지가
     부분적으로 기록되었을 경우 그 페이지를 안전하게 복구 하기 위해서 도입되었다. 
-    물론 사용하고 있는 하드웨어와 소프트웨어에 따라 이런 부분적인 디스크 페이지 기록으로 인한 오류가 미비하거나 무시할 정도인 
-    경우도 있다. 이럴 경우, full page writes 환경변수 값을
-    off로 설정하면, 이 로그 전체 크기를 많이 줄일 수 있다.
+    물론 사용하고 있는 하드웨어와 소프트웨어에 따라 이런 부분적인 디스크 페이지 
+    기록으로 인한 오류가 미비하거나 무시할 정도인 경우도 있다. 
+    이럴 경우, full page writes 환경변수 값을 off로 설정하면, 이 로그 전체 크기를 많이 줄일 수 있다.
     이 환경변수값을 off로 설정해도 PITR 기능을 사용할 수 있다.
     또한 <TT
 CLASS="VARNAME"

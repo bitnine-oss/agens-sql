@@ -28,7 +28,7 @@ CONTENT="text/html; charset=UTF-8"><META
 name="viewport"
 content="user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, width=device-width"><META
 NAME="creation"
-CONTENT="2015-06-29T09:12:38"></HEAD
+CONTENT="2015-06-30T08:52:27"></HEAD
 ><BODY
 CLASS="SECT1"
 ><DIV
@@ -101,14 +101,16 @@ NAME="MANAGE-AG-TEMPLATEDBS"
 >   <TT
 CLASS="COMMAND"
 >CREATE DATABASE</TT
->는 실제로 기존 데이터베이스를 복사한다. 기본적으로 <TT
+>는 실제로 기존 데이터베이스를 복사한다. 
+   기본적으로 <TT
 CLASS="LITERAL"
 >template1</TT
 >이라는 표준 시스템 데이터베이스를 복사한다. 
    따라서 해당 데이터베이스는 새 데이터베이스를 만드는 <SPAN
 CLASS="QUOTE"
 >"템플릿"</SPAN
->이다. 객체를 <TT
+>이다. 
+   객체를 <TT
 CLASS="LITERAL"
 >template1</TT
 >에 추가하면, 이 객체는 나중에 생성된 사용자 데이터베이스로 복사된다. 
@@ -119,7 +121,8 @@ CLASS="LITERAL"
 >에서 프로시저 언어 <SPAN
 CLASS="APPLICATION"
 >PL/Perl</SPAN
->을 설치하는 경우 해당 데이터베이스를 생성할 때 추가적인 작업 없이 사용자 데이터베이스가 자동으로 사용 가능하게 된다.
+>을 설치하는 경우 
+   해당 데이터베이스를 생성할 때 추가적인 작업 없이 사용자 데이터베이스가 자동으로 사용 가능하게 된다.
   </P
 ><P
 >   <TT
@@ -147,7 +150,8 @@ CLASS="LITERAL"
 >을 복사하도록 <TT
 CLASS="COMMAND"
 >CREATE DATABASE</TT
->를 실행하면 <TT
+>를 실행하면 
+   <TT
 CLASS="LITERAL"
 >template1</TT
 >에서 사이트-로컬 추가가 없는 <SPAN
@@ -161,7 +165,8 @@ CLASS="LITERAL"
    나중에 <TT
 CLASS="LITERAL"
 >template1</TT
->에 추가되었을 수도 있는 객체와 충돌 없이 덤프된 데이터베이스를 올바르게 재생성 하도록 처녀 데이터베이스에서 덤프 스크립트를 복원해야 한다.
+>에 추가되었을 수도 있는 객체와 충돌 없이 덤프된 데이터베이스를 올바르게 재생성 하도록 
+   처녀 데이터베이스에서 덤프 스크립트를 복원해야 한다.
   </P
 ><P
 >   <TT
@@ -173,11 +178,11 @@ CLASS="LITERAL"
 >을 복사하는 일반적인 다른 이유는 <TT
 CLASS="LITERAL"
 >template1</TT
->의 복사는 동일한 설정을 사용해야 하지만 <TT
+>의 복사는 
+   동일한 설정을 사용해야 하지만 <TT
 CLASS="LITERAL"
 >template0</TT
->을 복사하는 경우에는 
-   새 인코딩 및 로케일(locale) 설정을 지정할 수 있기 때문이다. 
+>을 복사하는 경우에는 새 인코딩 및 로케일(locale) 설정을 지정할 수 있기 때문이다. 
    <TT
 CLASS="LITERAL"
 >template1</TT
@@ -213,7 +218,8 @@ CLASS="REPLACEABLE"
    또는 쉘에서 다음을 사용해야 한다.
   </P
 ><P
->   템플릿 데이터베이스를 추가적으로 생성하는 것이 가능하며, <TT
+>   템플릿 데이터베이스를 추가적으로 생성하는 것이 가능하며, 
+   <TT
 CLASS="COMMAND"
 >CREATE DATABASE</TT
 >의 경우 템플릿 이름을 지정하면 클러스터의 데이터베이스를 복사할 수도 있다. 
@@ -223,7 +229,8 @@ CLASS="QUOTE"
 CLASS="COMMAND"
 >COPY DATABASE</TT
 >"</SPAN
->가 범용으로 사용되는 기능이 아니라는 점을 이해해야 한다. 이러한 제한은 복사 중인 소스 데이터베이스에 다른 세션을 연결할 수 없다는 것을 의미한다. 
+>가 범용으로 사용되는 기능이 아니라는 점을 이해해야 한다. 
+   이러한 제한은 복사 중인 소스 데이터베이스에 다른 세션을 연결할 수 없다는 것을 의미한다. 
    시작 시 다른 연결이 존재하면 <TT
 CLASS="COMMAND"
 >CREATE DATABASE</TT
@@ -236,7 +243,8 @@ CLASS="LITERAL"
 >에는 <TT
 CLASS="LITERAL"
 >datistemplate</TT
-> 칼럼 및 <TT
+> 칼럼 
+   및 <TT
 CLASS="LITERAL"
 >datallowconn</TT
 > 칼럼의 두 가지 유용한 플래그가 존재한다. 
@@ -255,7 +263,8 @@ CLASS="LITERAL"
    <TT
 CLASS="LITERAL"
 >datallowconn</TT
->이 false인 경우 해당 데이터베이스에 대한 새로운 연결이 허용되지 않는다(단, 플래그를 false로 설정해도 기존 세션은 중단되지 않는다). 
+>이 false인 경우 해당 데이터베이스에 대한 새로운 연결이 허용되지 않는다
+   (단, 플래그를 false로 설정해도 기존 세션은 중단되지 않는다). 
    <TT
 CLASS="LITERAL"
 >template0</TT
@@ -293,14 +302,16 @@ CLASS="LITERAL"
 >이 <TT
 CLASS="COMMAND"
 >CREATE DATABASE</TT
->의 기본 소스 데이터베이스 이름이라는 사실 외에는 특별한 상태를 나타내지 않는다. 
+>의 
+    기본 소스 데이터베이스 이름이라는 사실 외에는 특별한 상태를 나타내지 않는다. 
     예를 들면, <TT
 CLASS="LITERAL"
 >template1</TT
 >를 삭제하고 부작용 없이 <TT
 CLASS="LITERAL"
 >template0</TT
->으로 재생성 가능하다. 이러한 작업 과정은 <TT
+>으로 재생성 가능하다. 
+    이러한 작업 과정은 <TT
 CLASS="LITERAL"
 >template1</TT
 >에 잘못 추가한 것이 많을 경우에 좋다.
