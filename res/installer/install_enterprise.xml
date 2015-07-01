@@ -318,6 +318,8 @@
             <executable targetfile="$INSTALL_PATH/skytools/bin/simple_local_consumer3" keep="true" />
             <executable targetfile="$INSTALL_PATH/skytools/bin/skytools_upgrade3" keep="true" />
             <executable targetfile="$INSTALL_PATH/skytools/bin/walmgr3" keep="true" />
+        <file src="agens_temp/libevent/lib/libevent-2.0.so.5.1.9" targetdir="$INSTALL_PATH/pgsql/lib" />
+        <executable targetfile="$INSTALL_PATH/pgsql/lib/libevent-2.0.so.5.1.9" keep="true" />
 	<file src="res/installer/compile_skytools.sh" targetdir="$INSTALL_PATH/script"/>
         <executable targetfile="$INSTALL_PATH/script/compile_skytools.sh" stage="postinstall" />
         <parsable targetfile="$INSTALL_PATH/script/compile_skytools.sh"/>

@@ -1,4 +1,5 @@
 #!/bin/bash
+if [ ! -f $INSTALL_PATH/pgsql/lib/libevent-2.0.so.5 ]; then ln -s $INSTALL_PATH/pgsql/lib/libevent-2.0.so.5.1.9 $INSTALL_PATH/pgsql/lib/libevent-2.0.so.5; fi
 
 # lib
 if [ -d "$INSTALL_PATH/skytools/lib64/" ]; then # centos-64bit
