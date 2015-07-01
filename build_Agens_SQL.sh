@@ -18,7 +18,9 @@ cd ..
 cd pgpool-II-3.4.2/
 PATH=$AGENS_TEMP_DIR/pgsql/bin:$PATH ./configure --prefix=$AGENS_TEMP_DIR/pgpool --with-pgsql=$AGENS_TEMP_DIR/pgsql/
 make; make install;
-cd ..
+cd src/sql
+make
+cd ../../..
 
 cd geos-3.4.2/
 ./configure --prefix=$AGENS_TEMP_DIR/geos; make; make install;

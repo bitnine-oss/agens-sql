@@ -227,6 +227,23 @@
             <executable targetfile="$INSTALL_PATH/pgpool/lib/libpcp.la" keep="true" />
             <executable targetfile="$INSTALL_PATH/pgpool/lib/libpcp.so.0.0.0" keep="true" />
 
+	    <file src="pgpool-II-3.4.2/src/sql/pgpool-recovery/pgpool-recovery.so" targetdir="$INSTALL_PATH/pgsql/lib" />
+	    <file src="pgpool-II-3.4.2/src/sql/pgpool-regclass/pgpool-regclass.so" targetdir="$INSTALL_PATH/pgsql/lib" />
+	    <file src="pgpool-II-3.4.2/src/sql/pgpool_adm/pgpool_adm.so" targetdir="$INSTALL_PATH/pgsql/lib" />
+            <executable targetfile="$INSTALL_PATH/pgsql/lib/pgpool-recovery.so" keep="true" />
+            <executable targetfile="$INSTALL_PATH/pgsql/lib/pgpool-regclass.so" keep="true" />
+            <executable targetfile="$INSTALL_PATH/pgsql/lib/pgpool_adm.so" keep="true" />
+
+	    <file src="pgpool-II-3.4.2/src/sql/pgpool-recovery/pgpool-recovery.sql" targetdir="$INSTALL_PATH/pgsql/share/extension" />
+	    <file src="pgpool-II-3.4.2/src/sql/pgpool-recovery/pgpool_recovery--1.1.sql" targetdir="$INSTALL_PATH/pgsql/share/extension" />
+	    <file src="pgpool-II-3.4.2/src/sql/pgpool-recovery/pgpool_recovery.control" targetdir="$INSTALL_PATH/pgsql/share/extension" />
+	    <file src="pgpool-II-3.4.2/src/sql/pgpool-regclass/pgpool-regclass.sql" targetdir="$INSTALL_PATH/pgsql/share/extension" />
+	    <file src="pgpool-II-3.4.2/src/sql/pgpool-regclass/pgpool_regclass--1.0.sql" targetdir="$INSTALL_PATH/pgsql/share/extension" />
+	    <file src="pgpool-II-3.4.2/src/sql/pgpool-regclass/pgpool_regclass.control" targetdir="$INSTALL_PATH/pgsql/share/extension" />
+	    <file src="pgpool-II-3.4.2/src/sql/pgpool_adm/pgpool_adm--1.0.sql" targetdir="$INSTALL_PATH/pgsql/share/extension" />
+	    <file src="pgpool-II-3.4.2/src/sql/pgpool_adm/pgpool_adm.control" targetdir="$INSTALL_PATH/pgsql/share/extension" />
+
+
             <file src="res/installer/compile_pgpool.sh" targetdir="$INSTALL_PATH/script"/>
             <executable targetfile="$INSTALL_PATH/script/compile_pgpool.sh" stage="postinstall" />
             <parsable targetfile="$INSTALL_PATH/script/compile_pgpool.sh"/>
