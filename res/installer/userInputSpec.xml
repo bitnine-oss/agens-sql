@@ -3,7 +3,7 @@
     <panel id="UserInputPanel1">
         <createForPack name="PostgreSQL" />
          <field type="staticText" txt="Agens SQL에서 사용할 포트번호를 입력하시오."/>
-         <field type="staticText" txt="Agens SQL은 5456 포트를 기본값으로 사용합니다."/>
+         <field type="staticText" txt="Agens SQL은 6179 포트를 기본값으로 사용합니다."/>
          <field type="staticText" txt="이 포트번호는 설치 후 변경이 가능합니다."/>
          <field type="space" />
         <field type="divider" />

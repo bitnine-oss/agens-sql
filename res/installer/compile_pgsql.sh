@@ -19,8 +19,8 @@ DATA_DIR="$agens_sql.data_path"
 $AGENS_HOME/pgsql/bin/initdb -U agens -D $DATA_DIR
 
 # edit postgresql.conf
-if [ $port -ne "5456" ]; then
-    sed -e 's/#port = 5456/port = $agens_sql.port/g' $DATA_DIR/postgresql.conf > $DATA_DIR/postgresql.conf.$$
+if [ $port -ne "6179" ]; then
+    sed -e 's/#port = 6179/port = $agens_sql.port/g' $DATA_DIR/postgresql.conf > $DATA_DIR/postgresql.conf.$$
     mv $DATA_DIR/postgresql.conf.$$ $DATA_DIR/postgresql.conf
     chmod 600 $DATA_DIR/postgresql.conf
 fi
