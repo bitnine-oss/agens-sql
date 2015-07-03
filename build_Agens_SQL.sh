@@ -16,7 +16,8 @@ cd ..
 
 # pgpool 설치
 cd pgpool-II-3.4.2/
-PATH=$AGENS_TEMP_DIR/pgsql/bin:$PATH ./configure --prefix=$AGENS_TEMP_DIR/pgpool --with-pgsql=$AGENS_TEMP_DIR/pgsql/
+PATH=$AGENS_TEMP_DIR/pgsql/bin:$PATH
+./configure --prefix=$AGENS_TEMP_DIR/pgpool --with-pgsql=$AGENS_TEMP_DIR/pgsql/ --with-openssl --with-pam
 make; make install;
 cd src/sql
 make
