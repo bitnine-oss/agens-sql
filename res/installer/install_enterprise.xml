@@ -54,6 +54,14 @@
             <description>PostgreSQL</description>
             <fileset dir="agens_temp/pgsql" targetdir="$INSTALL_PATH/pgsql">
                 <exclude name="bin/postmaster" />
+                <exclude name="lib/libecpg.so" />
+                <exclude name="lib/libecpg.so.6" />
+                <exclude name="lib/libecpg_compat.so" />
+                <exclude name="lib/libecpg_compat.so.3" />
+                <exclude name="lib/libpgtypes.so" />
+                <exclude name="lib/libpgtypes.so.3" />
+                <exclude name="lib/libpq.so" />
+                <exclude name="lib/libpq.so.5" />
             </fileset>
             <!-- set executable pgsql/bin -->
             <executable targetfile="$INSTALL_PATH/pgsql/bin/clusterdb" keep="true" />
