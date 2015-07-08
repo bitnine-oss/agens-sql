@@ -11,7 +11,6 @@ if [ ! -f $INSTALL_PATH/pgsql/lib/libpq.so ]; then ln -s $INSTALL_PATH/pgsql/lib
 if [ ! -f $INSTALL_PATH/pgsql/lib/libpq.so.5 ]; then ln -s $INSTALL_PATH/pgsql/lib/libpq.so.5.7 $INSTALL_PATH/pgsql/lib/libpq.so.5; fi
 
 AGENS_HOME="$INSTALL_PATH"
-agens_passwd_file=$AGENS_HOME/pgsql/dbuser_passwd
 port="$agens_sql.port"
 DATA_DIR="$agens_sql.data_path"
 
