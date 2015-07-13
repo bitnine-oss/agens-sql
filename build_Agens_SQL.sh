@@ -9,12 +9,13 @@ if [ -d "$AGENS_TEMP_DIR" ]; then
 	exit 1;
 fi
 
+# postgresql
 cd postgresql-9.4.4/
 ./configure --prefix=$AGENS_TEMP_DIR/pgsql --with-pgport=6179 --with-gssapi --with-ldap --with-tcl --with-openssl --enable-nls --enable-thread-safety --with-perl --with-python --with-libxml --with-libxslt --with-pam;
 make world; make install-world;
 cd ..
 
-# pgpool 설치
+# pgpool 
 cd pgpool-II-3.4.2/
 PATH=$AGENS_TEMP_DIR/pgsql/bin:$PATH
 ./configure --prefix=$AGENS_TEMP_DIR/pgpool --with-pgsql=$AGENS_TEMP_DIR/pgsql/ --with-openssl --with-pam
@@ -23,6 +24,7 @@ cd src/sql
 make
 cd ../../..
 
+# postgis  
 cd geos-3.4.2/
 ./configure --prefix=$AGENS_TEMP_DIR/geos; make; make install;
 cd ..
@@ -36,7 +38,7 @@ cd gdal-1.11.2/
 cd ..
 
 cd postgis-2.1.7/
-./configure --with-pgconfig=$AGENS_TEMP_DIR/pgsql/bin/pg_config --with-geosconfig=$AGENS_TEMP_DIR/geos/bin/geos-config --with-gdalconfig=$AGENS_TEMP_DIR/gdal/bin/gdal-config --with-projdir=$AGENS_TEMP_DIR/proj
+LD_LIBRARY_PATH=/home/mesh/working_directory/agens-sql/agens_temp/pgsql/lib:$LD_LIBRARY_PATH PATH=/home/mesh/working_directory/agens-sql/agens_temp/pgsql/bin:$PATH ./configure --with-pgconfig=$AGENS_TEMP_DIR/pgsql/bin/pg_config --with-geosconfig=$AGENS_TEMP_DIR/geos/bin/geos-config --with-gdalconfig=$AGENS_TEMP_DIR/gdal/bin/gdal-config --with-projdir=$AGENS_TEMP_DIR/proj
 make
 cd ..
 
