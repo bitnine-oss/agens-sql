@@ -1,0 +1,99 @@
+json_object_iterator.lo: json_object_iterator.c /usr/include/stddef.h \
+ /usr/include/sys/cdefs.h /usr/include/machine/cdefs.h \
+ /usr/include/sys/cdefs_elf.h /usr/include/sys/featuretest.h \
+ /usr/include/machine/ansi.h /usr/include/machine/int_types.h \
+ /usr/include/sys/null.h json.h bits.h debug.h /usr/include/stdlib.h \
+ /usr/include/sys/types.h /usr/include/machine/types.h \
+ /usr/include/sys/ansi.h /usr/include/machine/endian.h \
+ /usr/include/sys/endian.h /usr/include/machine/endian_machdep.h \
+ /usr/include/machine/bswap.h /usr/include/machine/byte_swap.h \
+ /usr/include/sys/bswap.h /usr/include/sys/fd_set.h \
+ /usr/include/pthread_types.h linkhash.h json_object.h json_inttypes.h \
+ json_config.h /usr/include/inttypes.h /usr/include/sys/inttypes.h \
+ /usr/include/sys/stdint.h /usr/include/machine/int_mwgwtypes.h \
+ /usr/include/machine/int_limits.h /usr/include/machine/int_const.h \
+ /usr/include/machine/wchar_limits.h /usr/include/machine/int_fmtio.h \
+ arraylist.h json_util.h json_tokener.h json_object_iterator.h \
+ json_c_version.h json_object_private.h
+
+/usr/include/stddef.h:
+
+/usr/include/sys/cdefs.h:
+
+/usr/include/machine/cdefs.h:
+
+/usr/include/sys/cdefs_elf.h:
+
+/usr/include/sys/featuretest.h:
+
+/usr/include/machine/ansi.h:
+
+/usr/include/machine/int_types.h:
+
+/usr/include/sys/null.h:
+
+json.h:
+
+bits.h:
+
+debug.h:
+
+/usr/include/stdlib.h:
+
+/usr/include/sys/types.h:
+
+/usr/include/machine/types.h:
+
+/usr/include/sys/ansi.h:
+
+/usr/include/machine/endian.h:
+
+/usr/include/sys/endian.h:
+
+/usr/include/machine/endian_machdep.h:
+
+/usr/include/machine/bswap.h:
+
+/usr/include/machine/byte_swap.h:
+
+/usr/include/sys/bswap.h:
+
+/usr/include/sys/fd_set.h:
+
+/usr/include/pthread_types.h:
+
+linkhash.h:
+
+json_object.h:
+
+json_inttypes.h:
+
+json_config.h:
+
+/usr/include/inttypes.h:
+
+/usr/include/sys/inttypes.h:
+
+/usr/include/sys/stdint.h:
+
+/usr/include/machine/int_mwgwtypes.h:
+
+/usr/include/machine/int_limits.h:
+
+/usr/include/machine/int_const.h:
+
+/usr/include/machine/wchar_limits.h:
+
+/usr/include/machine/int_fmtio.h:
+
+arraylist.h:
+
+json_util.h:
+
+json_tokener.h:
+
+json_object_iterator.h:
+
+json_c_version.h:
+
+json_object_private.h:

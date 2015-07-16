@@ -1,0 +1,11 @@
+prefix=
+exec_prefix=
+libdir=/home/erh/json-c/json-c-0.11
+includedir=/home/erh/json-c/json-c-0.11
+
+Name: json
+Description: JSON implementation in C
+Version: 0.11
+Requires:
+Libs:  -L/home/erh/json-c/json-c-0.11 -ljson-c
+Cflags: -I/home/erh/json-c/json-c-0.11
