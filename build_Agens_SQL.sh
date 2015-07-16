@@ -38,7 +38,7 @@ cd gdal-1.11.2/
 cd ..
 
 cd postgis-2.1.7/
-LD_LIBRARY_PATH=/home/mesh/working_directory/agens-sql/agens_temp/pgsql/lib:$LD_LIBRARY_PATH PATH=/home/mesh/working_directory/agens-sql/agens_temp/pgsql/bin:$PATH ./configure --with-pgconfig=$AGENS_TEMP_DIR/pgsql/bin/pg_config --with-geosconfig=$AGENS_TEMP_DIR/geos/bin/geos-config --with-gdalconfig=$AGENS_TEMP_DIR/gdal/bin/gdal-config --with-projdir=$AGENS_TEMP_DIR/proj
+LD_LIBRARY_PATH=$AGENS_TEMP_DIR/pgsql/lib:$LD_LIBRARY_PATH PATH=$AGENS_TEMP_DIR/pgsql/bin:$PATH ./configure --with-pgconfig=$AGENS_TEMP_DIR/pgsql/bin/pg_config --with-geosconfig=$AGENS_TEMP_DIR/geos/bin/geos-config --with-gdalconfig=$AGENS_TEMP_DIR/gdal/bin/gdal-config --with-projdir=$AGENS_TEMP_DIR/proj
 make
 cd ..
 
