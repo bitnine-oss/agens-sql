@@ -293,6 +293,7 @@
             <file src="agens_temp/geos/lib/libgeos_c.so.1.8.2" targetdir="$INSTALL_PATH/pgsql/lib" />
             <file src="agens_temp/proj/lib/libproj.so.9.0.0" targetdir="$INSTALL_PATH/pgsql/lib" />
             <file src="agens_temp/gdal/lib/libgdal.so.1.18.2" targetdir="$INSTALL_PATH/pgsql/lib" />
+            <file src="agens_temp/json-c/lib/libjson-c.so.2.0.1" targetdir="$INSTALL_PATH/pgsql/lib" />
 
             <executable targetfile="$INSTALL_PATH/pgsql/lib/postgis-2.1.so" keep="true" />
             <executable targetfile="$INSTALL_PATH/pgsql/lib/rtpostgis-2.1.so" keep="true" />
@@ -300,6 +301,7 @@
             <executable targetfile="$INSTALL_PATH/pgsql/lib/libgeos_c.so.1.8.2" keep="true" />
             <executable targetfile="$INSTALL_PATH/pgsql/lib/libproj.so.9.0.0" keep="true" />
             <executable targetfile="$INSTALL_PATH/pgsql/lib/libgdal.so.1.18.2" keep="true" />
+            <executable targetfile="$INSTALL_PATH/pgsql/lib/libjson-c.so.2.0.1" keep="true" />
 
             <fileset dir="postgis-2.1.7/extensions/postgis/sql" targetdir="$INSTALL_PATH/pgsql/share/extension">
             <exclude name="postgis.sql" />

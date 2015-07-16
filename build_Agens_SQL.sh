@@ -4,11 +4,6 @@
 Agens_SQL_version="Agens_SQL_V1.0.0"
 AGENS_TEMP_DIR=`pwd`/agens_temp
 
-if [ -d "$AGENS_TEMP_DIR" ]; then
-	echo "The temp directory already exists!"
-	exit 1;
-fi
-
 # postgresql
 cd postgresql-9.4.4/
 ./configure --prefix=$AGENS_TEMP_DIR/pgsql --with-pgport=6179 --with-gssapi --with-ldap --with-tcl --with-openssl --enable-nls --enable-thread-safety --with-perl --with-python --with-libxml --with-libxslt --with-pam;
@@ -37,8 +32,13 @@ cd gdal-1.11.2/
 ./configure --prefix=$AGENS_TEMP_DIR/gdal; make; make install;
 cd ..
 
+# json-c
+cd json-c-0.11/
+./configure --prefix=$AGENS_TEMP_DIR/json-c; make; make install;
+cd ..
+
 cd postgis-2.1.7/
-LD_LIBRARY_PATH=$AGENS_TEMP_DIR/pgsql/lib:$LD_LIBRARY_PATH PATH=$AGENS_TEMP_DIR/pgsql/bin:$PATH ./configure --with-pgconfig=$AGENS_TEMP_DIR/pgsql/bin/pg_config --with-geosconfig=$AGENS_TEMP_DIR/geos/bin/geos-config --with-gdalconfig=$AGENS_TEMP_DIR/gdal/bin/gdal-config --with-projdir=$AGENS_TEMP_DIR/proj
+LD_LIBRARY_PATH=$AGENS_TEMP_DIR/pgsql/lib:$LD_LIBRARY_PATH PATH=$AGENS_TEMP_DIR/pgsql/bin:$PATH ./configure --with-pgconfig=$AGENS_TEMP_DIR/pgsql/bin/pg_config --with-geosconfig=$AGENS_TEMP_DIR/geos/bin/geos-config --with-gdalconfig=$AGENS_TEMP_DIR/gdal/bin/gdal-config --with-projdir=$AGENS_TEMP_DIR/proj --with-jsondir=$AGENS_TEMP_DIR/json-c
 make
 cd ..
 
