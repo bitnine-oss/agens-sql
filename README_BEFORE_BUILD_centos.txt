@@ -26,7 +26,7 @@ yum install -y gcc zlib-devel.* readline-devel.*
 
 # "make world; make install-world" 명령어를 이용해 contrib을 build하기 위해서는 각각의 필요한 의존성 패키지가 설치되어 있어야 합니다.
 # postgres에서 docbook을 설치하기 위한 패키지
-yum install -y openjade.* docbook-style-dsssl.noarch
+yum install -y openjade.* docbook-style-dsssl.noarch docbook-style-xsl.noarch
 
 # --with-perl을 위한 패키지
 yum install -y perl-YAML* perl-ExtUtils*
