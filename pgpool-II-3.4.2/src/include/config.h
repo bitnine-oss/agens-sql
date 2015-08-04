@@ -54,7 +54,7 @@
 #define HAVE_LIBCRYPT 1
 
 /* Define to 1 if you have the `crypto' library (-lcrypto). */
-/* #undef HAVE_LIBCRYPTO */
+#define HAVE_LIBCRYPTO 1
 
 /* Define to 1 if you have the `gen' library (-lgen). */
 /* #undef HAVE_LIBGEN */
@@ -78,7 +78,7 @@
 #define HAVE_LIBNSL 1
 
 /* Define to 1 if you have the `pam' library (-lpam). */
-/* #undef HAVE_LIBPAM */
+#define HAVE_LIBPAM 1
 
 /* Define to 1 if you have the `pq' library (-lpq). */
 #define HAVE_LIBPQ 1
@@ -93,7 +93,7 @@
 /* #undef HAVE_LIBSOCKET */
 
 /* Define to 1 if you have the `ssl' library (-lssl). */
-/* #undef HAVE_LIBSSL */
+#define HAVE_LIBSSL 1
 
 /* Define to 1 if constants of type 'long long int' should have the suffix LL.
    */
@@ -118,7 +118,7 @@
 #define HAVE_NETINET_TCP_H 1
 
 /* Define to 1 if you have the <openssl/ssl.h> header file. */
-/* #undef HAVE_OPENSSL_SSL_H */
+#define HAVE_OPENSSL_SSL_H 1
 
 /* Define to 1 if you have the <pam/pam_appl.h> header file. */
 /* #undef HAVE_PAM_PAM_APPL_H */
@@ -130,7 +130,7 @@
 /* #undef HAVE_PSTAT */
 
 /* Define to 1 if you have the <security/pam_appl.h> header file. */
-/* #undef HAVE_SECURITY_PAM_APPL_H */
+#define HAVE_SECURITY_PAM_APPL_H 1
 
 /* Define to 1 if you have the `select' function. */
 #define HAVE_SELECT 1
@@ -312,7 +312,7 @@
 /* #undef USE_MEMCACHED */
 
 /* Define to 1 to build with PAM support. (--with-pam) */
-/* #undef USE_PAM */
+#define USE_PAM 1
 
 /* Use replacement snprintf() functions. */
 /* #undef USE_REPL_SNPRINTF */
@@ -322,7 +322,7 @@
 /* #undef USE_SEQUENCE_LOCK */
 
 /* Define to 1 to build with SSL support. (--with-openssl) */
-/* #undef USE_SSL */
+#define USE_SSL 1
 
 /* Define to 1 if you want to use table lock against the target table for
    insert_lock. (--enable-table-lock) */

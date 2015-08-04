@@ -1,36 +1,27 @@
-json_object_iterator.lo: json_object_iterator.c /usr/include/stddef.h \
- /usr/include/sys/cdefs.h /usr/include/machine/cdefs.h \
- /usr/include/sys/cdefs_elf.h /usr/include/sys/featuretest.h \
- /usr/include/machine/ansi.h /usr/include/machine/int_types.h \
- /usr/include/sys/null.h json.h bits.h debug.h /usr/include/stdlib.h \
- /usr/include/sys/types.h /usr/include/machine/types.h \
- /usr/include/sys/ansi.h /usr/include/machine/endian.h \
- /usr/include/sys/endian.h /usr/include/machine/endian_machdep.h \
- /usr/include/machine/bswap.h /usr/include/machine/byte_swap.h \
- /usr/include/sys/bswap.h /usr/include/sys/fd_set.h \
- /usr/include/pthread_types.h linkhash.h json_object.h json_inttypes.h \
- json_config.h /usr/include/inttypes.h /usr/include/sys/inttypes.h \
- /usr/include/sys/stdint.h /usr/include/machine/int_mwgwtypes.h \
- /usr/include/machine/int_limits.h /usr/include/machine/int_const.h \
- /usr/include/machine/wchar_limits.h /usr/include/machine/int_fmtio.h \
- arraylist.h json_util.h json_tokener.h json_object_iterator.h \
- json_c_version.h json_object_private.h
+json_object_iterator.lo: json_object_iterator.c \
+ /usr/include/stdc-predef.h \
+ /usr/lib/gcc/x86_64-redhat-linux/4.8.3/include/stddef.h json.h bits.h \
+ debug.h /usr/include/stdlib.h /usr/include/features.h \
+ /usr/include/sys/cdefs.h /usr/include/bits/wordsize.h \
+ /usr/include/gnu/stubs.h /usr/include/gnu/stubs-64.h \
+ /usr/include/bits/waitflags.h /usr/include/bits/waitstatus.h \
+ /usr/include/endian.h /usr/include/bits/endian.h \
+ /usr/include/bits/byteswap.h /usr/include/bits/types.h \
+ /usr/include/bits/typesizes.h /usr/include/bits/byteswap-16.h \
+ /usr/include/xlocale.h /usr/include/sys/types.h /usr/include/time.h \
+ /usr/include/sys/select.h /usr/include/bits/select.h \
+ /usr/include/bits/sigset.h /usr/include/bits/time.h \
+ /usr/include/sys/sysmacros.h /usr/include/bits/pthreadtypes.h \
+ /usr/include/alloca.h /usr/include/bits/stdlib-float.h linkhash.h \
+ json_object.h json_inttypes.h json_config.h /usr/include/inttypes.h \
+ /usr/lib/gcc/x86_64-redhat-linux/4.8.3/include/stdint.h \
+ /usr/include/stdint.h /usr/include/bits/wchar.h arraylist.h json_util.h \
+ json_tokener.h json_object_iterator.h json_c_version.h \
+ json_object_private.h
 
-/usr/include/stddef.h:
+/usr/include/stdc-predef.h:
 
-/usr/include/sys/cdefs.h:
-
-/usr/include/machine/cdefs.h:
-
-/usr/include/sys/cdefs_elf.h:
-
-/usr/include/sys/featuretest.h:
-
-/usr/include/machine/ansi.h:
-
-/usr/include/machine/int_types.h:
-
-/usr/include/sys/null.h:
+/usr/lib/gcc/x86_64-redhat-linux/4.8.3/include/stddef.h:
 
 json.h:
 
@@ -40,27 +31,53 @@ debug.h:
 
 /usr/include/stdlib.h:
 
+/usr/include/features.h:
+
+/usr/include/sys/cdefs.h:
+
+/usr/include/bits/wordsize.h:
+
+/usr/include/gnu/stubs.h:
+
+/usr/include/gnu/stubs-64.h:
+
+/usr/include/bits/waitflags.h:
+
+/usr/include/bits/waitstatus.h:
+
+/usr/include/endian.h:
+
+/usr/include/bits/endian.h:
+
+/usr/include/bits/byteswap.h:
+
+/usr/include/bits/types.h:
+
+/usr/include/bits/typesizes.h:
+
+/usr/include/bits/byteswap-16.h:
+
+/usr/include/xlocale.h:
+
 /usr/include/sys/types.h:
 
-/usr/include/machine/types.h:
+/usr/include/time.h:
 
-/usr/include/sys/ansi.h:
+/usr/include/sys/select.h:
 
-/usr/include/machine/endian.h:
+/usr/include/bits/select.h:
 
-/usr/include/sys/endian.h:
+/usr/include/bits/sigset.h:
 
-/usr/include/machine/endian_machdep.h:
+/usr/include/bits/time.h:
 
-/usr/include/machine/bswap.h:
+/usr/include/sys/sysmacros.h:
 
-/usr/include/machine/byte_swap.h:
+/usr/include/bits/pthreadtypes.h:
 
-/usr/include/sys/bswap.h:
+/usr/include/alloca.h:
 
-/usr/include/sys/fd_set.h:
-
-/usr/include/pthread_types.h:
+/usr/include/bits/stdlib-float.h:
 
 linkhash.h:
 
@@ -72,19 +89,11 @@ json_config.h:
 
 /usr/include/inttypes.h:
 
-/usr/include/sys/inttypes.h:
+/usr/lib/gcc/x86_64-redhat-linux/4.8.3/include/stdint.h:
 
-/usr/include/sys/stdint.h:
+/usr/include/stdint.h:
 
-/usr/include/machine/int_mwgwtypes.h:
-
-/usr/include/machine/int_limits.h:
-
-/usr/include/machine/int_const.h:
-
-/usr/include/machine/wchar_limits.h:
-
-/usr/include/machine/int_fmtio.h:
+/usr/include/bits/wchar.h:
 
 arraylist.h:
 

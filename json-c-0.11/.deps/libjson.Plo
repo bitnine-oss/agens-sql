@@ -1,11 +1,12 @@
-libjson.lo: libjson.c json_object.h json_inttypes.h json_config.h \
- /usr/include/inttypes.h /usr/include/sys/cdefs.h \
- /usr/include/machine/cdefs.h /usr/include/sys/cdefs_elf.h \
- /usr/include/sys/inttypes.h /usr/include/sys/stdint.h \
- /usr/include/machine/int_types.h /usr/include/machine/int_mwgwtypes.h \
- /usr/include/machine/int_limits.h /usr/include/machine/int_const.h \
- /usr/include/machine/wchar_limits.h /usr/include/machine/int_fmtio.h \
- /usr/include/machine/ansi.h
+libjson.lo: libjson.c /usr/include/stdc-predef.h json_object.h \
+ json_inttypes.h json_config.h /usr/include/inttypes.h \
+ /usr/include/features.h /usr/include/sys/cdefs.h \
+ /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h \
+ /usr/include/gnu/stubs-64.h \
+ /usr/lib/gcc/x86_64-redhat-linux/4.8.3/include/stdint.h \
+ /usr/include/stdint.h /usr/include/bits/wchar.h
+
+/usr/include/stdc-predef.h:
 
 json_object.h:
 
@@ -15,26 +16,18 @@ json_config.h:
 
 /usr/include/inttypes.h:
 
+/usr/include/features.h:
+
 /usr/include/sys/cdefs.h:
 
-/usr/include/machine/cdefs.h:
+/usr/include/bits/wordsize.h:
 
-/usr/include/sys/cdefs_elf.h:
+/usr/include/gnu/stubs.h:
 
-/usr/include/sys/inttypes.h:
+/usr/include/gnu/stubs-64.h:
 
-/usr/include/sys/stdint.h:
+/usr/lib/gcc/x86_64-redhat-linux/4.8.3/include/stdint.h:
 
-/usr/include/machine/int_types.h:
+/usr/include/stdint.h:
 
-/usr/include/machine/int_mwgwtypes.h:
-
-/usr/include/machine/int_limits.h:
-
-/usr/include/machine/int_const.h:
-
-/usr/include/machine/wchar_limits.h:
-
-/usr/include/machine/int_fmtio.h:
-
-/usr/include/machine/ansi.h:
+/usr/include/bits/wchar.h:

@@ -1,58 +1,81 @@
-arraylist.lo: arraylist.c config.h /usr/include/stdlib.h \
- /usr/include/sys/cdefs.h /usr/include/machine/cdefs.h \
- /usr/include/sys/cdefs_elf.h /usr/include/sys/featuretest.h \
- /usr/include/sys/types.h /usr/include/machine/types.h \
- /usr/include/machine/int_types.h /usr/include/machine/ansi.h \
- /usr/include/sys/ansi.h /usr/include/machine/endian.h \
- /usr/include/sys/endian.h /usr/include/machine/endian_machdep.h \
- /usr/include/machine/bswap.h /usr/include/machine/byte_swap.h \
- /usr/include/sys/bswap.h /usr/include/sys/fd_set.h \
- /usr/include/pthread_types.h /usr/include/sys/null.h \
- /usr/include/string.h /usr/include/strings.h bits.h arraylist.h
+arraylist.lo: arraylist.c /usr/include/stdc-predef.h config.h \
+ /usr/include/stdlib.h /usr/include/features.h /usr/include/sys/cdefs.h \
+ /usr/include/bits/wordsize.h /usr/include/gnu/stubs.h \
+ /usr/include/gnu/stubs-64.h \
+ /usr/lib/gcc/x86_64-redhat-linux/4.8.3/include/stddef.h \
+ /usr/include/bits/waitflags.h /usr/include/bits/waitstatus.h \
+ /usr/include/endian.h /usr/include/bits/endian.h \
+ /usr/include/bits/byteswap.h /usr/include/bits/types.h \
+ /usr/include/bits/typesizes.h /usr/include/bits/byteswap-16.h \
+ /usr/include/xlocale.h /usr/include/sys/types.h /usr/include/time.h \
+ /usr/include/sys/select.h /usr/include/bits/select.h \
+ /usr/include/bits/sigset.h /usr/include/bits/time.h \
+ /usr/include/sys/sysmacros.h /usr/include/bits/pthreadtypes.h \
+ /usr/include/alloca.h /usr/include/bits/stdlib-float.h \
+ /usr/include/string.h /usr/include/bits/string.h \
+ /usr/include/bits/string2.h bits.h arraylist.h
+
+/usr/include/stdc-predef.h:
 
 config.h:
 
 /usr/include/stdlib.h:
 
+/usr/include/features.h:
+
 /usr/include/sys/cdefs.h:
 
-/usr/include/machine/cdefs.h:
+/usr/include/bits/wordsize.h:
 
-/usr/include/sys/cdefs_elf.h:
+/usr/include/gnu/stubs.h:
 
-/usr/include/sys/featuretest.h:
+/usr/include/gnu/stubs-64.h:
+
+/usr/lib/gcc/x86_64-redhat-linux/4.8.3/include/stddef.h:
+
+/usr/include/bits/waitflags.h:
+
+/usr/include/bits/waitstatus.h:
+
+/usr/include/endian.h:
+
+/usr/include/bits/endian.h:
+
+/usr/include/bits/byteswap.h:
+
+/usr/include/bits/types.h:
+
+/usr/include/bits/typesizes.h:
+
+/usr/include/bits/byteswap-16.h:
+
+/usr/include/xlocale.h:
 
 /usr/include/sys/types.h:
 
-/usr/include/machine/types.h:
+/usr/include/time.h:
 
-/usr/include/machine/int_types.h:
+/usr/include/sys/select.h:
 
-/usr/include/machine/ansi.h:
+/usr/include/bits/select.h:
 
-/usr/include/sys/ansi.h:
+/usr/include/bits/sigset.h:
 
-/usr/include/machine/endian.h:
+/usr/include/bits/time.h:
 
-/usr/include/sys/endian.h:
+/usr/include/sys/sysmacros.h:
 
-/usr/include/machine/endian_machdep.h:
+/usr/include/bits/pthreadtypes.h:
 
-/usr/include/machine/bswap.h:
+/usr/include/alloca.h:
 
-/usr/include/machine/byte_swap.h:
-
-/usr/include/sys/bswap.h:
-
-/usr/include/sys/fd_set.h:
-
-/usr/include/pthread_types.h:
-
-/usr/include/sys/null.h:
+/usr/include/bits/stdlib-float.h:
 
 /usr/include/string.h:
 
-/usr/include/strings.h:
+/usr/include/bits/string.h:
+
+/usr/include/bits/string2.h:
 
 bits.h:
 

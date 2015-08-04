@@ -1,4 +1,4 @@
-prefix=/home/erh/json-c/jci11
+prefix=/home/hcjeon/working_dir/installer/agens-sql/agens_temp/json-c
 exec_prefix=${prefix}
 libdir=${exec_prefix}/lib
 includedir=${prefix}/include

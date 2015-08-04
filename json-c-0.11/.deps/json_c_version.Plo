@@ -1,4 +1,7 @@
-json_c_version.lo: json_c_version.c config.h json_c_version.h
+json_c_version.lo: json_c_version.c /usr/include/stdc-predef.h config.h \
+ json_c_version.h
+
+/usr/include/stdc-predef.h:
 
 config.h:
 
