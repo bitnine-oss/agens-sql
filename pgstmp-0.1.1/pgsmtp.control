@@ -1,0 +1,5 @@
+#extesion
+comment = 'Extension to wsend mail by smtp using plpython'
+default_version = '0.1.1'
+relocatable = true
+superuser = true

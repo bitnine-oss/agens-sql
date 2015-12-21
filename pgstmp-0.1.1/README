@@ -1,0 +1,45 @@
+Function to send mail by smtp in 9.3+
+#No tested in 9.2-
+======================================
+
+This PostgreSQL extension implements a functions to send mail and attach by smtp using plpython
+
+
+IMPORTANT: There're bugs in the existing version, please contact to me.
+This extentsion in only executable by admid user, because use untrusted language plpython
+
+
+Building and install
+--------
+Install postgresql-plpython:sudo apt-get install postgresql-plpython-9.x (where x >=3)
+Run make install 
+In postgresql execute: CREATE EXTENSION plpythonu;
+              create extension pgsmtp;
+
+
+
+
+Example
+-------
+#insert data(user, smtpserver,port,password) about the sender user un into table pgsmtp.user_smtp_data, is required to send mail
+
+INSERT INTO pgsmtp.user_smtp_data VALUES ('asoto@gmail.com','smtp.gmail.com',587,'mypass')
+
+#sending mail pgsmtp.pg_smtp_mail(sender, receiver, cc,topic,text) with cc
+
+select pgsmtp.pg_smtp_mail('asoto@gmail.com','asoto@gmail.com',array['mail@mail.com','other@mail.com'],'Test mail','Mail from postgres using pgsmtp :D');
+
+#sending mail pgsmtp.pg_smtp_mail(sender, receiver, cc,topic,text) without  cc
+
+select pgsmtp.pg_smtp_mail('asoto@gmail.com','asoto@gmail.com',array[''],'Test mail','Mail from postgres using pgsmtp :D');
+
+
+#sending mail pgsmtp.pg_smtp_mail(sender, receiver, cc,topic,text) with attach
+
+select pgsmtp.pg_smtp_mail_attach('asoto@gmail.com','asoto@gmail.com',array[''],'Test mail','Mail from postgres using pgsmtp :D',array['/tmp/adjunto.txt']);
+
+
+-- 
+Anthony R. Sotolongo leon
+asotolongo@gmail.com
+
