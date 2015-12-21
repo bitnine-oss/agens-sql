@@ -56,8 +56,24 @@ cd ..
 # skytools
 cd skytools-3.2
 ./configure --prefix=$AGENS_TEMP_DIR/skytools --with-pgconfig=$AGENS_TEMP_DIR/pgsql/bin/pg_config
+./configure --prefix=$AGENS_TEMP_DIR/skytools --with-pgconfig=$AGENS_TEMP_DIR/pgsql/bin/pg_config --datarootdir=$AGENS_TEMP_DIR/skytools/share --datadir=$AGENS_TEMP_DIR/skytools --mandir=$AGENS_TEMP_DIR/skytools/man --docdir=$AGENS_TEMP_DIR/skytools/doc/skytools --with-skylog --with-sk3-subdir --with-libevent=$AGENS_TEMP_DIR/libevent
 make; make install;
 cd ..
+mkdir -p $AGENS_TEMP_DIR/skytools/into_pg/lib
+mv $AGENS_TEMP_DIR/pgsql/lib/pgq_* $AGENS_TEMP_DIR/skytools/into_pg/lib
+mkdir -p $AGENS_TEMP_DIR/skytools/into_pg/share/contrib
+mv $AGENS_TEMP_DIR/pgsql/share/contrib/pgq* $AGENS_TEMP_DIR/skytools/into_pg/share/contrib/
+mv $AGENS_TEMP_DIR/pgsql/share/contrib/newgrants_* $AGENS_TEMP_DIR/skytools/into_pg/share/contrib/
+mv $AGENS_TEMP_DIR/pgsql/share/contrib/oldgrants_* $AGENS_TEMP_DIR/skytools/into_pg/share/contrib/
+mv $AGENS_TEMP_DIR/pgsql/share/contrib/londiste* $AGENS_TEMP_DIR/skytools/into_pg/share/contrib/
+mv $AGENS_TEMP_DIR/pgsql/share/contrib/uninstall_pgq.sql $AGENS_TEMP_DIR/skytools/into_pg/share/contrib/
+mv $AGENS_TEMP_DIR/pgsql/share/contrib/txid.sql $AGENS_TEMP_DIR/skytools/into_pg/share/contrib/
+mkdir -p $AGENS_TEMP_DIR/skytools/into_pg/share/doc/extension
+mv $AGENS_TEMP_DIR/pgsql/share/doc/extension/README.pgq* $AGENS_TEMP_DIR/skytools/into_pg/share/doc/extension/
+mkdir -p $AGENS_TEMP_DIR/skytools/into_pg/share/extension
+mv $AGENS_TEMP_DIR/pgsql/share/extension/londiste* $AGENS_TEMP_DIR/skytools/into_pg/share/extension/
+mv $AGENS_TEMP_DIR/pgsql/share/extension/pgq* $AGENS_TEMP_DIR/skytools/into_pg/share/extension/
+
 
 # pg_plan_hint
 cd pg_hint_plan94-1.1.3
@@ -76,7 +92,7 @@ cd ..
 # slony
 cd slony1-2.2.4/
 ./configure --prefix=$AGENS_TEMP_DIR/slon1 --with-pgconfigdir=$AGENS_TEMP_DIR/pgsql/bin --with-pgbindir=$AGENS_TEMP_DIR/pgsql/bin --with-pgincludedir=$AGENS_TEMP_DIR/pgsql/include --with-pgincludeserverdir=$AGENS_TEMP_DIR/pgsql/include/server --with-pglibdir=$AGENS_TEMP_DIR/pgsql/lib --with-pgpkglibdir=$AGENS_TEMP_DIR/pgsql/lib --with-pgsharedir=$AGENS_TEMP_DIR/pgsql/share --with-perltools=$AGENS_TEMP_DIR/slon1/perl_tools --with-pgport=yes --libexecdir=$AGENS_TEMP_DIR/slon1/exec --with-perlsharedir=$AGENS_TEMP_DIR/slon1/perl_sharedir
-make
+make;
 cp ./src/backend/slony1_base.sql ./src/backend/slony1_base.2.2.4.sql
 cp ./src/backend/slony1_base.v83.sql ./src/backend/slony1_base.v83.2.2.4.sql
 cp ./src/backend/slony1_base.v84.sql ./src/backend/slony1_base.v84.2.2.4.sql

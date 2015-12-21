@@ -382,23 +382,23 @@
             <description>Skytools</description>
 
             <!-- Skytools into PostgreSQL dir (Library) -->
-            <fileset dir="/home/hcjeon/working_space/tmp_sky/into_pg/lib" targetdir="$INSTALL_PATH/pgsql/lib" />
+            <fileset dir="agens_temp/skytools/into_pg/lib" targetdir="$INSTALL_PATH/pgsql/lib" />
             <executable targetfile="$INSTALL_PATH/pgsql/lib/pgq_lowlevel.so" keep="true" />
             <executable targetfile="$INSTALL_PATH/pgsql/lib/pgq_triggers.so" keep="true" /> 
 
             <!-- Skytools into PostgreSQL dir (Share) -->
             <!-- Contrib -->
-            <fileset dir="/home/hcjeon/working_space/tmp_sky/into_pg/share/contrib" targetdir="$INSTALL_PATH/pgsql/share/contrib" />
+            <fileset dir="agens_temp/skytools/into_pg/share/contrib" targetdir="$INSTALL_PATH/pgsql/share/contrib" />
             <!-- Doc -->
-            <fileset dir="/home/hcjeon/working_space/tmp_sky/into_pg/share/doc/extension" targetdir="$INSTALL_PATH/pgsql/share/doc/extension" />
+            <fileset dir="agens_temp/skytools/into_pg/share/doc/extension" targetdir="$INSTALL_PATH/pgsql/share/doc/extension" />
             <!-- Extension -->
-            <fileset dir="/home/hcjeon/working_space/tmp_sky/into_pg/share/extension" targetdir="$INSTALL_PATH/pgsql/share/extension" />
+            <fileset dir="agens_temp/skytools/into_pg/share/extension" targetdir="$INSTALL_PATH/pgsql/share/extension" />
 
             <!-- Skytools Library Dir -->
-            <fileset dir="/home/hcjeon/working_space/tmp_sky/lib" targetdir="$INSTALL_PATH/skytools/lib" />
+            <fileset dir="agens_temp/skytools/lib" targetdir="$INSTALL_PATH/skytools/lib" />
 
             <!-- Skytools Library64 Dir -->
-            <fileset dir="/home/hcjeon/working_space/tmp_sky/lib64" targetdir="$INSTALL_PATH/skytools/lib64" />
+            <fileset dir="agens_temp/skytools/lib64" targetdir="$INSTALL_PATH/skytools/lib64" />
             <executable targetfile="$INSTALL_PATH/skytools/lib64/python2.6/site-packages/skytools-3.0/skytools/_chashtext.so" keep="true" />
             <executable targetfile="$INSTALL_PATH/skytools/lib64/python2.6/site-packages/skytools-3.0/skytools/_cquoting.so" keep="true" />
 
@@ -407,7 +407,7 @@
             <executable targetfile="$INSTALL_PATH/pgsql/lib/libevent-2.0.so.5.1.10" keep="true" />
 
             <!-- Skytools Dir -->
-            <fileset dir="/home/hcjeon/working_space/tmp_sky/skytools" targetdir="$INSTALL_PATH/skytools" />
+            <fileset dir="agens_temp/skytools/skytools" targetdir="$INSTALL_PATH/skytools" />
 
             <!-- Executable Binary Files -->
             <executable targetfile="$INSTALL_PATH/skytools/bin/data_maintainer3" keep="true" />
