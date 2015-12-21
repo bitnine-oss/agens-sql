@@ -85,6 +85,7 @@ cp ./src/backend/slony1_funcs.v83.sql ./src/backend/slony1_funcs.v83.2.2.4.sql
 cp ./src/backend/slony1_funcs.v84.sql ./src/backend/slony1_funcs.v84.2.2.4.sql
 #make install
 cd ..
+#./configure --prefix=/home/hcjeon/agens-sql/agens_temp/slony --with-pgconfigdir=/home/hcjeon/agens-sql/agens_temp/pgsql/bin --with-perltools=/home/hcjeon/agens-sql/agens_temp/slony/perltools/
 
 # powa
 cd powa-archivist-REL_2_0_0/
@@ -106,5 +107,6 @@ fi
 
 ./izpack/bin/compile res/installer/install_enterprise.xml -b ./ -o distributions/"$Agens_SQL_version"_Enterprise_Edition.jar -k standard
 ./izpack/bin/compile res/installer/install_standard.xml -b ./ -o distributions/"$Agens_SQL_version"_Standard_Edition.jar -k standard
+
 
 
