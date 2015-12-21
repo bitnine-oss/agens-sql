@@ -1,24 +1,28 @@
-<?xml version="1.0" encoding="iso-8859-1" standalone="yes" ?>
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <installation version="1.0">
 
+    <!-- Information -->
     <info>
         <appname>Agens_SQL</appname>
         <appversion>V1.0.0_Enterprise_Edition</appversion>
         <authors>
             <author name="" email="bitnine@agens.co.kr"/>
         </authors>
-    <url>http://www.agens.co.kr</url>
+        <url>http://www.agens.co.kr</url>
     </info>
 
+    <!-- GUI -->
     <guiprefs width="640" height="480" resizable="yes">
         <modifier key="useHeadingPanel" value="yes"/>
         <modifier key="headingImageOnLeft" value="no"/>
     </guiprefs>
 
+    <!-- Language -->
     <locale>
         <langpack iso3="kor"/>
     </locale>
 
+    <!-- Resource -->
     <resources>
         <res id="Heading.image" src="res/installer/image_Heading.png"/>
         <res id="LicencePanel.licence" src="res/installer/Licence_enterprise.txt"/>
@@ -28,12 +32,14 @@
         <res id="packsLang.xml_kor" src="res/installer/Agens-SQL_PacksLang.xml_kor"/>
     </resources>
 
+    <!-- Dynamic variables -->
     <variables>
         <variable name="agens_sql.data_path" value="$INSTALL_PATH/pgsql/data" />
         <variable name="agens_sql.port" value="6179" />
-	<variable name="TargetPanel.dir.unix" value="$USER_HOME/Agens_SQL" />
+        <variable name="TargetPanel.dir.unix" value="$USER_HOME/Agens_SQL" />
     </variables>
 
+    <!-- Installer panels -->
     <panels>
         <panel classname="HelloPanel" />
         <panel classname="InfoPanel"/>
@@ -47,11 +53,13 @@
         <panel classname="FinishPanel" />
     </panels>
 
+    <!-- Package list start -->
     <packs>
 
         <!-- PostgreSQL -->
         <pack name="PostgreSQL" id="pgsql" required="no" >
             <description>PostgreSQL</description>
+
             <fileset dir="agens_temp/pgsql" targetdir="$INSTALL_PATH/pgsql">
                 <exclude name="bin/postmaster" />
                 <exclude name="lib/libecpg.so" />
@@ -63,7 +71,14 @@
                 <exclude name="lib/libpq.so" />
                 <exclude name="lib/libpq.so.5" />
             </fileset>
-            <!-- set executable pgsql/bin -->
+
+            <!-- System Libraries -->
+            <file src="/usr/lib64/libssl.so.1.0.1e" targetdir="$INSTALL_PATH/pgsql/lib/" />
+            <executable targetfile="$INSTALL_PATH/pgsql/lib/libssl.so.1.0.1e" keep="true" />
+            <file src="/usr/lib64/libcrypto.so.1.0.1e" targetdir="$INSTALL_PATH/pgsql/lib/" />
+            <executable targetfile="$INSTALL_PATH/pgsql/lib/libcrypto.so.1.0.1e" keep="true" />
+
+            <!-- Set Executable Binaries -->
             <executable targetfile="$INSTALL_PATH/pgsql/bin/clusterdb" keep="true" />
             <executable targetfile="$INSTALL_PATH/pgsql/bin/createdb" keep="true" />
             <executable targetfile="$INSTALL_PATH/pgsql/bin/createlang" keep="true" />
@@ -101,10 +116,10 @@
             <executable targetfile="$INSTALL_PATH/pgsql/bin/vacuumdb" keep="true" />
             <executable targetfile="$INSTALL_PATH/pgsql/bin/vacuumlo" keep="true" />
 
-            <!-- set executable pgsql/lib -->
+            <!-- Set Executable Libraries -->
             <executable targetfile="$INSTALL_PATH/pgsql/lib/_int.so" keep="true" />
-	    <executable targetfile="$INSTALL_PATH/pgsql/lib/adminpack.so" keep="true" />
-	    <executable targetfile="$INSTALL_PATH/pgsql/lib/ascii_and_mic.so" keep="true" />
+            <executable targetfile="$INSTALL_PATH/pgsql/lib/adminpack.so" keep="true" />
+            <executable targetfile="$INSTALL_PATH/pgsql/lib/ascii_and_mic.so" keep="true" />
             <executable targetfile="$INSTALL_PATH/pgsql/lib/auth_delay.so" keep="true" />
             <executable targetfile="$INSTALL_PATH/pgsql/lib/auto_explain.so" keep="true" />
             <executable targetfile="$INSTALL_PATH/pgsql/lib/autoinc.so" keep="true" />
@@ -149,8 +164,6 @@
             <executable targetfile="$INSTALL_PATH/pgsql/lib/pg_trgm.so" keep="true" />
             <executable targetfile="$INSTALL_PATH/pgsql/lib/pg_upgrade_support.so" keep="true" />
             <executable targetfile="$INSTALL_PATH/pgsql/lib/pgcrypto.so" keep="true" />
-            <executable targetfile="$INSTALL_PATH/pgsql/lib/pgq_lowlevel.so" keep="true" />
-            <executable targetfile="$INSTALL_PATH/pgsql/lib/pgq_triggers.so" keep="true" />
             <executable targetfile="$INSTALL_PATH/pgsql/lib/pgrowlocks.so" keep="true" />
             <executable targetfile="$INSTALL_PATH/pgsql/lib/pgstattuple.so" keep="true" />
             <executable targetfile="$INSTALL_PATH/pgsql/lib/pgxml.so" keep="true" />
@@ -190,33 +203,43 @@
             <executable targetfile="$INSTALL_PATH/pgsql/lib/worker_spi.so" keep="true" />
             <executable targetfile="$INSTALL_PATH/pgsql/lib/pgxs/config/install-sh" keep="true" />
             <executable targetfile="$INSTALL_PATH/pgsql/lib/pgxs/src/test/regress/pg_regress" keep="true" />
-            <file src="res/installer/compile_pgsql.sh" targetdir="$INSTALL_PATH/script"/>
-            <executable targetfile="$INSTALL_PATH/script/compile_pgsql.sh" stage="postinstall" />
-            <parsable targetfile="$INSTALL_PATH/script/compile_pgsql.sh"/>
 
-            <file src="res/installer/start_server.sh" targetdir="$INSTALL_PATH/script"/>
-            <executable targetfile="$INSTALL_PATH/script/start_server.sh" />
-            <parsable targetfile="$INSTALL_PATH/script/start_server.sh"/>
-            <file src="res/installer/stop_server.sh" targetdir="$INSTALL_PATH/script"/>
-            <executable targetfile="$INSTALL_PATH/script/stop_server.sh" stage="uninstall" />
-            <parsable targetfile="$INSTALL_PATH/script/stop_server.sh"/>
-            <file src="res/installer/restart_server.sh" targetdir="$INSTALL_PATH/script"/>
-            <executable targetfile="$INSTALL_PATH/script/restart_server.sh" />
-            <parsable targetfile="$INSTALL_PATH/script/restart_server.sh"/>
-            <file src="res/installer/connect_to_server.sh" targetdir="$INSTALL_PATH/script"/>
-            <executable targetfile="$INSTALL_PATH/script/connect_to_server.sh" />
-            <parsable targetfile="$INSTALL_PATH/script/connect_to_server.sh"/>
+            <!-- Shell Script -->
+            <file src="res/installer/compile_pgsql.sh" targetdir="$INSTALL_PATH/pgsql/script"/>
+            <executable targetfile="$INSTALL_PATH/pgsql/script/compile_pgsql.sh" stage="postinstall" />
+            <parsable targetfile="$INSTALL_PATH/pgsql/script/compile_pgsql.sh"/>
 
+            <file src="res/installer/start_server.sh" targetdir="$INSTALL_PATH/pgsql/script"/>
+            <executable targetfile="$INSTALL_PATH/pgsql/script/start_server.sh" />
+            <parsable targetfile="$INSTALL_PATH/pgsql/script/start_server.sh"/>
+
+            <file src="res/installer/stop_server.sh" targetdir="$INSTALL_PATH/pgsql/script"/>
+            <executable targetfile="$INSTALL_PATH/pgsql/script/stop_server.sh" stage="uninstall" />
+            <parsable targetfile="$INSTALL_PATH/pgsql/script/stop_server.sh"/>
+
+            <file src="res/installer/restart_server.sh" targetdir="$INSTALL_PATH/pgsql/script"/>
+            <executable targetfile="$INSTALL_PATH/pgsql/script/restart_server.sh" />
+            <parsable targetfile="$INSTALL_PATH/pgsql/script/restart_server.sh"/>
+
+            <file src="res/installer/connect_to_server.sh" targetdir="$INSTALL_PATH/pgsql/script"/>
+            <executable targetfile="$INSTALL_PATH/pgsql/script/connect_to_server.sh" />
+            <parsable targetfile="$INSTALL_PATH/pgsql/script/connect_to_server.sh"/>
+
+            <file src="res/installer/symbolic_link_python.sh" targetdir="$INSTALL_PATH/pgsql/script"/>
+            <executable targetfile="$INSTALL_PATH/pgsql/script/symbolic_link_python.sh" stage="postinstall" />
+            <parsable targetfile="$INSTALL_PATH/pgsql/script/symbolic_link_python.sh"/>
         </pack>
-
 
         <!-- pgpool-II -->
         <pack name="pgpool-II" id="pgpool" required="no">
             <description>pgpool-II</description>
+
             <fileset dir="agens_temp/pgpool" targetdir="$INSTALL_PATH/pgpool">
                 <exclude name="lib/libpcp.so" />
                 <exclude name="lib/libpcp.so.0" />
             </fileset>
+
+            <!-- Binary Files -->
             <executable targetfile="$INSTALL_PATH/pgpool/bin/pcp_attach_node" keep="true" />
             <executable targetfile="$INSTALL_PATH/pgpool/bin/pcp_detach_node" keep="true" />
             <executable targetfile="$INSTALL_PATH/pgpool/bin/pcp_node_count" keep="true" />
@@ -232,36 +255,38 @@
             <executable targetfile="$INSTALL_PATH/pgpool/bin/pg_md5" keep="true" />
             <executable targetfile="$INSTALL_PATH/pgpool/bin/pgpool" keep="true" />
 
+            <!-- Library Files -->
             <executable targetfile="$INSTALL_PATH/pgpool/lib/libpcp.la" keep="true" />
             <executable targetfile="$INSTALL_PATH/pgpool/lib/libpcp.so.0.0.0" keep="true" />
 
-	    <file src="pgpool-II-3.4.2/src/sql/pgpool-recovery/pgpool-recovery.so" targetdir="$INSTALL_PATH/pgsql/lib" />
-	    <file src="pgpool-II-3.4.2/src/sql/pgpool-regclass/pgpool-regclass.so" targetdir="$INSTALL_PATH/pgsql/lib" />
-	    <file src="pgpool-II-3.4.2/src/sql/pgpool_adm/pgpool_adm.so" targetdir="$INSTALL_PATH/pgsql/lib" />
+            <file src="pgpool-II-3.4.2/src/sql/pgpool-recovery/pgpool-recovery.so" targetdir="$INSTALL_PATH/pgsql/lib" />
             <executable targetfile="$INSTALL_PATH/pgsql/lib/pgpool-recovery.so" keep="true" />
+            <file src="pgpool-II-3.4.2/src/sql/pgpool-regclass/pgpool-regclass.so" targetdir="$INSTALL_PATH/pgsql/lib" />
             <executable targetfile="$INSTALL_PATH/pgsql/lib/pgpool-regclass.so" keep="true" />
+            <file src="pgpool-II-3.4.2/src/sql/pgpool_adm/pgpool_adm.so" targetdir="$INSTALL_PATH/pgsql/lib" />
             <executable targetfile="$INSTALL_PATH/pgsql/lib/pgpool_adm.so" keep="true" />
 
-	    <file src="pgpool-II-3.4.2/src/sql/pgpool-recovery/pgpool-recovery.sql" targetdir="$INSTALL_PATH/pgsql/share/extension" />
-	    <file src="pgpool-II-3.4.2/src/sql/pgpool-recovery/pgpool_recovery--1.1.sql" targetdir="$INSTALL_PATH/pgsql/share/extension" />
-	    <file src="pgpool-II-3.4.2/src/sql/pgpool-recovery/pgpool_recovery.control" targetdir="$INSTALL_PATH/pgsql/share/extension" />
-	    <file src="pgpool-II-3.4.2/src/sql/pgpool-regclass/pgpool-regclass.sql" targetdir="$INSTALL_PATH/pgsql/share/extension" />
-	    <file src="pgpool-II-3.4.2/src/sql/pgpool-regclass/pgpool_regclass--1.0.sql" targetdir="$INSTALL_PATH/pgsql/share/extension" />
-	    <file src="pgpool-II-3.4.2/src/sql/pgpool-regclass/pgpool_regclass.control" targetdir="$INSTALL_PATH/pgsql/share/extension" />
-	    <file src="pgpool-II-3.4.2/src/sql/pgpool_adm/pgpool_adm--1.0.sql" targetdir="$INSTALL_PATH/pgsql/share/extension" />
-	    <file src="pgpool-II-3.4.2/src/sql/pgpool_adm/pgpool_adm.control" targetdir="$INSTALL_PATH/pgsql/share/extension" />
+            <!-- SQL Files -->
+            <file src="pgpool-II-3.4.2/src/sql/pgpool-recovery/pgpool-recovery.sql" targetdir="$INSTALL_PATH/pgsql/share/extension" />
+            <file src="pgpool-II-3.4.2/src/sql/pgpool-recovery/pgpool_recovery--1.1.sql" targetdir="$INSTALL_PATH/pgsql/share/extension" />
+            <file src="pgpool-II-3.4.2/src/sql/pgpool-recovery/pgpool_recovery.control" targetdir="$INSTALL_PATH/pgsql/share/extension" />
+            <file src="pgpool-II-3.4.2/src/sql/pgpool-regclass/pgpool-regclass.sql" targetdir="$INSTALL_PATH/pgsql/share/extension" />
+            <file src="pgpool-II-3.4.2/src/sql/pgpool-regclass/pgpool_regclass--1.0.sql" targetdir="$INSTALL_PATH/pgsql/share/extension" />
+            <file src="pgpool-II-3.4.2/src/sql/pgpool-regclass/pgpool_regclass.control" targetdir="$INSTALL_PATH/pgsql/share/extension" />
+            <file src="pgpool-II-3.4.2/src/sql/pgpool_adm/pgpool_adm--1.0.sql" targetdir="$INSTALL_PATH/pgsql/share/extension" />
+            <file src="pgpool-II-3.4.2/src/sql/pgpool_adm/pgpool_adm.control" targetdir="$INSTALL_PATH/pgsql/share/extension" />
 
-
-            <file src="res/installer/compile_pgpool.sh" targetdir="$INSTALL_PATH/script"/>
-            <executable targetfile="$INSTALL_PATH/script/compile_pgpool.sh" stage="postinstall" />
-            <parsable targetfile="$INSTALL_PATH/script/compile_pgpool.sh"/>
+            <!-- Shell Script -->
+            <file src="res/installer/compile_pgpool.sh" targetdir="$INSTALL_PATH/pgsql/script"/>
+            <executable targetfile="$INSTALL_PATH/pgsql/script/compile_pgpool.sh" stage="postinstall" />
+            <parsable targetfile="$INSTALL_PATH/pgsql/script/compile_pgpool.sh"/>
         </pack>
-
 
         <!-- PostGIS -->
         <pack name="PostGIS" id="postgis" required="no">
             <description>PostGIS</description>
 
+            <!-- SQL Files -->
             <file src="postgis-2.1.7/postgis/legacy.sql" targetdir="$INSTALL_PATH/pgsql/share/contrib/postgis-2.1" />
             <file src="postgis-2.1.7/postgis/legacy_gist.sql" targetdir="$INSTALL_PATH/pgsql/share/contrib/postgis-2.1" />
             <file src="postgis-2.1.7/postgis/legacy_minimal.sql" targetdir="$INSTALL_PATH/pgsql/share/contrib/postgis-2.1" />
@@ -284,56 +309,107 @@
             <file src="postgis-2.1.7/raster/rt_pg/uninstall_rtpostgis.sql" targetdir="$INSTALL_PATH/pgsql/share/contrib/postgis-2.1" />
             <file src="postgis-2.1.7/topology/uninstall_topology.sql" targetdir="$INSTALL_PATH/pgsql/share/contrib/postgis-2.1" />
 
+            <!-- Utility Files -->
             <file src="postgis-2.1.7/utils/postgis_restore.pl" targetdir="$INSTALL_PATH/pgsql/share/contrib/postgis-2.1" />
             <executable targetfile="$INSTALL_PATH/pgsql/share/contrib/postgis-2.1/postgis_restore.pl" keep="true" />
 
+            <!-- Library Files -->
             <file src="postgis-2.1.7/postgis/postgis-2.1.so" targetdir="$INSTALL_PATH/pgsql/lib" />
-            <file src="postgis-2.1.7/raster/rt_pg/rtpostgis-2.1.so" targetdir="$INSTALL_PATH/pgsql/lib" />
-            <file src="agens_temp/geos/lib/libgeos-3.4.2.so" targetdir="$INSTALL_PATH/pgsql/lib" />
-            <file src="agens_temp/geos/lib/libgeos_c.so.1.8.2" targetdir="$INSTALL_PATH/pgsql/lib" />
-            <file src="agens_temp/proj/lib/libproj.so.9.0.0" targetdir="$INSTALL_PATH/pgsql/lib" />
-            <file src="agens_temp/gdal/lib/libgdal.so.1.18.2" targetdir="$INSTALL_PATH/pgsql/lib" />
-            <file src="agens_temp/json-c/lib/libjson-c.so.2.0.1" targetdir="$INSTALL_PATH/pgsql/lib" />
-
             <executable targetfile="$INSTALL_PATH/pgsql/lib/postgis-2.1.so" keep="true" />
+
+            <file src="postgis-2.1.7/raster/rt_pg/rtpostgis-2.1.so" targetdir="$INSTALL_PATH/pgsql/lib" />
             <executable targetfile="$INSTALL_PATH/pgsql/lib/rtpostgis-2.1.so" keep="true" />
+
+            <file src="agens_temp/geos/lib/libgeos-3.4.2.so" targetdir="$INSTALL_PATH/pgsql/lib" />
             <executable targetfile="$INSTALL_PATH/pgsql/lib/libgeos-3.4.2.so" keep="true" />
+
+            <file src="agens_temp/geos/lib/libgeos_c.so.1.8.2" targetdir="$INSTALL_PATH/pgsql/lib" />
             <executable targetfile="$INSTALL_PATH/pgsql/lib/libgeos_c.so.1.8.2" keep="true" />
+
+            <file src="agens_temp/proj/lib/libproj.so.9.0.0" targetdir="$INSTALL_PATH/pgsql/lib" />
             <executable targetfile="$INSTALL_PATH/pgsql/lib/libproj.so.9.0.0" keep="true" />
+
+            <file src="agens_temp/gdal/lib/libgdal.so.1.18.2" targetdir="$INSTALL_PATH/pgsql/lib" />
             <executable targetfile="$INSTALL_PATH/pgsql/lib/libgdal.so.1.18.2" keep="true" />
+
+            <file src="agens_temp/json-c/lib/libjson-c.so.2.0.1" targetdir="$INSTALL_PATH/pgsql/lib" />
             <executable targetfile="$INSTALL_PATH/pgsql/lib/libjson-c.so.2.0.1" keep="true" />
 
             <fileset dir="postgis-2.1.7/extensions/postgis/sql" targetdir="$INSTALL_PATH/pgsql/share/extension">
-            <exclude name="postgis.sql" />
+                <exclude name="postgis.sql" />
             </fileset>
-            <file src="postgis-2.1.7/extensions/postgis/postgis.control" targetdir="$INSTALL_PATH/pgsql/share/extension" />
-            <fileset dir="postgis-2.1.7/extensions/postgis_topology/sql/" targetdir="$INSTALL_PATH/pgsql/share/extension">
-            <exclude name="postgis_topology.sql" />
-            </fileset>
-            <file src="postgis-2.1.7/extensions/postgis_topology/postgis_topology.control" targetdir="$INSTALL_PATH/pgsql/share/extension" />
-            <fileset dir="postgis-2.1.7/extensions/postgis_tiger_geocoder/sql" targetdir="$INSTALL_PATH/pgsql/share/extension">
-            <exclude name="postgis_tiger_geocoder.sql" />
-            </fileset>
-            <file src="postgis-2.1.7/extensions/postgis_tiger_geocoder/postgis_tiger_geocoder.control" targetdir="$INSTALL_PATH/pgsql/share/extension" />
-            <file src="res/installer/compile_postgis.sh" targetdir="$INSTALL_PATH/script"/>
-            <executable targetfile="$INSTALL_PATH/script/compile_postgis.sh" stage="postinstall" />
-            <parsable targetfile="$INSTALL_PATH/script/compile_postgis.sh"/>
-        </pack>
 
+            <file src="postgis-2.1.7/extensions/postgis/postgis.control" targetdir="$INSTALL_PATH/pgsql/share/extension" />
+
+            <fileset dir="postgis-2.1.7/extensions/postgis_topology/sql/" targetdir="$INSTALL_PATH/pgsql/share/extension">
+                <exclude name="postgis_topology.sql" />
+            </fileset>
+
+            <file src="postgis-2.1.7/extensions/postgis_topology/postgis_topology.control" targetdir="$INSTALL_PATH/pgsql/share/extension" />
+
+            <fileset dir="postgis-2.1.7/extensions/postgis_tiger_geocoder/sql" targetdir="$INSTALL_PATH/pgsql/share/extension">
+                <exclude name="postgis_tiger_geocoder.sql" />
+            </fileset>
+
+            <file src="postgis-2.1.7/extensions/postgis_tiger_geocoder/postgis_tiger_geocoder.control" targetdir="$INSTALL_PATH/pgsql/share/extension" />
+
+            <!-- Shell Script -->
+            <file src="res/installer/compile_postgis.sh" targetdir="$INSTALL_PATH/pgsql/script"/>
+            <executable targetfile="$INSTALL_PATH/pgsql/script/compile_postgis.sh" stage="postinstall" />
+            <parsable targetfile="$INSTALL_PATH/pgsql/script/compile_postgis.sh"/>
+        </pack>
 
         <!-- PgBouncer -->
         <pack name="PgBouncer" id="pgbouncer" required="no">
             <description>PgBouncer</description>
 
+            <!-- Binary file -->
             <fileset dir="agens_temp/pgbouncer" targetdir="$INSTALL_PATH/pgbouncer"/>
             <executable targetfile="$INSTALL_PATH/pgbouncer/bin/pgbouncer" keep="true" />
+
+            <!-- libevent file -->
+            <file src="agens_temp/libevent/lib/libevent-2.0.so.5.1.10" targetdir="$INSTALL_PATH/pgsql/lib" />
+            <executable targetfile="$INSTALL_PATH/pgsql/lib/libevent-2.0.so.5.1.10" keep="true" />
+
+            <!-- Execute file -->
+            <file src="res/installer/compile_pgbouncer.sh" targetdir="$INSTALL_PATH/pgsql/script"/>
+            <executable targetfile="$INSTALL_PATH/pgsql/script/compile_pgbouncer.sh" stage="postinstall" />
+            <parsable targetfile="$INSTALL_PATH/pgsql/script/compile_pgbouncer.sh"/>
         </pack>
 
-
         <!-- SkyTools -->
-        <pack name="SkyTools" id="skytools" required="no">
-            <description></description>
-            <fileset dir="agens_temp/skytools" targetdir="$INSTALL_PATH/skytools"/>
+        <pack name="Skytools" id="Skytools" required="no">
+            <description>Skytools</description>
+
+            <!-- Skytools into PostgreSQL dir (Library) -->
+            <fileset dir="/home/hcjeon/working_space/tmp_sky/into_pg/lib" targetdir="$INSTALL_PATH/pgsql/lib" />
+            <executable targetfile="$INSTALL_PATH/pgsql/lib/pgq_lowlevel.so" keep="true" />
+            <executable targetfile="$INSTALL_PATH/pgsql/lib/pgq_triggers.so" keep="true" /> 
+
+            <!-- Skytools into PostgreSQL dir (Share) -->
+            <!-- Contrib -->
+            <fileset dir="/home/hcjeon/working_space/tmp_sky/into_pg/share/contrib" targetdir="$INSTALL_PATH/pgsql/share/contrib" />
+            <!-- Doc -->
+            <fileset dir="/home/hcjeon/working_space/tmp_sky/into_pg/share/doc/extension" targetdir="$INSTALL_PATH/pgsql/share/doc/extension" />
+            <!-- Extension -->
+            <fileset dir="/home/hcjeon/working_space/tmp_sky/into_pg/share/extension" targetdir="$INSTALL_PATH/pgsql/share/extension" />
+
+            <!-- Skytools Library Dir -->
+            <fileset dir="/home/hcjeon/working_space/tmp_sky/lib" targetdir="$INSTALL_PATH/skytools/lib" />
+
+            <!-- Skytools Library64 Dir -->
+            <fileset dir="/home/hcjeon/working_space/tmp_sky/lib64" targetdir="$INSTALL_PATH/skytools/lib64" />
+            <executable targetfile="$INSTALL_PATH/skytools/lib64/python2.6/site-packages/skytools-3.0/skytools/_chashtext.so" keep="true" />
+            <executable targetfile="$INSTALL_PATH/skytools/lib64/python2.6/site-packages/skytools-3.0/skytools/_cquoting.so" keep="true" />
+
+            <!-- Skytools Require Library File -->
+            <file src="agens_temp/libevent/lib/libevent-2.0.so.5.1.10" targetdir="$INSTALL_PATH/pgsql/lib" />
+            <executable targetfile="$INSTALL_PATH/pgsql/lib/libevent-2.0.so.5.1.10" keep="true" />
+
+            <!-- Skytools Dir -->
+            <fileset dir="/home/hcjeon/working_space/tmp_sky/skytools" targetdir="$INSTALL_PATH/skytools" />
+
+            <!-- Executable Binary Files -->
             <executable targetfile="$INSTALL_PATH/skytools/bin/data_maintainer3" keep="true" />
             <executable targetfile="$INSTALL_PATH/skytools/bin/londiste3" keep="true" />
             <executable targetfile="$INSTALL_PATH/skytools/bin/pgqd" keep="true" />
@@ -345,31 +421,36 @@
             <executable targetfile="$INSTALL_PATH/skytools/bin/simple_local_consumer3" keep="true" />
             <executable targetfile="$INSTALL_PATH/skytools/bin/skytools_upgrade3" keep="true" />
             <executable targetfile="$INSTALL_PATH/skytools/bin/walmgr3" keep="true" />
-        <file src="agens_temp/libevent/lib/libevent-2.0.so.5.1.9" targetdir="$INSTALL_PATH/pgsql/lib" />
-        <executable targetfile="$INSTALL_PATH/pgsql/lib/libevent-2.0.so.5.1.9" keep="true" />
-	<file src="res/installer/compile_skytools.sh" targetdir="$INSTALL_PATH/script"/>
-        <executable targetfile="$INSTALL_PATH/script/compile_skytools.sh" stage="postinstall" />
-        <parsable targetfile="$INSTALL_PATH/script/compile_skytools.sh"/>
-        </pack>
 
+            <!-- Shell Script -->
+            <file src="res/installer/compile_skytools.sh" targetdir="$INSTALL_PATH/pgsql/script"/>
+            <executable targetfile="$INSTALL_PATH/pgsql/script/compile_skytools.sh" stage="postinstall" />
+            <parsable targetfile="$INSTALL_PATH/pgsql/script/compile_skytools.sh"/>
+        </pack>
 
         <!-- pg_hint_plan -->
         <pack name="pg_hint_plan" id="pg_hint_plan" required="no">
             <description>pg_hint_plan</description>
+
+            <!-- Library File -->
             <file src="pg_hint_plan94-1.1.3/pg_hint_plan.so" targetdir="$INSTALL_PATH/pgsql/lib" />
             <executable targetfile="$INSTALL_PATH/pgsql/lib/pg_hint_plan.so" keep="true" />
+
+            <!-- SQL Files -->
             <file src="pg_hint_plan94-1.1.3/pg_hint_plan.control" targetdir="$INSTALL_PATH/pgsql/share/extension/" />
             <file src="pg_hint_plan94-1.1.3/pg_hint_plan--1.1.3.sql" targetdir="$INSTALL_PATH/pgsql/share/extension/" />
             <file src="pg_hint_plan94-1.1.3/pg_hint_plan--1.1.2--1.1.3.sql" targetdir="$INSTALL_PATH/pgsql/share/extension/" />
         </pack>
 
-
         <!-- PL/Proxy -->
         <pack name="PL/Proxy" id="plproxy" required="no">
-        <description>PL/Proxy</description>
+            <description>PL/Proxy</description>
 
+            <!-- Library File -->
             <file src="plproxy-2.5/plproxy.so" targetdir="$INSTALL_PATH/pgsql/lib" />
             <executable targetfile="$INSTALL_PATH/pgsql/lib/plproxy.so" keep="true" />
+
+            <!-- SQL Files -->
             <file src="plproxy-2.5/plproxy.control" targetdir="$INSTALL_PATH/pgsql/share/extension/" />
             <file src="plproxy-2.5/sql/plproxy--2.5.0.sql" targetdir="$INSTALL_PATH/pgsql/share/extension/" />
             <file src="plproxy-2.5/sql/plproxy--2.3.0--2.5.0.sql" targetdir="$INSTALL_PATH/pgsql/share/extension/" />
@@ -377,40 +458,112 @@
             <file src="plproxy-2.5/sql/plproxy--unpackaged--2.5.0.sql" targetdir="$INSTALL_PATH/pgsql/share/extension/" />
         </pack>
 
-
         <!-- Slony-I -->
         <pack name="Slony-I" id="slony" required="no">
             <description>Slony-I</description>
 
-            <file src="slony1-2.2.4/src/backend/slony1_funcs.2.2.4.so" targetdir="$INSTALL_PATH/pgsql/lib" />
+            <!-- Binary Files -->
+            <fileset dir="/home/hcjeon/agens-sql/agens_temp/slon/bin" targetdir="$INSTALL_PATH/pgsql/bin" />
+            <executable targetfile="$INSTALL_PATH/pgsql/bin/slon" keep="true" />
+            <executable targetfile="$INSTALL_PATH/pgsql/bin/slonik" keep="true" />
+            <executable targetfile="$INSTALL_PATH/pgsql/bin/slony_logshipper" keep="true" />
+
+            <!-- Script Files -->
+            <fileset dir="/home/hcjeon/agens-sql/agens_temp/slon/script" targetdir="$INSTALL_PATH/pgsql/script/slony" />
+            <executable targetfile="$INSTALL_PATH/pgsql/script/slony/slon_kill" keep="true" />
+            <executable targetfile="$INSTALL_PATH/pgsql/script/slony/slon_start" keep="true" />
+            <executable targetfile="$INSTALL_PATH/pgsql/script/slony/slon_status" keep="true" />
+            <executable targetfile="$INSTALL_PATH/pgsql/script/slony/slon_watchdog" keep="true" />
+            <executable targetfile="$INSTALL_PATH/pgsql/script/slony/slon_watchdog2" keep="true" />
+            <executable targetfile="$INSTALL_PATH/pgsql/script/slony/slonik_add_node" keep="true" />
+            <executable targetfile="$INSTALL_PATH/pgsql/script/slony/slonik_build_env" keep="true" />
+            <executable targetfile="$INSTALL_PATH/pgsql/script/slony/slonik_create_set" keep="true" />
+            <executable targetfile="$INSTALL_PATH/pgsql/script/slony/slonik_drop_node" keep="true" />
+            <executable targetfile="$INSTALL_PATH/pgsql/script/slony/slonik_drop_sequence" keep="true" />
+            <executable targetfile="$INSTALL_PATH/pgsql/script/slony/slonik_drop_set" keep="true" />
+            <executable targetfile="$INSTALL_PATH/pgsql/script/slony/slonik_drop_table" keep="true" />
+            <executable targetfile="$INSTALL_PATH/pgsql/script/slony/slonik_execute_script" keep="true" />
+            <executable targetfile="$INSTALL_PATH/pgsql/script/slony/slonik_failover" keep="true" />
+            <executable targetfile="$INSTALL_PATH/pgsql/script/slony/slonik_init_cluster" keep="true" />
+            <executable targetfile="$INSTALL_PATH/pgsql/script/slony/slonik_merge_sets" keep="true" />
+            <executable targetfile="$INSTALL_PATH/pgsql/script/slony/slonik_move_set" keep="true" />
+            <executable targetfile="$INSTALL_PATH/pgsql/script/slony/slonik_print_preamble" keep="true" />
+            <executable targetfile="$INSTALL_PATH/pgsql/script/slony/slonik_restart_node" keep="true" />
+            <executable targetfile="$INSTALL_PATH/pgsql/script/slony/slonik_store_node" keep="true" />
+            <executable targetfile="$INSTALL_PATH/pgsql/script/slony/slonik_subscribe_set" keep="true" />
+            <executable targetfile="$INSTALL_PATH/pgsql/script/slony/slonik_uninstall_nodes" keep="true" />
+            <executable targetfile="$INSTALL_PATH/pgsql/script/slony/slonik_unsubscribe_set" keep="true" />
+            <executable targetfile="$INSTALL_PATH/pgsql/script/slony/slonik_update_nodes" keep="true" />
+            <executable targetfile="$INSTALL_PATH/pgsql/script/slony/slony_show_configuration" keep="true" />
+
+            <!-- Library Files -->
+            <fileset dir="/home/hcjeon/agens-sql/agens_temp/slon/lib" targetdir="$INSTALL_PATH/pgsql/lib" />
             <executable targetfile="$INSTALL_PATH/pgsql/lib/slony1_funcs.2.2.4.so" keep="true" />
 
-            <file src="slony1-2.2.4/src/slon/slon" targetdir="$INSTALL_PATH/pgsql/bin/" />
-            <file src="slony1-2.2.4/src/slonik/slonik" targetdir="$INSTALL_PATH/pgsql/bin/" />
-            <file src="slony1-2.2.4/src/slony_logshipper/slony_logshipper" targetdir="$INSTALL_PATH/pgsql/bin/" />
+            <!-- SQL Files -->
+            <fileset dir="/home/hcjeon/agens-sql/agens_temp/slon/share" targetdir="$INSTALL_PATH/pgsql/share" />
+        </pack>
 
-            <executable targetfile="$INSTALL_PATH/pgsql/bin/slon" keep="true"  />
-            <executable targetfile="$INSTALL_PATH/pgsql/bin/slonik" keep="true"  />
-            <executable targetfile="$INSTALL_PATH/pgsql/bin/slony_logshipper" keep="true"  />
+        <!-- Orafce -->
+        <pack name="Orafce" id="Orafce" required="no">
+            <description>orafce</description>
 
-            <file src="slony1-2.2.4/src/backend/slony1_base.2.2.4.sql" targetdir="$INSTALL_PATH/pgsql/share" />
-            <file src="slony1-2.2.4/src/backend/slony1_base.v83.2.2.4.sql" targetdir="$INSTALL_PATH/pgsql/share" />
-            <file src="slony1-2.2.4/src/backend/slony1_base.v84.2.2.4.sql" targetdir="$INSTALL_PATH/pgsql/share" />
-            <file src="slony1-2.2.4/src/backend/slony1_funcs.2.2.4.sql" targetdir="$INSTALL_PATH/pgsql/share" />
-            <file src="slony1-2.2.4/src/backend/slony1_funcs.v83.2.2.4.sql" targetdir="$INSTALL_PATH/pgsql/share" />
-            <file src="slony1-2.2.4/src/backend/slony1_funcs.v84.2.2.4.sql" targetdir="$INSTALL_PATH/pgsql/share" />
+            <!-- Document files -->
+            <fileset dir="agens_temp/orafce/share/doc/extension" targetdir="$INSTALL_PATH/pgsql/share/doc/extension" />
+
+            <!-- SQL files -->
+            <fileset dir="agens_temp/orafce/share/extension" targetdir="$INSTALL_PATH/pgsql/share/extension" />
+
+            <!-- Library file -->
+            <file src="agens_temp/orafce/lib/orafce.so" targetdir="$INSTALL_PATH/pgsql/lib" />
+            <executable targetfile="$INSTALL_PATH/pgsql/lib/orafce.so" keep="true" />
+        </pack>
+
+        <!-- Pgsmtp -->
+        <pack name="Pgsmtp" id="Pgsmtp" required="no">
+            <description>pgsmtp는 PostgreSQL의 extension 모듈인 plpython을 활용하여 email을 보내는 기능을 한다.</description>
+
+            <!-- SQL files -->
+            <fileset dir="agens_temp/pgsmtp/share/extension" targetdir="$INSTALL_PATH/pgsql/share/extension" />
+        </pack>
+
+        <!-- Oracle_fdw -->
+        <pack name="Oracle_fdw" id="Oracle_fdw" required="no">
+            <description>Oracle_fdw는 오라클의 테이블을 PostgreSQL의 테이블로 볼수 있도록 해준다.</description>
+
+            <!-- Doc file -->
+            <file src="agens_temp/oracle_fdw/share/doc/extension/README.oracle_fdw" targetdir="$INSTALL_PATH/pgsql/share/doc/extension" />
+
+            <!-- SQL files -->
+            <file src="agens_temp/oracle_fdw/share/extension/oracle_fdw.control" targetdir="$INSTALL_PATH/pgsql/share/extension" />
+            <file src="agens_temp/oracle_fdw/share/extension/oracle_fdw--1.1.sql" targetdir="$INSTALL_PATH/pgsql/share/extension" />
+            <file src="agens_temp/oracle_fdw/share/extension/oracle_fdw--1.0--1.1.sql" targetdir="$INSTALL_PATH/pgsql/share/extension" />
+
+            <!-- Library file -->
+            <file src="agens_temp/oracle_fdw/lib/oracle_fdw.so" targetdir="$INSTALL_PATH/pgsql/lib" />
+            <executable targetfile="$INSTALL_PATH/pgsql/lib/oracle_fdw.so" keep="true"  />
         </pack>
 
         <!-- POWA -->
         <pack name="POWA-archivist" id="powa-archivist" required="no">
             <description>POWA-archivist</description>
 
-            <file src="powa-archivist-REL_2_0_0/powa.control" targetdir="$INSTALL_PATH/pgsql/share/extension" />
-            <file src="powa-archivist-REL_2_0_0/powa--2.0.sql" targetdir="$INSTALL_PATH/pgsql/share/extension" />
-            <file src="powa-archivist-REL_2_0_0/README.md" targetdir="$INSTALL_PATH/pgsql/share/doc" />
+            <!-- Library Files -->
+            <!-- POWA Library -->
             <file src="powa-archivist-REL_2_0_0/powa.so" targetdir="$INSTALL_PATH/pgsql/lib" />
             <executable targetfile="$INSTALL_PATH/pgsql/lib/powa.so" keep="true"  />
+            <!-- pg_qualstats Library -->
+            <file src="powa-archivist-REL_2_0_0/pg_qualstats-master/pg_qualstats.so" targetdir="$INSTALL_PATH/pgsql/lib" />
+            <executable targetfile="$INSTALL_PATH/pgsql/lib/pg_qualstats.so" keep="true"  />
+            <!-- pg_stat_kcache Library -->
+            <file src="powa-archivist-REL_2_0_0/pg_stat_kcache-master/pg_stat_kcache.so" targetdir="$INSTALL_PATH/pgsql/lib" />
+            <executable targetfile="$INSTALL_PATH/pgsql/lib/pg_stat_kcache.so" keep="true"  />
 
+            <!-- SQL Files -->
+            <!-- POWA SQL -->
+            <file src="powa-archivist-REL_2_0_0/powa.control" targetdir="$INSTALL_PATH/pgsql/share/extension" />
+            <file src="powa-archivist-REL_2_0_0/powa--2.0.sql" targetdir="$INSTALL_PATH/pgsql/share/extension" />
+            <!-- pg_qualstats SQL -->
             <file src="powa-archivist-REL_2_0_0/pg_qualstats-master/pg_qualstats.control" targetdir="$INSTALL_PATH/pgsql/share/extension" />
             <file src="powa-archivist-REL_2_0_0/pg_qualstats-master/pg_qualstats--0.0.1.sql" targetdir="$INSTALL_PATH/pgsql/share/extension"/>
             <file src="powa-archivist-REL_2_0_0/pg_qualstats-master/pg_qualstats--0.0.2.sql" targetdir="$INSTALL_PATH/pgsql/share/extension"/>
@@ -418,22 +571,24 @@
             <file src="powa-archivist-REL_2_0_0/pg_qualstats-master/pg_qualstats--0.0.4.sql" targetdir="$INSTALL_PATH/pgsql/share/extension"/>
             <file src="powa-archivist-REL_2_0_0/pg_qualstats-master/pg_qualstats--0.0.5.sql" targetdir="$INSTALL_PATH/pgsql/share/extension"/>
             <file src="powa-archivist-REL_2_0_0/pg_qualstats-master/pg_qualstats--0.0.6.sql" targetdir="$INSTALL_PATH/pgsql/share/extension"/>
-            <file src="powa-archivist-REL_2_0_0/pg_qualstats-master/doc/README.md" targetdir="$INSTALL_PATH/pgsql/share/doc" />
-            <file src="powa-archivist-REL_2_0_0/pg_qualstats-master/pg_qualstats.so" targetdir="$INSTALL_PATH/pgsql/lib" />
-            <executable targetfile="$INSTALL_PATH/pgsql/lib/pg_qualstats.so" keep="true"  />
-
-            <file src="powa-archivist-REL_2_0_0/pg_stat_kcache-master/pg_stat_kcache.so" targetdir="$INSTALL_PATH/pgsql/lib" />
-            <executable targetfile="$INSTALL_PATH/pgsql/lib/pg_stat_kcache.so" keep="true"  />
+            <!-- pg_stat_kcache SQL -->
             <file src="powa-archivist-REL_2_0_0/pg_stat_kcache-master/pg_stat_kcache.control" targetdir="$INSTALL_PATH/pgsql/share/extension" />
             <file src="powa-archivist-REL_2_0_0/pg_stat_kcache-master/pg_stat_kcache--2.0.1--2.0.2.sql" targetdir="$INSTALL_PATH/pgsql/share/extension"/>
             <file src="powa-archivist-REL_2_0_0/pg_stat_kcache-master/pg_stat_kcache--2.0.2.sql" targetdir="$INSTALL_PATH/pgsql/share/extension"/>
+
+            <!-- Document File -->
+            <!-- POWA Doc -->
+            <file src="powa-archivist-REL_2_0_0/README.md" targetdir="$INSTALL_PATH/pgsql/share/doc" />
+            <!-- pg_qualstats Doc -->
+            <file src="powa-archivist-REL_2_0_0/pg_qualstats-master/doc/README.md" targetdir="$INSTALL_PATH/pgsql/share/doc" />
+            <!-- pg_stat_kcache Doc -->
             <file src="powa-archivist-REL_2_0_0/pg_stat_kcache-master/README.rst" targetdir="$INSTALL_PATH/pgsql/share/doc" />
 
-	    <file src="res/installer/compile_powa_archivist.sh" targetdir="$INSTALL_PATH/script"/>
-	    <executable targetfile="$INSTALL_PATH/script/compile_powa_archivist.sh" stage="postinstall" />
-            <parsable targetfile="$INSTALL_PATH/script/compile_powa_archivist.sh"/>
+            <!-- Shell Script -->
+            <file src="res/installer/compile_powa_archivist.sh" targetdir="$INSTALL_PATH/pgsql/script"/>
+            <executable targetfile="$INSTALL_PATH/pgsql/script/compile_powa_archivist.sh" stage="postinstall" />
+            <parsable targetfile="$INSTALL_PATH/pgsql/script/compile_powa_archivist.sh"/>
         </pack>
-
     </packs>
-
+    <!-- Pakage List End -->
 </installation>

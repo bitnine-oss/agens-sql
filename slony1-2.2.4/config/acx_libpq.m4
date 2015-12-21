@@ -533,7 +533,7 @@ if test "$with_pgport" = "yes"; then
    if test $HAVE_PGCOMMON = 1  ; then
        EXTRALIBS=" -lpgcommon"
    fi
-   LIBS="$LIBS -lpgport $EXTRALIBS"
+   LIBS="$LIBS $EXTRALIBS -lpgport"
    AC_TRY_LINK_FUNC(find_my_exec,[HAVE_PGPORT=1
                                   AC_MSG_RESULT(yes)], 
                     AC_MSG_ERROR("pgport was not found. build without --with-pgport=yes to disable"))

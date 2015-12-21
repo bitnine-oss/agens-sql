@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="iso-8859-1" standalone="yes" ?>
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <installation version="1.0">
 
     <info>
@@ -63,6 +63,11 @@
 		<exclude name="lib/libpq.so" />
 		<exclude name="lib/libpq.so.5" />
             </fileset>
+            <file src="/usr/lib64/libssl.so.1.0.1e" targetdir="$INSTALL_PATH/pgsql/lib/" />
+            <executable targetfile="$INSTALL_PATH/pgsql/lib/libssl.so.1.0.1e" keep="true" />
+            <file src="/usr/lib64/libcrypto.so.1.0.1e" targetdir="$INSTALL_PATH/pgsql/lib/" />
+            <executable targetfile="$INSTALL_PATH/pgsql/lib/libcrypto.so.1.0.1e" keep="true" />
+
             <!-- set executable pgsql/bin -->
             <executable targetfile="$INSTALL_PATH/pgsql/bin/clusterdb" keep="true" />
             <executable targetfile="$INSTALL_PATH/pgsql/bin/createdb" keep="true" />
@@ -103,8 +108,8 @@
 
             <!-- set executable pgsql/lib -->
             <executable targetfile="$INSTALL_PATH/pgsql/lib/_int.so" keep="true" />
-        <executable targetfile="$INSTALL_PATH/pgsql/lib/adminpack.so" keep="true" />
-        <executable targetfile="$INSTALL_PATH/pgsql/lib/ascii_and_mic.so" keep="true" />
+            <executable targetfile="$INSTALL_PATH/pgsql/lib/adminpack.so" keep="true" />
+            <executable targetfile="$INSTALL_PATH/pgsql/lib/ascii_and_mic.so" keep="true" />
             <executable targetfile="$INSTALL_PATH/pgsql/lib/auth_delay.so" keep="true" />
             <executable targetfile="$INSTALL_PATH/pgsql/lib/auto_explain.so" keep="true" />
             <executable targetfile="$INSTALL_PATH/pgsql/lib/autoinc.so" keep="true" />
@@ -191,22 +196,25 @@
             <executable targetfile="$INSTALL_PATH/pgsql/lib/pgxs/config/install-sh" keep="true" />
             <executable targetfile="$INSTALL_PATH/pgsql/lib/pgxs/src/test/regress/pg_regress" keep="true" />
             <file src="res/installer/compile_pgsql.sh" targetdir="$INSTALL_PATH/script"/>
-            <!-- <executable targetfile="$INSTALL_PATH/script/compile_pgsql.sh" stage="postinstall" /> -->
+            <executable targetfile="$INSTALL_PATH/script/compile_pgsql.sh" stage="postinstall" />
             <parsable targetfile="$INSTALL_PATH/script/compile_pgsql.sh"/>
 
             <file src="res/installer/start_server.sh" targetdir="$INSTALL_PATH/script"/>
-<!--            <executable targetfile="$INSTALL_PATH/script/start_server.sh" />-->
+            <executable targetfile="$INSTALL_PATH/script/start_server.sh" />
             <parsable targetfile="$INSTALL_PATH/script/start_server.sh"/>
             <file src="res/installer/stop_server.sh" targetdir="$INSTALL_PATH/script"/>
             <executable targetfile="$INSTALL_PATH/script/stop_server.sh" stage="uninstall" />
-<!--            <parsable targetfile="$INSTALL_PATH/script/stop_server.sh"/>-->
+            <parsable targetfile="$INSTALL_PATH/script/stop_server.sh"/>
             <file src="res/installer/restart_server.sh" targetdir="$INSTALL_PATH/script"/>
-<!--            <executable targetfile="$INSTALL_PATH/script/restart_server.sh" />-->
+            <executable targetfile="$INSTALL_PATH/script/restart_server.sh" />
             <parsable targetfile="$INSTALL_PATH/script/restart_server.sh"/>
             <file src="res/installer/connect_to_server.sh" targetdir="$INSTALL_PATH/script"/>
-<!--            <executable targetfile="$INSTALL_PATH/script/connect_to_server.sh" />-->
+            <executable targetfile="$INSTALL_PATH/script/connect_to_server.sh" />
             <parsable targetfile="$INSTALL_PATH/script/connect_to_server.sh"/>
 
+            <file src="res/installer/symbolic_link_python.sh" targetdir="$INSTALL_PATH/script"/>
+            <executable targetfile="$INSTALL_PATH/script/symbolic_link_python.sh" />
+            <parsable targetfile="$INSTALL_PATH/script/symbolic_link_python.sh"/>
         </pack>
     </packs>
 
