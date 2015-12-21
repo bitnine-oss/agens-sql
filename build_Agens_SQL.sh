@@ -75,7 +75,7 @@ cd ..
 
 # slony
 cd slony1-2.2.4/
-./configure --with-pgconfigdir=$AGENS_TEMP_DIR/pgsql/bin
+./configure --prefix=$AGENS_TEMP_DIR/slon1 --with-pgconfigdir=$AGENS_TEMP_DIR/pgsql/bin --with-pgbindir=$AGENS_TEMP_DIR/pgsql/bin --with-pgincludedir=$AGENS_TEMP_DIR/pgsql/include --with-pgincludeserverdir=$AGENS_TEMP_DIR/pgsql/include/server --with-pglibdir=$AGENS_TEMP_DIR/pgsql/lib --with-pgpkglibdir=$AGENS_TEMP_DIR/pgsql/lib --with-pgsharedir=$AGENS_TEMP_DIR/pgsql/share --with-perltools=$AGENS_TEMP_DIR/slon1/perl_tools --with-pgport=yes --libexecdir=$AGENS_TEMP_DIR/slon1/exec --with-perlsharedir=$AGENS_TEMP_DIR/slon1/perl_sharedir
 make
 cp ./src/backend/slony1_base.sql ./src/backend/slony1_base.2.2.4.sql
 cp ./src/backend/slony1_base.v83.sql ./src/backend/slony1_base.v83.2.2.4.sql
@@ -85,7 +85,6 @@ cp ./src/backend/slony1_funcs.v83.sql ./src/backend/slony1_funcs.v83.2.2.4.sql
 cp ./src/backend/slony1_funcs.v84.sql ./src/backend/slony1_funcs.v84.2.2.4.sql
 #make install
 cd ..
-#./configure --prefix=/home/hcjeon/agens-sql/agens_temp/slony --with-pgconfigdir=/home/hcjeon/agens-sql/agens_temp/pgsql/bin --with-perltools=/home/hcjeon/agens-sql/agens_temp/slony/perltools/
 
 # powa
 cd powa-archivist-REL_2_0_0/

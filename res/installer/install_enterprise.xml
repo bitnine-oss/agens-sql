@@ -463,45 +463,103 @@
             <description>Slony-I</description>
 
             <!-- Binary Files -->
-            <fileset dir="/home/hcjeon/agens-sql/agens_temp/slon/bin" targetdir="$INSTALL_PATH/pgsql/bin" />
+            <file src="slony1-2.2.4/src/slon/slon" targetdir="$INSTALL_PATH/pgsql/bin/" />
+            <file src="slony1-2.2.4/src/slonik/slonik" targetdir="$INSTALL_PATH/pgsql/bin/" />
+            <file src="slony1-2.2.4/src/slony_logshipper/slony_logshipper" targetdir="$INSTALL_PATH/pgsql/bin/" />
             <executable targetfile="$INSTALL_PATH/pgsql/bin/slon" keep="true" />
             <executable targetfile="$INSTALL_PATH/pgsql/bin/slonik" keep="true" />
             <executable targetfile="$INSTALL_PATH/pgsql/bin/slony_logshipper" keep="true" />
 
             <!-- Script Files -->
-            <fileset dir="/home/hcjeon/agens-sql/agens_temp/slon/script" targetdir="$INSTALL_PATH/pgsql/script/slony" />
+            <file src="slony1-2.2.4/tools/altperl/slon_tools.conf-sample" targetdir="$INSTALL_PATH/pgsql/script/" />
+
+            <file src="slony1-2.2.4/tools/altperl/slon_kill" targetdir="$INSTALL_PATH/pgsql/script/" />
             <executable targetfile="$INSTALL_PATH/pgsql/script/slony/slon_kill" keep="true" />
+
+            <file src="slony1-2.2.4/tools/altperl/slon_start" targetdir="$INSTALL_PATH/pgsql/script/" />
             <executable targetfile="$INSTALL_PATH/pgsql/script/slony/slon_start" keep="true" />
+
+            <file src="slony1-2.2.4/tools/altperl/slon_status" targetdir="$INSTALL_PATH/pgsql/script/" />
             <executable targetfile="$INSTALL_PATH/pgsql/script/slony/slon_status" keep="true" />
+
+            <file src="slony1-2.2.4/tools/altperl/slon_watchdog" targetdir="$INSTALL_PATH/pgsql/script/" />
             <executable targetfile="$INSTALL_PATH/pgsql/script/slony/slon_watchdog" keep="true" />
+
+            <file src="slony1-2.2.4/tools/altperl/slon_watchdog2" targetdir="$INSTALL_PATH/pgsql/script/" />
             <executable targetfile="$INSTALL_PATH/pgsql/script/slony/slon_watchdog2" keep="true" />
+
+            <file src="slony1-2.2.4/tools/altperl/slonik_add_node" targetdir="$INSTALL_PATH/pgsql/script/" />
             <executable targetfile="$INSTALL_PATH/pgsql/script/slony/slonik_add_node" keep="true" />
+
+            <file src="slony1-2.2.4/tools/altperl/slonik_build_env" targetdir="$INSTALL_PATH/pgsql/script/" />
             <executable targetfile="$INSTALL_PATH/pgsql/script/slony/slonik_build_env" keep="true" />
+
+            <file src="slony1-2.2.4/tools/altperl/slonik_create_set" targetdir="$INSTALL_PATH/pgsql/script/" />
             <executable targetfile="$INSTALL_PATH/pgsql/script/slony/slonik_create_set" keep="true" />
+
+            <file src="slony1-2.2.4/tools/altperl/slonik_drop_node" targetdir="$INSTALL_PATH/pgsql/script/" />
             <executable targetfile="$INSTALL_PATH/pgsql/script/slony/slonik_drop_node" keep="true" />
+
+            <file src="slony1-2.2.4/tools/altperl/slonik_drop_sequence" targetdir="$INSTALL_PATH/pgsql/script/" />
             <executable targetfile="$INSTALL_PATH/pgsql/script/slony/slonik_drop_sequence" keep="true" />
+
+            <file src="slony1-2.2.4/tools/altperl/slonik_drop_set" targetdir="$INSTALL_PATH/pgsql/script/" />
             <executable targetfile="$INSTALL_PATH/pgsql/script/slony/slonik_drop_set" keep="true" />
+
+            <file src="slony1-2.2.4/tools/altperl/slonik_drop_table" targetdir="$INSTALL_PATH/pgsql/script/" />
             <executable targetfile="$INSTALL_PATH/pgsql/script/slony/slonik_drop_table" keep="true" />
+
+            <file src="slony1-2.2.4/tools/altperl/slonik_execute_script" targetdir="$INSTALL_PATH/pgsql/script/" />
             <executable targetfile="$INSTALL_PATH/pgsql/script/slony/slonik_execute_script" keep="true" />
+
+            <file src="slony1-2.2.4/tools/altperl/slonik_failover" targetdir="$INSTALL_PATH/pgsql/script/" />
             <executable targetfile="$INSTALL_PATH/pgsql/script/slony/slonik_failover" keep="true" />
+
+            <file src="slony1-2.2.4/tools/altperl/slonik_init_cluster" targetdir="$INSTALL_PATH/pgsql/script/" />
             <executable targetfile="$INSTALL_PATH/pgsql/script/slony/slonik_init_cluster" keep="true" />
+
+            <file src="slony1-2.2.4/tools/altperl/slonik_merge_sets" targetdir="$INSTALL_PATH/pgsql/script/" />
             <executable targetfile="$INSTALL_PATH/pgsql/script/slony/slonik_merge_sets" keep="true" />
+
+            <file src="slony1-2.2.4/tools/altperl/slonik_move_set" targetdir="$INSTALL_PATH/pgsql/script/" />
             <executable targetfile="$INSTALL_PATH/pgsql/script/slony/slonik_move_set" keep="true" />
+
+            <file src="slony1-2.2.4/tools/altperl/slonik_print_preamble" targetdir="$INSTALL_PATH/pgsql/script/" />
             <executable targetfile="$INSTALL_PATH/pgsql/script/slony/slonik_print_preamble" keep="true" />
+
+            <file src="slony1-2.2.4/tools/altperl/slonik_restart_node" targetdir="$INSTALL_PATH/pgsql/script/" />
             <executable targetfile="$INSTALL_PATH/pgsql/script/slony/slonik_restart_node" keep="true" />
+
+            <file src="slony1-2.2.4/tools/altperl/slonik_store_node" targetdir="$INSTALL_PATH/pgsql/script/" />
             <executable targetfile="$INSTALL_PATH/pgsql/script/slony/slonik_store_node" keep="true" />
+
+            <file src="slony1-2.2.4/tools/altperl/slonik_subscribe_set" targetdir="$INSTALL_PATH/pgsql/script/" />
             <executable targetfile="$INSTALL_PATH/pgsql/script/slony/slonik_subscribe_set" keep="true" />
+
+            <file src="slony1-2.2.4/tools/altperl/slonik_uninstall_nodes" targetdir="$INSTALL_PATH/pgsql/script/" />
             <executable targetfile="$INSTALL_PATH/pgsql/script/slony/slonik_uninstall_nodes" keep="true" />
+
+            <file src="slony1-2.2.4/tools/altperl/slonik_unsubscribe_set" targetdir="$INSTALL_PATH/pgsql/script/" />
             <executable targetfile="$INSTALL_PATH/pgsql/script/slony/slonik_unsubscribe_set" keep="true" />
+
+            <file src="slony1-2.2.4/tools/altperl/slonik_update_nodes" targetdir="$INSTALL_PATH/pgsql/script/" />
             <executable targetfile="$INSTALL_PATH/pgsql/script/slony/slonik_update_nodes" keep="true" />
+
+            <file src="slony1-2.2.4/tools/altperl/slony_show_configuration" targetdir="$INSTALL_PATH/pgsql/script/" />
             <executable targetfile="$INSTALL_PATH/pgsql/script/slony/slony_show_configuration" keep="true" />
 
             <!-- Library Files -->
-            <fileset dir="/home/hcjeon/agens-sql/agens_temp/slon/lib" targetdir="$INSTALL_PATH/pgsql/lib" />
+            <file src="slony1-2.2.4/src/backend/slony1_funcs.2.2.4.so" targetdir="$INSTALL_PATH/pgsql/lib" />
+            <file src="slony1-2.2.4/tools/altperl/slon-tools.pm" targetdir="$INSTALL_PATH/pgsql/lib" />
             <executable targetfile="$INSTALL_PATH/pgsql/lib/slony1_funcs.2.2.4.so" keep="true" />
 
             <!-- SQL Files -->
-            <fileset dir="/home/hcjeon/agens-sql/agens_temp/slon/share" targetdir="$INSTALL_PATH/pgsql/share" />
+            <file src="slony1-2.2.4/src/backend/slony1_base.2.2.4.sql" targetdir="$INSTALL_PATH/pgsql/share" />
+            <file src="slony1-2.2.4/src/backend/slony1_base.v83.2.2.4.sql" targetdir="$INSTALL_PATH/pgsql/share" />
+            <file src="slony1-2.2.4/src/backend/slony1_base.v84.2.2.4.sql" targetdir="$INSTALL_PATH/pgsql/share" />
+            <file src="slony1-2.2.4/src/backend/slony1_funcs.2.2.4.sql" targetdir="$INSTALL_PATH/pgsql/share" />
+            <file src="slony1-2.2.4/src/backend/slony1_funcs.v83.2.2.4.sql" targetdir="$INSTALL_PATH/pgsql/share" />
+            <file src="slony1-2.2.4/src/backend/slony1_funcs.v84.2.2.4.sql" targetdir="$INSTALL_PATH/pgsql/share" />            
         </pack>
 
         <!-- Orafce -->
