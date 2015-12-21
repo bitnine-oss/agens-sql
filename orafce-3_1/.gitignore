@@ -1,0 +1,10 @@
+*.o
+*.a
+*.so
+*.so.*
+/.deps/
+/orafce.sql
+/orafce.sql.in
+/results
+expected/nvarchar2.out
+expected/varchar2.out
