@@ -15,5 +15,8 @@ skytools-3.2/
 plproxy-2.5/
 powa-archivist-REL_2_0_0/
 json-c-0.11/
+orafce-3_1/
+pgstmp-0.1.1/
+oracle_fdw-ORACLE_FDW_1_2_0/
 
 *.jar

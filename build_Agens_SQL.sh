@@ -102,6 +102,36 @@ cp ./src/backend/slony1_funcs.v84.sql ./src/backend/slony1_funcs.v84.2.2.4.sql
 #make install
 cd ..
 
+# orafce
+cd orafce-3_1
+make PG_CONFIG=$AGENS_TEMP_DIR/pgsql/bin/pg_config
+make PG_CONFIG=$AGENS_TEMP_DIR/pgsql/bin/pg_config install
+
+mkdir -p $AGENS_TEMP_DIR/orafce/lib
+mkdir -p $AGENS_TEMP_DIR/orafce/share/extension
+mkdir -p $AGENS_TEMP_DIR/orafce/share/doc/extension
+mv $AGENS_TEMP_DIR/pgsql/lib/orafce.so $AGENS_TEMP_DIR/orafce/lib/
+mv $AGENS_TEMP_DIR/pgsql/share/extension/orafce* $AGENS_TEMP_DIR/orafce/share/extension/
+mv $AGENS_TEMP_DIR/pgsql/share/doc/extension/*.orafce $AGENS_TEMP_DIR/orafce/share/doc/extension/
+mv $AGENS_TEMP_DIR/pgsql/share/doc/extension/README.asciidoc $AGENS_TEMP_DIR/orafce/share/doc/extension/
+cd ..
+
+# oracle_fdw
+if [ -n "$ORACLE_HOME" ]; then
+	cd oracle_fdw-ORACLE_FDW_1_2_0
+	make PG_CONFIG=$AGENS_TEMP_DIR/pgsql/bin/pg_config
+
+	mkdir -p $AGENS_TEMP_DIR/oracle_fdw/lib
+	mkdir -p $AGENS_TEMP_DIR/oracle_fdw/share/doc/extension
+	mkdir -p $AGENS_TEMP_DIR/oracle_fdw/share/extension
+
+	mv ./README.oracle_fdw $AGENS_TEMP_DIR/oracle_fdw/share/doc/extension/
+	mv ./oracle_fdw.so $AGENS_TEMP_DIR/oracle_fdw/lib/
+	mv ./oracle_fdw--1.0--1.1.sql $AGENS_TEMP_DIR/oracle_fdw/share/extension
+	mv ./oracle_fdw--1.1.sql $AGENS_TEMP_DIR/oracle_fdw/share/extension
+	mv ./oracle_fdw.control $AGENS_TEMP_DIR/oracle_fdw/share/extension
+fi
+
 # powa
 cd powa-archivist-REL_2_0_0/
 make PG_CONFIG=$AGENS_TEMP_DIR/pgsql/bin/pg_config
@@ -117,7 +147,7 @@ cd ..
 
 # izpack 실행
 if [ ! -d "./distributions" ]; then
-	mkdir distributions
+	mkdir -p distributions
 fi
 
 ./izpack/bin/compile res/installer/install_enterprise.xml -b ./ -o distributions/"$Agens_SQL_version"_Enterprise_Edition.jar -k standard
