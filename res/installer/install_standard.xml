@@ -154,8 +154,6 @@
             <executable targetfile="$INSTALL_PATH/pgsql/lib/pg_trgm.so" keep="true" />
             <executable targetfile="$INSTALL_PATH/pgsql/lib/pg_upgrade_support.so" keep="true" />
             <executable targetfile="$INSTALL_PATH/pgsql/lib/pgcrypto.so" keep="true" />
-            <executable targetfile="$INSTALL_PATH/pgsql/lib/pgq_lowlevel.so" keep="true" />
-            <executable targetfile="$INSTALL_PATH/pgsql/lib/pgq_triggers.so" keep="true" />
             <executable targetfile="$INSTALL_PATH/pgsql/lib/pgrowlocks.so" keep="true" />
             <executable targetfile="$INSTALL_PATH/pgsql/lib/pgstattuple.so" keep="true" />
             <executable targetfile="$INSTALL_PATH/pgsql/lib/pgxml.so" keep="true" />
