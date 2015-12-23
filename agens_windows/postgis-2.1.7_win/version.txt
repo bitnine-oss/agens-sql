@@ -1,0 +1,5 @@
+pgRouting http://pgrouting.org : 2.0.0
+PostgreSQL http://www.postgresql.org : 9.4 64 gcc48
+CGAL http://www.cgal.org : 4.2
+BOOST http://www.boost.org : 1.53.0
+Built: 20141219
