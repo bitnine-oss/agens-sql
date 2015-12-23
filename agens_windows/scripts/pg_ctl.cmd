@@ -1,0 +1,1 @@
+sc start pg_ctl

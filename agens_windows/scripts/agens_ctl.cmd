@@ -1,0 +1,1 @@
+sc start agens_ctl
