@@ -1,0 +1,1059 @@
+<project>
+    <shortName>AgensSQL</shortName>
+    <fullName>Agens SQL</fullName>
+    <version>1.1</version>
+    <leftImage>C:/working_space/Windows_Installer_Space/Installer_Binary_Dir/Image_file/agensINST_icon_16x16.png</leftImage>
+    <logoImage>C:/working_space/Windows_Installer_Space/Installer_Binary_Dir/Image_file/agensINST_icon_32x32.png</logoImage>
+    <splashImage>C:/working_space/Windows_Installer_Space/Installer_Binary_Dir/Image_file/image_Heading.png</splashImage>
+    <defaultLanguage>ko</defaultLanguage>
+    <allowLanguageSelection>1</allowLanguageSelection>
+
+    <!-- Component List Start -->
+    <componentList>
+        <component>
+            <name>Agens</name>
+            <description>Agens SQL</description>
+            <canBeEdited>1</canBeEdited>
+            <detailedDescription>${msg(Installer.Component.agens.detailedDescription)}</detailedDescription>
+            <selected>1</selected>
+            <show>1</show>
+            <folderList>
+                <folder>
+                    <description>Program Files</description>
+                    <destination>${installdir}/Agens SQL</destination>
+                    <name>agenssql</name>
+                    <platforms>all</platforms>
+                    <distributionFileList>
+                        <distributionDirectory origin="C:\working_space\Windows_Installer_Space\Installer_Binary_Dir\Agens_SQL_944\bin"/>
+                        <distributionDirectory origin="C:\working_space\Windows_Installer_Space\Installer_Binary_Dir\Agens_SQL_944\doc"/>
+                        <distributionDirectory origin="C:\working_space\Windows_Installer_Space\Installer_Binary_Dir\Agens_SQL_944\include"/>
+                        <distributionDirectory origin="C:\working_space\Windows_Installer_Space\Installer_Binary_Dir\Agens_SQL_944\lib"/>
+                        <distributionDirectory origin="C:\working_space\Windows_Installer_Space\Installer_Binary_Dir\Agens_SQL_944\scripts"/>
+                        <distributionDirectory origin="C:\working_space\Windows_Installer_Space\Installer_Binary_Dir\Agens_SQL_944\share"/>
+                        <distributionDirectory origin="C:\working_space\Windows_Installer_Space\Installer_Binary_Dir\Agens_SQL_944\symbols"/>
+                        <distributionFile origin="C:\working_space\Windows_Installer_Space\Installer_Binary_Dir\Agens_SQL_944\Readme_Enterprise.txt"/>
+                    </distributionFileList>
+                </folder>
+                <folder>
+                    <description>Require DLL Files</description>
+                    <destination>${installdir}\Agens SQL\bin</destination>
+                    <name>DLLFiles</name>
+                    <platforms>windows</platforms>
+                    <distributionFileList>
+                        <distributionFile origin="C:\working_space\Windows_Installer_Space\Installer_Binary_Dir\msvc_dll_file\msvcr100.dll"/>
+                        <distributionFile origin="C:\working_space\Windows_Installer_Space\Installer_Binary_Dir\msvc_dll_file\msvcr110.dll"/>
+                        <distributionFile origin="C:\working_space\Windows_Installer_Space\Installer_Binary_Dir\msvc_dll_file\msvcr120.dll"/>
+                        <distributionFile origin="C:\working_space\Windows_Installer_Space\Installer_Binary_Dir\Openssl_dll_file\libeay32.dll"/>
+                        <distributionFile origin="C:\working_space\Windows_Installer_Space\Installer_Binary_Dir\Openssl_dll_file\ssleay32.dll"/>
+                    </distributionFileList>
+                </folder>
+            </folderList>
+
+            <!-- Create Shortcut. Shortcut entry is Agens psql, Agnes Homepage, Agens Documentation, Agens ctl and Agens SQL Uninstaller. Shortcut is created Windows Start Menu. -->
+            <startMenuShortcutList>
+                <startMenuShortcut>
+                    <comment>AGENS PSQL</comment>
+                    <name>AGENS PSQL</name>
+                    <runAsAdmin>0</runAsAdmin>
+                    <runInTerminal>0</runInTerminal>
+                    <windowsExec>${installdir}\Agens SQL\scripts\psql.cmd</windowsExec>
+                    <windowsExecArgs></windowsExecArgs>
+                    <windowsIcon>%SystemRoot%\system32\shell32.dll</windowsIcon>
+                    <windowsPath>${installdir}\</windowsPath>
+                    <windowsIconIndex>2</windowsIconIndex>
+                </startMenuShortcut>
+                <startMenuShortcut>
+                    <comment>Startup Agens SQL</comment>
+                    <name>Startup Agens SQL</name>
+                    <runAsAdmin>1</runAsAdmin>
+                    <runInTerminal>0</runInTerminal>
+                    <windowsExec>${installdir}\Agens SQL\scripts\agens_ctl.cmd</windowsExec>
+                    <windowsExecArgs></windowsExecArgs>
+                    <windowsIcon>%SystemRoot%\system32\shell32.dll</windowsIcon>
+                    <windowsPath>${installdir}\</windowsPath>
+                    <windowsIconIndex>24</windowsIconIndex>
+                </startMenuShortcut>
+                <startMenuShortcut>
+                    <comment>Uninstall ${project.fullName}</comment>
+                    <name>Uninstall ${project.fullName}</name>
+                    <runAsAdmin>1</runAsAdmin>
+                    <runInTerminal>0</runInTerminal>
+                    <windowsExec>${installdir}\${project.uninstallerName}.exe</windowsExec>
+                    <windowsExecArgs></windowsExecArgs>
+                    <windowsIcon></windowsIcon>
+                    <windowsPath>${installdir}\</windowsPath>
+                </startMenuShortcut>
+                <startMenuLinkShortcut>
+                    <comment>Open AGENS Homepage</comment>
+                    <name>AGENS Homepage</name>
+                    <runAsAdmin>0</runAsAdmin>
+                    <runInTerminal>0</runInTerminal>
+                    <url>http://www.agens.co.kr</url>
+                    <windowsIcon>%SystemRoot%\system32\shell32.dll</windowsIcon>
+                    <windowsIconIndex>220</windowsIconIndex>
+                </startMenuLinkShortcut>
+                <startMenuLinkShortcut>
+                    <comment>Open AGENS Documentation</comment>
+                    <name>AGENS Documentation</name>
+                    <runAsAdmin>0</runAsAdmin>
+                    <runInTerminal>0</runInTerminal>
+                    <url>http://www.agens.co.kr/sp.php?p=62</url>
+                    <windowsIcon>%SystemRoot%\system32\shell32.dll</windowsIcon>
+                    <windowsIconIndex>23</windowsIconIndex>
+                </startMenuLinkShortcut>
+            </startMenuShortcutList>
+        </component>
+        <componentGroup>
+            <name>Packages</name>
+            <description>Packages</description>
+            <canBeEdited>1</canBeEdited>
+            <selected>0</selected>
+            <show>1</show>
+            <componentList>
+                <componentGroup>
+                    <name>GeoSpatial</name>
+                    <description>Geo-Spatial</description>
+                    <canBeEdited>1</canBeEdited>
+                    <selected>0</selected>
+                    <show>1</show>
+                    <componentList>
+                        <component>
+                            <name>postGIS</name>
+                            <description>postGIS</description>
+                            <canBeEdited>1</canBeEdited>
+                            <detailedDescription>PostgreSQL에 지리적 객체기능을 더하여 공간정보 처리기능을 효율적으로 수행할 수 있도록 합니다. 이를 이용하여 지리적 객체를 이용한 SQL query문을 작성할 수 있습니다.</detailedDescription>
+                            <selected>0</selected>
+                            <show>1</show>
+                            <folderList>
+                                <folder>
+                                    <description>Program Files</description>
+                                    <destination>${installdir}/Agens SQL</destination>
+                                    <name>postGISbinary</name>
+                                    <platforms>all</platforms>
+                                    <distributionFileList>
+                                        <distributionDirectory origin="C:/working_space/Windows_Installer_Space/Installer_Binary_Dir/PostGIS_Installer_Resource/bin"/>
+                                        <distributionDirectory origin="C:/working_space/Windows_Installer_Space/Installer_Binary_Dir/PostGIS_Installer_Resource/gdal-data"/>
+                                        <distributionDirectory origin="C:/working_space/Windows_Installer_Space/Installer_Binary_Dir/PostGIS_Installer_Resource/lib"/>
+                                        <distributionDirectory origin="C:/working_space/Windows_Installer_Space/Installer_Binary_Dir/PostGIS_Installer_Resource/pgAdmin III"/>
+                                        <distributionDirectory origin="C:/working_space/Windows_Installer_Space/Installer_Binary_Dir/PostGIS_Installer_Resource/share"/>
+                                        <distributionDirectory origin="C:/working_space/Windows_Installer_Space/Installer_Binary_Dir/PostGIS_Installer_Resource/utils"/>
+                                    </distributionFileList>
+                                </folder>
+                                <folder>
+                                    <description>Program Files</description>
+                                    <destination>${installdir}/Agens SQL/extension/postGIS</destination>
+                                    <name>postGIS</name>
+                                    <platforms>all</platforms>
+                                    <distributionFileList>
+                                        <distributionFile origin="C:/working_space/Windows_Installer_Space/Installer_Binary_Dir/PostGIS_Installer_Resource/BOOST_LICENSE"/>
+                                        <distributionFile origin="C:/working_space/Windows_Installer_Space/Installer_Binary_Dir/PostGIS_Installer_Resource/CGAL_LICENSE"/>
+                                        <distributionFile origin="C:/working_space/Windows_Installer_Space/Installer_Binary_Dir/PostGIS_Installer_Resource/makepostgisdb.bat"/>
+                                        <distributionFile origin="C:/working_space/Windows_Installer_Space/Installer_Binary_Dir/PostGIS_Installer_Resource/makepostgisdb_using_extensions.bat"/>
+                                        <distributionFile origin="C:/working_space/Windows_Installer_Space/Installer_Binary_Dir/PostGIS_Installer_Resource/PAGC_POSTGRESQL_COPYING"/>
+                                        <distributionFile origin="C:/working_space/Windows_Installer_Space/Installer_Binary_Dir/PostGIS_Installer_Resource/pgRouting_LICENSE"/>
+                                        <distributionFile origin="C:/working_space/Windows_Installer_Space/Installer_Binary_Dir/PostGIS_Installer_Resource/ReadMe.txt"/>
+                                        <distributionFile origin="C:/working_space/Windows_Installer_Space/Installer_Binary_Dir/PostGIS_Installer_Resource/version.txt"/>
+                                    </distributionFileList>
+                                </folder>
+                            </folderList>
+                        </component>
+                    </componentList>
+                </componentGroup>
+                <componentGroup>
+                    <name>Migration</name>
+                    <description>Migration</description>
+                    <canBeEdited>1</canBeEdited>
+                    <selected>0</selected>
+                    <show>1</show>
+                    <componentList>
+                        <component>
+                            <name>Orafce</name>
+                            <description>Orafce</description>
+                            <canBeEdited>1</canBeEdited>
+                            <detailedDescription>Orafce는 PostgreSQL에서 Oracle의 Function, Object, Data Type을 지원하는 패키지입니다.</detailedDescription>
+                            <selected>0</selected>
+                            <show>1</show>
+                            <folderList>
+                                <folder>
+                                    <description>Program Files</description>
+                                    <destination>${installdir}/Agens SQL</destination>
+                                    <name>orafcebinary</name>
+                                    <platforms>all</platforms>
+                                    <distributionFileList>
+                                        <distributionDirectory origin="C:/working_space/Windows_Installer_Space/Installer_Binary_Dir/Orafce_Installer_Resource/lib"/>
+                                        <distributionDirectory origin="C:/working_space/Windows_Installer_Space/Installer_Binary_Dir/Orafce_Installer_Resource/share"/>
+                                    </distributionFileList>
+                                </folder>
+                                <folder>
+                                    <description>Program Files</description>
+                                    <destination>${installdir}/Agens SQL/extension/orafce</destination>
+                                    <name>orafce</name>
+                                    <platforms>all</platforms>
+                                    <distributionFileList>
+                                        <distributionDirectory origin="C:/working_space/Windows_Installer_Space/Installer_Binary_Dir/Orafce_Installer_Resource/orafce"/>
+                                    </distributionFileList>
+                                </folder>
+                            </folderList>
+                        </component>
+                    </componentList>
+                </componentGroup>
+                <componentGroup>
+                    <name>PostgreSQLextention</name>
+                    <description>PostgreSQL extension</description>
+                    <canBeEdited>1</canBeEdited>
+                    <selected>0</selected>
+                    <show>1</show>
+                    <componentList>
+                        <component>
+                            <name>pghintplan</name>
+                            <description>pg_hint_plan</description>
+                            <canBeEdited>1</canBeEdited>
+                            <detailedDescription>pg_hint_plan은 질의문에 힌트 구문으로 실행 계획을 조작할 수 있도록 하는 패키지입니다.</detailedDescription>
+                            <selected>0</selected>
+                            <show>1</show>
+                            <folderList>
+                                <folder>
+                                    <description>Program Files</description>
+                                    <destination>${installdir}/Agens SQL</destination>
+                                    <name>pg_hint_planbinary</name>
+                                    <platforms>all</platforms>
+                                    <distributionFileList>
+                                        <distributionDirectory origin="C:/working_space/Windows_Installer_Space/Installer_Binary_Dir/Pg_hint_plan_Installer_Resource/lib"/>
+                                        <distributionDirectory origin="C:/working_space/Windows_Installer_Space/Installer_Binary_Dir/Pg_hint_plan_Installer_Resource/share"/>
+                                    </distributionFileList>
+                                </folder>
+                                <folder>
+                                    <description>Program Files</description>
+                                    <destination>${installdir}/Agens SQL/extension/pg_hint_plan</destination>
+                                    <name>pg_hint_plan</name>
+                                    <platforms>all</platforms>
+                                    <distributionFileList>
+                                        <distributionDirectory origin="C:/working_space/Windows_Installer_Space/Installer_Binary_Dir/Pg_hint_plan_Installer_Resource/lib"/>
+                                        <distributionDirectory origin="C:/working_space/Windows_Installer_Space/Installer_Binary_Dir/Pg_hint_plan_Installer_Resource/share"/>
+                                    </distributionFileList>
+                                </folder>
+                            </folderList>
+                        </component>
+                        <component>
+                            <name>pgsmtp</name>
+                            <description>pgsmtp</description>
+                            <canBeEdited>1</canBeEdited>
+                            <detailedDescription>pgsmtp는 PostgreSQL의 내장 언어인 Python의 smtp 패키지를 사용하여 e-mail을 보낼 수 있도록 하는 패키지입니다.</detailedDescription>
+                            <selected>0</selected>
+                            <show>1</show>
+                            <folderList>
+                                <folder>
+                                    <description>Program Files</description>
+                                    <destination>${installdir}/Agens SQL/share/extension</destination>
+                                    <name>pgsmtpbinary</name>
+                                    <platforms>all</platforms>
+                                    <distributionFileList>
+                                        <distributionFile origin="C:/working_space/Windows_Installer_Space/Installer_Binary_Dir/Pgsmtp_Installer_Resource/pgsmtp.control"/>
+                                        <distributionFile origin="C:/working_space/Windows_Installer_Space/Installer_Binary_Dir/Pgsmtp_Installer_Resource/pgsmtp-0.1.1"/>
+                                        <distributionFile origin="C:/working_space/Windows_Installer_Space/Installer_Binary_Dir/Pgsmtp_Installer_Resource/pgsmtp--0.1.1.sql"/>
+                                    </distributionFileList>
+                                </folder>
+                                <folder>
+                                    <description>Program Files</description>
+                                    <destination>${installdir}/Agens SQL/extension/pgsmtp</destination>
+                                    <name>pgsmtp</name>
+                                    <platforms>all</platforms>
+                                    <distributionFileList>
+                                        <distributionFile origin="C:/working_space/Windows_Installer_Space/Installer_Binary_Dir/Pgsmtp_Installer_Resource/README_PGSMTP"/>
+                                    </distributionFileList>
+                                </folder>
+                            </folderList>
+                        </component>
+                    </componentList>
+                </componentGroup>
+            </componentList>
+        </componentGroup>
+    </componentList>
+
+
+    <postInstallationActionList>
+    <!-- PostInstallationActionList Start -->
+        <!-- Create Agens SQL Database -->
+        <actionGroup>
+            <actionList>
+                <substitute>
+                    <files>${installdir}\Agens SQL\scripts\create_agens_sql.cmd</files>
+                    <type>exact</type>
+                    <substitutionList>
+                        <substitution>
+                            <pattern>%DATA_DIR%</pattern>
+                            <value>${project.parameter(InstallDataDir).value}</value>
+                        </substitution>
+                        <substitution>
+                            <pattern>%USER_NAME%</pattern>
+                            <value>${project.parameter(DbConf).parameter(AdminAccount).parameter(UserAccount).value}</value>
+                        </substitution>
+                        <substitution>
+                            <pattern>%AGENS_HOME%</pattern>
+                            <value>${installdir}\Agens SQL</value>
+                        </substitution>
+                    </substitutionList>
+                </substitute>
+                <showProgressDialog>
+                    <title>Installing Database Server ... </title>
+                    <actionList>
+                        <runProgram>
+                            <progressText>Installing Database Server ... </progressText>
+                            <program>${installDir}\Agens SQL\scripts\create_agens_sql.cmd</program>
+                            <programArguments></programArguments>
+                            <workingDirectory>${installDir}\Agens SQL\scripts</workingDirectory>
+                        </runProgram>
+                    </actionList>
+                </showProgressDialog>
+            </actionList>
+            <ruleList>
+                <compareText>
+                    <logic>equals</logic>
+                    <text></text>
+                    <value>${PreInstalled}</value>
+                </compareText>
+            </ruleList>
+        </actionGroup>
+
+        <!-- If DBPort value is not default value, Modifying DBPort of postgresql.conf file -->
+        <actionGroup>
+            <actionList>
+                <substitute>
+                    <files>${project.parameter(InstallDataDir).value}\postgresql.conf</files>
+                    <type>exact</type>
+                    <substitutionList>
+                        <substitution>
+                            <pattern>#port = 6179</pattern>
+                            <value>port = ${project.parameter(Serverconf).parameter(Port).value}</value>
+                        </substitution>
+                    </substitutionList>
+                </substitute>
+            </actionList>
+            <ruleEvaluationLogic>and</ruleEvaluationLogic>
+            <ruleList>
+                <compareText>
+                    <logic>does_not_equal</logic>
+                    <text>${project.parameter(Serverconf).parameter(Port).value}</text>
+                    <value>6179</value>
+                </compareText>
+                <compareText>
+                    <logic>equals</logic>
+                    <text></text>
+                    <value>${PreInstalled}</value>
+                </compareText>
+            </ruleList>
+        </actionGroup>
+
+        <!-- If Host value is not default value, Modifying Host of postgresql.conf file -->
+        <if>
+            <conditionRuleEvaluationLogic>and</conditionRuleEvaluationLogic>
+            <conditionRuleList>
+                <compareText>
+                    <logic>does_not_equal</logic>
+                    <text>${project.parameter(Serverconf).parameter(Hostname).value}</text>
+                    <value>localhost</value>
+                </compareText>
+                <compareText>
+                    <logic>equals</logic>
+                    <text></text>
+                    <value>${PreInstalled}</value>
+                </compareText>
+            </conditionRuleList>
+            <actionList>
+                <substitute>
+                    <files>${project.parameter(InstallDataDir).value}\postgresql.conf</files>
+                    <type>exact</type>
+                    <substitutionList>
+                        <substitution>
+                            <pattern>#listen_addresses = 'localhost'</pattern>
+                            <value>listen_addresses = '${project.parameter(Serverconf).parameter(Hostname).value}'</value>
+                        </substitution>
+                    </substitutionList>
+                </substitute>
+            </actionList>
+            <elseActionList>
+                <substitute>
+                    <files>${project.parameter(InstallDataDir).value}\postgresql.conf</files>
+                    <type>exact</type>
+                    <substitutionList>
+                        <substitution>
+                            <pattern>#listen_addresses = 'localhost'</pattern>
+                            <value>listen_addresses = '*'</value>
+                        </substitution>
+                    </substitutionList>
+                </substitute>
+            </elseActionList>
+        </if>
+
+        <!-- Start Agens SQL Database -->
+        <actionGroup>
+            <actionList>
+                <substitute>
+                    <files>${installdir}\Agens SQL\scripts\start_agens_sql.cmd</files>
+                    <type>exact</type>
+                    <substitutionList>
+                        <substitution>
+                            <pattern>%DATA_DIR%</pattern>
+                            <value>${project.parameter(InstallDataDir).value}</value>
+                        </substitution>
+                        <substitution>
+                            <pattern>%USER_NAME%</pattern>
+                            <value>${project.parameter(DbConf).parameter(AdminAccount).parameter(UserAccount).value}</value>
+                        </substitution>
+                        <substitution>
+                            <pattern>%AGENS_HOME%</pattern>
+                            <value>${installdir}\Agens SQL</value>
+                        </substitution>
+                        <substitution>
+                            <pattern>%DBPORT%</pattern>
+                            <value>${project.parameter(Serverconf).parameter(Port).value}</value>
+                        </substitution>
+                        <substitution>
+                            <pattern>%DBNAME%</pattern>
+                            <value>${project.parameter(Serverconf).parameter(DBname).value}</value>
+                        </substitution>
+                    </substitutionList>
+                </substitute>
+                <showProgressDialog>
+                    <title>Creating Default Database ... </title>
+                    <actionList>
+                        <runProgram>
+                            <progressText>Creating Default Database ... </progressText>
+                            <program>${installDir}\Agens SQL\scripts\start_agens_sql.cmd</program>
+                            <programArguments></programArguments>
+                            <workingDirectory>${installDir}\Agens SQL\scripts</workingDirectory>
+                            <abortOnError>0</abortOnError>
+                        </runProgram>
+                    </actionList>
+                </showProgressDialog>
+            </actionList>
+            <ruleList>
+                <compareText>
+                    <logic>equals</logic>
+                    <text></text>
+                    <value>${PreInstalled}</value>
+                </compareText>
+            </ruleList>
+        </actionGroup>
+
+        <!-- Modify psql parameter -->
+        <actionGroup>
+            <actionList>
+                <substitute>
+                    <files>${installdir}\Agens SQL\scripts\psql.cmd</files>
+                    <type>exact</type>
+                    <substitutionList>
+                        <substitution>
+                            <pattern>%USER_NAME%</pattern>
+                            <value>${project.parameter(DbConf).parameter(AdminAccount).parameter(UserAccount).value}</value>
+                        </substitution>
+                        <substitution>
+                            <pattern>%DBPORT%</pattern>
+                            <value>${project.parameter(Serverconf).parameter(Port).value}</value>
+                        </substitution>
+                        <substitution>
+                            <pattern>%DBNAME%</pattern>
+                            <value>${project.parameter(Serverconf).parameter(DBname).value}</value>
+                        </substitution>
+                        <substitution>
+                            <pattern>%AGENS_HOME%</pattern>
+                            <value>${installdir}\Agens SQL</value>
+                        </substitution>
+                        <substitution>
+                            <pattern>%DBHOST%</pattern>
+                            <value>${project.parameter(Serverconf).parameter(Hostname).value}</value>
+                        </substitution>
+                    </substitutionList>
+                </substitute>
+            </actionList>
+            <ruleList>
+                <compareText>
+                    <logic>equals</logic>
+                    <text></text>
+                    <value>${PreInstalled}</value>
+                </compareText>
+            </ruleList>
+        </actionGroup>
+
+        <!-- Alter role -->
+        <actionGroup>
+            <actionList>
+                <substitute>
+                    <files>${installdir}\Agens SQL\scripts\alter_agens_user.cmd</files>
+                    <type>exact</type>
+                    <substitutionList>
+                        <substitution>
+                            <pattern>%DATA_DIR%</pattern>
+                            <value>${project.parameter(InstallDataDir).value}</value>
+                        </substitution>
+                        <substitution>
+                            <pattern>%USER_NAME%</pattern>
+                            <value>${project.parameter(DbConf).parameter(AdminAccount).parameter(UserAccount).value}</value>
+                        </substitution>
+                        <substitution>
+                            <pattern>%AGENS_HOME%</pattern>
+                            <value>${installdir}\Agens SQL</value>
+                        </substitution>
+                        <substitution>
+                            <pattern>%DBPORT%</pattern>
+                            <value>${project.parameter(Serverconf).parameter(Port).value}</value>
+                        </substitution>
+                        <substitution>
+                            <pattern>%DBNAME%</pattern>
+                            <value>${project.parameter(Serverconf).parameter(DBname).value}</value>
+                        </substitution>
+                        <substitution>
+                            <pattern>%DBPassword%</pattern>
+                            <value>${project.parameter(DBConf).parameter(AdminAccount).parameter(DBPassword).value}</value>
+                        </substitution>
+                    </substitutionList>
+                </substitute>
+                <runProgram>
+                    <program>${installDir}\Agens SQL\scripts\alter_agens_user.cmd</program>
+                    <programArguments></programArguments>
+                    <workingDirectory>${installDir}\Agens SQL\scripts</workingDirectory>
+                    <abortOnError>0</abortOnError>
+                </runProgram>
+            </actionList>
+            <ruleEvaluationLogic>and</ruleEvaluationLogic>
+            <ruleList>
+                <compareText>
+                    <logic>does_not_equal</logic>
+                    <text>${project.parameter(DBConf).parameter(AdminAccount).parameter(DBPassword).value}</text>
+                    <value></value>
+                </compareText>
+                <compareText>
+                    <logic>equals</logic>
+                    <text></text>
+                    <value>${PreInstalled}</value>
+                </compareText>
+            </ruleList>
+        </actionGroup>
+
+        <actionGroup>
+            <actionList>
+                <substitute>
+                    <files>${project.parameter(InstallDataDir).value}\pg_hba.conf</files>
+                    <type>exact</type>
+                    <substitutionList>
+                        <substitution>
+                            <pattern>host    all             all             127.0.0.1/32            trust</pattern>
+                            <value>host    all             all             127.0.0.1/32            md5</value>
+                        </substitution>
+                        <substitution>
+                            <pattern>host    all             all             ::1/128                 trust</pattern>
+                            <value>host    all             all             ::1/128                 md5</value>
+                        </substitution>
+                        <substitution>
+                            <pattern>#host    replication     ${project.parameter(DbConf).parameter(AdminAccount).parameter(UserAccount).value}        127.0.0.1/32            trust</pattern>
+                            <value>host    replication     ${project.parameter(DbConf).parameter(AdminAccount).parameter(UserAccount).value}        127.0.0.1/32            md5</value>
+                        </substitution>
+                        <substitution>
+                            <pattern>#host    replication     ${project.parameter(DbConf).parameter(AdminAccount).parameter(UserAccount).value}        ::1/128                 trust</pattern>
+                            <value>host    replication     ${project.parameter(DbConf).parameter(AdminAccount).parameter(UserAccount).value}        ::1/128                 md5</value>
+                        </substitution>
+                    </substitutionList>
+                </substitute>
+            </actionList>
+            <ruleEvaluationLogic>and</ruleEvaluationLogic>
+            <ruleList>
+                <compareText>
+                    <logic>does_not_equal</logic>
+                    <text>${project.parameter(DBConf).parameter(AdminAccount).parameter(DBPassword).value}</text>
+                    <value></value>
+                </compareText>
+                <compareText>
+                    <logic>equals</logic>
+                    <text></text>
+                    <value>${PreInstalled}</value>
+                </compareText>
+            </ruleList>
+        </actionGroup>
+
+        <!-- Deleting files created after installation occurred -->
+        <showProgressDialog>
+            <title>Removing preinstallation files</title>
+            <actionList>
+                <deleteFile>
+                    <progressText>Removing preinstallation files</progressText>
+                    <path>${installdir}\Agens SQL\scripts\create_agens_sql.cmd</path>
+                    <ruleList>
+                        <fileExists>
+                            <path>${installdir}\Agens SQL\scripts\create_agens_sql.cmd</path>
+                        </fileExists>
+                    </ruleList>
+                </deleteFile>
+                <deleteFile>
+                    <progressText>Removing preinstallation files</progressText>
+                    <path>${installdir}\Agens SQL\scripts\start_agens_sql.cmd</path>
+                    <ruleList>
+                        <fileExists>
+                            <path>${installdir}\Agens SQL\scripts\start_agens_sql.cmd</path>
+                        </fileExists>
+                    </ruleList>
+                </deleteFile>
+                <deleteFile>
+                    <progressText>Removing preinstallation files</progressText>
+                    <path>${installdir}\Agens SQL\scripts\alter_agens_user.cmd</path>
+                    <ruleList>
+                        <fileExists>
+                            <path>${installdir}\Agens SQL\scripts\start_agens_sql.cmd</path>
+                        </fileExists>
+                    </ruleList>
+                </deleteFile>
+            </actionList>
+            <ruleList>
+                <compareText>
+                    <logic>equals</logic>
+                    <text></text>
+                    <value>${PreInstalled}</value>
+                </compareText>
+            </ruleList>
+        </showProgressDialog>
+
+        <!-- Register Windows registry -->
+        <registrySet>
+            <key>HKEY_LOCAL_MACHINE\SOFTWARE\${project.vendor}\${project.fullName}</key>
+            <name>agens</name>
+            <value>${project.fullName}</value>
+        </registrySet>
+        <registrySet>
+            <key>HKEY_LOCAL_MACHINE\SOFTWARE\${project.vendor}\${project.fullName}\${project.version}</key>
+            <name>version</name>
+            <value>${project.version}</value>
+        </registrySet>
+    </postInstallationActionList>
+
+    <initializationActionList>
+        <getFreePort>
+            <finalPort>65535</finalPort>
+            <initialPort>6179</initialPort>
+            <variable>AgensDefultPort</variable>
+        </getFreePort>
+
+        <!-- Set Uninstaller name -->
+        <setInstallerVariable>
+            <name>UninstallerName</name>
+            <persist>1</persist>
+            <value>Uninstaller-AgensSQL</value>
+        </setInstallerVariable>
+
+        <registryGet>
+            <key>HKEY_LOCAL_MACHINE\SOFTWARE\${project.vendor}\${project.fullName}\${project.version}</key>
+            <name>Version</name>
+            <variable>PreInstalled</variable>
+        </registryGet>
+    </initializationActionList>
+
+    <allowAddRemoveComponents>1</allowAddRemoveComponents>
+    <allowComponentSelection>1</allowComponentSelection>
+    <allowedLanguages>ko en</allowedLanguages>
+    <enableRollback>1</enableRollback>
+    <enableTimestamp>1</enableTimestamp>
+    <vendor>Bitnine</vendor>
+
+    <!-- Windows run mode -->
+    <windows64bitMode>1</windows64bitMode>
+
+    <!-- Import Custom Language Files -->
+    <customLanguageFileList>
+        <language>
+            <code>en</code>
+            <encoding>utf-8</encoding>
+            <file>C:/Users/bitnine05/Documents/InstallBuilder/1.0/agens_en.txt</file>
+        </language>
+        <language>
+            <code>ko</code>
+            <encoding>utf-8</encoding>
+            <file>C:/Users/bitnine05/Documents/InstallBuilder/1.0/agens_ko.txt</file>
+        </language>
+    </customLanguageFileList>
+
+    <finalPageActionList>
+    <!-- Final Page Action -->
+        <launchBrowser>
+            <progressText>Agens Homepage</progressText>
+            <url>www.agens.co.kr</url>
+        </launchBrowser>
+
+        <actionGroup progressText="View readme file">
+            <actionList>
+                <readFile>
+                    <name>text</name>
+                    <path>${installdir}/Agens SQL/Readme_Enterprise.txt</path>
+                </readFile>
+                <showText>
+                    <text>${text}</text>
+                    <title>README</title>
+                </showText>
+            </actionList>
+        </actionGroup>
+<!--
+        <actionGroup>
+            <progressText>Launch Application</progressText>
+            <actionList>
+                <runProgram>
+                    <program>${installdir}/Agens SQL/bin/pg_ctl.exe</program>
+                    <programArguments>-D "${InstallDataDir}" -l "${InstallDataDir}\server_log.txt" start</programArguments>
+                </runProgram>
+                <runProgram>
+                    <program>${installdir}/Agens SQL/bin/psql.exe</program>
+                    <programArguments></programArguments>
+                </runProgram>
+            </actionList>
+            <ruleList>
+                <compareText>
+                    <logic>equals</logic>
+                    <text></text>
+                    <value>${PreInstalled}</value>
+                </compareText>
+            </ruleList>
+        </actionGroup>
+    -->
+    </finalPageActionList>
+
+    <!-- Parameter Start -->
+    <parameterList>
+        <!-- License Parameter start -->
+        <licenseParameter>
+            <name>AgensSQLLicense</name>
+            <title>${msg(Installer.Param.AgensSQLLicense.title)}</title>
+            <description>${msg(Installer.Param.AgensSQLLicense.des)}</description>
+            <explanation></explanation>
+            <file>C:/Users/bitnine05/Documents/InstallBuilder/1.0/License_utf8.txt</file>
+            <fileEncoding>utf-8</fileEncoding>
+            <htmlFile></htmlFile>
+            <insertBefore>installdir</insertBefore>
+            <wrapText>1</wrapText>
+        </licenseParameter>
+
+        <!-- Installdir Parameter start -->
+        <directoryParameter>
+            <name>installdir</name>
+            <title>${msg(Installer.Param.InstallationDirectory.title)}</title>
+            <description>Directory : </description>
+            <explanation>${msg(Installer.Param.Installdir.exp)}</explanation>
+            <value></value>
+            <default>${platform_install_prefix}\${product_shortname}-${product_version}</default>
+            <allowEmptyValue>0</allowEmptyValue>
+            <ask>yes</ask>
+            <cliOptionName>prefix</cliOptionName>
+            <mustBeWritable>yes</mustBeWritable>
+            <mustExist>0</mustExist>
+            <width>40</width>
+            <ruleList>
+                <compareText>
+                    <logic>equals</logic>
+                    <text></text>
+                    <value>${PreInstalled}</value>
+                </compareText>
+            </ruleList>
+        </directoryParameter>
+
+        <!-- Database Data Directory start -->
+        <directoryParameter>
+            <name>InstallDataDir</name>
+            <title>${msg(Installer.Param.InstallDataDir.title)}</title>
+            <description>Database Data Directory : </description>
+            <explanation>${msg(Installer.Param.DataDir.exp)}</explanation>
+            <value></value>
+            <default>${installdir}\Agens SQL\data</default>
+            <allowEmptyValue>0</allowEmptyValue>
+            <ask>yes</ask>
+            <cliOptionName>prefix_data</cliOptionName>
+            <mustBeWritable>yes</mustBeWritable>
+            <mustExist>0</mustExist>
+            <width>40</width>
+            <ruleList>
+                <compareText>
+                    <logic>equals</logic>
+                    <text></text>
+                    <value>${PreInstalled}</value>
+                </compareText>
+            </ruleList>
+            <validationActionList>
+                <throwError>
+                    <text>Data Directory is Already Existed</text>
+                    <ruleList>
+                        <fileExists>
+                            <path>${installdir}\Agens SQL\data</path>
+                        </fileExists>
+                    </ruleList>
+                </throwError>
+            </validationActionList>
+        </directoryParameter>
+
+        <!-- Parameter Group start. Including parameter group to database user and database passwd -->
+        <parameterGroup>
+            <name>DBConf</name>
+            <title>${msg(Installer.Param.DbConf.title)}</title>
+            <explanation></explanation>
+            <value></value>
+            <default></default>
+            <parameterList>
+                <parameterGroup>
+                    <name>AdminAccount</name>
+                    <explanation>${msg(Installer.Param.DbConf.AdminAccount.exp)}</explanation>
+                    <value></value>
+                    <default></default>
+                    <parameterList>
+                        <stringParameter>
+                            <name>UserAccount</name>
+                            <description>${msg(Installer.Param.DbConf.AdminAccount.UserAccount.des)}</description>
+                            <explanation></explanation>
+                            <value></value>
+                            <default>agens</default>
+                            <allowEmptyValue>1</allowEmptyValue>
+                            <width>20</width>
+                        </stringParameter>
+                        <passwordParameter>
+                            <name>DBPassword</name>
+                            <description>${msg(Installer.Param.DbConf.AdminAccount.DbPassword.des)}</description>
+                            <explanation></explanation>
+                            <value></value>
+                            <default></default>
+                            <allowEmptyValue>1</allowEmptyValue>
+                            <ask>yes</ask>
+                            <cliOptionName>password</cliOptionName>
+                            <descriptionRetype>Retype password:</descriptionRetype>
+                            <width>20</width>
+                        </passwordParameter>
+                    </parameterList>
+                </parameterGroup>
+            </parameterList>
+            <ruleList>
+                <compareText>
+                    <logic>equals</logic>
+                    <text></text>
+                    <value>${PreInstalled}</value>
+                </compareText>
+            </ruleList>
+        </parameterGroup>
+
+        <!-- Parameter Group end 
+ Parameter Group start. Including parameter group to hostname and database name and port -->
+        <parameterGroup>
+            <name>ServerConf</name>
+            <title>${msg(Installer.Param.ServerConf.title)}</title>
+            <explanation>${msg(Installer.Param.ServerConf.exp)}</explanation>
+            <value></value>
+            <default></default>
+            <parameterList>
+                <stringParameter>
+                    <name>Hostname</name>
+                    <description>${msg(Installer.Param.ServerConf.HostName.des)}</description>
+                    <explanation></explanation>
+                    <value></value>
+                    <default>localhost</default>
+                    <allowEmptyValue>1</allowEmptyValue>
+                    <width>20</width>
+                </stringParameter>
+                <stringParameter>
+                    <name>Port</name>
+                    <description>${msg(Installer.Param.ServerConf.Port.des)}</description>
+                    <explanation></explanation>
+                    <value></value>
+                    <default>${AgensDefultPort}</default>
+                    <allowEmptyValue>1</allowEmptyValue>
+                    <width>20</width>
+                </stringParameter>
+                <stringParameter>
+                    <name>DBname</name>
+                    <title>Default Database Name</title>
+                    <description>${msg(Installer.Param.DbConf.DbName.des)}</description>
+                    <explanation>${msg(Installer.Param.DbConf.DbName.exp)}</explanation>
+                    <value></value>
+                    <default>agens</default>
+                    <allowEmptyValue>1</allowEmptyValue>
+                    <width>40</width>
+                </stringParameter>
+            </parameterList>
+            <ruleList>
+                <compareText>
+                    <logic>equals</logic>
+                    <text></text>
+                    <value>${PreInstalled}</value>
+                </compareText>
+            </ruleList>
+        </parameterGroup>
+        <infoParameter>
+            <name>Summary</name>
+            <title>Summary</title>
+            <description></description>
+            <explanation>You are about to install ${project.fullName}</explanation>
+            <value>${SummaryText}</value>
+            <default></default>
+            <trimMarginNumChars>0</trimMarginNumChars>
+
+            <!-- Component Summary Loop start -->
+            <preShowPageActionList>
+                <!-- Selection List View start Setting Default Value 
+ Selected Agens SQL -->
+                <if>
+                    <conditionRuleEvaluationLogic>and</conditionRuleEvaluationLogic>
+                    <conditionRuleList>
+                        <compareText>
+                            <logic>equals</logic>
+                            <text>${component(Agens).selected}</text>
+                            <value>1</value>
+                        </compareText>
+                        <compareText>
+                            <logic>equals</logic>
+                            <text></text>
+                            <value>${PreInstalled}</value>
+                        </compareText>
+                    </conditionRuleList>
+                    <actionList>
+                        <setInstallerVariable>
+                            <name>SummaryText</name>
+                            <value>Installation Directory: ${installdir}
+Installation Data Directory: ${InstallDataDir}
+Database User: ${project.parameter(DBConf).parameter(AdminAccount).parameter(UserAccount).value}
+Server Host: ${project.parameter(Serverconf).parameter(Hostname).value}
+Server Port: ${project.parameter(Serverconf).parameter(Port).value}
+Database Name: ${project.parameter(Serverconf).parameter(DBname).value}
+
+Selected Components:
+${component(Agens).description}</value>
+                        </setInstallerVariable>
+                    </actionList>
+                    <elseActionList>
+                        <setInstallerVariable>
+                            <name>SummaryText</name>
+                            <value>Installation Directory: ${installdir}
+Selected Components:</value>
+                        </setInstallerVariable>
+                    </elseActionList>
+                </if>
+
+                <!-- GeoSpatial -->
+                <actionGroup>
+                    <actionList>
+                        <foreach>
+                            <values>postGIS</values>
+                            <variables>loop_var</variables>
+                            <actionList>
+                                <continue>
+                                    <ruleList>
+                                        <isFalse>
+                                            <value>${component(Packages).component(GeoSpatial).component(${loop_var}).selected}</value>
+                                        </isFalse>
+                                    </ruleList>
+                                </continue>
+                                <setInstallerVariable>
+                                    <name>SummaryText</name>
+                                    <value>${SummaryText}
+${component(Packages).component(GeoSpatial).component(${loop_var}).description}</value>
+                                </setInstallerVariable>
+                            </actionList>
+                        </foreach>
+                    </actionList>
+                    <ruleList>
+                        <compareText>
+                            <logic>equals</logic>
+                            <text>${component(Packages).component(GeoSpatial).selected}</text>
+                            <value>1</value>
+                        </compareText>
+                    </ruleList>
+                </actionGroup>
+
+                <!-- Migration -->
+                <actionGroup>
+                    <actionList>
+                        <foreach>
+                            <values>Orafce</values>
+                            <variables>loop_var</variables>
+                            <actionList>
+                                <continue>
+                                    <ruleList>
+                                        <isFalse>
+                                            <value>${component(Packages).component(Migration).component(${loop_var}).selected}</value>
+                                        </isFalse>
+                                    </ruleList>
+                                </continue>
+                                <setInstallerVariable>
+                                    <name>SummaryText</name>
+                                    <value>${SummaryText}
+${component(Packages).component(Migration).component(${loop_var}).description}</value>
+                                </setInstallerVariable>
+                            </actionList>
+                        </foreach>
+                    </actionList>
+                    <ruleList>
+                        <compareText>
+                            <logic>equals</logic>
+                            <text>${component(Packages).component(Migration).selected}</text>
+                            <value>1</value>
+                        </compareText>
+                    </ruleList>
+                </actionGroup>
+
+                <!-- PostgreSQLextention -->
+                <actionGroup>
+                    <actionList>
+                        <foreach>
+                            <values>pghintplan pgsmtp</values>
+                            <variables>loop_var</variables>
+                            <actionList>
+                                <continue>
+                                    <ruleList>
+                                        <isFalse>
+                                            <value>${component(Packages).component(PostgreSQLextention).component(${loop_var}).selected}</value>
+                                        </isFalse>
+                                    </ruleList>
+                                </continue>
+                                <setInstallerVariable>
+                                    <name>SummaryText</name>
+                                    <value>${SummaryText}
+${component(Packages).component(PostgreSQLextention).component(${loop_var}).description}</value>
+                                </setInstallerVariable>
+                            </actionList>
+                        </foreach>
+                    </actionList>
+                    <ruleList>
+                        <compareText>
+                            <logic>equals</logic>
+                            <text>${component(Packages).component(PostgreSQLextention).selected}</text>
+                            <value>1</value>
+                        </compareText>
+                    </ruleList>
+                </actionGroup>
+
+                <!-- Selection List View end -->
+            </preShowPageActionList>
+
+            <!-- Component Summary Loop end -->
+        </infoParameter>
+    </parameterList>
+    <platformOptionsList>
+        <platformOptions>
+            <platform>windows</platform>
+        </platformOptions>
+    </platformOptionsList>
+
+    <preShowHelpActionList>
+        <!-- PreShowHelpActionList Start -->
+        <getFreePort>
+            <finalPort>65535</finalPort>
+            <initialPort>6179</initialPort>
+            <variable>AgensDefultPort</variable>
+        </getFreePort>
+    </preShowHelpActionList>
+
+    <postUninstallationActionList>
+        <!-- Uninstallation Action-->
+        <!-- 
+            1. Delete registry
+            2. Delete window service (agens_ctl)
+        -->
+        <registryDelete>
+            <key>HKEY_LOCAL_MACHINE\SOFTWARE\${project.vendor}</key>
+        </registryDelete>
+
+        <deleteWindowsService>
+            <displayName>agens_ctl</displayName>
+            <serviceName>agens_ctl</serviceName>
+        </deleteWindowsService>
+    </postUninstallationActionList>
+</project>
+
